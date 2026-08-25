@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="DietLic.exe"/>
+    <OBJFILES value="DietLic.obj MainFrm.obj ..\..\Common\nsDAO.obj ..\..\DAO\DAO_OCX.obj 
+      ..\..\DAO\DAO_TLB.obj ..\..\Common\TSLtabArray2DCL.obj 
+      ..\..\Common\TSLtabCL.obj ..\..\Common\TSFileCL.obj 
+      ..\..\Common\TSMemoryCL.obj ..\..\Common\TSBinaryFileCL.obj 
+      ..\..\Common\TSCommonLib.obj"/>
+    <RESFILES value="DietLic.res"/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) MainFrm.dfm"/>
+    <LIBFILES value="..\SRC\ssleay32.lib ..\SRC\libeay32.lib"/>
+    <LIBRARIES value="rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi vclx.bpi bcbsmp.bpi dbrtl.bpi adortl.bpi vcldb.bpi 
+      qrpt.bpi bdertl.bpi vcldbx.bpi dsnap.bpi cds.bpi bdecds.bpi teeui.bpi 
+      teedb.bpi tee.bpi teeqr.bpi ibxpress.bpi visualclx.bpi visualdbclx.bpi 
+      vclie.bpi xmlrtl.bpi inet.bpi inetdbbde.bpi inetdbxpress.bpi inetdb.bpi 
+      nmfast.bpi bcbie.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
+      indy.bpi bcb2kaxserver.bpi dclusr.bpi"/>
+    <PATHCPP value=".;..\..\Common;..\..\DAO;..\..\DAO;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="NO_STRICT"/>
+    <MAINSOURCE value="DietLic.cpp"/>
+    <INCLUDEPATH value="..\..\DAO;..\..\Common;..\SRC;..\..;$(BCB)\include;$(BCB)\include\vcl;&quot;C:\Program Files\Borland\CBuilder6\Projects\Include&quot;;&quot;C:\Program Files\Borland\CBuilder6\Projects\XnsGrid&quot;;&quot;C:\Program Files\Borland\CBuilder6\Projects\XnsSrchItemEdit&quot;;&quot;C:\Program Files\Borland\CBuilder6\Projects\Component\abLabel&quot;;&quot;C:\Program Files\Borland\CBuilder6\Projects\Editor&quot;"/>
+    <LIBPATH value="..\..\DAO;..\..\Common;..\SRC;..\..;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
+      -tW -tWM"/>
+    <PFLAGS value="-$YD -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zd"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="DietLic.res" FORMNAME="" UNITNAME="DietLic.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="DietLic.cpp" FORMNAME="" UNITNAME="DietLic" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="MainFrm.cpp" FORMNAME="MainForm" UNITNAME="MainFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsDAO.cpp" FORMNAME="" UNITNAME="nsDAO" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\DAO\DAO_OCX.cpp" FORMNAME="" UNITNAME="DAO_OCX.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\DAO\DAO_TLB.cpp" FORMNAME="" UNITNAME="DAO_TLB.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\SRC\ssleay32.lib" FORMNAME="" UNITNAME="ssleay32.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\SRC\libeay32.lib" FORMNAME="" UNITNAME="libeay32.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSLtabArray2DCL.cpp" FORMNAME="" UNITNAME="TSLtabArray2DCL.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSLtabCL.cpp" FORMNAME="" UNITNAME="TSLtabCL.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSFileCL.cpp" FORMNAME="" UNITNAME="TSFileCL.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSMemoryCL.cpp" FORMNAME="" UNITNAME="TSMemoryCL.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSBinaryFileCL.cpp" FORMNAME="" UNITNAME="TSBinaryFileCL.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSCommonLib.cpp" FORMNAME="" UNITNAME="TSCommonLib" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1041
+CodePage=932
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[Excluded Packages]
+C:\Program Files\Borland\CBuilder6\Projects\Bpl\dclusr60.bpl=Borland User Components
+c:\program files\borland\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
+
+[HistoryLists\hlIncludePath]
+Count=11
+Item0=..\..\DAO;..\..\Common;..\SRC;..\..;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include;C:\Program Files\Borland\CBuilder6\Projects\XnsGrid;C:\Program Files\Borland\CBuilder6\Projects\XnsSrchItemEdit;C:\Program Files\Borland\CBuilder6\Projects\Component\abLabel;C:\Program Files\Borland\CBuilder6\Projects\Editor
+Item1=..\..\DAO;..\..\Common;..\SRC;..\..;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include;C:\Program Files\Borland\CBuilder6\Projects\XnsGrid;C:\Program Files\Borland\CBuilder6\Projects\XnsSrchItemEdit;C:\Program Files\Borland\CBuilder6\Projects\Component\abLabel
+Item2=..\..\DAO;..\..\Common;..\SRC;..\..;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include;C:\Program Files\Borland\CBuilder6\Projects\XnsGrid;C:\Program Files\Borland\CBuilder6\Projects\XnsSrchItemEdit;C:\Program Files\Borland\CBuilder6\Projects\Component\abLabel;C:\Program Files\Borland\CBuilder6\Projects\StockC20\SRC
+Item3=..\..\DAO;..\..\Common;..\SRC;..\..;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include;C:\Program Files\Borland\CBuilder6\Projects\DAO;C:\Program Files\Borland\CBuilder6\Projects\XnsGrid;C:\Program Files\Borland\CBuilder6\Projects\XnsSrchItemEdit;C:\Program Files\Borland\CBuilder6\Projects\Component\abLabel
+Item4=..\SRC;..\..;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include;C:\Program Files\Borland\CBuilder6\Projects\DAO;C:\Program Files\Borland\CBuilder6\Projects\XnsGrid;C:\Program Files\Borland\CBuilder6\Projects\XnsSrchItemEdit;C:\Program Files\Borland\CBuilder6\Projects\Component\abLabel
+Item5=..\SRC;..\..;StockC20\ZBLic;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include;C:\Program Files\Borland\CBuilder6\Projects\DAO;C:\Program Files\Borland\CBuilder6\Projects\XnsGrid;C:\Program Files\Borland\CBuilder6\Projects\XnsSrchItemEdit
+Item6=..\SRC;..\..;StockC20\ZBLic;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include;C:\Program Files\Borland\CBuilder6\Projects\DAO;C:\Program Files\Borland\CBuilder6\Projects\XnsGrid
+Item7=..\SRC;..\..;StockC20\ZBLic;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include;C:\Program Files\Borland\CBuilder6\Projects\DAO
+Item8=..\SRC;..\..;StockC20\ZBLic;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Include
+Item9=..\SRC;..\..;StockC20\ZBLic;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Common
+Item10=..\SRC;..\..;StockC20\ZBLic;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=3
+Item0=..\..\DAO;..\..\Common;..\SRC;..\..;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib
+Item1=..\..\DAO;..\..\Common;..\SRC;..\..;StockC20\ZBLic;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib
+Item2=..\SRC;..\..;StockC20\ZBLic;$(BCB)\Projects\Lib;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=1
+Item0=_DEBUG
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+  </IDEOPTIONS>
+</PROJECT>

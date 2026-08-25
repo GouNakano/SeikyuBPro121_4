@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2022/06/07 21:27:16.000.489,=D:\Users\owner\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2022/06/07 21:27:16.000.895,=D:\Users\owner\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2023/01/19 13:12:23.000.632,=D:\Users\owner\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2023/01/19 13:12:23.000.560,=D:\Users\owner\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2023/02/02 14:11:30.000.554,=D:\Users\owner\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2023/02/02 14:11:30.000.436,=D:\Users\owner\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2023/02/02 14:12:36.000.410,D:\Users\owner\Documents\Projects10\SeikyuBPro123\seikyuLic\SeikyuLicPCH.h=D:\Users\owner\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2023/02/02 14:12:41.000.672,D:\Users\owner\Documents\Projects10\SeikyuBPro123\seikyuLic\SeikyuLic.cbproj=D:\Users\owner\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2023/02/02 14:12:54.000.064,=D:\Users\owner\Documents\Projects10\SeikyuBPro123\seikyuLic\MainFrm.cpp</Transaction>
+    <Transaction>2023/02/02 14:28:16.000.944,=D:\Users\owner\Documents\Projects10\SeikyuBPro123\seikyuLic\ssleay32.lib</Transaction>
+    <Transaction>2023/02/02 14:28:16.000.927,=D:\Users\owner\Documents\Projects10\SeikyuBPro123\seikyuLic\libeay32.lib</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="SeikyuBPro.exe"/>
+    <OBJFILES value="grids.obj SeikyuBPro.obj MainFrm.obj SeikyuPrintFrm.obj SeikyuBDef.obj 
+      LabelModifyFrm.obj CompanyInfoFrm.obj ..\..\Common\TSCommonLib.obj 
+      ..\..\Common\nsMsgBox.obj ..\..\Common\wstr.obj CalendarFrm.obj 
+      VersionInf.obj FirstMesFrm.obj ..\..\Common\nsCPURatio.obj 
+      ..\..\Common\TSBinaryFileCL.obj ..\..\Common\TSLtabCL.obj 
+      ..\..\Common\TSMemoryCL.obj ..\..\Common\TSLtabArray2DCL.obj 
+      ..\..\Common\TSFileCL.obj ..\..\DAO\DAO_TLB.obj ..\..\DAO\DAO_OCX.obj 
+      ComponentsFrm.obj PropertyFrm.obj GridPropertyFrm.obj A4P_Frm.obj 
+      A4L_Frm.obj FigureSettingFrm.obj LicenseFrm.obj LicSetting.obj 
+      SettingFrm.obj ..\..\Common\nsFolderDlg.obj ..\..\Common\nsShellApi.obj 
+      ..\..\Common\nsDAO.obj SubSelectFrm.obj DispSettingFrm.obj 
+      ..\..\Common\nsQRepPDF.obj ..\..\Common\nsPDF.obj 
+      ..\..\Common\nsResizeCtrl.obj"/>
+    <RESFILES value="SeikyuBPro.res"/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) MainFrm.dfm SeikyuPrintFrm.dfm LabelModifyFrm.dfm 
+      CompanyInfoFrm.dfm CalendarFrm.dfm VersionInf.dfm FirstMesFrm.dfm 
+      ComponentsFrm.dfm PropertyFrm.dfm GridPropertyFrm.dfm A4P_Frm.dfm 
+      A4L_Frm.dfm FigureSettingFrm.dfm LicenseFrm.dfm LicSetting.dfm 
+      SettingFrm.dfm SubSelectFrm.dfm DispSettingFrm.dfm"/>
+    <LIBFILES value="ssleay32.lib libeay32.lib ..\..\Common\libhpdf.lib gdiplus.lib"/>
+    <LIBRARIES value="xml.lib SSG.lib XnsPack.lib dclusr.lib XnsSrchItemEditPack.lib vclx.lib 
+      bcb2kaxserver.lib indy.lib dbxcds.lib dclocx.lib soaprtl.lib bcbie.lib 
+      nmfast.lib dbexpress.lib inetdbxpress.lib inetdb.lib inetdbbde.lib 
+      inet.lib xmlrtl.lib visualdbclx.lib ibxpress.lib teeqr.lib tee.lib 
+      teedb.lib teeui.lib bdecds.lib cds.lib dsnap.lib vcldbx.lib bdertl.lib 
+      qrpt.lib adortl.lib dbrtl.lib vcldb.lib bcbsmp.lib rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib bcbsmp.lib vcldb.lib dbrtl.lib adortl.lib qrpt.lib 
+      bdertl.lib vcldbx.lib dsnap.lib cds.lib bdecds.lib teeui.lib teedb.lib 
+      tee.lib teeqr.lib ibxpress.lib visualdbclx.lib xmlrtl.lib inet.lib 
+      inetdbbde.lib inetdb.lib inetdbxpress.lib dbexpress.lib nmfast.lib 
+      bcbie.lib soaprtl.lib dclocx.lib dbxcds.lib indy.lib bcb2kaxserver.lib 
+      vclx.lib XnsSrchItemEditPack.lib dclusr.lib XnsPack.lib SSG.lib xml.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi vclx.bpi bcbsmp.bpi dbrtl.bpi adortl.bpi vcldb.bpi 
+      qrpt.bpi bdertl.bpi vcldbx.bpi dsnap.bpi cds.bpi bdecds.bpi teeui.bpi 
+      teedb.bpi tee.bpi teeqr.bpi ibxpress.bpi visualclx.bpi visualdbclx.bpi 
+      vclie.bpi xmlrtl.bpi inet.bpi inetdbbde.bpi inetdbxpress.bpi inetdb.bpi 
+      nmfast.bpi bcbie.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
+      indy.bpi bcb2kaxserver.bpi"/>
+    <PATHCPP value=".;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\DAO;..\..\DAO;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common;..\..\Common"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="NO_STRICT"/>
+    <MAINSOURCE value="SeikyuBPro.cpp"/>
+    <INCLUDEPATH value="$(bcb)\projects\component\twinshape;$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;..\..\Component\BorderEdit;..\..\Component\MAPIMail;..\..\SQLite"/>
+    <LIBPATH value="$(bcb)\projects\component\twinshape;$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;.."/>
+    <WARNINGS value="-w-par -w-8027 -w-8026 -w-eas -w-dup -w-aus"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <CFLAG1 value="-Od -Vx -Ve -X- -r- -a8 -b- -d -k -y -v -vi- -c -tW -tWM"/>
+    <PFLAGS value="-$Y+ -$W -$O- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zi"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn -v"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="grids.pas" FORMNAME="" UNITNAME="Grids" CONTAINERID="PascalCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SeikyuBPro.res" FORMNAME="" UNITNAME="SeikyuBPro.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SeikyuBPro.cpp" FORMNAME="" UNITNAME="SeikyuBPro" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="MainFrm.cpp" FORMNAME="MainForm" UNITNAME="MainFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SeikyuPrintFrm.cpp" FORMNAME="SeikyuPrintForm" UNITNAME="SeikyuPrintFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SeikyuBDef.cpp" FORMNAME="" UNITNAME="SeikyuBDef" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="LabelModifyFrm.cpp" FORMNAME="LabelModifyForm" UNITNAME="LabelModifyFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="CompanyInfoFrm.cpp" FORMNAME="CompanyInfoForm" UNITNAME="CompanyInfoFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSCommonLib.cpp" FORMNAME="" UNITNAME="TSCommonLib" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsMsgBox.cpp" FORMNAME="" UNITNAME="nsMsgBox" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\wstr.cpp" FORMNAME="" UNITNAME="wstr" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="CalendarFrm.cpp" FORMNAME="CalendarForm" UNITNAME="CalendarFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="VersionInf.cpp" FORMNAME="AboutBox" UNITNAME="VersionInf" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="FirstMesFrm.cpp" FORMNAME="FirstMesForm" UNITNAME="FirstMesFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsCPURatio.cpp" FORMNAME="" UNITNAME="nsCPURatio" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSBinaryFileCL.cpp" FORMNAME="" UNITNAME="TSBinaryFileCL.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSLtabCL.cpp" FORMNAME="" UNITNAME="TSLtabCL.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSMemoryCL.cpp" FORMNAME="" UNITNAME="TSMemoryCL.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSLtabArray2DCL.cpp" FORMNAME="" UNITNAME="TSLtabArray2DCL" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\TSFileCL.cpp" FORMNAME="" UNITNAME="TSFileCL" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\DAO\DAO_TLB.cpp" FORMNAME="" UNITNAME="DAO_TLB.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\DAO\DAO_OCX.cpp" FORMNAME="" UNITNAME="DAO_OCX.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="ComponentsFrm.cpp" FORMNAME="ComponentsForm" UNITNAME="ComponentsFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="PropertyFrm.cpp" FORMNAME="PropertyForm" UNITNAME="PropertyFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="GridPropertyFrm.cpp" FORMNAME="GridPropertyForm" UNITNAME="GridPropertyFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="A4P_Frm.cpp" FORMNAME="A4P_Form" UNITNAME="A4P_Frm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="A4L_Frm.cpp" FORMNAME="A4L_Form" UNITNAME="A4L_Frm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="FigureSettingFrm.cpp" FORMNAME="FigureSettingForm" UNITNAME="FigureSettingFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="LicenseFrm.cpp" FORMNAME="LicenseForm" UNITNAME="LicenseFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="LicSetting.cpp" FORMNAME="LicSettingForm" UNITNAME="LicSetting" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="ssleay32.lib" FORMNAME="" UNITNAME="ssleay32.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="libeay32.lib" FORMNAME="" UNITNAME="libeay32.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SettingFrm.cpp" FORMNAME="SettingForm" UNITNAME="SettingFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsFolderDlg.cpp" FORMNAME="" UNITNAME="nsFolderDlg" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsShellApi.cpp" FORMNAME="" UNITNAME="nsShellApi" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsDAO.cpp" FORMNAME="" UNITNAME="nsDAO" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="SubSelectFrm.cpp" FORMNAME="SubSelectForm" UNITNAME="SubSelectFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="DispSettingFrm.cpp" FORMNAME="DispSettingForm" UNITNAME="DispSettingFrm" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsQRepPDF.cpp" FORMNAME="" UNITNAME="nsQRepPDF.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsPDF.cpp" FORMNAME="" UNITNAME="nsPDF.cpp" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\libhpdf.lib" FORMNAME="" UNITNAME="libhpdf.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="..\..\Common\nsResizeCtrl.cpp" FORMNAME="" UNITNAME="nsResizeCtrl" CONTAINERID="C/C++ コンパイラ" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="gdiplus.lib" FORMNAME="" UNITNAME="gdiplus.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=1
+MajorVer=1
+MinorVer=2
+Release=2
+Build=45
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1041
+CodePage=932
+
+[Version Info Keys]
+CompanyName=さくら電算
+FileDescription=請求書・納品書・見積書作成ソフトウェア
+FileVersion=1.2.2.45
+InternalName=
+LegalCopyright=さくら電算
+LegalTrademarks=
+OriginalFilename=
+ProductName=請求書番頭 プロ版
+ProductVersion=1.22
+Comments=
+
+[Excluded Packages]
+c:\program files (x86)\borland\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
+
+[HistoryLists\hlIncludePath]
+Count=30
+Item0=$(bcb)\projects\component\twinshape;$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;..\..\Component\BorderEdit;..\..\Component\MAPIMail;..\..\SQLite
+Item1=$(bcb)\projects\component\twinshape;$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;..\..\Component\BorderEdit;..\..\Component\MAPIMail
+Item2=$(bcb)\projects\component\twinshape;$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Component\BorderEdit;C:\Program Files\Borland\CBuilder6\Projects\Component\MAPIMail
+Item3=$(bcb)\projects\component\twinshape;$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Component\BorderEdit
+Item4=$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Component\BorderEdit
+Item5=$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Component\BorderEdit
+Item6=.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Component\BorderEdit
+Item7=$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\Component\BorderEdit
+Item8=..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\DAO;C:\Program Files\Borland\CBuilder6\Projects\Component\BorderEdit
+Item9=..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\DAO
+Item10=..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\Program Files\Borland\CBuilder6\Projects\DAO
+Item11=..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\kusari
+Item12=..\..\Common;..\..;..\..\XnsGrid;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\kusari
+Item13=..\..\XnsGrid;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;..\..\include;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\kusari
+Item14=..\..\XnsGrid;NBPro100\SRC;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;..\include;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\kusari
+Item15=NBPro100\SRC;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;..\include;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\kusari
+Item16=NBPro100\SRC;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;print;..\Common;..\include;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\kusari
+Item17=$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;print;..\Common;..\include;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\kusari
+Item18=print;..\Common;..\include;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\kusari
+Item19=C:\Program Files\Borland\CBuilder6\Projects;print;..\Common;..\include;$(BCB)\include;$(BCB)\include\vcl
+Item20=C:\Program Files\Borland\CBuilder6\Projects;..\image;print;..\Common;..\include;$(BCB)\include;$(BCB)\include\vcl
+Item21=..\Common;..\include;$(BCB)\include;$(BCB)\include\vcl
+Item22=..\image;..;..\Common;..\include;print;$(BCB)\include;$(BCB)\include\vcl
+Item23=..;..\Common;..\include;print;$(BCB)\include;$(BCB)\include\vcl
+Item24=..\image;C:\Program Files\Borland\CBuilder6\Projects;C:\Program Files\Borland\CBuilder6\Projects\Editor;$(bcb)\projects\component\ablabel;..;..\Common;..\include;print;$(BCB)\include;$(BCB)\include\vcl
+Item25=..\image;C:\Program Files\Borland\CBuilder6\Projects;C:\Program Files\Borland\CBuilder6\Projects\Editor;$(bcb)\projects\component\ablabel;..;..\Common;..\include;print;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\XnsSrchItemEdit
+Item26=C:\Program Files\Borland\CBuilder6\Projects;C:\Program Files\Borland\CBuilder6\Projects\Editor;$(bcb)\projects\component\ablabel;..;..\Common;..\include;print;$(BCB)\include;$(BCB)\include\vcl;C:\nakano\Projects\FortranBuilder\XnsSrchItemEdit
+Item27=C:\Program Files\Borland\CBuilder6\Projects;C:\Program Files\Borland\CBuilder6\Projects\Editor;$(bcb)\projects\component\ablabel;..;..\Common;..\include;print;$(BCB)\include;$(BCB)\include\vcl
+Item28=C:\Program Files\Borland\CBuilder6\Projects;C:\Program Files\Borland\CBuilder6\Projects\Editor;..\image;$(bcb)\projects\component\ablabel;..;..\Common;..\include;print;$(BCB)\include;$(BCB)\include\vcl
+Item29=$(bcb)\projects\component\ablabel;..;..\Common;..\include;print;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=30
+Item0=$(bcb)\projects\component\twinshape;$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;..
+Item1=$(bcb)\projects\component\twinlabel;$(bcb)\projects\component\imagecontrol;$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;..
+Item2=$(bcb)\projects\component\editalignment;.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;..
+Item3=.;$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;..
+Item4=$(bcb)\projects\component\paintpanel;..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;..
+Item5=..\..\DAO;..\..\Common;..\..;..\..\XnsGrid;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;..
+Item6=..\..\Common;..\..;..\..\XnsGrid;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;..
+Item7=..\..\Common;..\..;..\..\XnsGrid;NBPro100\SRC;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;$(BCB)\lib\obj;$(BCB)\lib;..;..\Lib
+Item8=..\..\Common;..\..;..\..\XnsGrid;NBPro100\SRC;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib;..;..\Lib
+Item9=..\..\XnsGrid;NBPro100\SRC;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib;..;..\Lib
+Item10=NBPro100\SRC;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib;..;..\Lib
+Item11=NBPro100\SRC;$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;print;$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item12=$(BCB)\Projects\Lib;$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;print;$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item13=$(bcb)\projects\component\ablabel;C:\Program Files\Borland\CBuilder6\Projects;print;$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item14=C:\Program Files\Borland\CBuilder6\Projects;print;$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item15=print;$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item16=C:\Program Files\Borland\CBuilder6\Projects;..\image;print;$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item17=$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item18=..\image;print;$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item19=..\XnsSrchItemEdit;..\image;print;$(BCB)\lib\obj;$(BCB)\lib;..\Common;..;..\Lib
+Item20=..\image;print;$(BCB)\lib\obj;$(BCB)\lib;C:\nakano\Projects\FortranBuilder\XnsSrchItemEdit;..\Common;..;..\Lib
+Item21=$(BCB)\lib\obj;$(BCB)\lib;C:\nakano\Projects\FortranBuilder\XnsSrchItemEdit;..\Common;..;..\Lib
+Item22=C:\Program Files\Borland\CBuilder6\Projects\Editor;C:\Documents and Settings\nakano\デスクトップ\wb;C:\Program Files\Borland\CBuilder6\Projects;..\image;$(bcb)\projects\component\ablabel;..\Common;print;..;$(BCB)\lib\obj;$(BCB)\lib;..\Lib
+Item23=..\image;$(bcb)\projects\component\ablabel;..\Common;print;..;$(BCB)\lib\obj;$(BCB)\lib;..\Lib
+Item24=C:\Program Files\Borland\CBuilder6\Projects\Editor;..\image;$(bcb)\projects\component\ablabel;..\Common;print;..;$(BCB)\lib\obj;$(BCB)\lib;..\Lib
+Item25=$(bcb)\projects\component\ablabel;..\Common;print;..;$(BCB)\lib\obj;$(BCB)\lib;..\Lib
+Item26=C:\Program Files\Borland\CBuilder6\Projects\Editor;..\image;C:\Program Files\Borland\CBuilder6\Projects;$(bcb)\projects\component\ablabel;..\Common;print;..;$(BCB)\lib\obj;$(BCB)\lib;..\Lib
+Item27=$(bcb)\projects\component\ablabel;$(BCB)\Projects\Lib;..\Common;print;..;$(BCB)\lib\obj;$(BCB)\lib
+Item28=..\include;$(bcb)\projects\component\ablabel;$(BCB)\Projects\Lib;..\Common;print;..;$(BCB)\lib\obj;$(BCB)\lib
+Item29=$(BCB)\Projects\Lib;..\Common;print;..;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=12
+Item0=_DEBUG
+Item1=PRODUCT_FBPRO;_FBENGLISH;FBPRO;_DEBUG
+Item2=PRODUCT_FBPRO;_FBENGLISH;FBPRO
+Item3=PRODUCT_FBPRO;_DEBUG;_FBENGLISH;FBPRO
+Item4=PRODUCT_FBPRO;_DEBUG;FBENGLISH;FBPRO
+Item5=PRODUCT_FBPRO;_DEBUG;_FBENGLISH
+Item6=PRODUCT_FBPRO;_DEBUG;FBENGLISH
+Item7=PRODUCT_FBPRO;_DEBUG;FBENGLISH_
+Item8=PRODUCT_FBPRO;_DEBUG
+Item9=PRODUCT_FBPRO
+Item10=_DEBUG;PRODUCT_FBPRO
+Item11=_DEBUG;A A
+
+[HistoryLists\hlFinalOutputDir]
+Count=10
+Item0=..\bin\
+Item1=C:\nakano\Projects\FBPro\FBuilder\bin\
+Item2=C:\nakano\Projects\FBPro\FBuilder\bin
+Item3=C:\nakano\Projects\FBPro\00_BACKUP\20070703_ORG_bin\
+Item4=C:\nakano\Projects\FBPro\00_BACKUP\20070703_ORG_bin
+Item5=C:\nakano\Projects\FortranBuilder\FBuilder\bin\
+Item6=C:\nakano\Projects\FortranBuilder\FBuilder\bin
+Item7=C:\Program Files\FBuilder\bin\
+Item8=C:\Program Files\FBuilder\bin
+Item9=..\bin
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=1
+LinkCGLIB=0
+  </IDEOPTIONS>
+</PROJECT>

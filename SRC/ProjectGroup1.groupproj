@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{5FBDA007-33AD-48DD-98FA-35502AA0D508}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="SeikyuBPro.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="SeikyuBPro">
+        <MSBuild Projects="SeikyuBPro.cbproj"/>
+    </Target>
+    <Target Name="SeikyuBPro:Clean">
+        <MSBuild Projects="SeikyuBPro.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SeikyuBPro:Make">
+        <MSBuild Projects="SeikyuBPro.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="SeikyuBPro"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="SeikyuBPro:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="SeikyuBPro:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

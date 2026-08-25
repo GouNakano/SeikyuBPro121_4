@@ -1,0 +1,27 @@
+;*** BEGIN **********************************************************
+;**                                                                **
+;** Automatically generated on: Mon Feb 23 19:36:24 2009           **
+;**                                                                **
+;** MakeCAB Version: 5.1.2600.5512                     **
+;**                                                                **
+;*** BEGIN **********************************************************
+[disk list]
+1,Disk 1
+[cabinet list]
+1,1,1.cab
+[file list]
+1,1,TEMP_SDO.ini,14066
+1,1,STAMP1_FILE_00.bmp,7654
+1,1,STAMP2_FILE_00.bmp,7654
+1,1,LOGO_FILE_00.bmp,7654
+1,1,STAMP1_FILE_01.bmp,7654
+1,1,STAMP2_FILE_01.bmp,7654
+1,1,LOGO_FILE_01.bmp,7654
+1,1,STAMP1_FILE_02.bmp,7654
+1,1,STAMP2_FILE_02.bmp,7654
+1,1,LOGO_FILE_02.bmp,7654
+;*** END ************************************************************
+;**                                                                **
+;** Automatically generated on: Mon Feb 23 19:36:24 2009           **
+;**                                                                **
+;*** END ************************************************************
