@@ -8,7 +8,7 @@
 class typReportData
 {
 public:
-	using TGridArr = std::array<std::array<String,15>,5>;
+	using TGridArr = std::array<std::array<String,5>,15>;
 public:
 	String   Key;             //レジストリキー
 	int      Year  = 0;       //年

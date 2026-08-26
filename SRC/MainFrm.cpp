@@ -7,6 +7,8 @@ using std::min;
 using std::max;
 #include <gdiplus.h>
 
+#include "nsDebug.h"
+
 #include "TLicense.h"
 #include "strconv.h"
 #include "nsFolderDlg.h"
@@ -64,6 +66,8 @@ __fastcall TMainForm::TMainForm(TComponent* Owner)
 //-------------------------------------------------------------
 void __fastcall TMainForm::FormCreate(TObject *Sender)
 {
+	//現在の時刻
+	ClockTimerTimer(ClockTimer);
 	//パネルへのドラグ＆ドロップを許可
 	BasePanel->SetEnableDropFile(true);
 }
@@ -128,6 +132,17 @@ void __fastcall TMainForm::FormShow(TObject *Sender)
 	RemainSetting();
 	//ライセンスチェックタイマー
 	LicTimer->Enabled = true;
+	//現在の時刻
+	ClockTimerTimer(ClockTimer);
+	//フォームアクティブ変動時のイベント
+	Application->OnActivate = MainFormActivate;
+	Application->OnDeactivate = MainFormDeactivate;
+	//フォームアクティブで無い状態からスタート
+	isFormActive = false;
+	//時刻表示タイマー起動
+	ClockTimer->Enabled = true;
+	//フォームアクティブチェックタイマー起動
+	FormActiveTimer->Enabled = true;
 }
 //-------------------------------------------------------------
 // 機能     ：書類の履歴一覧読み込み処理
@@ -290,6 +305,9 @@ void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 	pReg->WriteInteger(C_SYSTEM_SETTING,V_WINDOW_HEIGHT,Height);
 	//編集対象のコントロールを削除
 	ResizeList.clear(MainPanel);
+	//タイマーをとめる
+	ClockTimer->Enabled = false;
+	FormActiveTimer->Enabled = false;
 }
 //-------------------------------------------------------------
 //  機能     ：初回起動時のメッセージ表示タイマー
@@ -1007,170 +1025,6 @@ void TMainForm::PrintColumnSeparateText(long double X,long double Y,long double 
 	//pQRShapeの補正
 	pQRShape->Width  = (pQRTestShape->Left - pQRShape->Left);
 	pQRShape->Height = (pQRTestShape->Top  - pQRShape->Top);
-}
-//-------------------------------------------------------------
-//  機能     ：画面表示から保存メニュー
-//
-//  関数定義 ：void __fastcall SaveFromDispInfoMenuClick(TObject *Sender)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：__published
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野  04/02/24
-//
-//  改定者   ：
-//-------------------------------------------------------------
-void __fastcall TMainForm::SaveFromDispInfoMenuClick(TObject *Sender)
-{
-	typDocument PrintDoc;  //印刷書類情報
-	//移動・大きさ変更を取りやめる
-	CancelResizeMode(true);
-	//MainPanel上の値をデータにセット
-	SetDocDataFromMainPanel();
-	//保存ダイアログ表示
-	if(SaveDialog->Execute() == false)
-	{
-		return;
-	}
-	//印刷書類情報の設定
-	PrintDoc.Paper   = Document.Paper;   //現在の用紙
-	PrintDoc.Zoom    = Document.Zoom;    //現在のズーム
-	PrintDoc.DocKind = Document.DocKind; //現在の書類
-
-	//パネル上のコンポーネントを設定対象とする
-	for(int Cnt = 0;Cnt < MainPanel->ControlCount;Cnt++)
-	{
-		TWinShape        *pShape;
-		TWinLabel      *pWinLabel;
-		TBorderEdit   *pBorderEdit;
-		TImageControl *pImage;
-
-		//パネル上のコントロールを得る
-		TControl *pCtrl = MainPanel->Controls[Cnt];
-		//除外コントロール
-		int resize_idx = ResizeList.findResizeCtrl(pCtrl);
-
-		if(resize_idx >= 0)
-		{
-			continue;
-		}
-		//書類部品情報作成
-		typDocCompo pDoc;
-
-		//TShapeの場合
-		if((pShape = dynamic_cast<TWinShape *>(pCtrl)) != 0)
-		{
-			//書類部品情報設定
-			pDoc.Name     = pShape->Name;
-			pDoc.Paper    = Document.Paper;
-			pDoc.DocKind  = Document.DocKind;
-			pDoc.Visible  = pShape->Visible;
-			pDoc.IsPrint  = true;
-			pDoc.X        = GetPaperPosXFromPanelPixel(pShape->Left);
-			pDoc.Y        = GetPaperPosYFromPanelPixel(pShape->Top);
-			pDoc.Width    = GetPaperPosXFromPanelPixel(pShape->Width);
-			pDoc.Height   = GetPaperPosYFromPanelPixel(pShape->Height);
-			pDoc.Caption = "";
-		}
-		else if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl)) != 0)
-		{
-			//書類部品情報設定
-			pDoc.Name     = pWinLabel->Name;
-			pDoc.Paper    = Document.Paper;
-			pDoc.DocKind  = Document.DocKind;
-			pDoc.Visible  = pWinLabel->Visible;
-			pDoc.IsPrint  = true;
-			pDoc.X        = GetPaperPosXFromPanelPixel(pWinLabel->Left);
-			pDoc.Y        = GetPaperPosYFromPanelPixel(pWinLabel->Top);
-			pDoc.Width    = GetPaperPosXFromPanelPixel(pWinLabel->Width);
-			pDoc.Height   = GetPaperPosYFromPanelPixel(pWinLabel->Height);
-			pDoc.Font.Name = pWinLabel->Font->Name;
-			pDoc.Font.Size = CalcPrintFontSize(pWinLabel->Font->Size);
-			pDoc.Caption  = pWinLabel->Caption;
-		}
-		else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl)) != 0)
-		{
-			//書類部品情報設定
-			pDoc.Name     = pBorderEdit->Name;
-			pDoc.Paper    = Document.Paper;
-			pDoc.DocKind  = Document.DocKind;
-			pDoc.Visible  = pBorderEdit->Visible;
-			pDoc.IsPrint  = true;
-			pDoc.X        = GetPaperPosXFromPanelPixel(pBorderEdit->Left);
-			pDoc.Y        = GetPaperPosYFromPanelPixel(pBorderEdit->Top);
-			pDoc.Width    = GetPaperPosXFromPanelPixel(pBorderEdit->Width);
-			pDoc.Height   = GetPaperPosYFromPanelPixel(pBorderEdit->Height);
-			pDoc.Font.Name = pBorderEdit->Font->Name;
-			pDoc.Font.Size = CalcPrintFontSize(pBorderEdit->Font->Size);
-			pDoc.Caption  = pBorderEdit->Text;
-		}
-		else if((pImage = dynamic_cast<TImageControl *>(pCtrl)) != 0)
-		{
-			//書類部品情報設定
-			pDoc.Name     = pImage->Name;
-			pDoc.Paper    = Document.Paper;
-			pDoc.DocKind  = Document.DocKind;
-			pDoc.Visible  = pImage->Visible;
-			pDoc.IsPrint  = true;
-			pDoc.X        = GetPaperPosXFromPanelPixel(pImage->Left);
-			pDoc.Y        = GetPaperPosYFromPanelPixel(pImage->Top);
-			pDoc.Width    = GetPaperPosXFromPanelPixel(pImage->Width);
-			pDoc.Height   = GetPaperPosYFromPanelPixel(pImage->Height);
-		}
-		//書類情報に追加
-		PrintDoc.SetDocCompoFromName(pDoc.Name,pDoc);
-	}
-
-	//グリッドの情報保存
-	typDocCompo pDoc;
-
-	pDoc.Paper    = Document.Paper;
-	pDoc.DocKind  = Document.DocKind;
-	pDoc.Name     = StdComponents[scStdComponent::scGrid].Name;
-	pDoc.X        = GetPaperPosXFromPanelPixel(Grid->Left);
-	pDoc.Y        = GetPaperPosYFromPanelPixel(Grid->Top);
-	pDoc.Width    = Grid->ColCount;
-	pDoc.Height   = Grid->RowCount;
-	pDoc.Font.Name = Grid->Font->Name;
-	pDoc.Font.Size = CalcPrintFontSize(Grid->Font->Size);
-	pDoc.Caption   = L"";
-	//書類情報に追加
-	PrintDoc.SetDocCompoFromName(StdComponents[scStdComponent::scGrid].Name,pDoc);
-
-	//--- グリッドの処理 ---
-	//Shapeの作成
-	for(int Row = 0;Row < Grid->RowCount;Row++)
-	{
-		String ValStr;
-
-		for(int Col = 0;Col < Grid->ColCount;Col++)
-		{
-			//指定セルの範囲
-			TRect Rect = Grid->CellRect(Col,Row);
-
-			//書類部品情報作成
-			typDocCompo pDoc;
-			//書類部品情報
-			ValStr.sprintf(L"D_%02d_%02d",Row,Col);
-			pDoc.Paper    = Document.Paper;
-			pDoc.DocKind  = Document.DocKind;
-			pDoc.Name     = ValStr;
-			pDoc.X        = GetPaperPosXFromPanelPixel(Grid->Left + Rect.Left);
-			pDoc.Y        = GetPaperPosYFromPanelPixel(Grid->Top  + Rect.Top);
-			pDoc.Width    = GetPaperPosXFromPanelPixel(Rect.Width());
-			pDoc.Height   = GetPaperPosYFromPanelPixel(Rect.Height());
-			pDoc.Font.Name = Grid->Font->Name;
-			pDoc.Font.Size = CalcPrintFontSize(Grid->Font->Size);
-			pDoc.Caption  = Grid->Cells[Col][Row];
-			//書類情報に追加
-			PrintDoc.SetDocCompoFromName(ValStr,pDoc);
-		}
-	}
-	//書類ファイルの保存
-	Sdo.writeSDO(PrintDoc,SaveDialog->FileName);
 }
 //-------------------------------------------------------------
 //  機能     ：移動・大きさ変更が可能かチェックする
@@ -3183,7 +3037,8 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 	//画像ファイル名
 	ImageFile = OpenPictureDialog->FileName;
 	//開いてみる
-	Graphics::TBitmap *pBitmap = new Graphics::TBitmap;
+	nsBitmap pBitmap;
+//	Graphics::TBitmap *pBitmap = new Graphics::TBitmap;
 	try
 	{
 		//読み込む
@@ -3192,7 +3047,7 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 	catch(...)
 	{
 		//開放
-		delete pBitmap;
+//		delete pBitmap;
 		//エラー表示
 		nsLib::ErrMsgBox(Handle,"画像ファイル[%s]はビットマップ形式ではありません。",ImageFile.c_str());
 
@@ -3211,17 +3066,17 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 		{
 			case scStampImage1:
 			{
-				DocData.StampImage1->Assign(pBitmap);
+				DocData.StampImage1->Assign(pBitmap.get());
 				break;
 			}
 			case scStampImage2:
 			{
-				DocData.StampImage2->Assign(pBitmap);
+				DocData.StampImage2->Assign(pBitmap.get());
 				break;
 			}
 			case scLogoImage:
 			{
-				DocData.LogoImage->Assign(pBitmap);
+				DocData.LogoImage->Assign(pBitmap.get());
 				break;
 			}
 			default:
@@ -3231,10 +3086,8 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 		}
 	}
 	//画像の設定
-	pImage->Picture->Bitmap->Assign(pBitmap);
+	pImage->Picture->Bitmap->Assign(pBitmap.get());
 	pImage->Invalidate();
-	//開放
-	delete pBitmap;
 	//画像ファイル名セット
 	pDoc.Caption = ImageFile;
 	//書類部品情報名から書類部品情報を更新
@@ -3260,7 +3113,10 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 void __fastcall TMainForm::_YearEditKeyPress(TObject *Sender, char &Key)
 {
 	//Enterは入力不可
-	if(Key == '\r')Key = 0;
+	if(Key == '\r')
+	{
+		Key = 0;
+	}
 	//入力可能文字をﾁｪｯｸ
 	if(Key < ' ' || (Key >= '0' && Key <= '9'))
 	{
@@ -3824,8 +3680,7 @@ void __fastcall TMainForm::EndBtnClick(TObject *Sender)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-void __fastcall TMainForm::GridKeyDown(TObject *Sender, WORD &Key,
-	  TShiftState Shift)
+void __fastcall TMainForm::GridKeyDown(TObject *Sender, WORD &Key,TShiftState Shift)
 {
 	//リサイズ表示時は何もしない
 	if(ResizeList.size() > 0)
@@ -4047,8 +3902,7 @@ void __fastcall TMainForm::GridExit(TObject *Sender)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-void __fastcall TMainForm::GridStartEdit(TObject *Sender, int ARow,
-	  int ACol, String &EditStr, TImeMode &imode)
+void __fastcall TMainForm::GridStartEdit(TObject *Sender, int ARow,int ACol, String &EditStr, TImeMode &imode)
 {
 	TInplaceEditEX *pInplaceEdit = static_cast<TInplaceEditEX *>(Grid->InplaceEditor);
 
@@ -6614,22 +6468,22 @@ void __fastcall TMainForm::ZoomMenuClick(TObject *Sender)
 	//対象となるメニュー名を作成
 	String MenuName = String(NowZoom.ZoomName) + "_Menu";
 	//子のメニューのチェックの有無を設定
-	for(int Cnt = 0;Cnt < ZoomMenu->Count;Cnt++)
-	{
-		//子メニューを得る
-		TMenuItem *pMenu = ZoomMenu->Items[Cnt];
-		//名前の一致をチェック
-		if(pMenu->Name == MenuName)
-		{
-			//チェック表示
-			pMenu->Checked = true;
-		}
-		else
-		{
-			//チェック表示しない
-			pMenu->Checked = false;
-		}
-	}
+//	for(int Cnt = 0;Cnt < ZoomMenu->Count;Cnt++)
+//	{
+//		//子メニューを得る
+//		TMenuItem *pMenu = ZoomMenu->Items[Cnt];
+//		//名前の一致をチェック
+//		if(pMenu->Name == MenuName)
+//		{
+//			//チェック表示
+//			pMenu->Checked = true;
+//		}
+//		else
+//		{
+//			//チェック表示しない
+//			pMenu->Checked = false;
+//		}
+//	}
 }
 //-------------------------------------------------------------
 //  機能     ：用紙選択メニュー
@@ -6693,22 +6547,22 @@ void __fastcall TMainForm::PaperSelectParentMenuClick(TObject *Sender)
 	//対象となるメニュー名を作成
 	String MenuName = String(NowPaper.PaperName) + L"_Menu";
 	//子のメニューのチェックの有無を設定
-	for(int Cnt = 0;Cnt < PaperSelectParentMenu->Count;Cnt++)
-	{
-		//子メニューを得る
-		TMenuItem *pMenu = PaperSelectParentMenu->Items[Cnt];
-		//名前の一致をチェック
-		if(pMenu->Name == MenuName)
-		{
-			//チェック表示
-			pMenu->Checked = true;
-		}
-		else
-		{
-			//チェック表示しない
-			pMenu->Checked = false;
-		}
-	}
+//	for(int Cnt = 0;Cnt < PaperSelectParentMenu->Count;Cnt++)
+//	{
+//		//子メニューを得る
+//		TMenuItem *pMenu = PaperSelectParentMenu->Items[Cnt];
+//		//名前の一致をチェック
+//		if(pMenu->Name == MenuName)
+//		{
+//			//チェック表示
+//			pMenu->Checked = true;
+//		}
+//		else
+//		{
+//			//チェック表示しない
+//			pMenu->Checked = false;
+//		}
+//	}
 }
 //-------------------------------------------------------------
 //  機能     ：オブジェクトMouseDown時
@@ -8906,7 +8760,6 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 {
 	int                   DivNum;
 	std::vector<String>   pStrs;
-	wchar_t               SelFolder[512];
 	String                ValueName;
 	String                GridStr;
 	String                DispFolder;
@@ -8923,11 +8776,11 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 	//リスト初期化
 	SBFreeDataList.clear();
 	//文字列リスト
-	TStringList      *pSections = new TStringList;
-	//レジストリ
-	TRegistryIniFile *pReg      = new TRegistryIniFile("Software\\SakuraDensan\\SeikyuBFree\\history");
+	std::unique_ptr<TStringList> pSections(new TStringList);
+	//請求書番頭フリー版レジストリ
+	std::unique_ptr<TRegistryIniFile> pReg(new TRegistryIniFile("Software\\SakuraDensan\\SeikyuBFree\\history"));
 	//セクション一覧を得る
-	pReg->ReadSections(pSections);
+	pReg->ReadSections(pSections.get());
 	//リストをセット
 	for(int Cnt = 0;Cnt < pSections->Count;Cnt++)
 	{
@@ -8961,7 +8814,7 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 			//Value名
 			ValueName.sprintf(L"D%02d",Row);
 			//一行分のデータを得る
-			GridStr = pReg->ReadString(SectionStr,ValueName,"");
+			GridStr = pReg->ReadString(SectionStr,ValueName,L"");
 			//カンマで分解
 			DivNum = TSCommonLib::CSVDivide(pStrs,GridStr);
 			//グリッド一行分のデータを文字列化
@@ -8991,6 +8844,8 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 		return;
 	}
 	//フォルダ参照ダイアログを出す
+	wchar_t  SelFolder[512];
+
 	if(nsLib::ShowBrowseFolderDlg(Handle,L"データを保存するフォルダを選択してください",L"C:\\",SelFolder,true) == 0)
 	{
 		//選択されなかった
@@ -9405,6 +9260,11 @@ void __fastcall TMainForm::HistListViewClick(TObject *Sender)
 	{
 		return;
 	}
+	//選択状態チェック
+	if(pItem->Data == nullptr)
+	{
+		return;
+	}
 	// 関連データ
 	THistory *pData = static_cast<THistory*>(pItem->Data);
 	//履歴IDを得る
@@ -9725,6 +9585,94 @@ void __fastcall TMainForm::DeleteHistMenuClick(TObject *Sender)
 	Histories.deleteHistReg(*pData);
 	//書類の履歴一覧読み込み処理
 	LoadReportHist();
+	//無選択状態にする
+    HistListView->Selected = nullptr;
+}
+//-------------------------------------------------------------
+//時間表示タイマー
+//-------------------------------------------------------------
+void __fastcall TMainForm::ClockTimerTimer(TObject *Sender)
+{
+	String timeStr;
+	//現在の時刻を表示
+	TDateTime tm = TDateTime::CurrentTime();
+	timeStr = tm.FormatString(L"hh:nn:ss");
+	ClockPanel->Caption = timeStr;
+}
+//---------------------------------------------------------------------------
+//フォームがアクティブかチェックしてタイトルバーの色設定
+//---------------------------------------------------------------------------
+void __fastcall TMainForm::FormActiveTimerTimer(TObject *Sender)
+{
+	if(Application->Active == true)
+	{
+		//現在のアクティブフォームがTMainFormかチェック
+		if(Handle == Application->ActiveFormHandle)
+		{
+			//現在の色設定がアクティブ用かチェック
+			if(isFormActive == false)
+			{
+				//フォームがアクティブになった時の色設定
+				setFormActiveColor();
+			}
+		}
+		else
+		{
+			//現在の色設定が非アクティブ用かチェック
+			if(isFormActive == true)
+			{
+				//フォームが非アクティブになった時の色設定
+				setFormDeactiveColor();
+			}
+		}
+	}
+}
+//---------------------------------------------------------------------------
+//フォームがアクティブになった時
+//---------------------------------------------------------------------------
+void __fastcall TMainForm::MainFormActivate(TObject *Sender)
+{
+	setFormActiveColor();
+}
+//---------------------------------------------------------------------------
+//フォームが非アクティブになった時
+//---------------------------------------------------------------------------
+void __fastcall TMainForm::FormDeactivate(TObject *Sender)
+{
+	setFormDeactiveColor();
+}
+//---------------------------------------------------------------------------
+//フォームが非アクティブになった時
+//---------------------------------------------------------------------------
+void __fastcall TMainForm::MainFormDeactivate(TObject *Sender)
+{
+	setFormDeactiveColor();
+}
+//---------------------------------------------------------------------------
+//フォームがアクティブになった時の色設定
+//---------------------------------------------------------------------------
+void TMainForm::setFormActiveColor()
+{
+	TColor active_col = CustomTitleBar->BackgroundColor;
+
+	ClockPanel      ->Color       = active_col;
+	ClockBorder1    ->Color       = (TColor)0x00B58242;
+	ClockBorder2    ->Color       = (TColor)0x00B58242;
+	//フォームがアクティブか記録
+	isFormActive = true;
+}
+//---------------------------------------------------------------------------
+//フォームが非アクティブになった時の色設定
+//---------------------------------------------------------------------------
+void TMainForm::setFormDeactiveColor()
+{
+	TColor deactive_col = CustomTitleBar->InactiveBackgroundColor;
+
+	ClockPanel      ->Color       = deactive_col;
+	ClockBorder1    ->Color       = (TColor)0x00C99D67;
+	ClockBorder2    ->Color       = (TColor)0x00C99D67;
+	//フォームがアクティブか記録
+	isFormActive = false;
 }
 //---------------------------------------------------------------------------
 

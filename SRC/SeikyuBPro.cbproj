@@ -241,6 +241,10 @@
             <DependentOn>..\..\Common\nsCPURatio.h</DependentOn>
             <BuildOrder>39</BuildOrder>
         </CppCompile>
+        <CppCompile Include="..\..\Common\nsDebug.cpp">
+            <DependentOn>..\..\Common\nsDebug.h</DependentOn>
+            <BuildOrder>61</BuildOrder>
+        </CppCompile>
         <CppCompile Include="..\..\Common\nsFolderDlg.cpp">
             <DependentOn>..\..\Common\nsFolderDlg.h</DependentOn>
             <BuildOrder>37</BuildOrder>

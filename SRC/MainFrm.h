@@ -45,18 +45,9 @@
 class TMainForm : public TForm
 {
 __published:	// IDE 管理のコンポーネント
-	TToolBar *MainToolBar;
 	TOpenPictureDialog *OpenPictureDialog;
-	TSpeedButton *BillBtn;
-	TSpeedButton *DeliveredBtn;
-	TSpeedButton *PrintBtn;
-	TSpeedButton *SaveBtn;
-	TSpeedButton *NewBtn;
 	TImageList *FileMenuImageList;
 	TTimer *FirstTimer;
-	TSpeedButton *EstimateBtn;
-	TPanel *Panel8;
-	TPanel *Panel10;
 	TPopupMenu *GridPopupMenu;
 	TPopupMenu *ModifyLabelPopupMenu;
 	TMenuItem *ModifyValueMenu;
@@ -71,12 +62,9 @@ __published:	// IDE 管理のコンポーネント
 	TApplicationEvents *ApplicationEvents;
 	TMenuItem *N14;
 	TMenuItem *LabelAnotherSamePositionMenu;
-	TSpeedButton *ResizeEnableBtn;
-	TPanel *Panel3;
 	TMenuItem *GridSettingMenu;
 	TMenuItem *SetStampImage;
 	TMenuItem *CancelStampImage;
-	TSpeedButton *EndBtn;
 	TMenuItem *ColSeparateLineMenu;
 	TMenuItem *FigureMenu;
 	TMenuItem *N9;
@@ -91,20 +79,15 @@ __published:	// IDE 管理のコンポーネント
 	TMenuItem *CalendarMenu;
 	TMenuItem *N16;
 	TImageList *EditMenuImageList;
-	TPanel *Panel2;
-	TPanel *Panel1;
-	TPanel *Panel4;
 	TStatusBar *StatusBar;
 	TMenuItem *N15;
 	TMenuItem *BringToFrontMenu;
 	TMenuItem *SendToBackMenu;
-	TSpeedButton *LicenseSettingBtn;
 	TTimer *LicTimer;
 	TMenuItem *N18;
 	TMenuItem *PrintObjectMenu;
 	TMenuItem *PrintEditMenu;
 	TMenuItem *N23;
-	TSpeedButton *OpenFileSettingSpBtn;
 	TPopupMenu *OpenFilePopupMenu;
 	TMenuItem *PRP1;
 	TMenuItem *PRP2;
@@ -141,100 +124,8 @@ __published:	// IDE 管理のコンポーネント
 	TMenuItem *ZipToAddressMenu;
 	TMenuItem *N27;
 	TMenuItem *NonDispObjectMenu;
-	TSpeedButton *CalendarBtn;
-	TPanel *Panel5;
-	TSpeedButton *PDFBtn;
 	TSaveDialog *PDFSaveDialog;
 	XnsGrid *Grid;
-	TMainMenu *MainMenu;
-	TMenuItem *FileMenu;
-	TMenuItem *MenuItem1;
-	TMenuItem *MenuItem2;
-	TMenuItem *ReopenMenu;
-	TMenuItem *RP1;
-	TMenuItem *RP2;
-	TMenuItem *RP3;
-	TMenuItem *RP4;
-	TMenuItem *RP5;
-	TMenuItem *N20;
-	TMenuItem *PaperSelectParentMenu;
-	TMenuItem *A3P_Menu;
-	TMenuItem *A3L_Menu;
-	TMenuItem *A4P_Menu;
-	TMenuItem *A4L_Menu;
-	TMenuItem *A5P_Menu;
-	TMenuItem *A5L_Menu;
-	TMenuItem *A6P_Menu;
-	TMenuItem *A6L_Menu;
-	TMenuItem *B4P_Menu;
-	TMenuItem *B4L_Menu;
-	TMenuItem *B5P_Menu;
-	TMenuItem *B5L_Menu;
-	TMenuItem *N1;
-	TMenuItem *MenuItem20;
-	TMenuItem *MenuItem21;
-	TMenuItem *MenuItem22;
-	TMenuItem *N3;
-	TMenuItem *PrintPreviewMenu;
-	TMenuItem *MenuItem24;
-	TMenuItem *N28;
-	TMenuItem *PDFSaveMenu;
-	TMenuItem *N8;
-	TMenuItem *MenuItem26;
-	TMenuItem *N2;
-	TMenuItem *EditMenu;
-	TMenuItem *ResizeModeMenu;
-	TMenuItem *N26;
-	TMenuItem *DispSettingMenu;
-	TMenuItem *N21;
-	TMenuItem *LSetPosMenu;
-	TMenuItem *AliginRightMenu;
-	TMenuItem *AliginLeftMenu;
-	TMenuItem *VSetPosMenu;
-	TMenuItem *AliginTopMenu;
-	TMenuItem *AliginBottomMenu;
-	TMenuItem *N22;
-	TMenuItem *WidthSetMenu;
-	TMenuItem *MinWidthMenu;
-	TMenuItem *MaxWidthMenu;
-	TMenuItem *HeightSetMenu;
-	TMenuItem *MinHeightMenu;
-	TMenuItem *MaxHeightMenu;
-	TMenuItem *N4;
-	TMenuItem *ApplyCompanyInfoMenu;
-	TMenuItem *ApplyCompanyInfo1Menu;
-	TMenuItem *ApplyCompanyInfo2Menu;
-	TMenuItem *ApplyCompanyInfo3Menu;
-	TMenuItem *VisialMenu;
-	TMenuItem *ZoomMenu;
-	TMenuItem *Z200_Menu;
-	TMenuItem *Z100_Menu;
-	TMenuItem *Z90_Menu;
-	TMenuItem *Z80_Menu;
-	TMenuItem *Z70_Menu;
-	TMenuItem *Z60_Menu;
-	TMenuItem *Z50_Menu;
-	TMenuItem *Z40_Menu;
-	TMenuItem *Z30_Menu;
-	TMenuItem *Z20_Menu;
-	TMenuItem *Z10_Menu;
-	TMenuItem *N13;
-	TMenuItem *FileFolderMenu;
-	TMenuItem *DispComponentsMenu;
-	TMenuItem *SettingMenu;
-	TMenuItem *CompanyInfoSettingMenu;
-	TMenuItem *N19;
-	TMenuItem *SaveReportHist_Free_Menu;
-	TMenuItem *N17;
-	TMenuItem *OptionMenu;
-	TMenuItem *H2;
-	TMenuItem *HelpMenu;
-	TMenuItem *N35;
-	TMenuItem *SakuraDensanMenu;
-	TMenuItem *SupportPageMenu;
-	TMenuItem *AskMenu;
-	TMenuItem *N36;
-	TMenuItem *VersionInfMenu;
 	TPanel *Panel6;
 	TListView2 *HistListView;
 	TPanel *Panel9;
@@ -242,6 +133,90 @@ __published:	// IDE 管理のコンポーネント
 	TSplitter *Splitter1;
 	TPopupMenu *HistPopupMenu;
 	TMenuItem *DeleteHistMenu;
+	TActionManager *ActionManager;
+	TAction *HelpMenu;
+	TAction *AskMenu;
+	TAction *SakuraDensanMenu;
+	TAction *SupportPageMenu;
+	TAction *VersionInfMenu;
+	TAction *OverWriteMenu;
+	TAction *PDFSaveMenu;
+	TAction *EndMenu;
+	TTitleBarPanel *TitleBarPanel;
+	TPanel *ClockPanel;
+	TPanel *ClockBorder1;
+	TPanel *ClockBorder2;
+	TPanel *TitleBarBasePanel;
+	TActionMainMenuBar2 *ActionMainMenuBar;
+	TAction *NewMenu;
+	TAction *OpenMenu;
+	TAction *A3P_Menu;
+	TAction *A3L_Menu;
+	TAction *PrintPreviewMenu;
+	TAction *PrintMenu;
+	TAction *Z200_Menu;
+	TAction *FileFolderMenu;
+	TAction *DispComponentsMenu;
+	TAction *ResizeModeMenu;
+	TAction *A4P_Menu;
+	TAction *A4L_Menu;
+	TAction *A5P_Menu;
+	TAction *A5L_Menu;
+	TAction *A6P_Menu;
+	TAction *A6L_Menu;
+	TAction *B4P_Menu;
+	TAction *B4L_Menu;
+	TAction *B5P_Menu;
+	TAction *B5L_Menu;
+	TAction *SaveMenu;
+	TAction *DispSettingMenu;
+	TAction *AliginRightMenu;
+	TAction *AliginLeftMenu;
+	TAction *AliginTopMenu;
+	TAction *AliginBottomMenu;
+	TAction *MinWidthMenu;
+	TAction *MaxWidthMenu;
+	TAction *MinHeightMenu;
+	TAction *MaxHeightMenu;
+	TAction *ApplyCompanyInfo1Menu;
+	TAction *ApplyCompanyInfo2Menu;
+	TAction *ApplyCompanyInfo3Menu;
+	TAction *Z100_Menu;
+	TAction *Z90_Menu;
+	TAction *Z80_Menu;
+	TAction *Z70_Menu;
+	TAction *Z60_Menu;
+	TAction *Z50_Menu;
+	TAction *Z40_Menu;
+	TAction *Z30_Menu;
+	TAction *Z20_Menu;
+	TAction *Z10_Menu;
+	TAction *CompanyInfoSettingMenu;
+	TAction *SaveReportHist_Free_Menu;
+	TAction *OptionMenu;
+	TImageList *MenuImageList;
+	TToolBar *MainToolBar;
+	TSpeedButton *BillBtn;
+	TPanel *Panel8;
+	TSpeedButton *DeliveredBtn;
+	TPanel *Panel10;
+	TSpeedButton *EstimateBtn;
+	TPanel *Panel1;
+	TSpeedButton *NewBtn;
+	TSpeedButton *OpenFileSettingSpBtn;
+	TSpeedButton *SaveBtn;
+	TSpeedButton *PDFBtn;
+	TSpeedButton *PrintBtn;
+	TPanel *Panel2;
+	TSpeedButton *CalendarBtn;
+	TPanel *Panel5;
+	TSpeedButton *ResizeEnableBtn;
+	TPanel *Panel4;
+	TSpeedButton *EndBtn;
+	TSpeedButton *LicenseSettingBtn;
+	TStandardColorMap *StandardColorMap;
+	TTimer *ClockTimer;
+	TTimer *FormActiveTimer;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall PrintBtnClick(TObject *Sender);
 	void __fastcall GridCellAttr(TObject *Sender, int ARow, int ACol,
@@ -313,7 +288,6 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall PaperSelectMenuClick(TObject *Sender);
 	void __fastcall PaperSelectParentMenuClick(TObject *Sender);
 	void __fastcall LabelAnotherSamePositionMenuClick(TObject *Sender);
-	void __fastcall SaveFromDispInfoMenuClick(TObject *Sender);
 	void __fastcall MainPanelDragOver(TObject *Sender, TObject *Source, int X,
           int Y, TDragState State, bool &Accept);
 	void __fastcall MainPanelEndDrag(TObject *Sender, TObject *Target, int X,
@@ -373,6 +347,9 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall HistListViewMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y);
 	void __fastcall DeleteHistMenuClick(TObject *Sender);
+	void __fastcall ClockTimerTimer(TObject *Sender);
+	void __fastcall FormActiveTimerTimer(TObject *Sender);
+	void __fastcall FormDeactivate(TObject *Sender);
 
 private:
 	struct LicExcept : public Exception
@@ -411,6 +388,18 @@ private:
 	int             SelARow;
 	//.sdoファイルのためのオブジェクト
 	TSdo            Sdo;
+private:
+	//フォームがアクティブか記録
+	bool isFormActive;
+	//フォームがアクティブになった時の色設定
+	void setFormActiveColor();
+	//フォームが非アクティブになった時の色設定
+	void setFormDeactiveColor();
+private:
+	//フォームがアクティブになった時
+	void __fastcall MainFormActivate(TObject *Sender);
+	//フォームが非アクティブになった時
+	void __fastcall MainFormDeactivate(TObject *Sender);
 public:
 	__fastcall TMainForm(TComponent* Owner);
 private:
