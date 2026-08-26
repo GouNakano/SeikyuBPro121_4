@@ -1,41 +1,37 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\RTL\SYS\System.pas',0,1,26898,1,26922,0,0,,
-File_1=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,21559,1,21583,0,0,,
-File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\typReportData.cpp',0,1,1,1,1,0,0,,
-File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\nsDebug.cpp',0,1,1,47,22,0,0,,
-File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp',0,1,1,1,1,0,0,,
-File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\MainFrm.cpp',0,1,8899,1,8929,0,0,,
-File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\source\rtl\common\System.Classes.pas',0,1,19094,1,19118,0,0,,
-File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Menus.pas',0,1,2619,1,2643,0,0,,
-File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Controls.pas',0,1,10947,1,10971,0,0,,
-File_9=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Forms.pas',0,1,6593,1,6617,0,0,{{2054,4}
-File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\typDocument.cpp',0,1,107,27,64,0,0,,
-File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SeikyuBConst.cpp',0,1,1,1,6,0,0,,
-File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\nsResizeCtrlList.cpp',0,1,7,1,43,0,0,,
-File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\nsResizeCtrl.cpp',0,1,248,1,272,0,0,,
+File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.ActnMenus.pas',0,1,1663,1,1688,0,0,,
+File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp',0,1,24,6,61,0,0,,
+File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\source\rtl\common\System.Classes.pas',0,1,18513,1,18537,0,0,,
+File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Controls.pas',0,1,7222,1,7246,0,0,,
+File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.ActnList.pas',0,1,355,1,379,0,0,,
+File_5=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\RTL\SYS\System.Internal.StrHlpr.pas',0,1,165,1,189,0,0,,
+File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\RTL\SYS\System.pas',0,1,26898,1,26922,0,0,,
+File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,21559,1,21583,0,0,,
+File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\typReportData.cpp',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\nsDebug.cpp',0,1,1,47,22,0,0,,
+File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp',0,1,1,1,1,0,0,,
+File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\MainFrm.cpp',0,1,8899,1,8929,0,0,,
+File_12=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Menus.pas',0,1,2619,1,2643,0,0,,
+File_13=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Forms.pas',0,1,6593,1,6617,0,0,{{2054,4}
+File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\typDocument.cpp',0,1,107,27,64,0,0,,
 
 [Modules]
 Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp
-Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp
-Count=3
+Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp
+Count=2
 EditWindowCount=1
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp]
 ModuleType=TSourceModule
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp]
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=3
+ViewCount=2
 CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 View0=0
 View1=1
-View2=2
 PercentageSizes=1
 Create=1
 Visible=1
@@ -71,27 +67,16 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 
 [View0]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp
-CursorX=6
-CursorY=61
-TopLine=24
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp
-
-[View1]
-CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 CursorX=1
-CursorY=6551
-TopLine=6508
+CursorY=6586
+TopLine=6547
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 
-[View2]
+[View1]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp
 CursorX=1
@@ -127,9 +112,8 @@ Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=2
-Breakpoint0='D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp',6543,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint1='D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp',6503,'',0,1,'',1,0,0,'',1,'','','',0,''
+Count=1
+Breakpoint0='D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp',6503,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -241,8 +225,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Action,Action.OnUpdate
-ExpandedItems=ChangesAllowed=0,CommandProperties=0,"LiveBinding デザイナ=0",Images=0,Action=1
+SelectedItem=Caption,Accessible
+ExpandedItems=Action=0,ChangesAllowed=0,CommandProperties=0,"LiveBinding デザイナ=0",Images=0,ActionBar=0
 
 [frmDesignPreview]
 PercentageSizes=1

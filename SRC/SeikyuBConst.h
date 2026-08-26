@@ -192,6 +192,24 @@ public:
 
 		return true;
 	}
+	//用紙の種類数
+	constexpr static int size()
+	{
+		return PAPER_SIZE_KIND_NUM;
+	}
+	//用紙情報を得る
+	static bool get(int idx,typPaperDef& paper)
+	{
+		if(idx < 0 || idx >= PAPER_SIZE_KIND_NUM)
+		{
+			return false;
+		}
+
+		//該当しない場合はA4縦を選択
+		paper = PaperDef[idx];
+
+		return true;
+	}
 };
 
 //書類部品種類の数
