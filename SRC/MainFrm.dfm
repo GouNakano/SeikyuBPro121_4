@@ -71,7 +71,6 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 780
   end
   object BasePanel: TPaintPanel
     Left = 305
@@ -82,9 +81,6 @@ object MainForm: TMainForm
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitLeft = 485
-    ExplicitTop = 182
-    ExplicitHeight = 706
     object EditToolBar: TToolBar
       Left = 1
       Top = 686
@@ -98,7 +94,6 @@ object MainForm: TMainForm
       EdgeOuter = esNone
       TabOrder = 0
       Visible = False
-      ExplicitTop = 726
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -420,9 +415,6 @@ object MainForm: TMainForm
       OnMouseWheelDown = ScrollBoxMouseWheelDown
       OnMouseWheelUp = ScrollBoxMouseWheelUp
       OnResize = ScrollBoxResize
-      ExplicitLeft = 140
-      ExplicitTop = 113
-      ExplicitHeight = 725
       object DummyPanel: TPanel
         Left = 512
         Top = 240
@@ -486,8 +478,8 @@ object MainForm: TMainForm
           Zoom3D = 1.000000000000000000
         end
         object Grid: XnsGrid
-          Left = 16
-          Top = 222
+          Left = 26
+          Top = 227
           Width = 437
           Height = 307
           BorderStyle = bsNone
@@ -555,9 +547,6 @@ object MainForm: TMainForm
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitLeft = 104
-    ExplicitTop = 148
-    ExplicitHeight = 752
     object HistListView: TListView2
       Left = 0
       Top = 0
@@ -595,9 +584,6 @@ object MainForm: TMainForm
       OnDeletion = HistListViewDeletion
       OnMouseDown = HistListViewMouseDown
       HeaderColor = clBtnFace
-      ExplicitLeft = 26
-      ExplicitTop = 66
-      ExplicitHeight = 676
     end
     object Panel9: TPanel
       Left = 0
@@ -608,7 +594,6 @@ object MainForm: TMainForm
       BevelOuter = bvNone
       Color = clWhite
       TabOrder = 1
-      ExplicitTop = 722
       object SakuraImage: TImage
         Left = 0
         Top = 0
@@ -1026,8 +1011,6 @@ object MainForm: TMainForm
       ParentBackground = False
       ParentFont = False
       TabOrder = 0
-      ExplicitLeft = 972
-      ExplicitHeight = 35
       object ClockBorder1: TPanel
         Left = 79
         Top = 0
@@ -1051,7 +1034,6 @@ object MainForm: TMainForm
         ShowHint = False
         TabOrder = 0
         StyleName = 'Windows'
-        ExplicitHeight = 35
       end
       object ClockBorder2: TPanel
         Left = 0
@@ -1076,7 +1058,6 @@ object MainForm: TMainForm
         ShowHint = False
         TabOrder = 1
         StyleName = 'Windows'
-        ExplicitHeight = 35
       end
     end
   end
@@ -1107,17 +1088,15 @@ object MainForm: TMainForm
       Height = 30
       Margins.Left = 8
       Margins.Top = 4
-      UseSystemFont = False
       ActionManager = ActionManager
       Align = alClient
       Caption = 'ActionMainMenuBar'
-      Color = 16316664
       ColorMap = StandardColorMap
       Constraints.MaxHeight = 30
       Constraints.MinHeight = 30
       Constraints.MinWidth = 30
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clBlack
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
       Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = []
@@ -1127,7 +1106,6 @@ object MainForm: TMainForm
       StyleName = 'Windows'
       Spacing = 0
       Transparent = True
-      ExplicitWidth = 30
     end
   end
   object MainToolBar: TToolBar
@@ -1142,8 +1120,6 @@ object MainForm: TMainForm
     ParentColor = False
     ParentDoubleBuffered = False
     TabOrder = 5
-    ExplicitTop = 130
-    ExplicitWidth = 1111
     object BillBtn: TSpeedButton
       Left = 0
       Top = 0
@@ -3015,6 +2991,7 @@ object MainForm: TMainForm
                 Caption = '-'
               end
               item
+                Items.AutoHotKeys = False
                 Items = <
                   item
                     Action = A3P_Menu
@@ -3052,7 +3029,7 @@ object MainForm: TMainForm
                   item
                     Action = B5L_Menu
                   end>
-                Caption = #29992#32025#36984#25246'(&Y)'
+                Action = PaperSelectParentMenu
                 UsageCount = 1
               end
               item
@@ -3552,6 +3529,12 @@ object MainForm: TMainForm
       Caption = #12458#12503#12471#12519#12531'(&O)...'
       OnExecute = OptionMenuClick
     end
+    object PaperSelectParentMenu: TAction
+      Category = #29992#32025#36984#25246
+      Caption = #29992#32025#36984#25246'(&P)'
+      OnExecute = PaperSelectParentMenuClick
+      OnUpdate = PaperSelectParentMenuClick
+    end
   end
   object MenuImageList: TImageList
     Left = 464
@@ -3831,13 +3814,7 @@ object MainForm: TMainForm
   object StandardColorMap: TStandardColorMap
     HighlightColor = clBtnHighlight
     UnusedColor = clWhite
-    BtnFrameColor = 16762508
-    BtnSelectedColor = 16769992
-    Color = 16316664
-    FontColor = clBlack
-    MenuColor = 16316664
-    SelectedColor = 16769992
-    SelectedFontColor = clBlack
+    MenuColor = clMenu
     Left = 80
     Top = 274
   end

@@ -217,6 +217,7 @@ __published:	// IDE 管理のコンポーネント
 	TStandardColorMap *StandardColorMap;
 	TTimer *ClockTimer;
 	TTimer *FormActiveTimer;
+	TAction *PaperSelectParentMenu;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall PrintBtnClick(TObject *Sender);
 	void __fastcall GridCellAttr(TObject *Sender, int ARow, int ACol,

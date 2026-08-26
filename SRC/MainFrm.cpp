@@ -6542,27 +6542,69 @@ void __fastcall TMainForm::PaperSelectMenuClick(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TMainForm::PaperSelectParentMenuClick(TObject *Sender)
 {
+	//アクションにキャスト
+	TAction *PaperMenu = static_cast<TAction *>(Sender);
+
+String nm = PaperMenu->Name;
+
+	//オブジェクト名が用紙選択のものかチェック
+	if(PaperMenu->Name != L"PaperSelectParentMenu")
+	{
+		return;
+	}
+
+
 	//現在の用紙を得る
 	const typPaperDef& NowPaper = PaperDef[Document.Paper];
 	//対象となるメニュー名を作成
 	String MenuName = String(NowPaper.PaperName) + L"_Menu";
 	//子のメニューのチェックの有無を設定
-//	for(int Cnt = 0;Cnt < PaperSelectParentMenu->Count;Cnt++)
-//	{
-//		//子メニューを得る
-//		TMenuItem *pMenu = PaperSelectParentMenu->Items[Cnt];
-//		//名前の一致をチェック
-//		if(pMenu->Name == MenuName)
-//		{
-//			//チェック表示
-//			pMenu->Checked = true;
-//		}
-//		else
-//		{
-//			//チェック表示しない
-//			pMenu->Checked = false;
-//		}
-//	}
+	int bars_num = ActionManager->ActionBars->Count;
+
+	TActionBarItem *main_menu = ActionManager->ActionBars->ActionBars[bars_num-1];
+
+	int cnt = main_menu->Items->Count;
+
+	TActionClientItem *pcl = main_menu->Items->ActionClients[0];
+
+	String pcl_mn = pcl->Caption;
+
+	int pcl_num = pcl->Items->Count;
+
+	TActionClientItem *yousi = pcl->Items->ActionClients[3];
+
+	String yousi_nm = yousi->Caption;
+
+	int yousi_cnt = yousi->Items->Count;
+
+	TActionClientItem *p = yousi->Items->ActionClients[0];
+
+	String p_nm = p->Caption;
+
+	TContainedAction* action = p->Action;
+
+	String action_mn = action->Name;
+
+
+	for(int Cnt = 0;Cnt < yousi_cnt;Cnt++)
+	{
+		//子メニューを得る
+		TActionClientItem *child_menu = yousi->Items->ActionClients[Cnt];
+		//アクションを得る
+		TContainedAction *action = child_menu->Action;
+
+		//名前の一致をチェック
+		if(action->Name == MenuName)
+		{
+			//チェック表示
+			action->Checked = true;
+		}
+		else
+		{
+			//チェック表示しない
+			action->Checked = false;
+		}
+	}
 }
 //-------------------------------------------------------------
 //  機能     ：オブジェクトMouseDown時
