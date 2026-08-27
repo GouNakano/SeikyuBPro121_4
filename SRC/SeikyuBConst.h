@@ -391,8 +391,6 @@ public:
 	//ズーム名からズーム情報を得る
 	static bool GetZoomDefFromName(String ZoomName,typZoomDef& zoom)
 	{
-		typZoomDef *pRes = 0;
-
 		for(int Cnt = 0;Cnt < ZOOM_KIND_NUM;Cnt++)
 		{
 			//名前一致チェック
@@ -406,6 +404,24 @@ public:
 		zoom = ZoomDef[Z100];
 
 		return false;
+	}
+	//ズームの種類数
+	constexpr static int size()
+	{
+		return ZOOM_KIND_NUM;
+	}
+	//ズーム情報を得る
+	static bool get(int idx,typZoomDef& zoom)
+	{
+		if(idx < 0 || idx >= ZOOM_KIND_NUM)
+		{
+			return false;
+		}
+
+		//インデックスに対応した用紙情報
+		zoom = ZoomDef[idx];
+
+		return true;
 	}
 };
 

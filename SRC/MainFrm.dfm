@@ -71,7 +71,6 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 800
   end
   object BasePanel: TPaintPanel
     Left = 305
@@ -82,10 +81,9 @@ object MainForm: TMainForm
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitHeight = 712
     object EditToolBar: TToolBar
       Left = 1
-      Top = 686
+      Top = 655
       Width = 910
       Height = 25
       Align = alBottom
@@ -404,7 +402,7 @@ object MainForm: TMainForm
       Left = 1
       Top = 1
       Width = 910
-      Height = 685
+      Height = 654
       VertScrollBar.Smooth = True
       Align = alClient
       BevelInner = bvNone
@@ -549,12 +547,11 @@ object MainForm: TMainForm
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitHeight = 712
     object HistListView: TListView2
       Left = 0
       Top = 0
       Width = 300
-      Height = 682
+      Height = 651
       Align = alClient
       Columns = <
         item
@@ -580,7 +577,6 @@ object MainForm: TMainForm
       TabOrder = 0
       TabStop = False
       ViewStyle = vsReport
-      OnClick = HistListViewClick
       OnColumnClick = HistListViewColumnClick
       OnCompare = HistListViewCompare
       OnCustomDrawItem = HistListViewCustomDrawItem
@@ -590,7 +586,7 @@ object MainForm: TMainForm
     end
     object Panel9: TPanel
       Left = 0
-      Top = 682
+      Top = 651
       Width = 300
       Height = 30
       Align = alBottom
@@ -601,7 +597,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 150
-        Height = 26
+        Height = 30
         Cursor = crHandPoint
         Align = alLeft
         AutoSize = True
@@ -978,6 +974,7 @@ object MainForm: TMainForm
           FFFFFFFFFFFFFFFF0000}
         Transparent = True
         OnClick = SakuraDensanMenuClick
+        ExplicitHeight = 26
       end
     end
   end
@@ -1860,8 +1857,8 @@ object MainForm: TMainForm
     AutoHotkeys = maManual
     Images = PopupImageList
     OnPopup = ModifyLabelPopupMenuPopup
-    Left = 308
-    Top = 564
+    Left = 52
+    Top = 628
     object GridSettingMenu: TMenuItem
       Caption = #34920#12398#35373#23450
       OnClick = GridSettingMenuClick
@@ -2011,8 +2008,8 @@ object MainForm: TMainForm
     AutoHotkeys = maManual
     Images = EditMenuImageList
     OnPopup = ModifyEditPopupMenuPopup
-    Left = 460
-    Top = 576
+    Left = 156
+    Top = 640
     object PrintEditMenu: TMenuItem
       Caption = #21360#21047#23550#35937'(&P)'
       OnClick = PrintEditMenuClick
@@ -3194,7 +3191,7 @@ object MainForm: TMainForm
                   item
                     Action = Z10_Menu
                   end>
-                Caption = #12474#12540#12512'(&Z)'
+                Action = ZoomRootMenu
                 UsageCount = 1
               end
               item
@@ -3536,6 +3533,11 @@ object MainForm: TMainForm
       Caption = #29992#32025#36984#25246'(&P)'
       OnExecute = PaperSelectParentMenuClick
       OnUpdate = PaperSelectParentMenuClick
+    end
+    object ZoomRootMenu: TAction
+      Category = #12474#12540#12512
+      Caption = #12474#12540#12512'(&Z)'
+      OnUpdate = ZoomMenuClick
     end
   end
   object MenuImageList: TImageList

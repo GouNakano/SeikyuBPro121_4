@@ -1125,7 +1125,7 @@ bool TSdo::writeSDO(typDocument& DocInfo,const String& FilePath)
 
 	//---- 履歴用のデータ ----
 	//対象データ構造体
-	typDocData& HistDocData = DocInfo.Data[Document.DocKind];
+	typDocData& HistDocData = DocInfo.Data[DocInfo.DocKind];
 	//年
 	nsLong Year  = HistDocData.Year;
 	//月

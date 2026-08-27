@@ -5,19 +5,19 @@
 #include <tchar.h>
 //---------------------------------------------------------------------------
 USEFORM("MainFrm.cpp", MainForm);
-USEFORM("PropertyFrm.cpp", PropertyForm);
 USEFORM("LicSetting.cpp", LicSettingForm);
-USEFORM("LabelModifyFrm.cpp", LabelModifyForm);
-USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
+USEFORM("PropertyFrm.cpp", PropertyForm);
 USEFORM("LicenseFrm.cpp", LicenseForm);
+USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
+USEFORM("FirstMesFrm.cpp", FirstMesForm);
+USEFORM("LabelModifyFrm.cpp", LabelModifyForm);
 USEFORM("SubSelectFrm.cpp", SubSelectForm);
 USEFORM("VersionInf.cpp", AboutBox);
 USEFORM("SettingFrm.cpp", SettingForm);
 USEFORM("SeikyuPrintFrm.cpp", SeikyuPrintForm);
-USEFORM("FirstMesFrm.cpp", FirstMesForm);
-USEFORM("A4L_Frm.cpp", A4L_Form);
 USEFORM("A3P_Frm.cpp", A3P_Form);
 USEFORM("A3L_Frm.cpp", A3L_Form);
+USEFORM("A4L_Frm.cpp", A4L_Form);
 USEFORM("CalendarFrm.cpp", CalendarForm);
 USEFORM("B5P_Frm.cpp", B5P_Form);
 USEFORM("CompanyInfoFrm.cpp", CompanyInfoForm);

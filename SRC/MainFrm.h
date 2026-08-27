@@ -218,6 +218,7 @@ __published:	// IDE 管理のコンポーネント
 	TTimer *ClockTimer;
 	TTimer *FormActiveTimer;
 	TAction *PaperSelectParentMenu;
+	TAction *ZoomRootMenu;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall PrintBtnClick(TObject *Sender);
 	void __fastcall GridCellAttr(TObject *Sender, int ARow, int ACol,
@@ -339,7 +340,6 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall NonDispObjectMenuClick(TObject *Sender);
 	void __fastcall EditMenuExecute(TBasicAction *Action, bool &Handled);
 	void __fastcall HistListViewDeletion(TObject *Sender, TListItem *Item);
-	void __fastcall HistListViewClick(TObject *Sender);
 	void __fastcall HistListViewColumnClick(TObject *Sender, TListColumn *Column);
 	void __fastcall HistListViewCompare(TObject *Sender, TListItem *Item1, TListItem *Item2,
           int Data, int &Compare);
@@ -351,6 +351,7 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall ClockTimerTimer(TObject *Sender);
 	void __fastcall FormActiveTimerTimer(TObject *Sender);
 	void __fastcall FormDeactivate(TObject *Sender);
+
 
 private:
 	struct LicExcept : public Exception
@@ -521,6 +522,8 @@ private:
 	void SetMainTotalInfo();
 	//繰り返し入力データの追加
 	void AddInputData();
+	//空の書類にする(日付は本日)
+	bool setVoidDocument();
 public:
 	//書類部品情報からコンポーネントを配置
 	bool SetComponentFromDocCompo(typDocCompo& doc);

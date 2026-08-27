@@ -3474,19 +3474,42 @@ void TMainForm::NewFile()
 	}
 	else
 	{
-		//書類情報を消す
-		Document.ClearDocCompo();
-		//データを消す
-		Document.ClearData();
-		//ファイルパスは空
-		Document.File = L"";
-		//データを空読み
-		Sdo.readVoid(Document);
-		//再表示
-		UpdateMainPanelDisp();
-		//書類の変更の有無を設定
-		SetDocumentChange(false);
+		//空の書類にする(日付は本日)
+		setVoidDocument();
+
+//		//書類情報を消す
+//		Document.ClearDocCompo();
+//		//データを消す
+//		Document.ClearData();
+//		//ファイルパスは空
+//		Document.File = L"";
+//		//データを空読み
+//		Sdo.readVoid(Document);
+//		//再表示
+//		UpdateMainPanelDisp();
+//		//書類の変更の有無を設定
+//		SetDocumentChange(false);
 	}
+}
+//---------------------------------------------------------------------------
+//空の書類にする(日付は本日)
+//---------------------------------------------------------------------------
+bool TMainForm::setVoidDocument()
+{
+	//書類情報を消す
+	Document.ClearDocCompo();
+	//データを消す
+	Document.ClearData();
+	//ファイルパスは空
+	Document.File = L"";
+	//データを空読み
+	Sdo.readVoid(Document);
+	//再表示
+	UpdateMainPanelDisp();
+	//書類の変更の有無を設定
+	SetDocumentChange(false);
+
+	return true;
 }
 //-------------------------------------------------------------
 //  機能     ：請求書ボタン
@@ -6468,22 +6491,35 @@ void __fastcall TMainForm::ZoomMenuClick(TObject *Sender)
 	//対象となるメニュー名を作成
 	String MenuName = String(NowZoom.ZoomName) + "_Menu";
 	//子のメニューのチェックの有無を設定
-//	for(int Cnt = 0;Cnt < ZoomMenu->Count;Cnt++)
-//	{
-//		//子メニューを得る
-//		TMenuItem *pMenu = ZoomMenu->Items[Cnt];
-//		//名前の一致をチェック
-//		if(pMenu->Name == MenuName)
-//		{
-//			//チェック表示
-//			pMenu->Checked = true;
-//		}
-//		else
-//		{
-//			//チェック表示しない
-//			pMenu->Checked = false;
-//		}
-//	}
+	for(int Cnt = 0;Cnt < typZoomDefs::size();Cnt++)
+	{
+		typZoomDef zoom;
+		//コンポーネント名を作成
+		typZoomDefs::get(Cnt,zoom);
+		String comp_nm = String(zoom.ZoomName) + "_Menu";
+		//対応TActionを得る
+		TComponent *pComp = FindComponent(comp_nm);
+		if(pComp == nullptr)
+		{
+			continue;
+		}
+		TAction *pAction = dynamic_cast<TAction *>(pComp);
+		if(pAction == nullptr)
+		{
+			continue;
+		}
+		//名前の一致をチェック
+		if(pAction->Name == MenuName)
+		{
+			//チェック表示
+			pAction->Checked = true;
+		}
+		else
+		{
+			//チェック表示しない
+			pAction->Checked = false;
+		}
+	}
 }
 //-------------------------------------------------------------
 //  機能     ：用紙選択メニュー
@@ -6583,56 +6619,6 @@ void __fastcall TMainForm::PaperSelectParentMenuClick(TObject *Sender)
 			action->Checked = false;
 		}
 	}
-
-
-
-//	//子のメニューのチェックの有無を設定
-//	int bars_num = ActionManager->ActionBars->Count;
-//
-//	TActionBarItem *main_menu = ActionManager->ActionBars->ActionBars[bars_num-1];
-//
-//	int cnt = main_menu->Items->Count;
-//
-//	TActionClientItem *pcl = main_menu->Items->ActionClients[0];
-//
-//	String pcl_mn = pcl->Caption;
-//
-//	int pcl_num = pcl->Items->Count;
-//
-//	TActionClientItem *yousi = pcl->Items->ActionClients[3];
-//
-//	String yousi_nm = yousi->Caption;
-//
-//	int yousi_cnt = yousi->Items->Count;
-//
-//	TActionClientItem *p = yousi->Items->ActionClients[0];
-//
-//	String p_nm = p->Caption;
-//
-//	TContainedAction* action = p->Action;
-//
-//	String action_mn = action->Name;
-//
-//
-//	for(int Cnt = 0;Cnt < yousi_cnt;Cnt++)
-//	{
-//		//子メニューを得る
-//		TActionClientItem *child_menu = yousi->Items->ActionClients[Cnt];
-//		//アクションを得る
-//		TContainedAction *action = child_menu->Action;
-//
-//		//名前の一致をチェック
-//		if(action->Name == MenuName)
-//		{
-//			//チェック表示
-//			action->Checked = true;
-//		}
-//		else
-//		{
-//			//チェック表示しない
-//			action->Checked = false;
-//		}
-//	}
 }
 //-------------------------------------------------------------
 //  機能     ：オブジェクトMouseDown時
@@ -8842,7 +8828,6 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 	{
 		return;
 	}
-
 	//リスト初期化
 	SBFreeDataList.clear();
 	//文字列リスト
@@ -8863,7 +8848,7 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 		String NameStr = pReg->ReadString(SectionStr,"NameEdit" ,"");                //名前
 		String ItemStr = pReg->ReadString(SectionStr,"ItemEdit" ,"");                //件名
 
-		//関連データ
+		//請求書番頭フリー版からの書類データ
 		typReportData pData;
 
 		pData.Key      = SectionStr;
@@ -8935,39 +8920,60 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 	CancelResizeMode(true);
 	//リサイズモードを不許可にする
 	SetResizeMode(false);
-//	//現在選択の用紙
-//	Document.Paper = A4P;
 	//メインパネルの表示更新
 	UpdateMainPanelDisp();
 	//新規作成処理
 	NewFile();
+	//保存する請求書番頭プロ版のデータのひな形
+	typDocument pDoc(Document);
+	//現在選択の用紙(A4縦固定)
+	pDoc.Paper = A4P;
 	//請求書番頭 フリー版のデータを反映しながら、ファイル保存処理を行う
 	for(int Cnt = 0;Cnt < SBFreeDataList.size();Cnt++)
 	{
-		//対象データ
-		typReportData pData;
-		//ファイル名を作成する
-		FileName.sprintf(L"%04d%02d%02d-%s-%s%s",pData.Year,pData.Month,pData.Day,pData.NameStr.c_str(),pData.ItemStr.c_str(),STD_FILEXT);
-		//フルパスを作成する
-		FullPath = DispFolder + "\\" + FileName;
+		//請求書番頭フリー版の対象データ
+		typReportData& pData = SBFreeDataList[Cnt];
+		//出力ファイルのフルパス作成
+		for(int cnt = 0;;cnt++)
+		{
+			if(cnt == 0)
+			{
+				//ファイル名を作成する
+				FileName.sprintf(L"%04d%02d%02d-%s-%s%s",pData.Year,pData.Month,pData.Day,pData.NameStr.c_str(),pData.ItemStr.c_str(),STD_FILEXT);
+				//フルパスを作成する
+				FullPath = DispFolder + "\\" + FileName;
+			}
+			else
+			{
+				//ファイル名を作成する
+				FileName.sprintf(L"%04d%02d%02d-%s-%s_%d%s",pData.Year,pData.Month,pData.Day,pData.NameStr.c_str(),pData.ItemStr.c_str(),cnt,STD_FILEXT);
+				//フルパスを作成する
+				FullPath = DispFolder + "\\" + FileName;
+			}
+			if(FileExists(FullPath) == false)
+			{
+				//ファイルが存在しないのでフルパス作成完了
+				break;
+			}
+		}
 		//書類別にデータセット
 		for(int Kind = 0;Kind < DOCUMENT_KIND_NUM;Kind++)
 		{
 			//データのセット
-			Document.Data[Kind].Year     = pData.Year;                               //年
-			Document.Data[Kind].Month    = pData.Month;                              //月
-			Document.Data[Kind].Day      = pData.Day;                                //日
-			Document.Data[Kind].No       = pData.No;                                 //番号
-			Document.Data[Kind].Name     = pData.NameStr;                            //名前
-			Document.Data[Kind].Item     = pData.ItemStr;                            //件名
-			Document.Data[Kind].Money    = MakeNumberString(pData.Money).c_str();    //金額
-			Document.Data[Kind].Subtotal = MakeNumberString(pData.Subtotal).c_str(); //小計
-			Document.Data[Kind].Tax      = MakeNumberString(pData.Tax).c_str();      //消費税
-			Document.Data[Kind].Total    = pData.Total.c_str();                      //合計
-			Document.Data[Kind].RowNum   = 15;                                        //行数
-			Document.Data[Kind].ColNum   = 6;                                         //列数
+			pDoc.Data[Kind].Year     = pData.Year;                               //年
+			pDoc.Data[Kind].Month    = pData.Month;                              //月
+			pDoc.Data[Kind].Day      = pData.Day;                                //日
+			pDoc.Data[Kind].No       = pData.No;                                 //番号
+			pDoc.Data[Kind].Name     = pData.NameStr;                            //名前
+			pDoc.Data[Kind].Item     = pData.ItemStr;                            //件名
+			pDoc.Data[Kind].Money    = MakeNumberString(pData.Money).c_str();    //金額
+			pDoc.Data[Kind].Subtotal = MakeNumberString(pData.Subtotal).c_str(); //小計
+			pDoc.Data[Kind].Tax      = MakeNumberString(pData.Tax).c_str();      //消費税
+			pDoc.Data[Kind].Total    = pData.Total.c_str();                      //合計
+			pDoc.Data[Kind].RowNum   = 15;                                        //行数
+			pDoc.Data[Kind].ColNum   = 6;                                         //列数
 			//グリッドデータ消去
-			Document.Data[Kind].GridData.clear();
+			pDoc.Data[Kind].GridData.clear();
 			//グリッドデータセット
 			for(int Row = 1;Row < 15;Row++)
 			{
@@ -8981,16 +8987,20 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 				GridRow.PriceUnit  = pData.GridData[Row][3].c_str();
 				GridRow.Money      = pData.GridData[Row][4].c_str();
 				//リストに追加
-				Document.Data[Kind].GridData.push_back(std::move(GridRow));
+				pDoc.Data[Kind].GridData.push_back(std::move(GridRow));
 			}
 		}
-		//MainPanel上にデータをセット
-		SetDataFromDocData();
+//		//MainPanel上にデータをセット
+//		SetDataFromDocData();
+		//IDのリセット
+		NowHistory.renumberID();
 		//ファイルの保存
-		Sdo.writeSDO(Document,FullPath);
+		Sdo.writeSDO(pDoc,FullPath);
 	}
 	//書類の変更の有無を設定
 	SetDocumentChange(false);
+	//書類の履歴一覧読み込み処理
+	LoadReportHist();
 	//終了メッセージ
 	nsLib::InfMsgBox(Handle,L"請求書番頭 フリー版のデータ取り込みが完了しました。");
 
@@ -9307,48 +9317,6 @@ void __fastcall TMainForm::HistListViewDeletion(TObject *Sender, TListItem *Item
 	Item->Data = nullptr;
 }
 //-------------------------------------------------------------
-// 機能     ：履歴クリック時
-//
-// 関数定義 ：void __fastcall HistListViewClick(TObject *Sender)
-//
-// ｱｸｾｽﾚﾍﾞﾙ ：__published
-//
-// 引数     ：TObject *Sender
-//
-// 戻り値   ：
-//
-//
-//
-// 改定者   ：
-//-------------------------------------------------------------
-void __fastcall TMainForm::HistListViewClick(TObject *Sender)
-{
-	// 関連データを得る
-	TListItem *pItem = HistListView->Selected;
-	// チェック
-	if(pItem == nullptr)
-	{
-		return;
-	}
-	//選択状態チェック
-	if(pItem->Data == nullptr)
-	{
-		return;
-	}
-	// 関連データ
-	THistory *pData = static_cast<THistory*>(pItem->Data);
-	//履歴IDを得る
-	String FileID = pData->getID();
-	// 書類を読む
-	if(OpenFile(FileID) == false)
-	{
-		nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]のオープンに失敗しました。",pData->getFilePath().c_str());
-		return;
-	}
-	//現在の履歴をセット
-	NowHistory = (*pData);
-}
-//-------------------------------------------------------------
 // 機能     ：履歴一覧カラムクリック時
 //
 // 関数定義 ：void __fastcall HistListViewColumnClick(TObject *Sender)
@@ -9612,18 +9580,64 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 //-------------------------------------------------------------
 void __fastcall TMainForm::HistListViewMouseDown(TObject *Sender, TMouseButton Button,TShiftState Shift, int X, int Y)
 {
-	// 右クリックか？
+	//右クリックか？
 	if(Button == mbRight)
 	{
 		// 対応するアイテム
 		TListItem *pItem = HistListView->GetItemAt(X, Y);
 		// アイテムがあるならポップアップ表示
-		if (pItem)
+		if(pItem != nullptr)
 		{
 			// 座標変換
 			TPoint SPos = HistListView->ClientToScreen(TPoint(X, Y));
 			// ポップアップ表示
 			HistPopupMenu->Popup(SPos.x, SPos.y);
+		}
+	}
+	//左クリックか？
+	else if(Button == mbLeft)
+	{
+		// 対応するアイテム
+		TListItem *pItem = HistListView->GetItemAt(X, Y);
+		//アイテムの存在チェック
+		if(pItem == nullptr)
+		{
+			return;
+		}
+
+		try
+		{
+			// 関連データを得る
+			TListItem *pItem = HistListView->Selected;
+			// チェック
+			if(pItem == nullptr)
+			{
+				return;
+			}
+			//選択状態チェック
+			if(pItem->Data == nullptr)
+			{
+				return;
+			}
+			// 関連データ
+			THistory *pData = static_cast<THistory*>(pItem->Data);
+			//履歴IDを得る
+			String FileID = pData->getID();
+			// 書類を読む
+			if(OpenFile(FileID) == false)
+			{
+				nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]のオープンに失敗しました。",pData->getFilePath().c_str());
+				return;
+			}
+			//現在の履歴をセット
+			NowHistory = (*pData);
+		}
+		catch(...)
+		{
+			//空の書類にする(日付は本日)
+			setVoidDocument();
+
+			return;
 		}
 	}
 }
@@ -9642,6 +9656,8 @@ void __fastcall TMainForm::HistListViewMouseDown(TObject *Sender, TMouseButton B
 //-------------------------------------------------------------
 void __fastcall TMainForm::DeleteHistMenuClick(TObject *Sender)
 {
+	//空の書類にする(日付は本日)
+	setVoidDocument();
 	// 選択アイテム
 	TListItem *pItem = HistListView->Selected;
 	// チェック
@@ -9656,7 +9672,7 @@ void __fastcall TMainForm::DeleteHistMenuClick(TObject *Sender)
 	//書類の履歴一覧読み込み処理
 	LoadReportHist();
 	//無選択状態にする
-    HistListView->Selected = nullptr;
+	HistListView->Selected = nullptr;
 }
 //-------------------------------------------------------------
 //時間表示タイマー
@@ -9745,4 +9761,6 @@ void TMainForm::setFormDeactiveColor()
 	isFormActive = false;
 }
 //---------------------------------------------------------------------------
+
+
 

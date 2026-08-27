@@ -508,6 +508,10 @@
             <DependentOn>SubSelectFrm.h</DependentOn>
             <BuildOrder>41</BuildOrder>
         </CppCompile>
+        <CppCompile Include="TActionMenuBarHelper.cpp">
+            <DependentOn>TActionMenuBarHelper.h</DependentOn>
+            <BuildOrder>62</BuildOrder>
+        </CppCompile>
         <CppCompile Include="THistories.cpp">
             <DependentOn>THistories.h</DependentOn>
             <BuildOrder>58</BuildOrder>
@@ -535,19 +539,19 @@
             <BuildOrder>36</BuildOrder>
         </CppCompile>
         <FormResources Include="MainFrm.dfm"/>
-        <FormResources Include="PropertyFrm.dfm"/>
         <FormResources Include="LicSetting.dfm"/>
-        <FormResources Include="LabelModifyFrm.dfm"/>
-        <FormResources Include="GridPropertyFrm.dfm"/>
+        <FormResources Include="PropertyFrm.dfm"/>
         <FormResources Include="LicenseFrm.dfm"/>
+        <FormResources Include="GridPropertyFrm.dfm"/>
+        <FormResources Include="FirstMesFrm.dfm"/>
+        <FormResources Include="LabelModifyFrm.dfm"/>
         <FormResources Include="SubSelectFrm.dfm"/>
         <FormResources Include="VersionInf.dfm"/>
         <FormResources Include="SettingFrm.dfm"/>
         <FormResources Include="SeikyuPrintFrm.dfm"/>
-        <FormResources Include="FirstMesFrm.dfm"/>
-        <FormResources Include="A4L_Frm.dfm"/>
         <FormResources Include="A3P_Frm.dfm"/>
         <FormResources Include="A3L_Frm.dfm"/>
+        <FormResources Include="A4L_Frm.dfm"/>
         <FormResources Include="CalendarFrm.dfm"/>
         <FormResources Include="B5P_Frm.dfm"/>
         <FormResources Include="CompanyInfoFrm.dfm"/>
