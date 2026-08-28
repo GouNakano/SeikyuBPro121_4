@@ -1792,7 +1792,7 @@ TControl *TMainForm::FindControlFromMainPanel(String Name)
 //-------------------------------------------------------------
 //  機能     ：書類部品情報からコンポーネントを配置
 //
-//  関数定義 ：bool SetComponentFromDocCompo(typDocCompo *pDoc)
+//  関数定義 ：bool SetComponentFromDocCompo(typDocCompo& pDoc)
 //
 //  ｱｸｾｽﾚﾍﾞﾙ ：
 //
@@ -1804,13 +1804,7 @@ TControl *TMainForm::FindControlFromMainPanel(String Name)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-bool TMainForm::SetComponentFromDocCompo(typDocCompo& doc)
-{
-	bool res = SetComponentFromDocCompo(&doc);
-
-	return res;
-}
-bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
+bool TMainForm::SetComponentFromDocCompo(typDocCompo& pDoc)
 {
 	String         ValStr;
 	TWinLabel     *pWinLabel;
@@ -1819,22 +1813,22 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
 	TImageControl *pImage;
 
 	//名前からコントロールを得る
-	TControl *pCtrl = FindControlFromMainPanel(pDoc->Name);
+	TControl *pCtrl = FindControlFromMainPanel(pDoc.Name);
 	//コンポーネントの型を得る
 	dcDocComponent Type = GetComponentType(pCtrl);
 	//コンポーネント名から標準コンポーネント情報を得る
 	typStdComponentDef pStdCompo;
-	bool std_vaild = typDocKindDefs::GetStdComponentDefFromName(pDoc->Name,pStdCompo,Document.DocKind);
+	bool std_vaild = typDocKindDefs::GetStdComponentDefFromName(pDoc.Name,pStdCompo,Document.DocKind);
 
 	//コンポーネントの作成・書類部品の型設定
-	if(Type == dcUnknown && pDoc->Type == dcUnknown && std_vaild == false)
+	if(Type == dcUnknown && pDoc.Type == dcUnknown && std_vaild == false)
 	{
 		//作成不可
 		return false;
 	}
-	else if(pDoc->Type == dcUnknown && Type != dcUnknown)
+	else if(pDoc.Type == dcUnknown && Type != dcUnknown)
 	{
-		pDoc->Type = Type;
+		pDoc.Type = Type;
 	}
 	else if(std_vaild == true && (Type == dcUnknown || Type != pStdCompo.Type))
 	{
@@ -1846,10 +1840,10 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
 			//コンポーネント削除
 			delete pCtrl;
 			//部品の種類ごとに作成
-			pCtrl = CreateControl(pDoc->Name,pStdCompo.Type);
+			pCtrl = CreateControl(pDoc.Name,pStdCompo.Type);
 		}
 	}
-	else if(pDoc->Type != Type)
+	else if(pDoc.Type != Type)
 	{
 		bool IsBorderEdit    = (Type == dcEdit            || Type == dcDayEdit            || Type == dcMoneyEdit);
 		bool IsStdBorderEdit = (pStdCompo.Type == dcEdit  || pStdCompo.Type == dcDayEdit  || pStdCompo.Type == dcMoneyEdit);
@@ -1859,7 +1853,7 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
 			//コンポーネント削除
 			delete pCtrl;
 			//部品の種類ごとに作成
-			pCtrl = CreateControl(pDoc->Name,pStdCompo.Type);
+			pCtrl = CreateControl(pDoc.Name,pStdCompo.Type);
 		}
 	}
 	//ヒントの設定
@@ -1872,15 +1866,15 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
 	if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl)) != 0)
 	{
 		//設定
-		pWinLabel->Left          = GetPanelPixelFromPaperPosX(pDoc->X);
-		pWinLabel->Top           = GetPanelPixelFromPaperPosY(pDoc->Y);
-		pWinLabel->Width         = GetPanelPixelFromPaperPosX(pDoc->X + pDoc->Width) - pWinLabel->Left + 1;
-		pWinLabel->Height        = GetPanelPixelFromPaperPosY(pDoc->Y + pDoc->Height) - pWinLabel->Top + 1;
-		DocFontInfToTFont(pDoc->Font,pWinLabel->Font,true);
-		pWinLabel->Alignment     = pDoc->Alignment;
-		pWinLabel->BorderDraw    = pDoc->Border;
-		pWinLabel->Caption       = pDoc->Caption;
-		pWinLabel->Visible       = pDoc->Visible;
+		pWinLabel->Left          = GetPanelPixelFromPaperPosX(pDoc.X);
+		pWinLabel->Top           = GetPanelPixelFromPaperPosY(pDoc.Y);
+		pWinLabel->Width         = GetPanelPixelFromPaperPosX(pDoc.X + pDoc.Width) - pWinLabel->Left + 1;
+		pWinLabel->Height        = GetPanelPixelFromPaperPosY(pDoc.Y + pDoc.Height) - pWinLabel->Top + 1;
+		DocFontInfToTFont(pDoc.Font,pWinLabel->Font,true);
+		pWinLabel->Alignment     = pDoc.Alignment;
+		pWinLabel->BorderDraw    = pDoc.Border;
+		pWinLabel->Caption       = pDoc.Caption;
+		pWinLabel->Visible       = pDoc.Visible;
 		pWinLabel->NoCaptionDraw = true;
 		if(std_vaild == true)
 		{
@@ -1891,20 +1885,20 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
 	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl)) != 0)
 	{
 		//設定
-		pBorderEdit->Left          = GetPanelPixelFromPaperPosX(pDoc->X);
-		pBorderEdit->Top           = GetPanelPixelFromPaperPosY(pDoc->Y);
-		pBorderEdit->Width         = GetPanelPixelFromPaperPosX(pDoc->X + pDoc->Width ) - pBorderEdit->Left + 1;
-		pBorderEdit->Height        = GetPanelPixelFromPaperPosY(pDoc->Y + pDoc->Height) - pBorderEdit->Top + 1;
-		DocFontInfToTFont(pDoc->Font,pBorderEdit->Font,true);
-		pBorderEdit->Alignment     = pDoc->Alignment;
-		pBorderEdit->BorderDraw    = (pDoc->Border == true);
-		pBorderEdit->Visible       = pDoc->Visible;
+		pBorderEdit->Left          = GetPanelPixelFromPaperPosX(pDoc.X);
+		pBorderEdit->Top           = GetPanelPixelFromPaperPosY(pDoc.Y);
+		pBorderEdit->Width         = GetPanelPixelFromPaperPosX(pDoc.X + pDoc.Width ) - pBorderEdit->Left + 1;
+		pBorderEdit->Height        = GetPanelPixelFromPaperPosY(pDoc.Y + pDoc.Height) - pBorderEdit->Top + 1;
+		DocFontInfToTFont(pDoc.Font,pBorderEdit->Font,true);
+		pBorderEdit->Alignment     = pDoc.Alignment;
+		pBorderEdit->BorderDraw    = (pDoc.Border == true);
+		pBorderEdit->Visible       = pDoc.Visible;
 		pBorderEdit->NoCaptionDraw = true;
 		//金額入力関連設定
-		if(pDoc->Type == dcMoneyEdit)
+		if(pDoc.Type == dcMoneyEdit)
 		{
-			pBorderEdit->ColSeparateNum  = pDoc->Figures;
-			pBorderEdit->ColSeparateDraw = pDoc->FigureLine;
+			pBorderEdit->ColSeparateNum  = pDoc.Figures;
+			pBorderEdit->ColSeparateDraw = pDoc.FigureLine;
 		}
 		if(std_vaild == true)
 		{
@@ -1914,56 +1908,56 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
 	else if((pShape = dynamic_cast<TWinShape *>(pCtrl)) != 0)
 	{
 		//設定
-		pShape->Left       = GetPanelPixelFromPaperPosX(pDoc->X);
-		pShape->Top        = GetPanelPixelFromPaperPosY(pDoc->Y);
+		pShape->Left       = GetPanelPixelFromPaperPosX(pDoc.X);
+		pShape->Top        = GetPanelPixelFromPaperPosY(pDoc.Y);
 		//縦線か横線か決定
-		if(pDoc->Type == dcUnknown)
+		if(pDoc.Type == dcUnknown)
 		{
-			if(pDoc->Width <= pDoc->Height / 20.0)
+			if(pDoc.Width <= pDoc.Height / 20.0)
 			{
-				pDoc->Type = dcVLine;
+				pDoc.Type = dcVLine;
 			}
-			else if(pDoc->Height <= pDoc->Width / 20.0)
+			else if(pDoc.Height <= pDoc.Width / 20.0)
 			{
-				pDoc->Type = dcCLine;
+				pDoc.Type = dcCLine;
 			}
 		}
 		//幅の設定
-		if(pDoc->Type == dcCLine)
+		if(pDoc.Type == dcCLine)
 		{
-			int W = GetPanelPixelFromPaperPosX(pDoc->Width);
+			int W = GetPanelPixelFromPaperPosX(pDoc.Width);
 			pShape->Width      = (W < 2)?2:W;
 			pShape->Height     = 1;
 		}
-		else if(pDoc->Type == dcVLine)
+		else if(pDoc.Type == dcVLine)
 		{
 			pShape->Width      = 2;
-			int H = GetPanelPixelFromPaperPosY(pDoc->Height);
+			int H = GetPanelPixelFromPaperPosY(pDoc.Height);
 			pShape->Height     = (H < 2)?2:H;
 		}
 		else
 		{
-			int W = GetPanelPixelFromPaperPosX(pDoc->Width);
+			int W = GetPanelPixelFromPaperPosX(pDoc.Width);
 			pShape->Width      = (W < 2)?2:W;
-			int H = GetPanelPixelFromPaperPosY(pDoc->Height);
+			int H = GetPanelPixelFromPaperPosY(pDoc.Height);
 			pShape->Height     = (H < 2)?2:H;
 		}
 
-		pShape->Visible    = pDoc->Visible;
+		pShape->Visible    = pDoc.Visible;
 	}
 	//イメージかチェックする
 	else if((pImage = dynamic_cast<TImageControl *>(pCtrl)) != 0)
 	{
 		bool IsDrawImage = true;
 		//設定
-		pImage->Left       = GetPanelPixelFromPaperPosX(pDoc->X);
-		pImage->Top        = GetPanelPixelFromPaperPosY(pDoc->Y);
-		pImage->Width      = GetPanelPixelFromPaperPosX(pDoc->X + pDoc->Width ) - pImage->Left + 1;
-		pImage->Height     = GetPanelPixelFromPaperPosY(pDoc->Y + pDoc->Height) - pImage->Top + 1;
+		pImage->Left       = GetPanelPixelFromPaperPosX(pDoc.X);
+		pImage->Top        = GetPanelPixelFromPaperPosY(pDoc.Y);
+		pImage->Width      = GetPanelPixelFromPaperPosX(pDoc.X + pDoc.Width ) - pImage->Left + 1;
+		pImage->Height     = GetPanelPixelFromPaperPosY(pDoc.Y + pDoc.Height) - pImage->Top + 1;
 		pImage->Center     = true;
 		pImage->Zoom       = ZoomDef[Document.Zoom].Zoom;
 
-		if(pDoc->Border == true)
+		if(pDoc.Border == true)
 		{
 			pImage->Pen->Color = clBlack;
 			pImage->Pen->Style = psSolid;
@@ -1975,7 +1969,7 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
 			pImage->Pen->Style = psDot;
 			pImage->BorderDraw = true;
 		}
-		pImage->Visible    = pDoc->Visible;
+		pImage->Visible    = pDoc.Visible;
 	}
 
 	return true;

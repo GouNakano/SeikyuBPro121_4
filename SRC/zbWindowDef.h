@@ -3,7 +3,7 @@
 #define zbWindowDefH
 #include "BitBtn2.h"
 #include "SpeedButton2.h"
-//#include "SeikyuBConst.h"
+#include "SeikyuBConst.h"
 //---------------------------------------------------------------------------
 class zbWindowDef
 {

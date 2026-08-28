@@ -2,6 +2,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "zbWindowDef.h"
 #include "MainFrm.h"
 #include "PropertyFrm.h"
 //---------------------------------------------------------------------------
@@ -14,6 +15,14 @@ TPropertyForm *PropertyForm;
 __fastcall TPropertyForm::TPropertyForm(TComponent* Owner)
 	: TForm(Owner)
 {
+}
+//---------------------------------------------------------------------------
+//フォーム作成時
+//---------------------------------------------------------------------------
+void __fastcall TPropertyForm::FormCreate(TObject *Sender)
+{
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
 }
 //-------------------------------------------------------------
 //  機能     ：フォーム表示時
@@ -63,8 +72,9 @@ void __fastcall TPropertyForm::FormatBtnClick(TObject *Sender)
 	pDoc->Width  = _wtold(WidthEdit ->Text.c_str());
 	pDoc->Height = _wtold(HeightEdit->Text.c_str());
 	//書類部品情報からコンポーネントを配置
-	MainForm->SetComponentFromDocCompo(pDoc);
+	MainForm->SetComponentFromDocCompo(*pDoc);
 	//閉じる
 	Close();
 }
 //---------------------------------------------------------------------------
+

@@ -12,6 +12,7 @@
 #include <ExtCtrls.hpp>
 #include "TBaseEdit.h"
 #include "BitBtn2.h"
+#include <Vcl.TitleBarCtrls.hpp>
 //---------------------------------------------------------------------------
 class TPropertyForm : public TForm
 {
@@ -35,8 +36,10 @@ __published:	// IDE 管理のコンポーネント
 	TLabel *Label8;
 	TBaseEdit *HeightEdit;
 	TLabel *Label9;
+	TTitleBarPanel *TitleBarPanel;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall FormatBtnClick(TObject *Sender);
+	void __fastcall FormCreate(TObject *Sender);
 private:
 public:
 	__fastcall TPropertyForm(TComponent* Owner);

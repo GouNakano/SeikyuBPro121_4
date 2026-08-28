@@ -522,7 +522,6 @@ private:
 public:
 	//書類部品情報からコンポーネントを配置
 	bool SetComponentFromDocCompo(typDocCompo& doc);
-	bool SetComponentFromDocCompo(typDocCompo *pDoc);
 	//書類部品情報からグリッドを配置
 	bool SetGridFromDocCompo();
 	//MainPanelから指定Nameのコントロールを得る

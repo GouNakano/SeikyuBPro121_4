@@ -2,21 +2,40 @@ object ComponentsForm: TComponentsForm
   Left = 402
   Top = 171
   Caption = #37096#21697#19968#35239#34920
-  ClientHeight = 440
+  ClientHeight = 471
   ClientWidth = 739
   Color = clWhite
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poMainFormCenter
+  StyleElements = [seFont, seClient]
   StyleName = 'Windows'
+  OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 12
   object Panel1: TPanel
     Left = 0
-    Top = 404
+    Top = 435
     Width = 739
     Height = 36
     Align = alBottom
@@ -31,7 +50,7 @@ object ComponentsForm: TComponentsForm
       Align = alRight
       TabOrder = 0
       object CloseBtn: TBitBtn2
-        Left = 168
+        Left = 163
         Top = 4
         Width = 75
         Height = 25
@@ -44,7 +63,7 @@ object ComponentsForm: TComponentsForm
         DownColor = clBtnFace
       end
       object FormatBtn: TBitBtn2
-        Left = 44
+        Left = 39
         Top = 4
         Width = 118
         Height = 25
@@ -59,11 +78,11 @@ object ComponentsForm: TComponentsForm
       end
     end
   end
-  object ListView: TListView
+  object ListView: TListView2
     Left = 0
-    Top = 0
+    Top = 30
     Width = 739
-    Height = 404
+    Height = 405
     Align = alClient
     Columns = <
       item
@@ -99,5 +118,17 @@ object ComponentsForm: TComponentsForm
     TabOrder = 1
     ViewStyle = vsReport
     OnDeletion = ListViewDeletion
+    HeaderColor = clBtnFace
+  end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 739
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
   end
 end

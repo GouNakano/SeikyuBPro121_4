@@ -2,17 +2,27 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "zbWindowDef.h"
 #include "PropertyFrm.h"
 #include "ComponentsFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "BitBtn2"
+#pragma link "TListView2"
 #pragma resource "*.dfm"
 TComponentsForm *ComponentsForm;
 //---------------------------------------------------------------------------
 __fastcall TComponentsForm::TComponentsForm(TComponent* Owner)
 	: TForm(Owner)
 {
+}
+//---------------------------------------------------------------------------
+//フォーム作成時
+//---------------------------------------------------------------------------
+void __fastcall TComponentsForm::FormCreate(TObject *Sender)
+{
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
 }
 //-------------------------------------------------------------
 //  機能     ：フォーム表示時
@@ -35,26 +45,21 @@ void __fastcall TComponentsForm::FormShow(TObject *Sender)
 	//ListViewの消去
 	ListView->Clear();
 	//部品一覧表の作成
-//	for(int Cnt = 0;Cnt < Document.DocCompo.GetCount();Cnt++)
 	for(int Cnt = 0;Cnt < Document.GetCompoSize();Cnt++)
 	{
 		//対象部品
 		typDocCompo& pDoc = Document.GetCompoFromIndex(Cnt);
-//		typDocCompo *pDoc = Document.DocCompo.GetItem(Cnt);
 		//用紙が一致するかチェック
-//		if(pDoc->Paper != Document.Paper)
 		if(pDoc.Paper != Document.Paper)
 		{
 			continue;
 		}
 		//グリッドの部品(D_で始まる)は除外
-//		if(pDoc->Name.SubString(1,2) == "D_")
 		if(pDoc.Name.SubString(1,2) == L"D_")
 		{
 			continue;
 		}
 		//名称が無いものは除外
-//		if(pDoc->Name == L"")
 		if(pDoc.Name == L"")
 		{
 			continue;
@@ -63,9 +68,7 @@ void __fastcall TComponentsForm::FormShow(TObject *Sender)
 		TListItem *pItem = ListView->Items->Add();
 		//名称
 		pItem->Caption = pDoc.Name;
-//		pItem->Caption = pDoc->Name;
 		//表示
-//		if(pDoc->Visible == true)
 		if(pDoc.Visible == true)
 		{
 			pItem->SubItems->Add("する");
@@ -75,7 +78,6 @@ void __fastcall TComponentsForm::FormShow(TObject *Sender)
 			pItem->SubItems->Add("しない");
 		}
 		//印刷
-//		if(pDoc->IsPrint == true)
 		if(pDoc.IsPrint == true)
 		{
 			pItem->SubItems->Add("する");
@@ -86,23 +88,18 @@ void __fastcall TComponentsForm::FormShow(TObject *Sender)
 		}
 		//水平位置
 		Str.sprintf(L"%.2Lf",pDoc.X);
-//		Str.sprintf(L"%.2Lf",pDoc->X);
 		pItem->SubItems->Add(Str);
 		//垂直位置
 		Str.sprintf(L"%.2Lf",pDoc.Y);
-//		Str.sprintf(L"%.2Lf",pDoc->Y);
 		pItem->SubItems->Add(Str);
 		//幅
 		Str.sprintf(L"%.2Lf",pDoc.Width);
-//		Str.sprintf(L"%.2Lf",pDoc->Width);
 		pItem->SubItems->Add(Str);
 		//高さ
 		Str.sprintf(L"%.2Lf",pDoc.Height);
-//		Str.sprintf(L"%.2Lf",pDoc->Height);
 		pItem->SubItems->Add(Str);
 		//内容
 		pItem->SubItems->Add(pDoc.Caption);
-//		pItem->SubItems->Add(pDoc->Caption);
 		//関連データ
 		pItem->Data = new typDocCompo(pDoc);
 	}
