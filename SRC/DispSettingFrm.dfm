@@ -4,39 +4,60 @@ object DispSettingForm: TDispSettingForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = #26360#39006#37096#21697#34920#31034#35373#23450
-  ClientHeight = 558
-  ClientWidth = 416
+  ClientHeight = 628
+  ClientWidth = 478
   Color = clBtnFace
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poScreenCenter
+  StyleElements = [seFont, seClient]
   StyleName = 'Windows'
+  OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 12
   object Panel1: TPanel
     Left = 0
-    Top = 521
-    Width = 416
-    Height = 37
+    Top = 586
+    Width = 478
+    Height = 42
     Align = alBottom
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
     object Panel2: TPanel
-      Left = 153
+      Left = 215
       Top = 0
       Width = 263
-      Height = 37
+      Height = 42
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
+      ExplicitLeft = 153
+      ExplicitHeight = 37
       object OkBtn: TButton
-        Left = 56
-        Top = 5
+        Left = 53
+        Top = 8
         Width = 100
         Height = 30
         Caption = 'OK'
@@ -45,8 +66,8 @@ object DispSettingForm: TDispSettingForm
         OnClick = OkBtnClick
       end
       object CancelBtn: TButton
-        Left = 160
-        Top = 5
+        Left = 157
+        Top = 8
         Width = 100
         Height = 30
         Cancel = True
@@ -58,16 +79,19 @@ object DispSettingForm: TDispSettingForm
   end
   object Panel3: TPanel
     Left = 0
-    Top = 0
-    Width = 416
-    Height = 521
+    Top = 30
+    Width = 478
+    Height = 556
     Align = alClient
     TabOrder = 1
+    ExplicitTop = 0
+    ExplicitWidth = 416
+    ExplicitHeight = 521
     object ObjectListView: TListView2
       Left = 1
       Top = 1
-      Width = 414
-      Height = 519
+      Width = 476
+      Height = 554
       Align = alClient
       BevelInner = bvNone
       BevelOuter = bvNone
@@ -89,6 +113,23 @@ object DispSettingForm: TDispSettingForm
       ViewStyle = vsReport
       OnDeletion = ObjectListViewDeletion
       HeaderColor = clBtnFace
+      ExplicitLeft = 33
+      ExplicitTop = 25
+      ExplicitWidth = 414
+      ExplicitHeight = 519
     end
+  end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 478
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
+    ExplicitWidth = 416
+    ExplicitHeight = 31
   end
 end

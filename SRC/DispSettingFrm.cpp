@@ -3,6 +3,7 @@
 #pragma hdrstop
 
 #include "SeikyuBDef.h"
+#include "zbWindowDef.h"
 #include "DispSettingFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -15,6 +16,14 @@ __fastcall TDispSettingForm::TDispSettingForm(TComponent* Owner)
 {
 }
 
+//---------------------------------------------------------------------------
+//フォーム作成時
+//---------------------------------------------------------------------------
+void __fastcall TDispSettingForm::FormCreate(TObject *Sender)
+{
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
+}
 //-------------------------------------------------------------
 //  機能     ：フォーム表示時
 //
@@ -138,7 +147,12 @@ void __fastcall TDispSettingForm::OkBtnClick(TObject *Sender)
 		//関連情報取得
 		pDoc = static_cast<typDocCompo *>(pItem->Data);
 		//表示設定
-        pDoc->Visible = pItem->Checked;
+		if(pDoc->Visible != pItem->Checked)
+		{
+			//書類情報更新
+			pDoc->Visible = pItem->Checked;
+			Document.SetDocCompoFromName(pDoc->Name,*pDoc);
+		}
 	}
 	//閉じる
 	ModalResult = mrOk;

@@ -27,13 +27,6 @@ typDocument Document;
 //
 //=============================================================
 
-//---------------------------------------------------------------------------
-//履歴IDのリセット
-//---------------------------------------------------------------------------
-bool typDocument::resetHistID()
-{
-
-}
 //-------------------------------------------------------------
 //  機能     ：書類部品リストの要素数
 //
@@ -131,8 +124,6 @@ void typDocument::ClearData()
 bool typDocument::GetDocCompoFromName(const String& Name,typDocCompo& doc_compo)
 {
 	typDocCompo  Key;
-	int          Idx;
-	typDocCompo *pRes = nullptr;
 	//最初のセルの情報
 	Key.Paper    = Document.Paper;
 	Key.DocKind  = Document.DocKind;
@@ -168,8 +159,6 @@ bool typDocument::GetDocCompoFromName(const String& Name,typDocCompo& doc_compo)
 bool typDocument::SetDocCompoFromName(String Name,const typDocCompo& doc_compo)
 {
 	typDocCompo  Key;
-	int          Idx;
-	typDocCompo *pRes = nullptr;
 	//最初のセルの情報
 	Key.Paper    = Paper;
 	Key.DocKind  = DocKind;

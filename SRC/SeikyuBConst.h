@@ -131,6 +131,19 @@ enum scStdComponent
 	scCustomerFAXEdit
 };
 
+//ﾕｰｻﾞが選択した処置の種類
+enum mbsel{
+	mbselYES,     //YESを選択
+	mbselNO,      //NOを選択
+	mbselCancel   //ｷｬﾝｾﾙを選択
+};
+//ダイアログのモード
+enum msgMode
+{
+	mmOk,          //OKボタンのみ
+	mmYesNo,       //YesNoﾀﾞｲｱﾛｸﾞ
+	mmYesNoCancel  //YesNoｷｬﾝｾﾙﾀﾞｲｱﾛｸﾞ
+};
 
 //用紙定義構造体
 class typPaperDef
@@ -281,8 +294,8 @@ struct typStdComponentDef
 class typReopen
 {
 public:
-	bool    IsURL = false;  //URLか？ (false:ファイルパス)
-	String  PathURL;        //URL or パス
+	String  sdoPath;  //ファイル(.sdo)パス
+	String  histID;   //履歴ID
 public:
 	//コンストラクタ
 	typReopen() = default;
@@ -293,8 +306,6 @@ public:
 public:
 	//代入
 	typReopen& operator = (const typReopen& him) = default;
-	//移譲代入
-	typReopen& operator = (typReopen&& him) = default;
 };
 
 //標準コンポーネント
@@ -509,6 +520,42 @@ public:
 		}
 		return res;
 	}
+	//コンポーネント名と書類種類に対応するコンポーネントVisible情報を更新
+//	static bool updateStdComponentDefFromName(const String& StdComponentName,const typProcMode docMode,bool visible)
+//	{
+//		bool res = false;
+//
+//		for(int Cnt = 0;Cnt < STD_COMPONENT_NUM;Cnt++)
+//		{
+//			//名前一致チェック
+//			if(StdComponentName == StdComponents[Cnt].Name)
+//			{
+//				//見つかった
+//				comp = StdComponents[Cnt];
+//				res  = true;
+//				break;
+//			}
+//		}
+//		//見つかったか
+//		if(res == false)
+//		{
+//			return res;
+//		}
+//		//現在の対象書類
+//		const typDocKindDef& docKind = DocKindDef[docMode];
+//		//書類種別ラベルへの特別処理
+//		if(comp.Number == scBillLabel)
+//		{
+//			switch(docKind.Number)
+//			{
+//				case pmSeikyu   :comp.Value = L"請 求 書";break;
+//				case pmNouhin   :comp.Value = L"納 品 書";break;
+//				case pmMitsumori:comp.Value = L"見 積 書";break;
+//				default         :comp.Value = L"請 求 書";
+//			}
+//		}
+//		return res;
+//	}
 };
 
 //請求書番頭設定格納
@@ -555,18 +602,6 @@ struct typCompanyInfoDef
 extern typCompanyInfoDef CompanyInfo[COMPANY_INFO_NUM];
 
 
-//ベースエディット関連
-constexpr const wchar_t *STD_BASEEDIT_FONTNAME            = L"ＭＳ Ｐゴシック";    //ベースエディットのフォント名
-constexpr int          STD_BASEEDIT_FONTSIZE              = 10;                    //ベースエディットのフォントサイズ
-constexpr int          STD_BASEEDIT_HEIGHT                = 21;                    //ベースエディットの高さ
-constexpr TColor       STD_BASEEDIT_FONT_COLOR            = clBlack;               //ベースエディットのフォント色
-constexpr TColor       STD_BASEEDIT_ENTER_COLOR           = (TColor)0x00AAFFFF;    //ベースエディットのフォーカス取得時の色
-constexpr TColor       STD_BASEEDIT_EXIT_COLOR            = clWhite;               //ベースエディットのフォーカス無し時の色(正常)
-constexpr TColor       STD_BASEEDIT_READONLY_COLOR        = (TColor)0x00EBEBEB;    //ベースエディットのReadOnly時の色
-constexpr TColor       STD_BASEEDIT_BORDER_COLOR          = clGray;                //ベースエディットの境界色
-constexpr TAlignment   STD_BASEEDIT_ALIGNMENT             = taLeftJustify;         //テキスト編集コントロール内のテキストの配置方法を決定します。
-constexpr TTextLayout  STD_BASEEDIT_LAYOUT                = tlCenter;              //テキストの縦方向の配置を指定します。
-constexpr TBorderStyle STD_BASEEDIT_BORDERSTYLE           = bsNone;                //編集コントロールがクライアント領域の周囲に単一線の境界を持つかどうかを決定します。
 
 
 //レジストリ関連定数
@@ -601,7 +636,6 @@ constexpr const wchar_t  *C_PAPER_SIZE_KIND             = L"PAPER_SIZE_KIND";   
 constexpr const wchar_t  *C_PAPER_DISPLAY_ZOOM          = L"PAPER_DISPLAY_ZOOM";        //ズーム定義
 constexpr const int   DEFAULT_CONSUMPTION_TAX_RATIO     = 5;                            //デフォルトの消費税率
 constexpr const wchar_t  *V_REPORT_TYPE                 = L"REPORT_TYPE";               //現在の書類の種類(請求書、納品書)
-constexpr const wchar_t  *V_RECENT_REPORT               = L"RECENT_REPORT";             //前回の書類
 constexpr const wchar_t  *V_WINDOW_TOP                  = L"WINDOW_TOP";                //ウィンドウ座標(X)
 constexpr const wchar_t  *V_WINDOW_LEFT                 = L"WINDOW_LEFT";               //ウィンドウ座標(Y)
 constexpr const wchar_t  *V_WINDOW_WIDTH                = L"WINDOW_WIDTH";              //ウィンドウ幅
@@ -660,8 +694,8 @@ constexpr const wchar_t  *INI_HISTORY_SECTION           = L"HISTRY";            
 //ファイル再開処理
 constexpr const wchar_t  *INI_DEF_REOPEN   = L"REOPEN";      //再開処理
 constexpr const wchar_t  *INI_ROP_ISREOPEN = L"REOPEN";      //再開処理を有効にするか
-constexpr const wchar_t  *INI_ROP_OPENNUM  = L"FILENUM";     //再開処理対象数
-constexpr const wchar_t  *INI_ROP_PATHURL  = L"PURL_%02d";   //再開処理対象ファイルパス又はURL
+constexpr const wchar_t  *INI_ROP_SDOPATH  = L"SDO_FILE";    //再開処理対象ファイルパス
+constexpr const wchar_t  *INI_ROP_HISTID   = L"HISTID";      //再開処理対象ファイルパス
 
 //共通設定
 constexpr const wchar_t  *INI_SETTING_SECTION           = L"SETTING";                  //設定のセクション
@@ -687,5 +721,87 @@ constexpr const wchar_t  *INI_STAMP1_FILE               = L"%sSTAMP1_FILE_%02d.b
 constexpr const wchar_t  *INI_STAMP2_FILE               = L"%sSTAMP2_FILE_%02d.bmp";   //印影２のファイル名
 constexpr const wchar_t  *INI_LOGO_FILE                 = L"%sLOGO_FILE_%02d.bmp";     //ロゴのファイル名
 constexpr const wchar_t  *INI_TEMP_FILE_LIST            = L"%sTEMP_FILE_LIST.tmp";     //一時作成のファイルのリストファイル
+
+//標準タイトルバー関連
+constexpr const wchar_t *ZB_TITLEBAR_FONTNAME                   = L"メイリオ";           //フォント名
+constexpr const wchar_t *STD_TITLEBAR_NAME                      = L"TitleBarPanel";      //タイトルバーの名前
+constexpr const int      STD_TITLEBAR_HEIGHT                    = 35;                    //タイトルバーの高さ
+constexpr const TColor   STD_TITLEBAR_BACKGROUNDCOLOR           = (TColor)0x00A56110;    //タイトルバー背景色
+constexpr const TColor   STD_TITLEBAR_FOREGROUNDCOLOR           = clWhite;               //タイトルバー前景色
+constexpr const TColor   STD_TITLEBAR_INACTIVE_BACKGROUNDCOLOR  = (TColor)0x00B58242;    //タイトルバー非アクティブ背景色
+constexpr const TColor   STD_TITLEBAR_INACTIVE_FOREGROUNDCOLOR  = (TColor)0x00D6BA94;    //タイトルバー非アクティブ前景色
+constexpr const TColor   STD_TITLEBAR_BLUE_FONTCOLOR            = (TColor)0x0072460C;    //タイトルバーに合わせたボタンのフォントの色
+//青系ボタン関連
+constexpr const wchar_t *STD_BLUE_BUTTON_FONTNAME               = L"メイリオ";           //青系ボタンのフォント名
+constexpr const TColor   STD_BLUE_BUTTON_FONT_COLOR             = (TColor)0x00331A00;    //青系ボタンのフォント色
+constexpr const TColor   STD_BLUE_BUTTON_COLOR                  = clWhite;               //青系ボタンの色
+constexpr const TColor   STD_BLUE_BUTTON_MOUSE_ENTER_COLOR      = (TColor)0x00F9DFBF;    //青系ボタンマウスポインタがボタンの上にある時の色
+constexpr const TColor   STD_BLUE_BUTTON_MOUSE_DOWN_COLOR       = (TColor)0x00F1B872;    //青系ボタンマウスダウン時の色
+constexpr const TColor   STD_BLUE_BUTTON_BORDER_COLOR           = clGray;                //青系ボタン境界色
+constexpr const TColor   STD_BLUE_BUTTON_DISABLE_FONT_COLOR     = clGray;                //青系ボタン使用不可時のフォントの色
+//赤系ボタン関連
+constexpr const wchar_t *STD_RED_BUTTON_FONTNAME               = L"メイリオ";            //赤系ボタンのフォント名
+constexpr const TColor   STD_RED_BUTTON_FONT_COLOR             = (TColor)0x00000033;     //赤系ボタンのフォント色
+constexpr const TColor   STD_RED_BUTTON_COLOR                  = clWhite;                //赤系ボタンの色
+constexpr const TColor   STD_RED_BUTTON_MOUSE_ENTER_COLOR      = (TColor)0x00E3E3FF;     //赤系ボタンマウスポインタがボタンの上にある時の色
+constexpr const TColor   STD_RED_BUTTON_MOUSE_DOWN_COLOR       = (TColor)0x00B5B5FF;     //赤系ボタンマウスダウン時の色
+constexpr const TColor   STD_RED_BUTTON_BORDER_COLOR           = clGray;                 //赤系ボタン境界色
+constexpr const TColor   STD_RED_BUTTON_DISABLE_FONT_COLOR     = clGray;                 //赤系ボタン使用不可時のフォントの色
+//緑系ボタン関連
+constexpr const wchar_t *STD_GREEN_BUTTON_FONTNAME             = L"メイリオ";            //緑系ボタンのフォント名
+constexpr const TColor   STD_GREEN_BUTTON_FONT_COLOR           = (TColor)0x00003300;     //緑系ボタンのフォント色
+constexpr const TColor   STD_GREEN_BUTTON_COLOR                = clWhite;                //緑系ボタンの色
+constexpr const TColor   STD_GREEN_BUTTON_MOUSE_ENTER_COLOR    = (TColor)0x00CFFFBF;     //緑系ボタンマウスポインタがボタンの上にある時の色
+constexpr const TColor   STD_GREEN_BUTTON_MOUSE_DOWN_COLOR     = (TColor)0x0082FF57;     //緑系ボタンマウスダウン時の色
+constexpr const TColor   STD_GREEN_BUTTON_BORDER_COLOR         = clGray;                 //緑系ボタン境界色
+constexpr const TColor   STD_GREEN_BUTTON_DISABLE_FONT_COLOR   = clGray;                 //緑系ボタン使用不可時のフォントの色
+//スピードボタン関連
+constexpr const wchar_t *STD_BLUE_SPEEDBUTTON_FONTNAME          = L"メイリオ";           //青系スピードボタンのフォント名
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_FONT_COLOR        = (TColor)0x00301E05;    //青系スピードボタンのフォント色
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_COLOR             = clWhite;               //青系スピードボタンの色
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_DOWN_COLOR        = (TColor)0x00F7E7C6;    //青系スピードボタンマウスポインタがボタンの上にある時の色
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_MOUSE_ENTER_COLOR = (TColor)0x00F7E7C6;    //青系スピードボタンマウスポインタがボタンの上にある時の色
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_MOUSE_DOWN_COLOR  = (TColor)0x00F1B872;    //青系スピードボタンマウスダウン時の色
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_DISABLE_FONT_COLOR= clGray;                //青系スピードボタン使用不可時のフォントの色
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_BORDER_COLOR      = clSilver;              //青系スピードボタン境界色
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_DOWN_BORDER_COLOR = (TColor)0x008C6129;    //青系スピードボタンダウン時境界色
+constexpr const TColor   STD_BLUE_SPEEDBUTTON_DOWN_FONT_COLOR   = clBlue;                //青系ボタンダウン時のフォントの色
+//日付入力エディット関連
+constexpr const wchar_t *STD_DATEEDIT_FONTNAME                  = L"ＭＳ Ｐゴシック";    //日付入力エディットのフォント名
+constexpr const int      STD_DATEEDIT_FONTSIZE                  = 10;                    //日付入力エディットのフォントサイズ
+constexpr const int      STD_DATEEDIT_HEIGHT                    = 22;                    //日付入力エディットの高さ
+constexpr const TColor   STD_DATEEDIT_COLOR                     = clWhite;               //日付入力エディットの背景色
+constexpr const TColor   STD_DATEEDIT_FONT_COLOR                = clBlack;               //日付入力エディットのフォント色
+constexpr const TColor   STD_DATEEDIT_ENTER_COLOR               = (TColor)0x00AAFFFF;    //日付入力エディットのフォーカス取得時の色
+constexpr const TColor   STD_DATEEDIT_EXIT_COLOR                = clWhite;               //日付入力エディットのフォーカス無し時の色(正常)
+constexpr const TColor   STD_DATEEDIT_ERROR_COLOR               = (TColor)0x00D5D5FF;    //日付入力エディットのフォーカス無し時の色(エラー)
+constexpr const TColor   STD_DATEEDIT_READONLY_COLOR            = (TColor)0x00EBEBEB;    //日付入力エディットのReadOnly時の色
+constexpr const TColor   STD_DATEEDIT_BORDER_COLOR              = clGray;                //日付入力エディットの境界色
+//ベースエディット関連
+constexpr const wchar_t     *STD_BASEEDIT_FONTNAME              = L"ＭＳ Ｐゴシック";    //ベースエディットのフォント名
+constexpr const int          STD_BASEEDIT_FONTSIZE              = 10;                    //ベースエディットのフォントサイズ
+constexpr const int          STD_BASEEDIT_HEIGHT                = 21;                    //ベースエディットの高さ
+constexpr const TColor       STD_BASEEDIT_FONT_COLOR            = clBlack;               //ベースエディットのフォント色
+constexpr const TColor       STD_BASEEDIT_ENTER_COLOR           = (TColor)0x00AAFFFF;    //ベースエディットのフォーカス取得時の色
+constexpr const TColor       STD_BASEEDIT_EXIT_COLOR            = clWhite;               //ベースエディットのフォーカス無し時の色(正常)
+constexpr const TColor       STD_BASEEDIT_READONLY_COLOR        = (TColor)0x00EBEBEB;    //ベースエディットのReadOnly時の色
+constexpr const TColor       STD_BASEEDIT_BORDER_COLOR          = clGray;                //ベースエディットの境界色
+constexpr const TAlignment   STD_BASEEDIT_ALIGNMENT             = taLeftJustify;         //テキスト編集コントロール内のテキストの配置方法を決定します。
+constexpr const TTextLayout  STD_BASEEDIT_LAYOUT                = tlCenter;              //テキストの縦方向の配置を指定します。
+constexpr const TBorderStyle STD_BASEEDIT_BORDERSTYLE           = bsNone;                //編集コントロールがクライアント領域の周囲に単一線の境界を持つかどうかを決定します。
+//コンボボックス２関連
+constexpr const wchar_t *STD_COMBOBOX2_FONTNAME                  = L"Meiryo UI";          //コンボボックス２のフォント名
+constexpr const int      STD_COMBOBOX2_FONTSIZE                  = 9;                     //コンボボックス２のフォントサイズ
+constexpr const int      STD_COMBOBOX2_ITEM_HEIGHT               = 17;                    //コンボボックス２のアイテムの高さ
+constexpr const TColor   STD_COMBOBOX2_COLOR                     = clWhite;               //コンボボックス２の背景色
+constexpr const TColor   STD_COMBOBOX2_FONT_COLOR                = clBlack;               //コンボボックス２のフォント色
+constexpr const TColor   STD_COMBOBOX2_LIST_COLOR                = clWhite;               //コンボボックス２の背景色
+constexpr const TColor   STD_COMBOBOX2_LIST_FONT_COLOR           = clBlack;               //コンボボックス２のリストフォント色
+constexpr const TColor   STD_COMBOBOX2_LIST_SELECT_COLOR         = (TColor)0x00A56110;    //コンボボックス２の選択行の背景色
+constexpr const TColor   STD_COMBOBOX2_LIST_SELECT_FONT_COLOR    = clWhite;               //コンボボックス２の選択行のフォント色
+//パネル関連
+constexpr const TColor       STD_PANEL_STD_COLOR                = (TColor)0x00FEFEFE;    //標準のパネルの色
+//ウィンドウ関連
+constexpr const TColor       STD_WINDOW_STD_COLOR               = (TColor)0x00FEFEFE;    //標準のウィンドウの色
 
 #endif

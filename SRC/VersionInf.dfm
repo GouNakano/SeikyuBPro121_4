@@ -3,22 +3,41 @@ object AboutBox: TAboutBox
   Top = 130
   BorderStyle = bsDialog
   Caption = #35531#27714#26360#30058#38957' '#12503#12525#29256#12398#12496#12540#12472#12519#12531#24773#22577
-  ClientHeight = 306
+  ClientHeight = 337
   ClientWidth = 438
   Color = clBtnFace
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poScreenCenter
+  StyleElements = [seFont, seClient]
   StyleName = 'Windows'
   OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 12
   object Panel1: TPanel
     Left = 4
-    Top = 4
+    Top = 39
     Width = 429
     Height = 265
     BevelInner = bvRaised
@@ -3624,13 +3643,25 @@ object AboutBox: TAboutBox
   end
   object OKButton: TButton
     Left = 355
-    Top = 276
+    Top = 308
     Width = 75
     Height = 25
     Caption = 'OK'
     Default = True
     ModalResult = 1
     TabOrder = 1
+  end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 438
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
+    ExplicitHeight = 31
   end
   object Timer: TTimer
     Enabled = False

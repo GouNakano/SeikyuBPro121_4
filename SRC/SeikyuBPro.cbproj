@@ -100,7 +100,7 @@
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <PackageImports>adortl;appanalytics;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindcompvclsmp;bindcompvclwinx;bindengine;CloudService;CustomIPTransport;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;dsnapxml;FireDAC;FireDACADSDriver;FireDACCommon;FireDACCommonDriver;FireDACCommonODBC;FireDACIBDriver;FireDACMSAccDriver;FireDACMySQLDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;QREPPackage;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;SSGOPackage;svn;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldsnap;vcledge;vclFireDAC;vclie;vclimg;VCLRESTComponents;VclSmp;vcltouch;vclwinx;vclx;xmlrtl;XnsPack;XnsSrchItemEditPack;$(PackageImports)</PackageImports>
+        <PackageImports>adortl;appanalytics;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindcompvclsmp;bindcompvclwinx;bindengine;CloudService;CustomIPTransport;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;dsnapxml;FireDAC;FireDACADSDriver;FireDACCommon;FireDACCommonDriver;FireDACCommonODBC;FireDACIBDriver;FireDACMSAccDriver;FireDACMySQLDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;QREPPackage;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;SSGOPackage;svn;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldsnap;vcledge;vclFireDAC;vclie;vclimg;VCLRESTComponents;VclSmp;vcltouch;vclwinx;vclx;xmlrtl;XnsPack;$(PackageImports)</PackageImports>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;..\..\QREPak\include32;$(IncludePath)</IncludePath>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
@@ -445,6 +445,12 @@
             <DependentOn>nsBitmap.h</DependentOn>
             <BuildOrder>55</BuildOrder>
         </CppCompile>
+        <CppCompile Include="nsMsgFrm.cpp">
+            <Form>nsMsgForm</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>nsMsgFrm.h</DependentOn>
+            <BuildOrder>64</BuildOrder>
+        </CppCompile>
         <CppCompile Include="nsResizeCtrl.cpp">
             <DependentOn>nsResizeCtrl.h</DependentOn>
             <BuildOrder>27</BuildOrder>
@@ -538,17 +544,25 @@
             <DependentOn>VersionInf.h</DependentOn>
             <BuildOrder>36</BuildOrder>
         </CppCompile>
+        <CppCompile Include="zbControlDef.cpp">
+            <DependentOn>zbControlDef.h</DependentOn>
+            <BuildOrder>65</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="zbWindowDef.cpp">
+            <DependentOn>zbWindowDef.h</DependentOn>
+            <BuildOrder>63</BuildOrder>
+        </CppCompile>
         <FormResources Include="MainFrm.dfm"/>
-        <FormResources Include="LicSetting.dfm"/>
         <FormResources Include="PropertyFrm.dfm"/>
-        <FormResources Include="LicenseFrm.dfm"/>
-        <FormResources Include="GridPropertyFrm.dfm"/>
-        <FormResources Include="FirstMesFrm.dfm"/>
+        <FormResources Include="LicSetting.dfm"/>
         <FormResources Include="LabelModifyFrm.dfm"/>
-        <FormResources Include="SubSelectFrm.dfm"/>
+        <FormResources Include="GridPropertyFrm.dfm"/>
+        <FormResources Include="LicenseFrm.dfm"/>
         <FormResources Include="VersionInf.dfm"/>
-        <FormResources Include="SettingFrm.dfm"/>
+        <FormResources Include="SubSelectFrm.dfm"/>
         <FormResources Include="SeikyuPrintFrm.dfm"/>
+        <FormResources Include="SettingFrm.dfm"/>
+        <FormResources Include="FirstMesFrm.dfm"/>
         <FormResources Include="A3P_Frm.dfm"/>
         <FormResources Include="A3L_Frm.dfm"/>
         <FormResources Include="A4L_Frm.dfm"/>
@@ -566,6 +580,7 @@
         <FormResources Include="B4P_Frm.dfm"/>
         <FormResources Include="B4L_Frm.dfm"/>
         <FormResources Include="A6P_Frm.dfm"/>
+        <FormResources Include="nsMsgFrm.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

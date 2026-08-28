@@ -4,14 +4,23 @@
 
 #include "nsCPURatio.h"
 #include "SeikyuBDef.h"
+#include "zbWindowDef.h"
 #include "VersionInf.h"
 //---------------------------------------------------------------------
 #pragma resource "*.dfm"
 TAboutBox *AboutBox;
-//--------------------------------------------------------------------- 
+//---------------------------------------------------------------------
 __fastcall TAboutBox::TAboutBox(TComponent* AOwner)
 	: TForm(AOwner)
 {
+}
+//---------------------------------------------------------------------------
+//フォーム作成時
+//---------------------------------------------------------------------------
+void __fastcall TAboutBox::FormCreate(TObject *Sender)
+{
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
 }
 //---------------------------------------------------------------------------
 //  機能     ：URLのラベルをクリック
@@ -288,7 +297,7 @@ void TAboutBox::GetProcessorInformation(LPTSTR pProcArchitecture,
             break;
         case PROCESSOR_ARCHITECTURE_ALPHA:
             lstrcpy(pProcArchitecture, TEXT("Alpha"));
-            wsprintf(pProcLevel, TEXT("%ld"),
+			wsprintf(pProcLevel, TEXT("%ld"),
                      (DWORD)sys_info.wProcessorLevel);
             break;
         case PROCESSOR_ARCHITECTURE_PPC:

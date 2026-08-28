@@ -41,8 +41,6 @@ bool IsFirstUse;
 //ライセンス文字列
 String LicenseStr;
 
-//前回の書類ファイルパス
-String RecentReportFile;
 //請求書番頭の設定
 typSBSetting ES;
 //繰り返し入力用ﾘｽﾄｸﾗｽのｵﾌﾞｼﾞｪｸﾄ
@@ -340,8 +338,6 @@ void sbp::LoadMainFormSet()
 	IsFirstUse       = pReg->ReadBool(C_SYSTEM_SETTING,V_IS_FIRST,true);
 	//ライセンス文字列
 	LicenseStr       = pReg->ReadString(C_SYSTEM_SETTING,LICENSE_STRING,L"");
-	//前回の書類パス
-	RecentReportFile = pReg->ReadString(C_SYSTEM_SETTING,V_RECENT_REPORT,L"");
 	//レジストリから各部のデータセット
 	M->Top           = pReg->ReadInteger(C_SYSTEM_SETTING,V_WINDOW_TOP ,4);
 	M->Left          = pReg->ReadInteger(C_SYSTEM_SETTING,V_WINDOW_LEFT,50);
@@ -503,7 +499,7 @@ void sbp::SaveSBSet()
 //-------------------------------------------------------------
 //  機能     ：再開処理情報を得る
 //
-//  関数定義 ：void LoadReopenSet(bool& IsReopen,std::vector<typReopen>& ReopenInf)
+//  関数定義 ：void LoadReopenSet(bool& IsReopen,typReopen& ReopenInf)
 //
 //  ｱｸｾｽﾚﾍﾞﾙ ：
 //
@@ -515,37 +511,18 @@ void sbp::SaveSBSet()
 //
 //  改定者   ：
 //-------------------------------------------------------------
-void sbp::LoadReopenSet(bool& IsReopen,std::vector<typReopen>& ReopenInf)
+void sbp::LoadReopenSet(bool& IsReopen,typReopen& ReopenInf)
 {
-	String  Key;
+	String  KeySdo;
+	String  KeyHist;
 
 	//Regｵｰﾌﾟﾝ
 	std::unique_ptr<SBRegIni> Ini(new SBRegIni);
 	//再開処理の有無をセット
 	IsReopen = Ini->ReadBool(INI_DEF_REOPEN,INI_ROP_ISREOPEN,false);
-	//再開処理数
-	long ReopNum = Ini->ReadInteger(INI_DEF_REOPEN,INI_ROP_OPENNUM,0);
-
 	//再開ファイルの情報セット
-	for(int Cnt = 0;Cnt < ReopNum;Cnt++)
-	{
-		//キーの作成
-		Key.sprintf(INI_ROP_PATHURL,Cnt + 1);
-		//ファイルまたはパスを得る
-		String PhURL = Ini->ReadString(INI_DEF_REOPEN,Key,"");
-		//チェック
-		if(PhURL == L"")
-		{
-			continue;
-		}
-		//情報構造体作成
-		typReopen Inf;
-		//データセット
-		Inf.IsURL    = false;
-		Inf.PathURL  = PhURL.c_str();
-		//リストに追加
-		ReopenInf.push_back(std::move(Inf));
-	}
+	ReopenInf.sdoPath = Ini->ReadString(INI_DEF_REOPEN,INI_ROP_SDOPATH,L"");
+	ReopenInf.histID  = Ini->ReadString(INI_DEF_REOPEN,INI_ROP_HISTID,L"");
 }
 //-------------------------------------------------------------
 //  機能     ：再開処理情報をセット
@@ -562,26 +539,16 @@ void sbp::LoadReopenSet(bool& IsReopen,std::vector<typReopen>& ReopenInf)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-void sbp::SaveReopenSet(bool IsReopen,std::vector<typReopen>& ReopenInf)
+void sbp::SaveReopenSet(bool IsReopen,typReopen& reopenInf)
 {
-	String Key;
-	String Val;
+	String KeySdo;
+	String KeyHist;
 	//Regｵｰﾌﾟﾝ
 	std::unique_ptr<SBRegIni> Ini(new SBRegIni);
 	//再開処理の有無をセット
-	Ini->WriteBool   (INI_DEF_REOPEN,INI_ROP_ISREOPEN ,(IsReopen == true));
-	//再開処理数
-	Ini->WriteInteger(INI_DEF_REOPEN,INI_ROP_OPENNUM ,ReopenInf.size());
-
+	Ini->WriteBool   (INI_DEF_REOPEN,INI_ROP_ISREOPEN,IsReopen);
 	//再開ファイルの情報セット
-	for(int Cnt = 0;Cnt < ReopenInf.size();Cnt++)
-	{
-		//パスの作成
-		Val.sprintf(L"%s",ReopenInf[Cnt].PathURL.c_str());
-		//キーの作成
-		Key.sprintf(INI_ROP_PATHURL,Cnt + 1);
-		//書き込み
-		Ini->WriteString(INI_DEF_REOPEN,Key,Val);
-	}
+	Ini->WriteString(INI_DEF_REOPEN,INI_ROP_SDOPATH,reopenInf.sdoPath);
+	Ini->WriteString(INI_DEF_REOPEN,INI_ROP_HISTID ,reopenInf.histID);
 }
 

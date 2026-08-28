@@ -5,16 +5,16 @@
 #include <tchar.h>
 //---------------------------------------------------------------------------
 USEFORM("MainFrm.cpp", MainForm);
-USEFORM("LicSetting.cpp", LicSettingForm);
 USEFORM("PropertyFrm.cpp", PropertyForm);
-USEFORM("LicenseFrm.cpp", LicenseForm);
-USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
-USEFORM("FirstMesFrm.cpp", FirstMesForm);
+USEFORM("LicSetting.cpp", LicSettingForm);
 USEFORM("LabelModifyFrm.cpp", LabelModifyForm);
-USEFORM("SubSelectFrm.cpp", SubSelectForm);
+USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
+USEFORM("LicenseFrm.cpp", LicenseForm);
 USEFORM("VersionInf.cpp", AboutBox);
-USEFORM("SettingFrm.cpp", SettingForm);
+USEFORM("SubSelectFrm.cpp", SubSelectForm);
 USEFORM("SeikyuPrintFrm.cpp", SeikyuPrintForm);
+USEFORM("SettingFrm.cpp", SettingForm);
+USEFORM("FirstMesFrm.cpp", FirstMesForm);
 USEFORM("A3P_Frm.cpp", A3P_Form);
 USEFORM("A3L_Frm.cpp", A3L_Form);
 USEFORM("A4L_Frm.cpp", A4L_Form);
@@ -32,6 +32,7 @@ USEFORM("A6L_Frm.cpp", A6L_Form);
 USEFORM("B4P_Frm.cpp", B4P_Form);
 USEFORM("B4L_Frm.cpp", B4L_Form);
 USEFORM("A6P_Frm.cpp", A6P_Form);
+USEFORM("nsMsgFrm.cpp", nsMsgForm);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -67,6 +68,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->CreateForm(__classid(TAboutBox), &AboutBox);
 		Application->CreateForm(__classid(TSettingForm), &SettingForm);
 		Application->CreateForm(__classid(TSubSelectForm), &SubSelectForm);
+		Application->CreateForm(__classid(TnsMsgForm), &nsMsgForm);
 		Application->Run();
 	}
 	catch (Exception &exception)

@@ -52,3 +52,30 @@
 //			action->Checked = false;
 //		}
 //	}
+
+
+//-------------------------------------------------------------
+//履歴一覧ListView変化時
+//-------------------------------------------------------------
+//void __fastcall TMainForm::HistListViewChanging(TObject *Sender, TListItem *Item,TItemChange Change, bool &AllowChange)
+//{
+//TListItem *pxx;
+//	// 状態（選択など）が変更されようとしているときのみ処理
+//	if(Change == ctState)
+//	{
+//		// 現在のマウスカーソルの位置を ListView のクライアント座標に変換
+//		TPoint clientPos = HistListView->ScreenToClient(Mouse->CursorPos);
+//
+//		// クリックされた位置（マウス座標）にアイテムが存在するかチェック
+//		TListItem* hitItem = HistListView->GetItemAt(clientPos.X, clientPos.Y);
+//
+//		// アイテムが存在しない（空白をクリックした）かつ、選択が解除されようとしている場合
+//		if(hitItem == nullptr && Item->Selected == true)
+//		{
+//			// 変更を拒否して現在の選択を維持する
+//			AllowChange = false;
+//		}
+//pxx = HistListView->Selected;
+//	}
+//}
+

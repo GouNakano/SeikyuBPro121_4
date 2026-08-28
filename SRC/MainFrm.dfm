@@ -2737,31 +2737,6 @@ object MainForm: TMainForm
     Left = 296
     Top = 120
   end
-  object OpenFilePopupMenu: TPopupMenu
-    AutoHotkeys = maManual
-    Left = 364
-    Top = 200
-    object PRP1: TMenuItem
-      ImageIndex = 0
-      OnClick = RPMenuClick
-    end
-    object PRP2: TMenuItem
-      ImageIndex = 0
-      OnClick = RPMenuClick
-    end
-    object PRP3: TMenuItem
-      ImageIndex = 0
-      OnClick = RPMenuClick
-    end
-    object PRP4: TMenuItem
-      ImageIndex = 0
-      OnClick = RPMenuClick
-    end
-    object PRP5: TMenuItem
-      ImageIndex = 0
-      OnClick = RPMenuClick
-    end
-  end
   object PDFSaveDialog: TSaveDialog
     DefaultExt = 'pdf'
     Filter = 'PDF'#12501#12449#12452#12523'(*.pdf)|*.pdf'

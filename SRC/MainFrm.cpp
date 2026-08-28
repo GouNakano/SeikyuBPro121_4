@@ -60,7 +60,7 @@ __fastcall TMainForm::TMainForm(TComponent* Owner)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -82,7 +82,7 @@ void __fastcall TMainForm::FormCreate(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -190,6 +190,8 @@ bool TMainForm::LoadReportHist()
 	HistListView->AlphaSort();
 	// 表示再開
 	HistListView->Items->EndUpdate();
+	//今開いている書類のIDで履歴一覧の行を選択する
+	selectHistViewFromHistID(Document.HistID);
 
 	return true;
 }
@@ -210,9 +212,9 @@ bool TMainForm::LoadReportHist()
 //-------------------------------------------------------------
 void TMainForm::RemainSetting()
 {
-	std::vector<typReopen> ReInf;
-	String                 File;
-	bool                   IsParamOpen=false;
+	typReopen reInf;
+	String    File;
+	bool      IsParamOpen=false;
 
 	//開くﾌｧｲﾙを得る
 	if(ParamCount() >= 1)
@@ -233,17 +235,13 @@ void TMainForm::RemainSetting()
 	{
 		bool IsFileOpen = false;
 		//再開処理
-		sbp::LoadReopenSet(ES.IsRemain,ReInf);
+		sbp::LoadReopenSet(ES.IsRemain,reInf);
 		if(ES.IsRemain == true)
 		{
 			//再開対象ファイルを開く
-			for(int Cnt = 0;Cnt < ReInf.size();Cnt++)
+			if(OpenFile(reInf.histID) == true)
 			{
-				//ﾌｧｲﾙを開く
-				if(OpenFile(ReInf[Cnt].PathURL) == true)
-				{
-					IsFileOpen = true;
-				}
+				IsFileOpen = true;
 			}
 			//ファイルが開かれない場合は新規作成する
 			if(IsFileOpen == false)
@@ -260,6 +258,39 @@ void TMainForm::RemainSetting()
 	SetReportKindBtnDisp();
 	//繰り返し入力用情報を読む
 	Inpts.Load();
+	//今開いている書類のIDで履歴一覧の行を選択する
+	selectHistViewFromHistID(Document.HistID);
+}
+//-------------------------------------------------------------
+//今開いている書類のIDで履歴一覧の行を選択する
+//-------------------------------------------------------------
+bool TMainForm::selectHistViewFromHistID(const String& histID)
+{
+	//履歴の数
+	int histNum = HistListView->Items->Count;
+	//IDが一致するものを探す
+	for(int idx = 0;idx < histNum;idx++)
+	{
+		//リストビューアイテムを得る
+		TListItem *pItem = HistListView->Items->Item[idx];
+		//紐づけられた履歴データを得る
+		THistory *pHistData = static_cast<THistory*>(pItem->Data);
+
+		// チェック
+		if(pItem == nullptr || pItem->Data == nullptr)
+		{
+			continue;
+		}
+		//IDの比較
+		if(pHistData->getID() == histID)
+		{
+			//一致するのでその行を選択して処理完了
+			HistListView->Selected = pItem;
+
+			return true;
+		}
+	}
+	return false;
 }
 //-------------------------------------------------------------
 //  機能     ：フォームを閉じる時
@@ -272,25 +303,22 @@ void TMainForm::RemainSetting()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
 void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 {
-	std::vector<typReopen> ReInf;
+	typReopen reInf;
 	//再開処理のための保存
-	if(Document.File != L"")
+	if(Document.File != L"" && Document.HistID != L"")
 	{
 		//開いているファイルがある場合は追加
-		typReopen Inf;
-		Inf.IsURL   = false;
-		Inf.PathURL = Document.File;
-
-		ReInf.push_back(std::move(Inf));
+		reInf.sdoPath = Document.File;
+		reInf.histID  = Document.HistID;
 	}
 	//再開情報保存処理
-	sbp::SaveReopenSet(ES.IsRemain,ReInf);
+	sbp::SaveReopenSet(ES.IsRemain,reInf);
 	//繰り返し入力データの追加
 	AddInputData();
 	//繰り返し入力用情報を保存
@@ -320,7 +348,7 @@ void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -342,7 +370,7 @@ void __fastcall TMainForm::FirstTimerTimer(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -675,7 +703,7 @@ void __fastcall TMainForm::PrintBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -733,7 +761,7 @@ void TMainForm::DocFontInfToTFont(typFontDef& FontDef,TFont *pFont,bool IsCalcSi
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -770,7 +798,7 @@ void TMainForm::TFontToDocFontInf(typFontDef& FontDef,TFont *pFont,bool IsCalcSi
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -941,7 +969,7 @@ void TMainForm::PrintGrid()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1037,7 +1065,7 @@ void TMainForm::PrintColumnSeparateText(long double X,long double Y,long double 
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1058,7 +1086,7 @@ bool TMainForm::CheckResizeMode()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1098,7 +1126,7 @@ void TMainForm::SetResizeMode(bool IsEnable)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1134,7 +1162,7 @@ nsResizeCtrl *TMainForm::AddResizeControl(TControl *pCtrl)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1164,7 +1192,7 @@ bool TMainForm::DeleteResizeControl(nsResizeCtrl *pResizeCtrl,bool IsLock)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1194,7 +1222,7 @@ void __fastcall TMainForm::ResizeCtrlMouseDown(TObject *Sender,TMouseButton Butt
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1224,7 +1252,7 @@ void __fastcall TMainForm::ResizeCtrlMouseUp(TObject *Sender,TMouseButton Button
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1256,7 +1284,7 @@ void __fastcall TMainForm::ResizeCtrlMove(TObject *Sender,bool& IsUserMove,int d
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1292,7 +1320,7 @@ bool TMainForm::CancelResizeMode(bool IsLock)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1336,7 +1364,7 @@ bool TMainForm::GetPaperPixel()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1387,7 +1415,7 @@ int TMainForm::GetPanelPixelFromPaperPosX(long double PX)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1438,7 +1466,7 @@ int TMainForm::GetPanelPixelFromPaperPosY(long double PY)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1461,7 +1489,7 @@ long double TMainForm::GetPaperPosXFromPanelPixel(int dx)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1484,7 +1512,7 @@ long double TMainForm::GetPaperPosYFromPanelPixel(int dy)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1569,7 +1597,7 @@ bool TMainForm::SetGridFromDocCompo()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1609,7 +1637,7 @@ bool TMainForm::AdjustRowHeights()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1744,7 +1772,7 @@ TControl *TMainForm::CreateControl(String CtrlName,dcDocComponent Type)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1772,7 +1800,7 @@ TControl *TMainForm::FindControlFromMainPanel(String Name)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -1963,7 +1991,7 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo *pDoc)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2038,7 +2066,7 @@ bool TMainForm::SetComponentFromDocumentInfo()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2141,7 +2169,7 @@ TForm* TMainForm::GetTemplateFormPaper()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2346,7 +2374,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2377,7 +2405,7 @@ String TMainForm::GetControlStrValue(TControl *pCtrl)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2448,7 +2476,7 @@ dcDocComponent TMainForm::GetComponentType(TComponent *pCompo)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2473,7 +2501,7 @@ int TMainForm::CalcPrintFontSize(int OrgFontSize)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2498,7 +2526,7 @@ int TMainForm::CalcPanelFontSize(int OrgFontSize)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2577,7 +2605,7 @@ void __fastcall TMainForm::GridCellAttr(TObject *Sender, int ARow,
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2621,7 +2649,7 @@ void __fastcall TMainForm::ModifyLabelClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2673,7 +2701,7 @@ void __fastcall TMainForm::PrintObjectMenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2728,7 +2756,7 @@ void __fastcall TMainForm::NonDispObjectMenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2803,7 +2831,7 @@ void TMainForm::ModifyLabel(TWinLabel *pLbl)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2859,7 +2887,7 @@ void __fastcall TMainForm::EditEnter(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2891,7 +2919,7 @@ void __fastcall TMainForm::EditExit(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2918,7 +2946,7 @@ void __fastcall TMainForm::MoneyEditKeyPress(TObject *Sender, char &Key)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -2942,7 +2970,7 @@ void __fastcall TMainForm::CompanyInfoBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3004,7 +3032,7 @@ void __fastcall TMainForm::CancelStampImageClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3106,7 +3134,7 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3136,7 +3164,7 @@ void __fastcall TMainForm::_YearEditKeyPress(TObject *Sender, char &Key)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3159,7 +3187,7 @@ void __fastcall TMainForm::EditKeyPress(TObject *Sender, wchar_t &Key)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3208,7 +3236,7 @@ void __fastcall TMainForm::EditKeyDown(TObject *Sender, WORD &Key,TShiftState Sh
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3240,9 +3268,9 @@ void __fastcall TMainForm::OpenMenuClick(TObject *Sender)
 	}
 }
 //-------------------------------------------------------------
-//  機能     ：ファイルを開く
+//  機能     ：履歴IDからsdoファイルを開く
 //
-//  関数定義 ：bool OpenFile(String File)
+//  関数定義 ：bool OpenFile(const String& histID)
 //
 //  ｱｸｾｽﾚﾍﾞﾙ ：
 //
@@ -3250,19 +3278,24 @@ void __fastcall TMainForm::OpenMenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
-bool TMainForm::OpenFile(const String& fileID)
+bool TMainForm::OpenFile(const String& histID)
 {
 	//書類ファイルの読み込み
-	if(Sdo.readSDO(fileID,Document) == false)
+	if(Sdo.readSDO(histID,Document) == false)
 	{
 		return false;
 	}
 	//メインパネルの表示更新
 	UpdateMainPanelDisp();
+
+	//現在の履歴をセット
+	Histories.get(histID,NowHistory);
+	//今開いている書類のIDで履歴一覧の行を選択する
+	selectHistViewFromHistID(histID);
 
 	return true;
 }
@@ -3277,7 +3310,7 @@ bool TMainForm::OpenFile(const String& fileID)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3298,7 +3331,7 @@ void __fastcall TMainForm::SaveBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3347,7 +3380,7 @@ bool TMainForm::Save()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3412,7 +3445,7 @@ nsLib::mbsel TMainForm::ChangedSave()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3444,7 +3477,7 @@ void __fastcall TMainForm::NewBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3522,7 +3555,7 @@ bool TMainForm::setVoidDocument()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3573,7 +3606,7 @@ void __fastcall TMainForm::BillBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3624,7 +3657,7 @@ void __fastcall TMainForm::DeliveredBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3675,7 +3708,7 @@ void __fastcall TMainForm::EstimateBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3699,7 +3732,7 @@ void __fastcall TMainForm::EndBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3883,7 +3916,7 @@ void __fastcall TMainForm::GridKeyDown(TObject *Sender, WORD &Key,TShiftState Sh
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3902,7 +3935,7 @@ void __fastcall TMainForm::GridEnter(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3921,7 +3954,7 @@ void __fastcall TMainForm::GridExit(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -3969,7 +4002,7 @@ void __fastcall TMainForm::GridStartEdit(TObject *Sender, int ARow,int ACol, Str
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -4050,7 +4083,7 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -4126,7 +4159,7 @@ void TMainForm::DispTotalInfo()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -4187,7 +4220,7 @@ void TMainForm::SetTaxAndTotalInfo()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -4241,7 +4274,7 @@ void TMainForm::SetTotalInfo()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -4272,7 +4305,7 @@ void TMainForm::SetMainTotalInfo()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -4367,7 +4400,7 @@ void __fastcall TMainForm::GridDispCellStr(TObject *Sender, int ARow,
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -4391,7 +4424,7 @@ void __fastcall TMainForm::YearEditDblClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -4448,7 +4481,7 @@ void __fastcall TMainForm::SupportPageMenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -6316,6 +6349,8 @@ bool TMainForm::OverWrite()
 	Sdo.writeSDO(Document,FilePath);
 	//書類の変更の有無を設定
 	SetDocumentChange(false);
+	//今開いている書類のIDで履歴一覧の行を選択する
+	selectHistViewFromHistID(Document.HistID);
 
 	return true;
 }
@@ -8384,50 +8419,7 @@ void TMainForm::SetEditToolBarCondition()
 		}
 	}
 }
-//---------------------------------------------------------------------------
-//  機能     ：履歴ﾌｧｲﾙのﾒﾆｭｰｸﾘｯｸ時
-//
-//  関数定義 ：void __fastcall RPMenuClick(TObject *Sender)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：__published
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野
-//
-//  改定者   ：
 //-------------------------------------------------------------
-void __fastcall TMainForm::RPMenuClick(TObject *Sender)
-{
-	//ﾒﾆｭｰｵﾌﾞｼﾞｪｸﾄを得る
-	TMenuItem *Menu = (TMenuItem *)Sender;
-
-	//ﾌｧｲﾙﾊﾟｽを得る
-	String File = Menu->Caption;
-
-	//ファイルの存在チェック
-	if(_waccess(File.c_str(),04) != 0)
-	{
-		nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]は存在しません。",File.c_str());
-		return;
-	}
-	//変更がある場合は問い合わせて保存処理を行う
-	if(ChangedSave() == nsLib::mbselCancel)
-	{
-		return;
-	}
-	//ファイルを開く
-	NowHistory.setFilePath(File);
-
-	if(OpenFile(NowHistory.getID()) == false)
-	{
-		nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]のオープンに失敗しました",File.c_str());
-		return;
-	}
-}
-//---------------------------------------------------------------------------
 //  機能     ：ライセンス設定ボタン
 //
 //  関数定義 ：void __fastcall LicenseSettingBtnClick(TObject *Sender)
@@ -8460,7 +8452,7 @@ void __fastcall TMainForm::LicenseSettingBtnClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -8519,7 +8511,7 @@ void __fastcall TMainForm::LicTimerTimer(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -8539,7 +8531,7 @@ void __fastcall TMainForm::OptionMenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -8596,7 +8588,7 @@ void __fastcall TMainForm::EditChange(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -8618,7 +8610,7 @@ void TMainForm::SetDocumentChange(bool chg)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -8677,7 +8669,7 @@ void __fastcall TMainForm::FormCloseQuery(TObject *Sender, bool &CanClose)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -8697,7 +8689,7 @@ void __fastcall TMainForm::DecimalPointModificationMoneyExit(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -8738,7 +8730,7 @@ void __fastcall TMainForm::MoneyDispStr(TObject *Sender,String& DispStr)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -8808,7 +8800,7 @@ void __fastcall TMainForm::FileFolderMenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -9017,7 +9009,7 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -9185,7 +9177,7 @@ void TMainForm::AddInputData()
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -9256,7 +9248,7 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -9284,7 +9276,7 @@ void __fastcall TMainForm::DispSettingMenuClick(TObject *Sender)
 //
 //  戻り値   ：
 //
-//  作成者　 ：中野  04/02/24
+//  作成者　 ：
 //
 //  改定者   ：
 //-------------------------------------------------------------
@@ -9566,17 +9558,7 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 	}
 }
 //-------------------------------------------------------------
-// 機能     ：履歴一覧MouseDown時
-//
-// 関数定義 ：void __fastcall HistListViewMouseDown(TObject *Sender)
-//
-// ｱｸｾｽﾚﾍﾞﾙ ：__published
-//
-// 引数     ：TObject *Sender
-//
-// 戻り値   ：
-//
-// 改定者   ：
+//履歴一覧MouseDown時
 //-------------------------------------------------------------
 void __fastcall TMainForm::HistListViewMouseDown(TObject *Sender, TMouseButton Button,TShiftState Shift, int X, int Y)
 {
@@ -9598,9 +9580,9 @@ void __fastcall TMainForm::HistListViewMouseDown(TObject *Sender, TMouseButton B
 	else if(Button == mbLeft)
 	{
 		// 対応するアイテム
-		TListItem *pItem = HistListView->GetItemAt(X, Y);
+		TListItem *pItemAtMouse = HistListView->GetItemAt(X, Y);
 		//アイテムの存在チェック
-		if(pItem == nullptr)
+		if(pItemAtMouse == nullptr)
 		{
 			return;
 		}
@@ -9612,7 +9594,15 @@ void __fastcall TMainForm::HistListViewMouseDown(TObject *Sender, TMouseButton B
 			// チェック
 			if(pItem == nullptr)
 			{
-				return;
+				if(pItemAtMouse != nullptr)
+				{
+					pItem = pItemAtMouse;
+					HistListView->Selected = pItemAtMouse;
+				}
+				else
+				{
+					return;
+				}
 			}
 			//選択状態チェック
 			if(pItem->Data == nullptr)
@@ -9761,6 +9751,4 @@ void TMainForm::setFormDeactiveColor()
 	isFormActive = false;
 }
 //---------------------------------------------------------------------------
-
-
 

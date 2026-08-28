@@ -241,8 +241,6 @@ public:
 public:
 	typDocument& operator = (const typDocument& h) = default;
 public:
-	//履歴IDのリセット
-	bool resetHistID();
 	//書類部品リストの要素数
 	int GetCompoSize();
 	//インデックスから書類部品リスト要素を得る

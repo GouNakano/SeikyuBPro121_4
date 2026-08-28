@@ -88,12 +88,6 @@ __published:	// IDE 管理のコンポーネント
 	TMenuItem *PrintObjectMenu;
 	TMenuItem *PrintEditMenu;
 	TMenuItem *N23;
-	TPopupMenu *OpenFilePopupMenu;
-	TMenuItem *PRP1;
-	TMenuItem *PRP2;
-	TMenuItem *PRP3;
-	TMenuItem *PRP4;
-	TMenuItem *PRP5;
 	TPaintPanel *BasePanel;
 	TToolBar *EditToolBar;
 	TPanel *Panel7;
@@ -318,7 +312,6 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall RightJustifyMenuClick(TObject *Sender);
 	void __fastcall GridUserDrawCell(TObject *Sender, bool &DefaultDraw,
           int ACol, int ARow, const TRect &ARect, TGridDrawState AState);
-	void __fastcall RPMenuClick(TObject *Sender);
 	void __fastcall BringToFrontMenuClick(TObject *Sender);
 	void __fastcall SendToBackMenuClick(TObject *Sender);
 	void __fastcall LicenseSettingBtnClick(TObject *Sender);
@@ -486,8 +479,8 @@ private:
 	void PrintColumnSeparateText(long double X,long double Y,long double W,long double H,typFontDef& FontDef,int Figures,String Str);
 	//編集ツールバーの状態設定
 	void SetEditToolBarCondition();
-	//ファイルを開く
-	bool OpenFile(const String& FileID);
+	//履歴IDからsdoファイルを開く
+	bool OpenFile(const String& histID);
 	//書類情報のZオーダを決定する
 	void SetDocumentCtrlZOrder();
 	//書類情報Zオーダーを設定
@@ -524,6 +517,8 @@ private:
 	void AddInputData();
 	//空の書類にする(日付は本日)
 	bool setVoidDocument();
+	//今開いている書類のIDで履歴一覧の行を選択する
+	bool selectHistViewFromHistID(const String& histID);
 public:
 	//書類部品情報からコンポーネントを配置
 	bool SetComponentFromDocCompo(typDocCompo& doc);

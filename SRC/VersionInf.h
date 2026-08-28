@@ -13,6 +13,7 @@
 #include <Buttons.hpp>
 #include <ExtCtrls.hpp>
 #include <ComCtrls.hpp>
+#include <Vcl.TitleBarCtrls.hpp>
 //----------------------------------------------------------------------------
 class TAboutBox : public TForm
 {
@@ -39,10 +40,12 @@ __published:
 	TProgressBar *MemoryProgressBar;
 	TImage *Image2;
 	TLabel *OSLbl;
+	TTitleBarPanel *TitleBarPanel;
 	void __fastcall URLLabelClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall TimerTimer(TObject *Sender);
+	void __fastcall FormCreate(TObject *Sender);
 private:
 	//プロセッサ情報を取得します。
 	void GetProcessorInformation(LPTSTR pProcArchitecture,LPTSTR pProcLevel,LPDWORD pProcCount);

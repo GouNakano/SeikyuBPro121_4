@@ -59,7 +59,6 @@ public:
 
 //共通変数定義
 extern bool         IsFirstUse;            //初回起動
-extern String       RecentReportFile;      //前回の書類ファイルパス
 extern typSBSetting ES;
 extern String       LicenseStr;            //ライセンス文字列
 
@@ -89,9 +88,9 @@ public:
 	//請求書番頭の設定保存
 	static void                SaveSBSet();
 	//再開処理情報を得る
-	static void                LoadReopenSet(bool& IsReopen,std::vector<typReopen>& ReopenInf);
+	static void                LoadReopenSet(bool& IsReopen,typReopen& ReopenInf);
 	//再開処理情報をセット
-	static void                SaveReopenSet(bool IsReopen,std::vector<typReopen>& ReopenInf);
+	static void                SaveReopenSet(bool IsReopen,typReopen& ReopenInf);
 };
 
 //----- グローバル変数 -----
