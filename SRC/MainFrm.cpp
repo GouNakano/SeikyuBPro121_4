@@ -5217,6 +5217,49 @@ void TMainForm::SetDataFromDocData()
 	//ロゴ
 	setStdImage(scLogoImage,DocData.LogoImage);
 }
+
+//-------------------------------------------------------------
+//MainFormパネル上EditコンポーネントからDocDataのメンバの値をセット
+//-------------------------------------------------------------
+bool TMainForm::setDocValFrom(String& val,scStdComponent comp_typ)
+{
+	TControl    *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TBorderEdit *pEdit  = static_cast<TBorderEdit *>(pCtrl);
+	//値をセット
+	val = pEdit->Text;
+
+	return true;
+}
+bool TMainForm::setDocValFrom(nsLong& val,scStdComponent comp_typ)
+{
+	TControl    *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TBorderEdit *pEdit  = static_cast<TBorderEdit *>(pCtrl);
+	//値をセット
+	val = pEdit->Text.c_str();
+
+	return true;
+}
+bool TMainForm::setDocValFrom(nsDouble& val,scStdComponent comp_typ)
+{
+	TControl    *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TBorderEdit *pEdit  = static_cast<TBorderEdit *>(pCtrl);
+	//値をセット
+	val = pEdit->Text.c_str();
+
+	return true;
+}
+//-------------------------------------------------------------
+//MainFormパネル上ImageコンポーネントからDocDataのメンバの値をセット
+//-------------------------------------------------------------
+bool TMainForm::setDocValFromImage(nsBitmap& val,scStdComponent comp_typ)
+{
+	TControl      *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TImageControl *pImage = static_cast<TImageControl *>(pCtrl);
+	//値をセット
+	val.get()->Assign(pImage->Picture);
+
+	return true;
+}
 //-------------------------------------------------------------
 //  機能     ：MainPanel上の値をデータにセット
 //
@@ -5245,95 +5288,42 @@ void TMainForm::SetDocDataFromMainPanel()
 	typDocData& DocData = Document.Data[DocKind.Number];
 	//データセット
 	//年
-	pCtrl        = FindControlFromMainPanel(StdComponents[scYearEdit].Name);
-	pEdit        = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Year = pEdit->Text.c_str();
-
+	setDocValFrom(DocData.Year,scYearEdit);
 	//月
-	pCtrl         = FindControlFromMainPanel(StdComponents[scMonthEdit].Name);
-	pEdit         = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Month = pEdit->Text.c_str();
-
+	setDocValFrom(DocData.Month,scMonthEdit);
 	//日
-	pCtrl       = FindControlFromMainPanel(StdComponents[scDayEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Day = pEdit->Text.c_str();
-
+	setDocValFrom(DocData.Day,scDayEdit);
 	//番号
-	pCtrl      = FindControlFromMainPanel(StdComponents[scNoEdit].Name);
-	pEdit      = static_cast<TBorderEdit *>(pCtrl);
-	DocData.No = pEdit->Text;
-
+	setDocValFrom(DocData.No,scNoEdit);
 	//名前
-	pCtrl        = FindControlFromMainPanel(StdComponents[scNameEdit].Name);
-	pEdit        = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Name = pEdit->Text;
-
+	setDocValFrom(DocData.Name,scNameEdit);
 	//件名
-	pCtrl        = FindControlFromMainPanel(StdComponents[scItemEdit].Name);
-	pEdit        = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Item = pEdit->Text;
-
+	setDocValFrom(DocData.Item,scItemEdit);
 	//請求金額
-	pCtrl         = FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
-	pEdit         = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Money = pEdit->Text.c_str();
-
+	setDocValFrom(DocData.Money,scMoneyEdit);
 	//小計
-	pCtrl            = FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
-	pEdit            = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Subtotal = pEdit->Text.c_str();
-
+	setDocValFrom(DocData.Subtotal,scSubtotalEdit);
 	//消費税
-	pCtrl       = FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Tax = pEdit->Text.c_str();
-
+	setDocValFrom(DocData.Tax,scTaxEdit);
 	//合計
-	pCtrl         = FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
-	pEdit         = static_cast<TBorderEdit *>(pCtrl);
-	DocData.Total = pEdit->Text.c_str();
-
-
+	setDocValFrom(DocData.Total,scTotalEdit);
 	//客先郵便番号
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerZipCodeEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	DocData.CustomerZipCode = pEdit->Text;
-
+	setDocValFrom(DocData.CustomerZipCode,scCustomerZipCodeEdit);
 	//客先住所１
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerAddress1Edit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	DocData.CustomerAddress1 = pEdit->Text;
-
+	setDocValFrom(DocData.CustomerAddress1,scCustomerAddress1Edit);
 	//客先住所２
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerAddress2Edit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	DocData.CustomerAddress2 = pEdit->Text;
-
+	setDocValFrom(DocData.CustomerAddress2,scCustomerAddress2Edit);
 	//客先電話番号
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerTELEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	DocData.CustomerTEL = pEdit->Text;
-
+	setDocValFrom(DocData.CustomerTEL,scCustomerTELEdit);
 	//客先FAX番号
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerFAXEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	DocData.CustomerFAX = pEdit->Text;
+	setDocValFrom(DocData.CustomerFAX,scCustomerFAXEdit);
 
 	//印影１
-	pCtrl           = FindControlFromMainPanel(StdComponents[scStampImage1].Name);
-	pImage          = static_cast<TImageControl *>(pCtrl);
-	DocData.StampImage1->Assign(pImage->Picture);
-
+	setDocValFromImage(DocData.StampImage1,scStampImage1);
 	//印影２
-	pCtrl           = FindControlFromMainPanel(StdComponents[scStampImage2].Name);
-	pImage          = static_cast<TImageControl *>(pCtrl);
-	DocData.StampImage2->Assign(pImage->Picture);
-
+	setDocValFromImage(DocData.StampImage2,scStampImage2);
 	//ロゴ
-	pCtrl           = FindControlFromMainPanel(StdComponents[scLogoImage].Name);
-	pImage          = static_cast<TImageControl *>(pCtrl);
-	DocData.LogoImage->Assign(pImage->Picture);
+	setDocValFromImage(DocData.LogoImage,scLogoImage);
 
 	//グリッド内容の初期化
 	DocData.GridData.clear();

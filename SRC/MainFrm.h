@@ -527,6 +527,12 @@ private:
 	bool setStdLabel(scStdComponent comp_typ,const String& val);
 	//標準Imageの内容をセット
 	bool setStdImage(scStdComponent comp_typ,const nsBitmap& bmp);
+	//MainFormパネル上EditコンポーネントからDocDataのメンバの値をセット
+	bool setDocValFrom(String& val,scStdComponent comp_typ);
+	bool setDocValFrom(nsLong& val,scStdComponent comp_typ);
+	bool setDocValFrom(nsDouble& val,scStdComponent comp_typ);
+	//MainFormパネル上ImageコンポーネントからDocDataのメンバの値をセット
+	bool setDocValFromImage(nsBitmap& val,scStdComponent comp_typ);
 public:
 	//書類部品情報からコンポーネントを配置
 	bool SetComponentFromDocCompo(typDocCompo& doc);
