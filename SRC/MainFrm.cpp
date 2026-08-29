@@ -2405,34 +2405,34 @@ String TMainForm::GetControlStrValue(TControl *pCtrl)
 //-------------------------------------------------------------
 dcDocComponent TMainForm::GetComponentType(TComponent *pCompo)
 {
-	TWinLabel       *pWinLabel       = 0;
-	TBorderEdit     *pBorderEdit     = 0;
-	TImageControl   *pImage          = 0;
-	TWinShape       *pShape          = 0;
-	XnsGrid         *pGrid           = 0;
+	TWinLabel       *pWinLabel   = nullptr;
+	TBorderEdit     *pBorderEdit = nullptr;
+	TImageControl   *pImage      = nullptr;
+	TWinShape       *pShape      = nullptr;
+	XnsGrid         *pGrid       = nullptr;
 	dcDocComponent   Type;
 	//コンポーネントの型を得る
-	if(pCompo ==0)
+	if(pCompo == nullptr)
 	{
 		//不明
 		Type = dcUnknown;
 	}
-	else if((pWinLabel = dynamic_cast<TWinLabel *>(pCompo))!=0)
+	else if((pWinLabel = dynamic_cast<TWinLabel *>(pCompo)) != nullptr)
 	{
 		//ラベル
 		Type = dcLabel;
 	}
-	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCompo))!=0)
+	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCompo)) != nullptr)
 	{
 		//枠つきEdit
 		Type = dcMoneyEdit;
 	}
-	else if((pImage = dynamic_cast<TImageControl *>(pCompo))!=0)
+	else if((pImage = dynamic_cast<TImageControl *>(pCompo)) != nullptr)
 	{
 		//画像
 		Type = dcImage;
 	}
-	else if((pShape = dynamic_cast<TWinShape *>(pCompo))!=0)
+	else if((pShape = dynamic_cast<TWinShape *>(pCompo)) != nullptr)
 	{
 		//Shape
 		if(pShape->Height <= 2)
@@ -2445,9 +2445,8 @@ dcDocComponent TMainForm::GetComponentType(TComponent *pCompo)
 			//縦線
 			Type = dcVLine;
 		}
-
 	}
-	else if((pGrid = dynamic_cast<XnsGrid *>(pCompo))!=0)
+	else if((pGrid = dynamic_cast<XnsGrid *>(pCompo)) != nullptr)
 	{
 		//画像
 		Type = dcGrid;
@@ -2610,10 +2609,10 @@ void __fastcall TMainForm::ModifyLabelClick(TObject *Sender)
 	//ポップアップ元を得る
 	TComponent *pC = ModifyLabelPopupMenu->PopupComponent;
 	//ポップアップ元による処理
-	if((pResizeCtrl = dynamic_cast<nsResizeCtrl *>(pC)) != 0)
+	if((pResizeCtrl = dynamic_cast<nsResizeCtrl *>(pC)) != nullptr)
 	{
 		//現在選択中のコントロールの種類を調べる
-		for(int Cnt = 0;Cnt < ResizeList.size();Cnt++)
+		for(int Cnt1 = 0;Cnt1 < ResizeList.size();Cnt1++)
 		{
 			//コントロールを得る
 			TControl *pCtrl = ResizeList[0]->Control;
@@ -4283,8 +4282,6 @@ void TMainForm::SetMainTotalInfo()
 	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
 	pCtrl               = FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
 	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
-	//該当データを得る
-	typDocData& DocData = Document.Data[Document.DocKind];
 	//合計金額のセット
 	pMoneyEdit->Text = pTotalEdit->Text;
 }
@@ -4303,8 +4300,7 @@ void TMainForm::SetMainTotalInfo()
 //
 //  改定者   ：
 //-------------------------------------------------------------
-void __fastcall TMainForm::GridDispCellStr(TObject *Sender, int ARow,
-	  int ACol, String &DispStr)
+void __fastcall TMainForm::GridDispCellStr(TObject *Sender, int ARow,int ACol, String &DispStr)
 {
 	//列ごとの処理
 	switch(ACol)
@@ -4540,44 +4536,12 @@ void TMainForm::SetReportKindBtnDisp()
 	}
 }
 //-------------------------------------------------------------
-//  機能     ：キー押下時
-//
-//  関数定義 ：void FormKeyDown()
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野
-//
-//  改定者   ：
+//Formキー押下時
 //-------------------------------------------------------------
 void __fastcall TMainForm::FormKeyDown(TObject *Sender, WORD &Key,TShiftState Shift)
 {
-	//ファンクションキー対応
-	if(Key == VK_F1)
-	{
-		HelpMenuClick(Sender);
-	}
-	else if(Key == VK_F2)
-	{
-		NewBtnClick(Sender);
-	}
-	else if(Key == VK_F3)
-	{
-		SaveBtnClick(Sender);
-	}
-	else if(Key == VK_F4)
-	{
-		PrintBtnClick(Sender);
-	}
-	else if(Key == VK_F5)
-	{
-		YearEditDblClick(Sender);
-	}
-	else if(Key == VK_ESCAPE)
+	//ESCキー押下
+	if(Key == VK_ESCAPE)
 	{
 		if(ResizeEnableBtn->Down == true)
 		{
@@ -5055,6 +5019,59 @@ void TMainForm::SetZOrderFromDocumentInfo()
 	}
 }
 //-------------------------------------------------------------
+//標準Editの内容をセット
+//-------------------------------------------------------------
+bool TMainForm::setStdEdit(scStdComponent comp_typ,const String& val)
+{
+	TControl    *pCtrl = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TBorderEdit *pEdit = static_cast<TBorderEdit *>(pCtrl);
+	//数値と
+	pEdit->Text = val;
+
+	return true;
+}
+bool TMainForm::setStdEdit(scStdComponent comp_typ,const nsLong& val)
+{
+	TControl    *pCtrl = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TBorderEdit *pEdit = static_cast<TBorderEdit *>(pCtrl);
+	//数値と
+	pEdit->Text = val.ToStr();
+
+	return true;
+}
+bool TMainForm::setStdEdit(scStdComponent comp_typ,const nsDouble& val)
+{
+	TControl    *pCtrl = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TBorderEdit *pEdit = static_cast<TBorderEdit *>(pCtrl);
+	//数値と
+	pEdit->Text = val.ToStr();
+
+	return true;
+}
+
+//-------------------------------------------------------------
+//標準Labelの内容をセット
+//-------------------------------------------------------------
+bool TMainForm::setStdLabel(scStdComponent comp_typ,const String& val)
+{
+	TControl  *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TWinLabel *pLabel = static_cast<TWinLabel *>(pCtrl);
+	pLabel->Caption  = val;
+
+	return true;
+}
+//-------------------------------------------------------------
+//標準Imageの内容をセット
+//-------------------------------------------------------------
+bool TMainForm::setStdImage(scStdComponent comp_typ,const nsBitmap& bmp)
+{
+	TControl      *pCtrl   = FindControlFromMainPanel(StdComponents[scStampImage1].Name);
+	TImageControl *pImage  = static_cast<TImageControl *>(pCtrl);
+	pImage->LoadFromBitmap(bmp.get());
+
+	return true;
+}
+//-------------------------------------------------------------
 //  機能     ：MainPanel上にデータをセット
 //
 //  関数定義 ：void SetDataFromDocData()
@@ -5083,79 +5100,35 @@ void TMainForm::SetDataFromDocData()
 
 	//---- データセット ----
 	//年
-	pCtrl = FindControlFromMainPanel(StdComponents[scYearEdit].Name);
-	pEdit = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Year.ToStr();
-
+	setStdEdit(scYearEdit,DocData.Year);
 	//月
-	pCtrl = FindControlFromMainPanel(StdComponents[scMonthEdit].Name);
-	pEdit = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Month.ToStr();
-
+	setStdEdit(scMonthEdit,DocData.Month);
 	//日
-	pCtrl = FindControlFromMainPanel(StdComponents[scDayEdit].Name);
-	pEdit = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Day.ToStr();
-
+	setStdEdit(scDayEdit,DocData.Day);
 	//番号
-	pCtrl = FindControlFromMainPanel(StdComponents[scNoEdit].Name);
-	pEdit = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.No;
-
+	setStdEdit(scNoEdit,DocData.No);
 	//名前
-	pCtrl       = FindControlFromMainPanel(StdComponents[scNameEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Name;
-
+	setStdEdit(scNameEdit,DocData.Name);
 	//件名
-	pCtrl       = FindControlFromMainPanel(StdComponents[scItemEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Item;
-
+	setStdEdit(scItemEdit,DocData.Item);
 	//請求金額
-	pCtrl       = FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Money.ToStr();
-
+	setStdEdit(scMoneyEdit,DocData.Money);
 	//小計
-	pCtrl       = FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Subtotal.ToStr();
-
+	setStdEdit(scSubtotalEdit,DocData.Subtotal);
 	//消費税
-	pCtrl       = FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Tax.ToStr();
-
+	setStdEdit(scTaxEdit,DocData.Tax);
 	//合計
-	pCtrl       = FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.Total.ToStr();
-
+	setStdEdit(scTotalEdit,DocData.Total);
 	//客先郵便番号
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerZipCodeEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.CustomerZipCode;
-
+	setStdEdit(scCustomerZipCodeEdit,DocData.CustomerZipCode);
 	//客先住所１
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerAddress1Edit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.CustomerAddress1;
-
+	setStdEdit(scCustomerAddress1Edit,DocData.CustomerAddress1);
 	//客先住所２
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerAddress2Edit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.CustomerAddress2;
-
+	setStdEdit(scCustomerAddress2Edit,DocData.CustomerAddress2);
 	//客先電話番号
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerTELEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.CustomerTEL;
-
+	setStdEdit(scCustomerTELEdit,DocData.CustomerTEL);
 	//客先電話番号
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerFAXEdit].Name);
-	pEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pEdit->Text = DocData.CustomerFAX;
+	setStdEdit(scCustomerFAXEdit,DocData.CustomerFAX);
 
 	//グリッド内容のセット
 	if(Grid->FixedRows >= 0)
@@ -5190,134 +5163,59 @@ void TMainForm::SetDataFromDocData()
 	}
 	//---- ラベルセット ----
 	//年
-	pCtrl           = FindControlFromMainPanel(StdComponents[scYearLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.YearLabel;
-
+	setStdLabel(scYearLabel,DocData.YearLabel);
 	//月
-	pCtrl           = FindControlFromMainPanel(StdComponents[scMonthLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.MonthLabel;
-
+	setStdLabel(scMonthLabel,DocData.MonthLabel);
 	//日
-	pCtrl           = FindControlFromMainPanel(StdComponents[scDayLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.DayLabel;
-
+	setStdLabel(scDayLabel,DocData.DayLabel);
 	//書類番号ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scNumberLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.NumberLabel;
-
+	setStdLabel(scNumberLabel,DocData.NumberLabel);
 	//件名ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scTitleLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.TitleLabel;
-
+	setStdLabel(scTitleLabel,DocData.TitleLabel);
 	//敬称ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scHonorificTitleLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.HonorificTitleLabel;
-
+	setStdLabel(scHonorificTitleLabel,DocData.HonorificTitleLabel);
 	//金額ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scChargedAmountLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.ChargedAmountLabel;
-
+	setStdLabel(scChargedAmountLabel,DocData.ChargedAmountLabel);
 	//会社名ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scCompanyNameLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.CompanyNameLabel;
-
+	setStdLabel(scCompanyNameLabel,DocData.CompanyNameLabel);
 	//代表者ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scPersonLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.PersonLabel;
-
+	setStdLabel(scPersonLabel,DocData.PersonLabel);
 	//郵便番号ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scZipCodeLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.ZipCodeLabel;
-
+	setStdLabel(scZipCodeLabel,DocData.ZipCodeLabel);
 	//住所１ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scAddressLabel1].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.AddressLabel1;
-
+	setStdLabel(scAddressLabel1,DocData.AddressLabel1);
 	//住所2ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scAddressLabel2].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.AddressLabel2;
-
+	setStdLabel(scAddressLabel2,DocData.AddressLabel2);
 	//電話番号ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scTELLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.TELLabel;
-
+	setStdLabel(scTELLabel,DocData.TELLabel);
 	//ＦＡＸ番号ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scFAXLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.FAXLabel;
-
+	setStdLabel(scFAXLabel,DocData.FAXLabel);
 	//単位ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scUnitLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.UnitLabel;
-
+	setStdLabel(scUnitLabel,DocData.UnitLabel);
 	//小計ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scSubTotalLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.SubTotalLabel;
-
+	setStdLabel(scSubTotalLabel,DocData.SubTotalLabel);
 	//消費税ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scTaxLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.TaxLabel;
-
+	setStdLabel(scTaxLabel,DocData.TaxLabel);
 	//合計金額ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scTotalLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.TotalLabel;
-
+	setStdLabel(scTotalLabel,DocData.TotalLabel);
 	//備考ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scNoteLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.NoteLabel;
-
+	setStdLabel(scNoteLabel,DocData.NoteLabel);
 	//書類種類名ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scBillLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.BillLabel;
-
+	setStdLabel(scBillLabel,DocData.BillLabel);
 	//用件ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scRequestLabel].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.RequestLabel;
-
+	setStdLabel(scRequestLabel,DocData.RequestLabel);
 	//振込先１ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scTransferLabel1].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.TransferLabel1;
-
+	setStdLabel(scTransferLabel1,DocData.TransferLabel1);
 	//振込先2ラベル
-	pCtrl           = FindControlFromMainPanel(StdComponents[scTransferLabel2].Name);
-	pLabel          = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption = DocData.TransferLabel2;
+	setStdLabel(scTransferLabel2,DocData.TransferLabel2);
 
+	//---- 画像セット ----
 	//印影１
-	pCtrl           = FindControlFromMainPanel(StdComponents[scStampImage1].Name);
-	pImage          = static_cast<TImageControl *>(pCtrl);
-	pImage->LoadFromBitmap(DocData.StampImage1.get());
-
+	setStdImage(scStampImage1,DocData.StampImage1);
 	//印影２
-	pCtrl           = FindControlFromMainPanel(StdComponents[scStampImage2].Name);
-	pImage          = static_cast<TImageControl *>(pCtrl);
-	pImage->LoadFromBitmap(DocData.StampImage2.get());
-
+	setStdImage(scStampImage2,DocData.StampImage2);
 	//ロゴ
-	pCtrl           = FindControlFromMainPanel(StdComponents[scLogoImage].Name);
-	pImage          = static_cast<TImageControl *>(pCtrl);
-	pImage->LoadFromBitmap(DocData.LogoImage.get());
+	setStdImage(scLogoImage,DocData.LogoImage);
 }
 //-------------------------------------------------------------
 //  機能     ：MainPanel上の値をデータにセット
@@ -5816,12 +5714,12 @@ void __fastcall TMainForm::EditCopyMenuClick(TObject *Sender)
 	//対象コンポーネントを得る
 	TComponent *pCompo = ModifyLabelPopupMenu->PopupComponent;
 	//Editを得る
-	if((pEdit  = dynamic_cast<TBorderEdit *>(pCompo)) != 0)
+	if((pEdit  = dynamic_cast<TBorderEdit *>(pCompo)) != nullptr)
 	{
 		//コピー
 		pEdit->CopyToClipboard();
 	}
-	else if((pGrid  = dynamic_cast<XnsGrid *>(pCompo)) != 0)
+	else if((pGrid  = dynamic_cast<XnsGrid *>(pCompo)) != nullptr)
 	{
 		//コピー
 		pGrid->CopyOnClipboard(pGrid->Col,pGrid->Col,pGrid->Row,pGrid->Row);
@@ -5898,12 +5796,12 @@ void __fastcall TMainForm::EditPasteMenuClick(TObject *Sender)
 	//対象コンポーネントを得る
 	TComponent *pCompo = ModifyLabelPopupMenu->PopupComponent;
 	//Editを得る
-	if((pEdit  = dynamic_cast<TBorderEdit *>(pCompo)) != 0)
+	if((pEdit  = dynamic_cast<TBorderEdit *>(pCompo)) != nullptr)
 	{
 		//貼り付け
 		pEdit->PasteFromClipboard();
 	}
-	else if((pGrid  = dynamic_cast<XnsGrid *>(pCompo)) != 0)
+	else if((pGrid  = dynamic_cast<XnsGrid *>(pCompo)) != nullptr)
 	{
 		//貼り付け
 		pGrid->PasteFromClipboard(pGrid->Row,pGrid->Col);
@@ -5981,8 +5879,6 @@ void __fastcall TMainForm::ModifyEditPopupMenuPopup(TObject *Sender)
 	//部品情報を得る
 	typDocCompo pDoc;
 	bool doc_valid = Document.GetDocCompoFromName(pBorderEdit->Name,pDoc);
-
-//	typDocCompo *pDoc = GetDocCompoFromName(pBorderEdit->Name);
 
 	//種類別処理
 	if(pBorderEdit == nullptr)
@@ -6720,12 +6616,12 @@ void __fastcall TMainForm::ObjectMouseDown(TObject *Sender,TMouseButton Button, 
 		//現在リサイズ対象のコントロールがあるか
 		if(CheckResizeMode() == true && ResizeList.size() == 0)
 		{
-			//リサイズ対象を追加
-			pResizeCtrl = AddResizeControl(pCtrl);
-			//対象コントロール
-			ModifyLabelPopupMenu->PopupComponent = pResizeCtrl;
-			//ポップアップ表示
-			ModifyLabelPopupMenu->Popup(Pos.x,Pos.y);
+//			//リサイズ対象を追加
+//			pResizeCtrl = AddResizeControl(pCtrl);
+//			//対象コントロール
+//			ModifyLabelPopupMenu->PopupComponent = pResizeCtrl;
+//			//ポップアップ表示
+//			ModifyLabelPopupMenu->Popup(Pos.x,Pos.y);
 		}
 		else if(CheckResizeMode() == false && pEdit != 0)
 		{

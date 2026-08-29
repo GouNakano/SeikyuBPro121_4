@@ -519,6 +519,14 @@ private:
 	bool setVoidDocument();
 	//今開いている書類のIDで履歴一覧の行を選択する
 	bool selectHistViewFromHistID(const String& histID);
+	//標準Editの内容をセット
+	bool setStdEdit(scStdComponent comp_typ,const String& val);
+	bool setStdEdit(scStdComponent comp_typ,const nsLong& val);
+	bool setStdEdit(scStdComponent comp_typ,const nsDouble& val);
+	//標準Labelの内容をセット
+	bool setStdLabel(scStdComponent comp_typ,const String& val);
+	//標準Imageの内容をセット
+	bool setStdImage(scStdComponent comp_typ,const nsBitmap& bmp);
 public:
 	//書類部品情報からコンポーネントを配置
 	bool SetComponentFromDocCompo(typDocCompo& doc);

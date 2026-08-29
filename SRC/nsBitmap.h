@@ -23,7 +23,7 @@ public:
 	//ビットマップ再構築
 	bool reset();
 	//ビットマップ取得
-	TBitmap *get();
+	TBitmap *get() const;
 };
 
 #endif

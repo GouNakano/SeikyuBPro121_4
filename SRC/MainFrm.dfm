@@ -2,7 +2,7 @@ object MainForm: TMainForm
   Left = 323
   Top = 86
   Caption = #35531#27714#26360#30058#38957
-  ClientHeight = 757
+  ClientHeight = 664
   ClientWidth = 1217
   Color = clWhite
   CustomTitleBar.Control = TitleBarPanel
@@ -44,7 +44,7 @@ object MainForm: TMainForm
     Left = 300
     Top = 88
     Width = 5
-    Height = 650
+    Height = 557
     Beveled = True
     Color = 13684944
     ParentColor = False
@@ -54,7 +54,7 @@ object MainForm: TMainForm
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 738
+    Top = 645
     Width = 1217
     Height = 19
     Panels = <
@@ -71,21 +71,21 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 769
+    ExplicitTop = 707
   end
   object BasePanel: TPaintPanel
     Left = 305
     Top = 88
     Width = 912
-    Height = 650
+    Height = 557
     Align = alClient
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitHeight = 681
+    ExplicitHeight = 619
     object EditToolBar: TToolBar
       Left = 1
-      Top = 655
+      Top = 593
       Width = 910
       Height = 25
       Align = alBottom
@@ -404,7 +404,7 @@ object MainForm: TMainForm
       Left = 1
       Top = 1
       Width = 910
-      Height = 654
+      Height = 592
       VertScrollBar.Smooth = True
       Align = alClient
       BevelInner = bvNone
@@ -545,16 +545,16 @@ object MainForm: TMainForm
     Left = 0
     Top = 88
     Width = 300
-    Height = 650
+    Height = 557
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitHeight = 681
+    ExplicitHeight = 619
     object HistListView: TListView2
       Left = 0
       Top = 0
       Width = 300
-      Height = 651
+      Height = 589
       Align = alClient
       Columns = <
         item
@@ -589,7 +589,7 @@ object MainForm: TMainForm
     end
     object Panel9: TPanel
       Left = 0
-      Top = 651
+      Top = 589
       Width = 300
       Height = 30
       Align = alBottom
@@ -1859,8 +1859,8 @@ object MainForm: TMainForm
     AutoHotkeys = maManual
     Images = PopupImageList
     OnPopup = ModifyLabelPopupMenuPopup
-    Left = 52
-    Top = 628
+    Left = 228
+    Top = 436
     object GridSettingMenu: TMenuItem
       Caption = #34920#12398#35373#23450
       OnClick = GridSettingMenuClick
@@ -2010,8 +2010,8 @@ object MainForm: TMainForm
     AutoHotkeys = maManual
     Images = EditMenuImageList
     OnPopup = ModifyEditPopupMenuPopup
-    Left = 156
-    Top = 640
+    Left = 60
+    Top = 416
     object PrintEditMenu: TMenuItem
       Caption = #21360#21047#23550#35937'(&P)'
       OnClick = PrintEditMenuClick
@@ -2959,6 +2959,7 @@ object MainForm: TMainForm
               item
                 Action = NewMenu
                 ImageIndex = 1
+                ShortCut = 16462
               end
               item
                 Action = OpenMenu
@@ -3262,6 +3263,7 @@ object MainForm: TMainForm
     object NewMenu: TAction
       Category = #12501#12449#12452#12523
       Caption = #26032#35215#20316#25104'(&N)'
+      ShortCut = 16462
       OnExecute = NewBtnClick
     end
     object OpenMenu: TAction
