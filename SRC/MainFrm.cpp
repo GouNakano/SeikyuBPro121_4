@@ -3059,7 +3059,6 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 	ImageFile = OpenPictureDialog->FileName;
 	//開いてみる
 	nsBitmap pBitmap;
-//	Graphics::TBitmap *pBitmap = new Graphics::TBitmap;
 	try
 	{
 		//読み込む
@@ -3067,8 +3066,6 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 	}
 	catch(...)
 	{
-		//開放
-//		delete pBitmap;
 		//エラー表示
 		nsLib::ErrMsgBox(Handle,"画像ファイル[%s]はビットマップ形式ではありません。",ImageFile.c_str());
 
@@ -3488,8 +3485,6 @@ void TMainForm::NewFile()
 		}
 		//ファイルパスは空
 		Document.File = L"";
-//		//データを消す
-//		Document.ClearData();
 		//メインパネルの表示更新
 		UpdateMainPanelDisp();
 
@@ -3502,19 +3497,6 @@ void TMainForm::NewFile()
 	{
 		//空の書類にする(日付は本日)
 		setVoidDocument();
-
-//		//書類情報を消す
-//		Document.ClearDocCompo();
-//		//データを消す
-//		Document.ClearData();
-//		//ファイルパスは空
-//		Document.File = L"";
-//		//データを空読み
-//		Sdo.readVoid(Document);
-//		//再表示
-//		UpdateMainPanelDisp();
-//		//書類の変更の有無を設定
-//		SetDocumentChange(false);
 	}
 }
 //---------------------------------------------------------------------------
@@ -6411,7 +6393,7 @@ void __fastcall TMainForm::PaperSelectMenuClick(TObject *Sender)
 	String PaperStr = MenuName.SubString(1,UBPos-1);
 	//メニューから用紙情報を得る
 	typPaperDef pPaperDef;
-	typPaperDefs::GetPaperDefFromName(PaperStr,pPaperDef);
+	TPaperDefs::GetPaperDefFromName(PaperStr,pPaperDef);
 	//現在選択の用紙
 	Document.Paper = pPaperDef.Number;
 	//メインパネルの表示更新
@@ -6451,11 +6433,11 @@ void __fastcall TMainForm::PaperSelectParentMenuClick(TObject *Sender)
 	String MenuName = String(NowPaper.PaperName) + L"_Menu";
 
 	//用紙選択のメニューから現在の用紙のメニューにチェックをつける
-	for(int paper_cnt = 0;paper_cnt < typPaperDefs::size();paper_cnt++)
+	for(int paper_cnt = 0;paper_cnt < TPaperDefs::size();paper_cnt++)
 	{
 		typPaperDef paper;
 		//用紙情報を得る
-		typPaperDefs::get(paper_cnt,paper);
+		TPaperDefs::get(paper_cnt,paper);
 		//メニューのオブジェクト名
 		String menu_name = String(paper.PaperName) + L"_Menu";
 		//用紙に対応するTActionを得る

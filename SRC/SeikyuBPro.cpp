@@ -4,35 +4,35 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
-USEFORM("MainFrm.cpp", MainForm);
+USEFORM("nsMsgFrm.cpp", nsMsgForm);
 USEFORM("PropertyFrm.cpp", PropertyForm);
-USEFORM("LicSetting.cpp", LicSettingForm);
 USEFORM("LabelModifyFrm.cpp", LabelModifyForm);
 USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
+USEFORM("MainFrm.cpp", MainForm);
+USEFORM("LicSetting.cpp", LicSettingForm);
 USEFORM("LicenseFrm.cpp", LicenseForm);
 USEFORM("VersionInf.cpp", AboutBox);
-USEFORM("SubSelectFrm.cpp", SubSelectForm);
-USEFORM("SeikyuPrintFrm.cpp", SeikyuPrintForm);
 USEFORM("SettingFrm.cpp", SettingForm);
-USEFORM("FirstMesFrm.cpp", FirstMesForm);
+USEFORM("SeikyuPrintFrm.cpp", SeikyuPrintForm);
+USEFORM("SubSelectFrm.cpp", SubSelectForm);
+USEFORM("A4L_Frm.cpp", A4L_Form);
 USEFORM("A3P_Frm.cpp", A3P_Form);
 USEFORM("A3L_Frm.cpp", A3L_Form);
-USEFORM("A4L_Frm.cpp", A4L_Form);
-USEFORM("CalendarFrm.cpp", CalendarForm);
-USEFORM("B5P_Frm.cpp", B5P_Form);
+USEFORM("A4P_Frm.cpp", A4P_Form);
+USEFORM("ComponentsFrm.cpp", ComponentsForm);
 USEFORM("CompanyInfoFrm.cpp", CompanyInfoForm);
+USEFORM("CalendarFrm.cpp", CalendarForm);
+USEFORM("FirstMesFrm.cpp", FirstMesForm);
 USEFORM("FigureSettingFrm.cpp", FigureSettingForm);
 USEFORM("DispSettingFrm.cpp", DispSettingForm);
-USEFORM("ComponentsFrm.cpp", ComponentsForm);
-USEFORM("B5L_Frm.cpp", B5L_Form);
+USEFORM("A6P_Frm.cpp", A6P_Form);
+USEFORM("A6L_Frm.cpp", A6L_Form);
 USEFORM("A5P_Frm.cpp", A5P_Form);
 USEFORM("A5L_Frm.cpp", A5L_Form);
-USEFORM("A4P_Frm.cpp", A4P_Form);
-USEFORM("A6L_Frm.cpp", A6L_Form);
+USEFORM("B5P_Frm.cpp", B5P_Form);
+USEFORM("B5L_Frm.cpp", B5L_Form);
 USEFORM("B4P_Frm.cpp", B4P_Form);
 USEFORM("B4L_Frm.cpp", B4L_Form);
-USEFORM("A6P_Frm.cpp", A6P_Form);
-USEFORM("nsMsgFrm.cpp", nsMsgForm);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

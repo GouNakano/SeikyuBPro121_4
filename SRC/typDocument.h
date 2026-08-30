@@ -9,6 +9,7 @@
 #include "nsDouble.h"
 #include "SeikyuBConst.h"
 #include "nsBitmap.h"
+#include "TPaperDefs.h"
 
 //書類の表１行分データ定義
 struct typDocOneRowData

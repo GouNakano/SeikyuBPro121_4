@@ -171,7 +171,7 @@ bool TSdo::setBasicInfo(std::unique_ptr<TMemIniFile>& pIni,const String& sdo_fil
 		DocInfo.HistID  = fileID;
 		//—pŽ†–¼
 		Val             = pIni->ReadString (S_SECTION_SETTING,V_PAPER_SIZE,PaperDef[A4P].PaperName);
-		typPaperDefs::GetPaperDefFromName(Val,pPaperDef);
+		TPaperDefs::GetPaperDefFromName(Val,pPaperDef);
 		DocInfo.Paper   = pPaperDef.Number;
 
 		//—pŽ†Ží•Ê
