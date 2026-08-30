@@ -533,6 +533,10 @@ private:
 	bool setDocValFrom(nsDouble& val,scStdComponent comp_typ);
 	//MainFormパネル上ImageコンポーネントからDocDataのメンバの値をセット
 	bool setDocValFromImage(nsBitmap& val,scStdComponent comp_typ);
+	//ラベルのCaptionをDocにセット
+	bool setDocValFromLabel(String& val,scStdComponent comp_typ);
+	//自社情報の一つをラベルにセットする
+	bool setLabelFromCompanyInfo(scStdComponent comp,const String& inf);
 public:
 	//書類部品情報からコンポーネントを配置
 	bool SetComponentFromDocCompo(typDocCompo& doc);

@@ -5219,7 +5219,7 @@ void TMainForm::SetDataFromDocData()
 }
 
 //-------------------------------------------------------------
-//MainFormパネル上EditコンポーネントからDocDataのメンバの値をセット
+//MainFormパネル上のEditコンポーネントからDocDataのメンバの値をセット
 //-------------------------------------------------------------
 bool TMainForm::setDocValFrom(String& val,scStdComponent comp_typ)
 {
@@ -5245,6 +5245,17 @@ bool TMainForm::setDocValFrom(nsDouble& val,scStdComponent comp_typ)
 	TBorderEdit *pEdit  = static_cast<TBorderEdit *>(pCtrl);
 	//値をセット
 	val = pEdit->Text.c_str();
+
+	return true;
+}
+//-------------------------------------------------------------
+//MainFormパネル上のLabelコンポーネントからDocDataのメンバの値をセット
+//-------------------------------------------------------------
+bool TMainForm::setDocValFromLabel(String& val,scStdComponent comp_typ)
+{
+	TControl * pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TWinLabel *pLabel = static_cast<TWinLabel *>(pCtrl);
+	val = pLabel->Caption;
 
 	return true;
 }
@@ -5344,119 +5355,51 @@ void TMainForm::SetDocDataFromMainPanel()
 	}
 	//---- ラベルセット ----
 	//年
-	pCtrl             = FindControlFromMainPanel(StdComponents[scYearLabel].Name);
-	pLabel            = static_cast<TWinLabel *>(pCtrl);
-	DocData.YearLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.YearLabel,scYearLabel);
 	//月
-	pCtrl              = FindControlFromMainPanel(StdComponents[scMonthLabel].Name);
-	pLabel             = static_cast<TWinLabel *>(pCtrl);
-	DocData.MonthLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.MonthLabel,scMonthLabel);
 	//日
-	pCtrl            = FindControlFromMainPanel(StdComponents[scDayLabel].Name);
-	pLabel           = static_cast<TWinLabel *>(pCtrl);
-	DocData.DayLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.DayLabel,scDayLabel);
 	//書類番号ラベル
-	pCtrl               = FindControlFromMainPanel(StdComponents[scNumberLabel].Name);
-	pLabel              = static_cast<TWinLabel *>(pCtrl);
-	DocData.NumberLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.NumberLabel,scNumberLabel);
 	//件名ラベル
-	pCtrl              = FindControlFromMainPanel(StdComponents[scTitleLabel].Name);
-	pLabel             = static_cast<TWinLabel *>(pCtrl);
-	DocData.TitleLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.TitleLabel,scTitleLabel);
 	//敬称ラベル
-	pCtrl                       = FindControlFromMainPanel(StdComponents[scHonorificTitleLabel].Name);
-	pLabel                      = static_cast<TWinLabel *>(pCtrl);
-	DocData.HonorificTitleLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.HonorificTitleLabel,scHonorificTitleLabel);
 	//金額ラベル
-	pCtrl                      = FindControlFromMainPanel(StdComponents[scChargedAmountLabel].Name);
-	pLabel                     = static_cast<TWinLabel *>(pCtrl);
-	DocData.ChargedAmountLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.ChargedAmountLabel,scChargedAmountLabel);
 	//会社名ラベル
-	pCtrl                    = FindControlFromMainPanel(StdComponents[scCompanyNameLabel].Name);
-	pLabel                   = static_cast<TWinLabel *>(pCtrl);
-	DocData.CompanyNameLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.CompanyNameLabel,scCompanyNameLabel);
 	//代表者ラベル
-	pCtrl               = FindControlFromMainPanel(StdComponents[scPersonLabel].Name);
-	pLabel              = static_cast<TWinLabel *>(pCtrl);
-	DocData.PersonLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.PersonLabel,scPersonLabel);
 	//郵便番号ラベル
-	pCtrl                = FindControlFromMainPanel(StdComponents[scZipCodeLabel].Name);
-	pLabel               = static_cast<TWinLabel *>(pCtrl);
-	DocData.ZipCodeLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.ZipCodeLabel,scZipCodeLabel);
 	//住所１ラベル
-	pCtrl                 = FindControlFromMainPanel(StdComponents[scAddressLabel1].Name);
-	pLabel                = static_cast<TWinLabel *>(pCtrl);
-	DocData.AddressLabel1 = pLabel->Caption;
-
+	setDocValFromLabel(DocData.AddressLabel1,scAddressLabel1);
 	//住所2ラベル
-	pCtrl                 = FindControlFromMainPanel(StdComponents[scAddressLabel2].Name);
-	pLabel                = static_cast<TWinLabel *>(pCtrl);
-	DocData.AddressLabel2 = pLabel->Caption;
-
+	setDocValFromLabel(DocData.AddressLabel2,scAddressLabel2);
 	//電話番号ラベル
-	pCtrl            = FindControlFromMainPanel(StdComponents[scTELLabel].Name);
-	pLabel           = static_cast<TWinLabel *>(pCtrl);
-	DocData.TELLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.TELLabel,scTELLabel);
 	//ＦＡＸ番号ラベル
-	pCtrl            = FindControlFromMainPanel(StdComponents[scFAXLabel].Name);
-	pLabel           = static_cast<TWinLabel *>(pCtrl);
-	DocData.FAXLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.FAXLabel,scFAXLabel);
 	//単位ラベル
-	pCtrl             = FindControlFromMainPanel(StdComponents[scUnitLabel].Name);
-	pLabel            = static_cast<TWinLabel *>(pCtrl);
-	DocData.UnitLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.UnitLabel,scUnitLabel);
 	//小計ラベル
-	pCtrl                 = FindControlFromMainPanel(StdComponents[scSubTotalLabel].Name);
-	pLabel                = static_cast<TWinLabel *>(pCtrl);
-	DocData.SubTotalLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.SubTotalLabel,scSubTotalLabel);
 	//消費税ラベル
-	pCtrl            = FindControlFromMainPanel(StdComponents[scTaxLabel].Name);
-	pLabel           = static_cast<TWinLabel *>(pCtrl);
-	DocData.TaxLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.TaxLabel,scTaxLabel);
 	//合計金額ラベル
-	pCtrl              = FindControlFromMainPanel(StdComponents[scTotalLabel].Name);
-	pLabel             = static_cast<TWinLabel *>(pCtrl);
-	DocData.TotalLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.TotalLabel,scTotalLabel);
 	//備考ラベル
-	pCtrl             = FindControlFromMainPanel(StdComponents[scNoteLabel].Name);
-	pLabel            = static_cast<TWinLabel *>(pCtrl);
-	DocData.NoteLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.NoteLabel,scNoteLabel);
 	//書類種類名ラベル
-	pCtrl             = FindControlFromMainPanel(StdComponents[scBillLabel].Name);
-	pLabel            = static_cast<TWinLabel *>(pCtrl);
-	DocData.BillLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.BillLabel,scBillLabel);
 	//用件ラベル
-	pCtrl                = FindControlFromMainPanel(StdComponents[scRequestLabel].Name);
-	pLabel               = static_cast<TWinLabel *>(pCtrl);
-	DocData.RequestLabel = pLabel->Caption;
-
+	setDocValFromLabel(DocData.RequestLabel,scRequestLabel);
 	//振込先１ラベル
-	pCtrl                  = FindControlFromMainPanel(StdComponents[scTransferLabel1].Name);
-	pLabel                 = static_cast<TWinLabel *>(pCtrl);
-	DocData.TransferLabel1 = pLabel->Caption;
-
+	setDocValFromLabel(DocData.TransferLabel1,scTransferLabel1);
 	//振込先2ラベル
-	pCtrl                  = FindControlFromMainPanel(StdComponents[scTransferLabel2].Name);
-	pLabel                 = static_cast<TWinLabel *>(pCtrl);
-	DocData.TransferLabel2 = pLabel->Caption;
+	setDocValFromLabel(DocData.TransferLabel2,scTransferLabel2);
 }
 //-------------------------------------------------------------
 //  機能     ：MainPanelを中央に移動する
@@ -7533,19 +7476,21 @@ void TMainForm::DispStatus()
 	}
 }
 //-------------------------------------------------------------
-//  機能     ：自社情報の反映メニュー
-//
-//  関数定義 ：void __fastcall ApplyCompanyInfoMenuClick(TObject *Sender)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野
-//
-//  改定者   ：
+//自社情報の一つをラベルにセットする
+//-------------------------------------------------------------
+bool TMainForm::setLabelFromCompanyInfo(scStdComponent comp,const String& inf)
+{
+	typDocCompo  pDoc;
+
+	Document.GetDocCompoFromName(StdComponents[comp].Name,pDoc);
+	pDoc.Caption = inf;
+	Document.SetDocCompoFromName(StdComponents[comp].Name,pDoc);
+	SetComponentFromDocCompo(pDoc);
+
+	return true;
+}
+//-------------------------------------------------------------
+//自社情報の反映メニュー
 //-------------------------------------------------------------
 void __fastcall TMainForm::ApplyCompanyInfoMenuClick(TObject *Sender)
 {
@@ -7553,57 +7498,33 @@ void __fastcall TMainForm::ApplyCompanyInfoMenuClick(TObject *Sender)
 	//対象メニュー
 	TMenuItem *pMenu = static_cast<TMenuItem *>(Sender);
 	//対象データ
-	typCompanyInfoDef *pInf = &CompanyInfo[pMenu->Tag];
-	//キャプションセット
-	Document.GetDocCompoFromName(StdComponents[scCompanyNameLabel].Name,pDoc);
-	pDoc.Caption             = pInf->CompanyName;
-	Document.SetDocCompoFromName(StdComponents[scCompanyNameLabel].Name,pDoc);
-	SetComponentFromDocCompo(pDoc);
+	typCompanyInfoDef& Inf = CompanyInfo[pMenu->Tag];
 
-	Document.GetDocCompoFromName(StdComponents[scPersonLabel].Name,pDoc);
-	pDoc.Caption             = pInf->Represent;
-	SetComponentFromDocCompo(pDoc);
-	Document.SetDocCompoFromName(StdComponents[scPersonLabel].Name,pDoc);
-
-	Document.GetDocCompoFromName(StdComponents[scZipCodeLabel].Name,pDoc);
-	pDoc.Caption             = pInf->ZipNumber;
-	SetComponentFromDocCompo(pDoc);
-	Document.SetDocCompoFromName(StdComponents[scZipCodeLabel].Name,pDoc);
-
-	Document.GetDocCompoFromName(StdComponents[scAddressLabel1].Name,pDoc);
-	pDoc.Caption             = pInf->Address1;
-	SetComponentFromDocCompo(pDoc);
-	Document.SetDocCompoFromName(StdComponents[scAddressLabel1].Name,pDoc);
-
-	Document.GetDocCompoFromName(StdComponents[scAddressLabel2].Name,pDoc);
-	pDoc.Caption             = pInf->Address2;
-	SetComponentFromDocCompo(pDoc);
-	Document.SetDocCompoFromName(StdComponents[scAddressLabel2].Name,pDoc);
-
-	Document.GetDocCompoFromName(StdComponents[scTELLabel].Name,pDoc);
-	pDoc.Caption             = pInf->TEL;
-	SetComponentFromDocCompo(pDoc);
-	Document.SetDocCompoFromName(StdComponents[scTELLabel].Name,pDoc);
-
-	Document.GetDocCompoFromName(StdComponents[scFAXLabel].Name,pDoc);
-	pDoc.Caption             = pInf->FAX;
-	SetComponentFromDocCompo(pDoc);
-	Document.SetDocCompoFromName(StdComponents[scFAXLabel].Name,pDoc);
-
-	Document.GetDocCompoFromName(StdComponents[scTransferLabel1].Name,pDoc);
-	pDoc.Caption             = pInf->Transfer1;
-	SetComponentFromDocCompo(pDoc);
-	Document.SetDocCompoFromName(StdComponents[scTransferLabel1].Name,pDoc);
-
-	Document.GetDocCompoFromName(StdComponents[scTransferLabel2].Name,pDoc);
-	pDoc.Caption             = pInf->Transfer2;
-	SetComponentFromDocCompo(pDoc);
-	Document.SetDocCompoFromName(StdComponents[scTransferLabel2].Name,pDoc);
+	//会社名
+	setLabelFromCompanyInfo(scCompanyNameLabel,Inf.CompanyName);
+	//代表者
+	setLabelFromCompanyInfo(scPersonLabel,Inf.Represent);
+	//郵便番号
+	setLabelFromCompanyInfo(scZipCodeLabel,Inf.ZipNumber);
+	//住所１
+	setLabelFromCompanyInfo(scAddressLabel1,Inf.Address1);
+	//住所２
+	setLabelFromCompanyInfo(scAddressLabel2,Inf.Address2);
+	//電話番号
+	setLabelFromCompanyInfo(scTELLabel,Inf.TEL);
+	//FAX番号
+	setLabelFromCompanyInfo(scFAXLabel,Inf.FAX);
+	//振込先１
+	setLabelFromCompanyInfo(scTransferLabel1,Inf.Transfer1);
+	//振込先１
+	setLabelFromCompanyInfo(scTransferLabel2,Inf.Transfer2);
+	//消費税
+	setLabelFromCompanyInfo(scTransferLabel2,Inf.Transfer2);
 
 	//該当データを得る
 	typDocData& DocData = Document.Data[Document.DocKind];
 	//消費税率設定
-	DocData.ConsumptionTaxRatio = pInf->TaxRatio;
+	DocData.ConsumptionTaxRatio = Inf.TaxRatio;
 
 	//MainPanel上の値をデータにセット
 	SetDocDataFromMainPanel();
