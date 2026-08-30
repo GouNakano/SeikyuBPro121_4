@@ -3,6 +3,8 @@
 #define typReportDataH
 //---------------------------------------------------------------------------
 #include <array>
+#include <vector>
+#include "typDocument.h"
 
 //請求書番頭フリー版データ
 class typReportData
@@ -32,4 +34,32 @@ public:
 	//代入
 	typReportData& operator = (const typReportData& h) = default;
 };
+
+//請求書番頭フリー版データリスト
+class TSBFreeDataList
+{
+private:
+	std::vector<typReportData> SBFreeDataList;
+private:
+	//数字だけを残した文字列を作成
+	String MakeNumberString(const String& Str);
+public:
+	//コンストラクタ
+	TSBFreeDataList() = default;
+	//コピーコンストラクタ
+	TSBFreeDataList(const TSBFreeDataList& h) = default;
+public:
+	//要素取得[]演算子
+	typReportData& operator [](int idx);
+public:
+	//要素数
+	int size();
+	//消去
+	bool clear();
+	//請求書番頭フリー版の読み込み
+	bool load();
+	//インデックスを指定して書類情報に反映
+	bool reflectToDoc(int idx,typDocument& doc);
+};
+
 #endif

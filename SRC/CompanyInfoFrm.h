@@ -11,6 +11,7 @@
 #include <ComCtrls.hpp>
 #include "TBaseEdit.h"
 #include "BitBtn2.h"
+#include <Vcl.TitleBarCtrls.hpp>
 //---------------------------------------------------------------------------
 class TCompanyInfoForm : public TForm
 {
@@ -93,6 +94,7 @@ __published:	// IDE 管理のコンポーネント
 	TLabel *Label11;
 	TLabel *Label38;
 	TLabel *Label39;
+	TTitleBarPanel *TitleBarPanel;
 	void __fastcall ZipToAddressBtnClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall ResistBtnClick(TObject *Sender);

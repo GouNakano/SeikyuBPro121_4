@@ -7561,7 +7561,7 @@ TWinControl *TMainForm::SetTabOrder(TWinControl *BaseControl)
 		//TWinLabel *へキャストを試みる
 		TWinLabel  *pWinLabel = dynamic_cast<TWinLabel   *>(pCtrl);
 		//TWinControl継承ならリストに追加
-		if(pWinCtrl != 0 && pWinCtrl->TabStop == true)
+		if(pWinCtrl != nullptr && pWinCtrl->TabStop == true)
 		{
 			Ctrls.push_back(pWinCtrl);
 		}
@@ -7762,10 +7762,8 @@ void __fastcall TMainForm::BorderMenuClick(TObject *Sender)
 		{
 			pDoc.Border     = true;
 		}
-
 		//書類部品情報名から書類部品情報をセット
 		Document.SetDocCompoFromName(pCtrl->Name,pDoc);
-
 		//再表示
 		SetComponentFromDocCompo(pDoc);
 	}
@@ -8538,7 +8536,10 @@ void __fastcall TMainForm::MoneyDispStr(TObject *Sender,String& DispStr)
 void __fastcall TMainForm::InputRelatedMoneyKeyPress(TObject *Sender,wchar_t &Key)
 {
 	//Enterは入力不可
-	if(Key == '\r')Key = 0;
+	if(Key == '\r')
+	{
+		Key = 0;
+	}
 	//入力可能文字をﾁｪｯｸ
 	if(Key < ' ' ||  Key == ',' || Key == '-' || Key == '.' || (Key >= '0' && Key <= '9'))
 	{
@@ -8607,84 +8608,12 @@ void __fastcall TMainForm::FileFolderMenuClick(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 {
-	int                   DivNum;
-	std::vector<String>   pStrs;
-	String                ValueName;
-	String                GridStr;
-	String                DispFolder;
-	String                FileName;
-	String                FullPath;
-	std::vector<typReportData> SBFreeDataList;
-
-	//変更がある場合は問い合わせて保存処理を行う
-	if(ChangedSave() == nsLib::mbselCancel)
+	TSBFreeDataList SBFreeDataList;
+	//読み込み
+	if(SBFreeDataList.load() == false)
 	{
 		return;
 	}
-	//リスト初期化
-	SBFreeDataList.clear();
-	//文字列リスト
-	std::unique_ptr<TStringList> pSections(new TStringList);
-	//請求書番頭フリー版レジストリ
-	std::unique_ptr<TRegistryIniFile> pReg(new TRegistryIniFile("Software\\SakuraDensan\\SeikyuBFree\\history"));
-	//セクション一覧を得る
-	pReg->ReadSections(pSections.get());
-	//リストをセット
-	for(int Cnt = 0;Cnt < pSections->Count;Cnt++)
-	{
-		//セクション名
-		String SectionStr = pSections->Strings[Cnt];
-		//データを得る
-		int    Year    = pReg->ReadString(SectionStr,"YearEdit" ,"").ToIntDef(2008); //年
-		int    Month   = pReg->ReadString(SectionStr,"MonthEdit","").ToIntDef(1);    //月
-		int    Day     = pReg->ReadString(SectionStr,"DayEdit"  ,"").ToIntDef(1);    //日
-		String NameStr = pReg->ReadString(SectionStr,"NameEdit" ,"");                //名前
-		String ItemStr = pReg->ReadString(SectionStr,"ItemEdit" ,"");                //件名
-
-		//請求書番頭フリー版からの書類データ
-		typReportData pData;
-
-		pData.Key      = SectionStr;
-		pData.Year     = Year;
-		pData.Month    = Month;
-		pData.Day      = Day;
-		pData.NameStr  = NameStr; //名前
-		pData.ItemStr  = ItemStr; //件名
-		pData.No       = pReg->ReadString(SectionStr,"NoEdit","");       //番号
-		pData.Money    = pReg->ReadString(SectionStr,"MoneyEdit","");    //請求金額
-		pData.Subtotal = pReg->ReadString(SectionStr,"SubtotalEdit",""); //小計
-		pData.Tax      = pReg->ReadString(SectionStr,"TaxEdit","");      //消費税
-		pData.Total    = pReg->ReadString(SectionStr,"TotalEdit","");    //合計
-
-		//グリッド内容の保存
-		for(int Row = 1;Row < 15;Row++)
-		{
-			//Value名
-			ValueName.sprintf(L"D%02d",Row);
-			//一行分のデータを得る
-			GridStr = pReg->ReadString(SectionStr,ValueName,L"");
-			//カンマで分解
-			DivNum = TSCommonLib::CSVDivide(pStrs,GridStr);
-			//グリッド一行分のデータを文字列化
-			for(int Col = 0;Col < 5;Col++)
-			{
-				//分解数と列番号の関係をチェック
-				if(DivNum == 0 || DivNum-1 < Col)
-				{
-					//内容が無いのでセルは空白
-					pData.GridData[Row][Col] = L"";
-				}
-				else
-				{
-					//内容をセット
-					pData.GridData[Row][Col] = pStrs[Col];
-				}
-			}
-		}
-		//リストに追加
-		SBFreeDataList.push_back(pData);
-	}
-
 	//データの数をチェック
 	if(SBFreeDataList.size() == 0)
 	{
@@ -8700,7 +8629,7 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 		return;
 	}
 	//表示フォルダーの組み立て
-	DispFolder = String(SelFolder);
+	String DispFolder = String(SelFolder);
 	//問合せ
 	nsLib::mbsel Sel = nsLib::YesNoMsgBox(Handle,L"フォルダ[%s]に請求書番頭 フリー版のデータを保存します、よろしいですか？",DispFolder.c_str());
 	//チェック
@@ -8724,6 +8653,14 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 	//請求書番頭 フリー版のデータを反映しながら、ファイル保存処理を行う
 	for(int Cnt = 0;Cnt < SBFreeDataList.size();Cnt++)
 	{
+		//インデックスを指定して書類情報に反映
+		if(SBFreeDataList.reflectToDoc(Cnt,pDoc) == false)
+		{
+			continue;
+		}
+
+		String FileName;
+		String FullPath;
 		//請求書番頭フリー版の対象データ
 		typReportData& pData = SBFreeDataList[Cnt];
 		//出力ファイルのフルパス作成
@@ -8749,42 +8686,6 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 				break;
 			}
 		}
-		//書類別にデータセット
-		for(int Kind = 0;Kind < DOCUMENT_KIND_NUM;Kind++)
-		{
-			//データのセット
-			pDoc.Data[Kind].Year     = pData.Year;                               //年
-			pDoc.Data[Kind].Month    = pData.Month;                              //月
-			pDoc.Data[Kind].Day      = pData.Day;                                //日
-			pDoc.Data[Kind].No       = pData.No;                                 //番号
-			pDoc.Data[Kind].Name     = pData.NameStr;                            //名前
-			pDoc.Data[Kind].Item     = pData.ItemStr;                            //件名
-			pDoc.Data[Kind].Money    = MakeNumberString(pData.Money).c_str();    //金額
-			pDoc.Data[Kind].Subtotal = MakeNumberString(pData.Subtotal).c_str(); //小計
-			pDoc.Data[Kind].Tax      = MakeNumberString(pData.Tax).c_str();      //消費税
-			pDoc.Data[Kind].Total    = pData.Total.c_str();                      //合計
-			pDoc.Data[Kind].RowNum   = 15;                                        //行数
-			pDoc.Data[Kind].ColNum   = 6;                                         //列数
-			//グリッドデータ消去
-			pDoc.Data[Kind].GridData.clear();
-			//グリッドデータセット
-			for(int Row = 1;Row < 15;Row++)
-			{
-				//一行分のデータ作成
-				typDocOneRowData GridRow;
-				//データセット
-				GridRow.Item       = pData.GridData[Row][0];
-				GridRow.Name       = pData.GridData[Row][1];
-				GridRow.Num        = pData.GridData[Row][2].c_str();
-				GridRow.Unit       = L"";
-				GridRow.PriceUnit  = pData.GridData[Row][3].c_str();
-				GridRow.Money      = pData.GridData[Row][4].c_str();
-				//リストに追加
-				pDoc.Data[Kind].GridData.push_back(std::move(GridRow));
-			}
-		}
-//		//MainPanel上にデータをセット
-//		SetDataFromDocData();
 		//IDのリセット
 		NowHistory.renumberID();
 		//ファイルの保存
@@ -8798,38 +8699,6 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 	nsLib::InfMsgBox(Handle,L"請求書番頭 フリー版のデータ取り込みが完了しました。");
 
 	return;
-}
-//-------------------------------------------------------------
-//  機能     ：数字だけを残した文字列を作成
-//
-//  関数定義 ：String MakeNumberString(String Str)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-String TMainForm::MakeNumberString(String Str)
-{
-	String Chr;
-	String NumStr;
-
-	for(int Cnt = 1;Cnt <= Str.Length();Cnt++)
-	{
-		//一文字取り出し
-		Chr = Str[Cnt];
-		//数字なら追加
-		if(Chr >= "0" && Chr <= "9")
-		{
-			NumStr += Chr;
-		}
-	}
-	return NumStr;
 }
 //-------------------------------------------------------------
 //  機能     ：ﾌｧｲﾙのドロップ時

@@ -2,6 +2,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "zbWindowDef.h"
 #include "strconv.h"
 #include "nsMsgBox.h"
 #include "SeikyuBDef.h"
@@ -23,6 +24,8 @@ __fastcall TCompanyInfoForm::TCompanyInfoForm(TComponent* Owner)
 //---------------------------------------------------------------------------
 void __fastcall TCompanyInfoForm::FormCreate(TObject *Sender)
 {
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
 	//ベースエディットの設定を行う
 	sbControlDef::setBaseEditPram(CompanyNameEdit_1);
 	sbControlDef::setBaseEditPram(RepresentEdit_1);

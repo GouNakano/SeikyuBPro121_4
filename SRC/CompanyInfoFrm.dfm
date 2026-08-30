@@ -4,22 +4,40 @@ object CompanyInfoForm: TCompanyInfoForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = #33258#31038#24773#22577
-  ClientHeight = 321
+  ClientHeight = 366
   ClientWidth = 483
   Color = clWhite
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poMainFormCenter
+  StyleElements = [seFont, seClient]
   StyleName = 'Windows'
   OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 12
   object CancelBtn: TBitBtn2
     Left = 400
-    Top = 292
+    Top = 327
     Width = 75
     Height = 25
     Cancel = True
@@ -33,7 +51,7 @@ object CompanyInfoForm: TCompanyInfoForm
   end
   object ResistBtn: TBitBtn2
     Left = 320
-    Top = 292
+    Top = 327
     Width = 75
     Height = 25
     Cancel = True
@@ -49,7 +67,7 @@ object CompanyInfoForm: TCompanyInfoForm
   end
   object CPageCtrl: TPageControl
     Left = 6
-    Top = 5
+    Top = 40
     Width = 469
     Height = 281
     ActivePage = C2
@@ -708,5 +726,17 @@ object CompanyInfoForm: TCompanyInfoForm
         DownColor = clBtnFace
       end
     end
+  end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 483
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
+    ExplicitHeight = 31
   end
 end
