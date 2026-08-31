@@ -4,35 +4,35 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
-USEFORM("PropertyFrm.cpp", PropertyForm);
-USEFORM("LicenseFrm.cpp", LicenseForm);
-USEFORM("nsMsgFrm.cpp", nsMsgForm);
-USEFORM("MainFrm.cpp", MainForm);
-USEFORM("LicSetting.cpp", LicSettingForm);
-USEFORM("VersionInf.cpp", AboutBox);
 USEFORM("SettingFrm.cpp", SettingForm);
 USEFORM("SeikyuPrintFrm.cpp", SeikyuPrintForm);
+USEFORM("MainFrm.cpp", MainForm);
+USEFORM("LicSetting.cpp", LicSettingForm);
+USEFORM("LicenseFrm.cpp", LicenseForm);
+USEFORM("PropertyFrm.cpp", PropertyForm);
+USEFORM("nsMsgFrm.cpp", nsMsgForm);
+USEFORM("VersionInf.cpp", AboutBox);
 USEFORM("SubSelectFrm.cpp", SubSelectForm);
-USEFORM("LabelModifyFrm.cpp", LabelModifyForm);
+USEFORM("A3L_Frm.cpp", A3L_Form);
+USEFORM("A5L_Frm.cpp", A5L_Form);
 USEFORM("A4P_Frm.cpp", A4P_Form);
 USEFORM("A4L_Frm.cpp", A4L_Form);
 USEFORM("A3P_Frm.cpp", A3P_Form);
-USEFORM("A3L_Frm.cpp", A3L_Form);
-USEFORM("DispSettingFrm.cpp", DispSettingForm);
-USEFORM("ComponentsFrm.cpp", ComponentsForm);
-USEFORM("CompanyInfoFrm.cpp", CompanyInfoForm);
-USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
+USEFORM("A5P_Frm.cpp", A5P_Form);
 USEFORM("FirstMesFrm.cpp", FirstMesForm);
 USEFORM("FigureSettingFrm.cpp", FigureSettingForm);
-USEFORM("CalendarFrm.cpp", CalendarForm);
-USEFORM("A6P_Frm.cpp", A6P_Form);
-USEFORM("A6L_Frm.cpp", A6L_Form);
-USEFORM("A5P_Frm.cpp", A5P_Form);
-USEFORM("A5L_Frm.cpp", A5L_Form);
-USEFORM("B5P_Frm.cpp", B5P_Form);
-USEFORM("B5L_Frm.cpp", B5L_Form);
+USEFORM("DispSettingFrm.cpp", DispSettingForm);
+USEFORM("ComponentsFrm.cpp", ComponentsForm);
+USEFORM("LabelModifyFrm.cpp", LabelModifyForm);
+USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
 USEFORM("B4P_Frm.cpp", B4P_Form);
 USEFORM("B4L_Frm.cpp", B4L_Form);
+USEFORM("A6P_Frm.cpp", A6P_Form);
+USEFORM("A6L_Frm.cpp", A6L_Form);
+USEFORM("B5L_Frm.cpp", B5L_Form);
+USEFORM("CompanyInfoFrm.cpp", CompanyInfoForm);
+USEFORM("CalendarFrm.cpp", CalendarForm);
+USEFORM("B5P_Frm.cpp", B5P_Form);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

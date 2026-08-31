@@ -31,6 +31,7 @@ using std::max;
 #include "DispSettingFrm.h"
 #include "TStdComponents.h"
 #include "TZooms.h"
+#include "TZips.h"
 #include "MainFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -95,7 +96,7 @@ void __fastcall TMainForm::FormShow(TObject *Sender)
 	//メインフォーム設定読み込み
 	sbp::LoadMainFormSet();
 	//郵便番号一覧を得る
-	sbp::ReadZipList();
+	Zips.load();
 	//自社情報の読み込み
 	CompanyInfo.ReadCompanyInfo();
 	//メッセージボックスのタイトル
@@ -8885,7 +8886,7 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 		return;
 	}
 	//郵便番号検索
-	sbp::GetAdressFromZipCode(ZipStr,Prefecture,City,Address);
+	Zips.getAdress(ZipStr,Prefecture,City,Address);
 	//住所を作成
 	AllAddrStr = Prefecture + City + Address;
 	//セット

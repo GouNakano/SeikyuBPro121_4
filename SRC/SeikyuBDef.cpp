@@ -34,8 +34,6 @@ typStdColumnDef StdColumn[STD_COLUMN_NUM] = {
 
 
 //----- 共通変数定義 -----
-//住所リスト
-std::map<String,typZip> ZipList;
 //初回使用フラグ
 bool IsFirstUse;
 //ライセンス文字列
@@ -109,95 +107,6 @@ std::string sbp::StrToHan(std::string Str)
 	//通常文字列に復帰
 	return wide_to_ansi(&(wStrBuf[0]));
 }
-
-//-------------------------------------------------------------
-//  機能     ：郵便番号から住所を得る
-//
-//  関数定義 ：bool GetAdressFromZipCode(String ZipCode,String& Prefecture,String& City,String& Address)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野  04/02/24
-//
-//  改定者   ：
-//-------------------------------------------------------------
-bool sbp::GetAdressFromZipCode(String ZipCode,String& Prefecture,String& City,String& Address)
-{
-	//検索
-	decltype(ZipList)::iterator find_iter = ZipList.find(ZipCode);
-	//見つかったか？
-	if(find_iter == ZipList.end())
-	{
-		return false;
-	}
-	//データセット
-	typZip& find = find_iter->second;
-
-	Prefecture = find.Prefecture;
-	City       = find.City;
-	Address    = find.Address;
-
-	return true;
-}
-//-------------------------------------------------------------
-//  機能     ：郵便番号情報を読み込む
-//
-//  関数定義 ：bool ReadZipList()
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野  04/02/24
-//
-//  改定者   ：
-//-------------------------------------------------------------
-bool sbp::ReadZipList()
-{
-	//自分のﾌﾙﾊﾟｽを得る
-	String MyPath = ExtractFileDir(ParamStr(0));
-	//住所ﾌｧｲﾙのﾌﾙﾊﾟｽ
-	String FullPath = MyPath + ZIP_CODE_CSV;
-	//ファイルを開く
-	std::filesystem::path filepath = FullPath.c_str();
-	std::ifstream ifs(filepath);
-
-	//リスト消去
-	ZipList.clear();
-	//リストにセット
-	std::string line;
-	std::vector<String> pStrs;
-
-	while(std::getline(ifs, line))
-	{
-		//カンマで分解
-		int DivNum = TSCommonLib::CSVDivide(pStrs,String(line.c_str()));
-		//分解数(=4)チェック
-		if(DivNum != 4)
-		{
-			continue;
-		}
-		//データ作成
-		typZip Zip;
-
-		Zip.ZipCode     = pStrs[0];  //郵便番号
-		Zip.Prefecture  = pStrs[1];  //都道府県
-		Zip.City        = pStrs[2];  //市町村
-		Zip.Address     = pStrs[3];  //町名
-		//リストに追加
-		ZipList[Zip.ZipCode] = std::move(Zip);
-	}
-	//閉じる
-	ifs.close();
-
-	return true;
-}
 //-------------------------------------------------------------
 //  機能     ：ライセンス状態
 //
@@ -219,89 +128,6 @@ bool sbp::CheckLicenceEnable()
 
 	return IsLicOk;
 }
-//-------------------------------------------------------------
-//  機能     ：自社情報の読み込み
-//
-//  関数定義 ：bool ReadCompanyInfo()
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：public
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-//bool sbp::ReadCompanyInfo()
-//{
-//	String Section;
-//	//レジストリを開く
-//	std::unique_ptr<SBRegIni> pIni(new SBRegIni);
-//	//自社情報の数だけ読み込む
-//	for(int Cnt = 1;Cnt <= COMPANY_INFO_NUM;Cnt++)
-//	{
-//		//レジストリキー(セクション)作成
-//		Section.sprintf(C_KEY_COMPANY_INFO,Cnt);
-//		//対象データ
-//		typCompanyInfoDef *pInfo = &CompanyInfo[Cnt-1];
-//		//データ読み込み
-//		pInfo->CompanyName = pIni->ReadString (Section,COMPANY_INFO_COMPANYNAME,"");
-//		pInfo->Represent   = pIni->ReadString (Section,COMPANY_INFO_REPRESENT  ,"");
-//		pInfo->ZipNumber   = pIni->ReadString (Section,COMPANY_INFO_ZIPNUMBER  ,"");
-//		pInfo->Address1    = pIni->ReadString (Section,COMPANY_INFO_ADDRESS1   ,"");
-//		pInfo->Address2    = pIni->ReadString (Section,COMPANY_INFO_ADDRESS2   ,"");
-//		pInfo->TEL         = pIni->ReadString (Section,COMPANY_INFO_TEL        ,"");
-//		pInfo->FAX         = pIni->ReadString (Section,COMPANY_INFO_FAX        ,"");
-//		pInfo->Transfer1   = pIni->ReadString (Section,COMPANY_INFO_TRANSFER1  ,"");
-//		pInfo->Transfer2   = pIni->ReadString (Section,COMPANY_INFO_TRANSFER2  ,"");
-//		pInfo->TaxRatio    = pIni->ReadString (Section,COMPANY_INFO_TAXRATIO   ,STD_TAXRATIO);
-//	}
-//
-//	return true;
-//}
-//-------------------------------------------------------------
-//  機能     ：自社情報の保存
-//
-//  関数定義 ：bool SaveCompanyInfo()
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：public
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-//bool sbp::SaveCompanyInfo()
-//{
-//	String Section;
-//	//レジストリを開く
-//	std::unique_ptr<SBRegIni> pIni(new SBRegIni);
-//	//自社情報の数だけ読み込む
-//	for(int Cnt = 1;Cnt <= COMPANY_INFO_NUM;Cnt++)
-//	{
-//		//レジストリキー(セクション)作成
-//		Section.sprintf(C_KEY_COMPANY_INFO,Cnt);
-//		//対象データ
-//		typCompanyInfoDef *pInfo = &CompanyInfo[Cnt-1];
-//		//データ読み込み
-//		pIni->WriteString (Section,COMPANY_INFO_COMPANYNAME,pInfo->CompanyName);
-//		pIni->WriteString (Section,COMPANY_INFO_REPRESENT  ,pInfo->Represent  );
-//		pIni->WriteString (Section,COMPANY_INFO_ZIPNUMBER  ,pInfo->ZipNumber  );
-//		pIni->WriteString (Section,COMPANY_INFO_ADDRESS1   ,pInfo->Address1   );
-//		pIni->WriteString (Section,COMPANY_INFO_ADDRESS2   ,pInfo->Address2   );
-//		pIni->WriteString (Section,COMPANY_INFO_TEL        ,pInfo->TEL        );
-//		pIni->WriteString (Section,COMPANY_INFO_FAX        ,pInfo->FAX        );
-//		pIni->WriteString (Section,COMPANY_INFO_TRANSFER1  ,pInfo->Transfer1  );
-//		pIni->WriteString (Section,COMPANY_INFO_TRANSFER2  ,pInfo->Transfer2  );
-//		pIni->WriteString (Section,COMPANY_INFO_TAXRATIO   ,pInfo->TaxRatio   );
-//	}
-//	return true;
-//}
 //-------------------------------------------------------------
 //  機能     ：メインフォーム設定読み込み
 //

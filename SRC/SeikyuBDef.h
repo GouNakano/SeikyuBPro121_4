@@ -14,6 +14,7 @@
 #include "THistories.h"
 #include "SBRegIni.h"
 #include "TReopen.h"
+#include "TSBSetting.h"
 //---------------------------------------------------------------------------
 
 //標準列の数
@@ -24,38 +25,6 @@ struct typStdColumnDef
 	const wchar_t    *Name;       //列名
 	TAlignment        Alignment;  //テキスト揃え
 
-};
-
-//---- 共通定義 ----
-struct typZip
-{
-	String ZipCode;    //郵便番号
-	String Prefecture; //都道府県
-	String City;       //市町村
-	String Address;    //住所
-public:
-	//コンストラクタ
-	typZip() = default;
-	//コピーコンストラクタ
-	typZip(const typZip& him) = default;
-	//移譲コンストラクタ
-	typZip(typZip&& him) = default;
-	//キーコンストラクタ
-	typZip(const String& key)
-	:typZip()
-	{
-		ZipCode = key;
-	}
-
-public:
-	//代入
-	typZip& operator = (const typZip& Him) = default;
-	//移譲代入
-	typZip& operator = (typZip&& Him) = default;
-public:
-	//比較
-	bool operator == (const typZip& Him)const{return ZipCode == Him.ZipCode;}
-	bool operator  > (const typZip& Him)const{return ZipCode  > Him.ZipCode;}
 };
 
 //共通変数定義
@@ -70,16 +39,8 @@ class sbp
 public:
 	//入力文字列に対して半角にします
 	static std::string         StrToHan(std::string Str);
-	//郵便番号から住所を得る
-	static bool                GetAdressFromZipCode(String ZipCode,String& Prefecture,String& City,String& Address);
-	//郵便番号情報を読み込む
-	static bool                ReadZipList();
 	//ライセンス状態
 	static bool                CheckLicenceEnable();
-//	//自社情報の読み込み
-//	static bool                ReadCompanyInfo();
-//	//自社情報の保存
-//	static bool                SaveCompanyInfo();
 	//メインフォーム設定読み込み
 	static void                LoadMainFormSet();
 	//ディスクシリアル文字列を得る
@@ -95,8 +56,6 @@ public:
 extern typDocument Document;
 //標準列情報
 extern typStdColumnDef StdColumn[STD_COLUMN_NUM];
-//住所リスト
-extern std::map<String,typZip> ZipList;
 //繰り返し入力用ﾘｽﾄｸﾗｽのｵﾌﾞｼﾞｪｸﾄ
 extern ClsInputDataList Inpts;
 

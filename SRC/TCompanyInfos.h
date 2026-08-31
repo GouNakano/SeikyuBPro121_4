@@ -22,6 +22,8 @@ struct typCompanyInfoDef
 public:
 	//コンストラクタ
 	typCompanyInfoDef() = default;
+	//コピーコンストラクタ
+	typCompanyInfoDef(const typCompanyInfoDef& h) = default;
 };
 
 //自社情報のリスト定義

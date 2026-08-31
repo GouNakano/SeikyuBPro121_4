@@ -542,6 +542,10 @@
             <DependentOn>TReopen.h</DependentOn>
             <BuildOrder>70</BuildOrder>
         </CppCompile>
+        <CppCompile Include="TSBSetting.cpp">
+            <DependentOn>TSBSetting.h</DependentOn>
+            <BuildOrder>73</BuildOrder>
+        </CppCompile>
         <CppCompile Include="TSdo.cpp">
             <DependentOn>TSdo.h</DependentOn>
             <BuildOrder>59</BuildOrder>
@@ -562,6 +566,10 @@
             <DependentOn>typReportData.h</DependentOn>
             <BuildOrder>56</BuildOrder>
         </CppCompile>
+        <CppCompile Include="TZips.cpp">
+            <DependentOn>TZips.h</DependentOn>
+            <BuildOrder>74</BuildOrder>
+        </CppCompile>
         <CppCompile Include="TZooms.cpp">
             <DependentOn>TZooms.h</DependentOn>
             <BuildOrder>69</BuildOrder>
@@ -580,35 +588,35 @@
             <DependentOn>zbWindowDef.h</DependentOn>
             <BuildOrder>63</BuildOrder>
         </CppCompile>
-        <FormResources Include="PropertyFrm.dfm"/>
-        <FormResources Include="LicenseFrm.dfm"/>
-        <FormResources Include="nsMsgFrm.dfm"/>
-        <FormResources Include="MainFrm.dfm"/>
-        <FormResources Include="LicSetting.dfm"/>
-        <FormResources Include="VersionInf.dfm"/>
         <FormResources Include="SettingFrm.dfm"/>
         <FormResources Include="SeikyuPrintFrm.dfm"/>
+        <FormResources Include="MainFrm.dfm"/>
+        <FormResources Include="LicSetting.dfm"/>
+        <FormResources Include="LicenseFrm.dfm"/>
+        <FormResources Include="PropertyFrm.dfm"/>
+        <FormResources Include="nsMsgFrm.dfm"/>
+        <FormResources Include="VersionInf.dfm"/>
         <FormResources Include="SubSelectFrm.dfm"/>
-        <FormResources Include="LabelModifyFrm.dfm"/>
+        <FormResources Include="A3L_Frm.dfm"/>
+        <FormResources Include="A5L_Frm.dfm"/>
         <FormResources Include="A4P_Frm.dfm"/>
         <FormResources Include="A4L_Frm.dfm"/>
         <FormResources Include="A3P_Frm.dfm"/>
-        <FormResources Include="A3L_Frm.dfm"/>
-        <FormResources Include="DispSettingFrm.dfm"/>
-        <FormResources Include="ComponentsFrm.dfm"/>
-        <FormResources Include="CompanyInfoFrm.dfm"/>
-        <FormResources Include="GridPropertyFrm.dfm"/>
+        <FormResources Include="A5P_Frm.dfm"/>
         <FormResources Include="FirstMesFrm.dfm"/>
         <FormResources Include="FigureSettingFrm.dfm"/>
-        <FormResources Include="CalendarFrm.dfm"/>
-        <FormResources Include="A6P_Frm.dfm"/>
-        <FormResources Include="A6L_Frm.dfm"/>
-        <FormResources Include="A5P_Frm.dfm"/>
-        <FormResources Include="A5L_Frm.dfm"/>
-        <FormResources Include="B5P_Frm.dfm"/>
-        <FormResources Include="B5L_Frm.dfm"/>
+        <FormResources Include="DispSettingFrm.dfm"/>
+        <FormResources Include="ComponentsFrm.dfm"/>
+        <FormResources Include="LabelModifyFrm.dfm"/>
+        <FormResources Include="GridPropertyFrm.dfm"/>
         <FormResources Include="B4P_Frm.dfm"/>
         <FormResources Include="B4L_Frm.dfm"/>
+        <FormResources Include="A6P_Frm.dfm"/>
+        <FormResources Include="A6L_Frm.dfm"/>
+        <FormResources Include="B5L_Frm.dfm"/>
+        <FormResources Include="CompanyInfoFrm.dfm"/>
+        <FormResources Include="CalendarFrm.dfm"/>
+        <FormResources Include="B5P_Frm.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

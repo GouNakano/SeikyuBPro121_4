@@ -8,6 +8,7 @@
 #include "SeikyuBDef.h"
 #include "sbControlDef.h"
 #include "TCompanyInfos.h"
+#include "TZips.h"
 #include "CompanyInfoFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -255,7 +256,8 @@ void __fastcall TCompanyInfoForm::ZipToAddressBtnClick(TObject *Sender)
 		return;
 	}
 	//—X•Ö”Ô†ŒŸõ
-	sbp::GetAdressFromZipCode(ZipStr,Prefecture,City,Address);
+	Zips.getAdress(ZipStr,Prefecture,City,Address);
+//	sbp::GetAdressFromZipCode(ZipStr,Prefecture,City,Address);
 	//ZŠ‚ğì¬
 	AllAddrStr = Prefecture + City + Address;
 	//ZŠ‚ğƒZƒbƒg
