@@ -12,6 +12,7 @@
 #include "TSCommonLib.h"
 #include "SeikyuBDef.h"
 #include "THistories.h"
+#include "typDocComponentDefs.h"
 #include "TSdo.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

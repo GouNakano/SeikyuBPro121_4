@@ -4,10 +4,9 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
-USEFORM("nsMsgFrm.cpp", nsMsgForm);
 USEFORM("PropertyFrm.cpp", PropertyForm);
+USEFORM("nsMsgFrm.cpp", nsMsgForm);
 USEFORM("LabelModifyFrm.cpp", LabelModifyForm);
-USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
 USEFORM("MainFrm.cpp", MainForm);
 USEFORM("LicSetting.cpp", LicSettingForm);
 USEFORM("LicenseFrm.cpp", LicenseForm);
@@ -15,6 +14,7 @@ USEFORM("VersionInf.cpp", AboutBox);
 USEFORM("SettingFrm.cpp", SettingForm);
 USEFORM("SeikyuPrintFrm.cpp", SeikyuPrintForm);
 USEFORM("SubSelectFrm.cpp", SubSelectForm);
+USEFORM("GridPropertyFrm.cpp", GridPropertyForm);
 USEFORM("A4L_Frm.cpp", A4L_Form);
 USEFORM("A3P_Frm.cpp", A3P_Form);
 USEFORM("A3L_Frm.cpp", A3L_Form);

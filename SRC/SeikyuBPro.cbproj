@@ -534,6 +534,10 @@
             <DependentOn>TSdo.h</DependentOn>
             <BuildOrder>59</BuildOrder>
         </CppCompile>
+        <CppCompile Include="typDocComponentDefs.cpp">
+            <DependentOn>typDocComponentDefs.h</DependentOn>
+            <BuildOrder>67</BuildOrder>
+        </CppCompile>
         <CppCompile Include="typDocument.cpp">
             <DependentOn>typDocument.h</DependentOn>
             <BuildOrder>54</BuildOrder>
@@ -556,10 +560,9 @@
             <DependentOn>zbWindowDef.h</DependentOn>
             <BuildOrder>63</BuildOrder>
         </CppCompile>
-        <FormResources Include="nsMsgFrm.dfm"/>
         <FormResources Include="PropertyFrm.dfm"/>
+        <FormResources Include="nsMsgFrm.dfm"/>
         <FormResources Include="LabelModifyFrm.dfm"/>
-        <FormResources Include="GridPropertyFrm.dfm"/>
         <FormResources Include="MainFrm.dfm"/>
         <FormResources Include="LicSetting.dfm"/>
         <FormResources Include="LicenseFrm.dfm"/>
@@ -567,6 +570,7 @@
         <FormResources Include="SettingFrm.dfm"/>
         <FormResources Include="SeikyuPrintFrm.dfm"/>
         <FormResources Include="SubSelectFrm.dfm"/>
+        <FormResources Include="GridPropertyFrm.dfm"/>
         <FormResources Include="A4L_Frm.dfm"/>
         <FormResources Include="A3P_Frm.dfm"/>
         <FormResources Include="A3L_Frm.dfm"/>

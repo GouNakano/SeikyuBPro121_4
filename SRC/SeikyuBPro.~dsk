@@ -1,59 +1,55 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\THistories.cpp',0,1,1,1,1,0,0,,
-File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\TSCommonLib.cpp',0,1,1,1,8,0,0,,
-File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\nsFolderDlg.cpp',0,1,4,12,29,0,0,,
-File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\typReportData.cpp',0,1,15,57,39,0,0,,
-File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SSGO\ImageControl.cpp',0,1,1,1,8,0,0,,
-File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp',0,1,44,19,69,0,0,,
-File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\A3P_Frm.cpp',0,1,1,1,1,0,0,,
-File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\include\nsDouble.h',0,1,91,49,116,0,0,,
-File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Controls.pas',0,1,12309,1,12333,0,0,,
-File_9=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\RTL\SYS\System.pas',0,1,19184,1,19208,0,0,,
-File_10=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\include\windows\rtl\JA\SystemTypes.h',0,1,124,1,148,0,0,,
-File_11=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Menus.pas',0,1,4948,1,4972,0,0,,
-File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\SSGO\WinShape.cpp',0,1,1,1,1,0,0,,
-File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp',0,1,317,1,341,0,0,,
-File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SSGO\TBorderEdit.cpp',0,1,1,1,8,0,0,,
+File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SeikyuBConst.cpp',0,1,1,1,1,0,0,,
+File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.dfm',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp',0,1,1,1,1,0,0,,
+File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp',0,1,116,1,175,0,0,,
+File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp',0,1,1,1,6,0,0,,
+File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp',0,1,1,1,6,0,0,,
+File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\THistories.cpp',0,1,1,1,1,0,0,,
+File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\TSCommonLib.cpp',0,1,1,1,8,0,0,,
+File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\nsFolderDlg.cpp',0,1,4,12,29,0,0,,
+File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\typReportData.cpp',0,1,15,57,39,0,0,,
+File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SSGO\ImageControl.cpp',0,1,1,1,8,0,0,,
+File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp',0,1,44,19,69,0,0,,
+File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\A3P_Frm.cpp',0,1,1,1,1,0,0,,
+File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\include\nsDouble.h',0,1,91,49,116,0,0,,
+File_14=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Controls.pas',0,1,12309,1,12333,0,0,,
 
 [Modules]
-Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp
-Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
-Module3=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
-Module4=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp
-Module5=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp
-Module6=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp
-Module7=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
-Count=8
+Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
+Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
+Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.cpp
+Module3=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
+Module4=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
+Module5=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp
+Module6=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
+Count=7
 EditWindowCount=1
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp]
 ModuleType=TSourceModule
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp]
 ModuleType=TSourceModule
 
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.cpp]
+ModuleType=TSourceModule
+
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp]
+ModuleType=TSourceModule
+
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
+ModuleType=TSourceModule
+
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp]
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=8
-CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
+ViewCount=7
+CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
 View0=0
 View1=1
 View2=2
@@ -61,7 +57,6 @@ View3=3
 View4=4
 View5=5
 View6=6
-View7=7
 PercentageSizes=1
 Create=1
 Visible=1
@@ -85,9 +80,9 @@ TopPanelSize=0
 LeftPanelSize=1896
 LeftPanelClients=PropertyInspector,DockSite3
 LeftPanelData=00000800010100000000420F00000000000001680700000000000001000000005C0E000009000000446F636B53697465330100000000201B00001100000050726F7065727479496E73706563746F72FFFFFFFF
-RightPanelSize=2000
+RightPanelSize=1307
 RightPanelClients=DockSite2,DockSite4
-RightPanelData=00000800010100000000420F00000000000001D00700000000000001000000004412000009000000446F636B53697465320100000000201B000009000000446F636B5369746534FFFFFFFF
+RightPanelData=00000800010100000000420F000000000000011B0500000000000001000000004412000009000000446F636B53697465320100000000201B000009000000446F636B5369746534FFFFFFFF
 BottomPanelSize=1574
 BottomPanelClients=DockSite1,MessageView
 BottomPanelData=0000080001020100000009000000446F636B5369746531DE440000000000000226060000000000000100000000DE4400000F0000004D65737361676556696577466F726DFFFFFFFF
@@ -98,9 +93,9 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-CursorX=1
-CursorY=8626
-TopLine=8635
+CursorX=10
+CursorY=6440
+TopLine=6411
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -108,16 +103,27 @@ EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 
 [View1]
 CustomEditViewType=TEditView
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
+CursorX=55
+CursorY=206
+TopLine=169
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
+
+[View2]
+CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
-CursorX=12
-CursorY=1105
-TopLine=1136
+CursorX=10
+CursorY=174
+TopLine=149
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
 
-[View2]
+[View3]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp
 CursorX=1
@@ -128,40 +134,7 @@ Elisions=
 Bookmarks=
 EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.h
 
-[View3]
-CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp
-CursorX=1
-CursorY=175
-TopLine=116
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp
-
 [View4]
-CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp
-CursorX=1
-CursorY=6
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=Borland.FormDesignerView
-
-[View5]
-CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp
-CursorX=1
-CursorY=6
-TopLine=1
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp
-
-[View6]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
 CursorX=1
@@ -172,7 +145,18 @@ Elisions=
 Bookmarks=
 EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.h
 
-[View7]
+[View5]
+CustomEditViewType=TEditView
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.cpp
+CursorX=1
+CursorY=8
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.h
+
+[View6]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
 CursorX=1
@@ -181,7 +165,7 @@ TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.h
 
 [Watches]
 Count=0
@@ -247,11 +231,11 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=2000
+Width=1307
 Height=4273
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
+ClientWidth=1307
 ClientHeight=4273
 TBDockHeight=5901
 LRDockWidth=2349
@@ -285,11 +269,11 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=2000
+Width=1307
 Height=2103
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
+ClientWidth=1307
 ClientHeight=2103
 TBDockHeight=7151
 LRDockWidth=2000
@@ -318,6 +302,11 @@ Dockable=1
 StayOnTop=0
 SplitPos=111
 
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Name,
+ExpandedItems=Anchors=0,BorderIcons=0,BevelEdges=0,Images=0,"LiveBinding デザイナ=0",MenuAnimation=0
+
 [frmDesignPreview]
 PercentageSizes=1
 Create=1
@@ -326,11 +315,11 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=2000
+Width=1307
 Height=6366
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
+ClientWidth=1307
 ClientHeight=6366
 TBDockHeight=5959
 LRDockWidth=2510
@@ -343,7 +332,7 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=-1528
+Left=-1661
 Top=243
 Width=276
 Height=359
@@ -531,11 +520,11 @@ Docked=1
 State=0
 Left=0
 Top=0
-Width=2000
+Width=1307
 Height=6366
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
+ClientWidth=1307
 ClientHeight=6366
 TBDockHeight=4884
 LRDockWidth=7151
@@ -690,16 +679,16 @@ Docked=1
 State=0
 Left=0
 Top=28
-Width=2000
+Width=1307
 Height=4545
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
+ClientWidth=1307
 ClientHeight=4545
 PixelsPerInch=96
 MonitorNum=1
 TBDockHeight=9012
-LRDockWidth=2000
+LRDockWidth=1307
 Dockable=1
 StayOnTop=0
 TabPosition=1
@@ -742,16 +731,16 @@ Docked=1
 State=0
 Left=0
 Top=533
-Width=2000
+Width=1307
 Height=2103
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=2000
+ClientWidth=1307
 ClientHeight=2103
 PixelsPerInch=96
 MonitorNum=1
 TBDockHeight=9012
-LRDockWidth=2000
+LRDockWidth=1307
 Dockable=1
 StayOnTop=0
 TabPosition=1

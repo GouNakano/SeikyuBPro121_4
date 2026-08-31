@@ -46,23 +46,6 @@ enum zoZoomDef
 	Z10     , //10%
 };
 
-////用紙定義
-//enum psPaperSize
-//{
-//	A3P=0, //A3縦
-//	A3L  , //A3横
-//	A4P  , //A4縦
-//	A4L  , //A4横
-//	A5P  , //A5縦
-//	A5L  , //A5横
-//	A6P  , //A6縦
-//	A6L  , //A6横
-//	B4P  , //B4縦
-//	B4L  , //B4横
-//	B5P  , //B5縦
-//	B5L    //B5横
-//};
-
 //書類部品定義
 enum dcDocComponent
 {
@@ -143,55 +126,6 @@ enum msgMode
 	mmOk,          //OKボタンのみ
 	mmYesNo,       //YesNoﾀﾞｲｱﾛｸﾞ
 	mmYesNoCancel  //YesNoｷｬﾝｾﾙﾀﾞｲｱﾛｸﾞ
-};
-
-
-//書類部品種類の数
-constexpr const int DOC_COMPONENT_KIND_NUM = 10;
-
-//書類部品定義構造体
-struct typDocComponentDef
-{
-	dcDocComponent      Number;         //書類部品定義番号
-	const wchar_t      *ComponentName;  //書類部品定義名称
-};
-
-//書類部品定義構造体
-constexpr const typDocComponentDef DocComponentDef[DOC_COMPONENT_KIND_NUM] = {
-	{dcUnknown    ,L"UNKNOWN"  }, //未定義
-	{dcLabel      ,L"LABEL"    }, //ラベル
-	{dcEdit       ,L"EDIT"     }, //Edit
-	{dcDayEdit    ,L"NUMEDIT"  }, //数値Edit
-	{dcMoneyEdit  ,L"MONEYEDIT"}, //金額エディット
-	{dcImage      ,L"IMAGE"    }, //画像
-	{dcVLine      ,L"VLINE"    }, //縦線
-	{dcCLine      ,L"CLINE"    }, //横線
-	{dcGrid       ,L"GRID"     }, //グリッド
-	{dcCell       ,L"CELL"     }  //グリッドのセル
-};
-
-class typDocComponentDefs
-{
-public:
-	//用紙サイズ名から用紙情報を得る
-	static bool GetDocComponentDefFromName(String DocComponentName,typDocComponentDef& comp)
-	{
-		const typDocComponentDef *pRes = nullptr;
-
-		for(int Cnt = 0;Cnt < DOC_COMPONENT_KIND_NUM;Cnt++)
-		{
-			//名前一致チェック
-			if(DocComponentName == DocComponentDef[Cnt].ComponentName)
-			{
-				comp = DocComponentDef[Cnt];
-				return true;
-			}
-		}
-		//該当しない場合は不明を選択
-		comp = DocComponentDef[dcUnknown];
-
-		return false;
-	}
 };
 
 //標準コンポーネントの数
