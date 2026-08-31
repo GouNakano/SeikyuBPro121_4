@@ -12,7 +12,10 @@
 #include "TSCommonLib.h"
 #include "SeikyuBDef.h"
 #include "THistories.h"
+#include "TStdComponents.h"
 #include "typDocComponentDefs.h"
+#include "TZooms.h"
+#include "TCompanyInfos.h"
 #include "TSdo.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -182,7 +185,7 @@ bool TSdo::setBasicInfo(std::unique_ptr<TMemIniFile>& pIni,const String& sdo_fil
 
 		//ズーム
 		Val             = pIni->ReadString (S_SECTION_SETTING,V_ZOOM,ZoomDef[Z60].ZoomName);
-		typZoomDefs::GetZoomDefFromName(Val,pZoomDef);
+		TZooms::GetZoomDefFromName(Val,pZoomDef);
 		DocInfo.Zoom    = pZoomDef.Number;
 
 		//バージョン
@@ -454,6 +457,9 @@ bool TSdo::loadDocumentData(std::unique_ptr<TMemIniFile>& pIni,typDocument& DocI
 				{
 				}
 			}
+            //自社情報を得る
+			TCompanyInfos CompanyInfo;
+			CompanyInfo.ReadCompanyInfo();
 			//消費税率を得る
 			try
 			{

@@ -1,18 +1,29 @@
 //---------------------------------------------------------------------------
-
 #include <vcl.h>
 #pragma hdrstop
 
+#include "zbWindowDef.h"
+#include "TStdComponents.h"
 #include "MainFrm.h"
 #include "GridPropertyFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "BitBtn2"
+#pragma link "TBaseEdit"
 #pragma resource "*.dfm"
 TGridPropertyForm *GridPropertyForm;
 //---------------------------------------------------------------------------
 __fastcall TGridPropertyForm::TGridPropertyForm(TComponent* Owner)
 	: TForm(Owner)
 {
+}
+//---------------------------------------------------------------------------
+//フォーム作成時
+//---------------------------------------------------------------------------
+void __fastcall TGridPropertyForm::FormCreate(TObject *Sender)
+{
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
 }
 //-------------------------------------------------------------
 //  機能     ：フォーム表示時
@@ -33,9 +44,7 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 {
 	String       ValStr;
 	typDocCompo  pDoc;
-//	typDocCompo *pDoc;
 	typDocCompo  pGridDoc;
-//	typDocCompo *pGridDoc;
 	TComponent  *pCompo;
 	TEdit       *pEW;
 	TEdit       *pET;
@@ -51,32 +60,24 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 	//グリッドの情報を得る
 	Document.GetDocCompoFromName(StdComponents[scStdComponent::scGrid].Name,pGridDoc);
 
-//	pGridDoc  = GetDocCompoFromName(StdComponents[scStdComponent::scGrid].Name);
 	//行数セット
 	RowNumEdit->Text = pGridDoc.RowNum;
-//	RowNumEdit->Text = pGridDoc->RowNum;
 
 	//列情報の設定
-//	for(int Cnt = 0;Cnt < pGridDoc->ColNum;Cnt++)
 	for(int Cnt = 0;Cnt < pGridDoc.ColNum;Cnt++)
 	{
 		//セルの情報(先頭行)
 		ValStr.sprintf(L"D_%02d_%02d",0,Cnt);
 		//セルの情報
 		bool doc_valid = Document.GetDocCompoFromName(ValStr,pDoc);
-
-
-//		pDoc = GetDocCompoFromName(ValStr);
 		//タイトルEditを得る
 		ValStr = String("CT_") + Cnt;
 		pCompo = FindComponent(ValStr);
 		pET    = static_cast<TEdit *>(pCompo);
 		//データセット
-//		if(pDoc)
 		if(doc_valid == true)
 		{
 			pET->Text = pDoc.Caption;
-//			pET->Text = pDoc->Caption;
 		}
 		else
 		{
@@ -87,10 +88,8 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 		pCompo = FindComponent(ValStr);
 		pCB    = static_cast<TComboBoxEx *>(pCompo);
 
-//		if(pDoc)
 		if(doc_valid == true)
 		{
-//			switch(pDoc->Alignment)
 			switch(pDoc.Alignment)
 			{
 				case taLeftJustify:
@@ -128,11 +127,9 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 		{
 			pFL    = static_cast<TCheckBox *>(pCompo);
 			//データセット
-//			if(pDoc)
 			if(doc_valid == true)
 			{
 				pFL->Checked = pDoc.FigureLine;
-//				pFL->Checked = pDoc->FigureLine;
 			}
 			else
 			{
@@ -147,11 +144,9 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 		{
 			pFN    = static_cast<TEdit *>(pCompo);
 			//データセット
-//			if(pDoc)
 			if(doc_valid == true)
 			{
 				pFN->Text = pDoc.Figures;
-//				pFN->Text = pDoc->Figures;
 			}
 			else
 			{
@@ -201,9 +196,7 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 {
 	typDocCompo  pDoc;
 	bool         doc_valid;
-//	typDocCompo *pDoc;
 	typDocCompo  pGridDoc;
-//	typDocCompo *pGridDoc;
 	TComponent  *pCompo;
 	TEdit       *pEW;
 	TEdit       *pET;
@@ -223,33 +216,26 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 	//グリッドの行数を保存
 	Document.GetDocCompoFromName(StdComponents[scStdComponent::scGrid].Name,pGridDoc);
 	pGridDoc.RowNum = RowNum;         //行数
-//	pGridDoc         = GetDocCompoFromName(StdComponents[scStdComponent::scGrid].Name);
-//	pGridDoc->RowNum = RowNum;         //行数
 
 	//列情報の設定
-//	for(int Cnt = 0;Cnt < pGridDoc->ColNum;Cnt++)
 	for(int Cnt = 0;Cnt < pGridDoc.ColNum;Cnt++)
 	{
 		//セルの情報(先頭行)
 		ValStr.sprintf(L"D_%02d_%02d",0,Cnt);
 		doc_valid = Document.GetDocCompoFromName(ValStr,pDoc);
-//		pDoc = GetDocCompoFromName(ValStr);
 		//タイトルEditを得る
 		ValStr = String(L"CT_") + Cnt;
 		pCompo = GridPropertyForm->FindComponent(ValStr);
 		pET    = static_cast<TEdit *>(pCompo);
 		//セルの情報にセット
-//		if(pDoc)
 		if(doc_valid == true)
 		{
 			pDoc.Caption = pET->Text;
-//			pDoc->Caption = pET->Text;
 		}
 		//テキスト揃えのコンボボックスを得る
 		ValStr = String(L"AL_") + Cnt;
 		pCompo = FindComponent(ValStr);
 		pCB    = static_cast<TComboBoxEx *>(pCompo);
-//		if(pDoc)
 		if(doc_valid == true)
 		{
 			switch(pCB->ItemIndex)
@@ -257,25 +243,21 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 				case 0:
 				{
 					pDoc.Alignment = taLeftJustify;
-//					pDoc->Alignment = taLeftJustify;
 					break;
 				}
 				case 1:
 				{
 					pDoc.Alignment = taCenter;
-//					pDoc->Alignment = taCenter;
 					break;
 				}
 				case 2:
 				{
 					pDoc.Alignment = taRightJustify;
-//					pDoc->Alignment = taRightJustify;
 					break;
 				}
 				default:
 				{
 					pDoc.Alignment = taLeftJustify;
-//					pDoc->Alignment = taLeftJustify;
 					break;
 				}
 			}
@@ -288,11 +270,9 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 		{
 			pFL = static_cast<TCheckBox *>(pCompo);
 			//データセット
-//			if(pDoc)
 			if(doc_valid == true)
 			{
 				pDoc.FigureLine = pFL->Checked;
-//				pDoc->FigureLine = pFL->Checked;
 			}
 		}
 		//桁数の設定
@@ -303,11 +283,9 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 		{
 			pFN = static_cast<TEdit *>(pCompo);
 			//データセット
-//			if(pDoc)
 			if(doc_valid == true)
 			{
 				pDoc.Figures = pFN->Text.ToIntDef(DEFAULT_FIGURES);
-//				pDoc->Figures = pFN->Text.ToIntDef(DEFAULT_FIGURES);
 			}
 		}
 		//セルの情報(先頭行)の更新

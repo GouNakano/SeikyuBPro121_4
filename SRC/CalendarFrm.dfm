@@ -4,35 +4,56 @@ object CalendarForm: TCalendarForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = #26085#20184#12398#35373#23450
-  ClientHeight = 236
+  ClientHeight = 267
   ClientWidth = 244
   Color = clWhite
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poMainFormCenter
+  StyleElements = [seFont, seClient]
   StyleName = 'Windows'
   OnCreate = FormCreate
   TextHeight = 12
   object MonthCalendar: TMonthCalendar
     Left = 0
-    Top = 0
+    Top = 30
     Width = 244
-    Height = 197
+    Height = 198
     Align = alClient
     Date = 38043.000000000000000000
     TabOrder = 0
+    ExplicitTop = 0
+    ExplicitHeight = 197
   end
   object Panel1: TPanel
     Left = 0
-    Top = 197
+    Top = 228
     Width = 244
     Height = 39
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitTop = 197
     object Panel2: TPanel
       Left = 78
       Top = 0
@@ -68,5 +89,17 @@ object CalendarForm: TCalendarForm
         DownColor = clBtnFace
       end
     end
+  end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 244
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
+    ExplicitHeight = 31
   end
 end

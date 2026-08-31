@@ -234,33 +234,33 @@ bool sbp::CheckLicenceEnable()
 //
 //  改定者   ：
 //-------------------------------------------------------------
-bool sbp::ReadCompanyInfo()
-{
-	String Section;
-	//レジストリを開く
-	std::unique_ptr<SBRegIni> pIni(new SBRegIni);
-	//自社情報の数だけ読み込む
-	for(int Cnt = 1;Cnt <= COMPANY_INFO_NUM;Cnt++)
-	{
-		//レジストリキー(セクション)作成
-		Section.sprintf(C_KEY_COMPANY_INFO,Cnt);
-		//対象データ
-		typCompanyInfoDef *pInfo = &CompanyInfo[Cnt-1];
-		//データ読み込み
-		pInfo->CompanyName = pIni->ReadString (Section,COMPANY_INFO_COMPANYNAME,"");
-		pInfo->Represent   = pIni->ReadString (Section,COMPANY_INFO_REPRESENT  ,"");
-		pInfo->ZipNumber   = pIni->ReadString (Section,COMPANY_INFO_ZIPNUMBER  ,"");
-		pInfo->Address1    = pIni->ReadString (Section,COMPANY_INFO_ADDRESS1   ,"");
-		pInfo->Address2    = pIni->ReadString (Section,COMPANY_INFO_ADDRESS2   ,"");
-		pInfo->TEL         = pIni->ReadString (Section,COMPANY_INFO_TEL        ,"");
-		pInfo->FAX         = pIni->ReadString (Section,COMPANY_INFO_FAX        ,"");
-		pInfo->Transfer1   = pIni->ReadString (Section,COMPANY_INFO_TRANSFER1  ,"");
-		pInfo->Transfer2   = pIni->ReadString (Section,COMPANY_INFO_TRANSFER2  ,"");
-		pInfo->TaxRatio    = pIni->ReadString (Section,COMPANY_INFO_TAXRATIO   ,STD_TAXRATIO);
-	}
-
-	return true;
-}
+//bool sbp::ReadCompanyInfo()
+//{
+//	String Section;
+//	//レジストリを開く
+//	std::unique_ptr<SBRegIni> pIni(new SBRegIni);
+//	//自社情報の数だけ読み込む
+//	for(int Cnt = 1;Cnt <= COMPANY_INFO_NUM;Cnt++)
+//	{
+//		//レジストリキー(セクション)作成
+//		Section.sprintf(C_KEY_COMPANY_INFO,Cnt);
+//		//対象データ
+//		typCompanyInfoDef *pInfo = &CompanyInfo[Cnt-1];
+//		//データ読み込み
+//		pInfo->CompanyName = pIni->ReadString (Section,COMPANY_INFO_COMPANYNAME,"");
+//		pInfo->Represent   = pIni->ReadString (Section,COMPANY_INFO_REPRESENT  ,"");
+//		pInfo->ZipNumber   = pIni->ReadString (Section,COMPANY_INFO_ZIPNUMBER  ,"");
+//		pInfo->Address1    = pIni->ReadString (Section,COMPANY_INFO_ADDRESS1   ,"");
+//		pInfo->Address2    = pIni->ReadString (Section,COMPANY_INFO_ADDRESS2   ,"");
+//		pInfo->TEL         = pIni->ReadString (Section,COMPANY_INFO_TEL        ,"");
+//		pInfo->FAX         = pIni->ReadString (Section,COMPANY_INFO_FAX        ,"");
+//		pInfo->Transfer1   = pIni->ReadString (Section,COMPANY_INFO_TRANSFER1  ,"");
+//		pInfo->Transfer2   = pIni->ReadString (Section,COMPANY_INFO_TRANSFER2  ,"");
+//		pInfo->TaxRatio    = pIni->ReadString (Section,COMPANY_INFO_TAXRATIO   ,STD_TAXRATIO);
+//	}
+//
+//	return true;
+//}
 //-------------------------------------------------------------
 //  機能     ：自社情報の保存
 //
@@ -276,32 +276,32 @@ bool sbp::ReadCompanyInfo()
 //
 //  改定者   ：
 //-------------------------------------------------------------
-bool sbp::SaveCompanyInfo()
-{
-	String Section;
-	//レジストリを開く
-	std::unique_ptr<SBRegIni> pIni(new SBRegIni);
-	//自社情報の数だけ読み込む
-	for(int Cnt = 1;Cnt <= COMPANY_INFO_NUM;Cnt++)
-	{
-		//レジストリキー(セクション)作成
-		Section.sprintf(C_KEY_COMPANY_INFO,Cnt);
-		//対象データ
-		typCompanyInfoDef *pInfo = &CompanyInfo[Cnt-1];
-		//データ読み込み
-		pIni->WriteString (Section,COMPANY_INFO_COMPANYNAME,pInfo->CompanyName);
-		pIni->WriteString (Section,COMPANY_INFO_REPRESENT  ,pInfo->Represent  );
-		pIni->WriteString (Section,COMPANY_INFO_ZIPNUMBER  ,pInfo->ZipNumber  );
-		pIni->WriteString (Section,COMPANY_INFO_ADDRESS1   ,pInfo->Address1   );
-		pIni->WriteString (Section,COMPANY_INFO_ADDRESS2   ,pInfo->Address2   );
-		pIni->WriteString (Section,COMPANY_INFO_TEL        ,pInfo->TEL        );
-		pIni->WriteString (Section,COMPANY_INFO_FAX        ,pInfo->FAX        );
-		pIni->WriteString (Section,COMPANY_INFO_TRANSFER1  ,pInfo->Transfer1  );
-		pIni->WriteString (Section,COMPANY_INFO_TRANSFER2  ,pInfo->Transfer2  );
-		pIni->WriteString (Section,COMPANY_INFO_TAXRATIO   ,pInfo->TaxRatio   );
-	}
-	return true;
-}
+//bool sbp::SaveCompanyInfo()
+//{
+//	String Section;
+//	//レジストリを開く
+//	std::unique_ptr<SBRegIni> pIni(new SBRegIni);
+//	//自社情報の数だけ読み込む
+//	for(int Cnt = 1;Cnt <= COMPANY_INFO_NUM;Cnt++)
+//	{
+//		//レジストリキー(セクション)作成
+//		Section.sprintf(C_KEY_COMPANY_INFO,Cnt);
+//		//対象データ
+//		typCompanyInfoDef *pInfo = &CompanyInfo[Cnt-1];
+//		//データ読み込み
+//		pIni->WriteString (Section,COMPANY_INFO_COMPANYNAME,pInfo->CompanyName);
+//		pIni->WriteString (Section,COMPANY_INFO_REPRESENT  ,pInfo->Represent  );
+//		pIni->WriteString (Section,COMPANY_INFO_ZIPNUMBER  ,pInfo->ZipNumber  );
+//		pIni->WriteString (Section,COMPANY_INFO_ADDRESS1   ,pInfo->Address1   );
+//		pIni->WriteString (Section,COMPANY_INFO_ADDRESS2   ,pInfo->Address2   );
+//		pIni->WriteString (Section,COMPANY_INFO_TEL        ,pInfo->TEL        );
+//		pIni->WriteString (Section,COMPANY_INFO_FAX        ,pInfo->FAX        );
+//		pIni->WriteString (Section,COMPANY_INFO_TRANSFER1  ,pInfo->Transfer1  );
+//		pIni->WriteString (Section,COMPANY_INFO_TRANSFER2  ,pInfo->Transfer2  );
+//		pIni->WriteString (Section,COMPANY_INFO_TAXRATIO   ,pInfo->TaxRatio   );
+//	}
+//	return true;
+//}
 //-------------------------------------------------------------
 //  機能     ：メインフォーム設定読み込み
 //
@@ -495,60 +495,5 @@ void sbp::SaveSBSet()
 	Ini->WriteInteger(INI_SETTING_SECTION,INIKEY_RATE_ACCURACY04,ES.AccuracyR4);      //小数点以下精度
 	Ini->WriteInteger(INI_SETTING_SECTION,INIKEY_RATE_TYP05     ,ES.RateTyp5);        //丸めタイプ
 	Ini->WriteInteger(INI_SETTING_SECTION,INIKEY_RATE_ACCURACY05,ES.AccuracyR5);      //小数点以下精度
-}
-//-------------------------------------------------------------
-//  機能     ：再開処理情報を得る
-//
-//  関数定義 ：void LoadReopenSet(bool& IsReopen,typReopen& ReopenInf)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野
-//
-//  改定者   ：
-//-------------------------------------------------------------
-void sbp::LoadReopenSet(bool& IsReopen,typReopen& ReopenInf)
-{
-	String  KeySdo;
-	String  KeyHist;
-
-	//Regｵｰﾌﾟﾝ
-	std::unique_ptr<SBRegIni> Ini(new SBRegIni);
-	//再開処理の有無をセット
-	IsReopen = Ini->ReadBool(INI_DEF_REOPEN,INI_ROP_ISREOPEN,false);
-	//再開ファイルの情報セット
-	ReopenInf.sdoPath = Ini->ReadString(INI_DEF_REOPEN,INI_ROP_SDOPATH,L"");
-	ReopenInf.histID  = Ini->ReadString(INI_DEF_REOPEN,INI_ROP_HISTID,L"");
-}
-//-------------------------------------------------------------
-//  機能     ：再開処理情報をセット
-//
-//  関数定義 ：void SaveReopenSet(bool IsReopen,std::vector<typReopen>& ReopenInf)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野
-//
-//  改定者   ：
-//-------------------------------------------------------------
-void sbp::SaveReopenSet(bool IsReopen,typReopen& reopenInf)
-{
-	String KeySdo;
-	String KeyHist;
-	//Regｵｰﾌﾟﾝ
-	std::unique_ptr<SBRegIni> Ini(new SBRegIni);
-	//再開処理の有無をセット
-	Ini->WriteBool   (INI_DEF_REOPEN,INI_ROP_ISREOPEN,IsReopen);
-	//再開ファイルの情報セット
-	Ini->WriteString(INI_DEF_REOPEN,INI_ROP_SDOPATH,reopenInf.sdoPath);
-	Ini->WriteString(INI_DEF_REOPEN,INI_ROP_HISTID ,reopenInf.histID);
 }
 

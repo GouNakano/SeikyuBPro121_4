@@ -1,9 +1,7 @@
 //---------------------------------------------------------------------------
-#include <vcl.h>
+#include<vcl.h>
 #pragma hdrstop
 
-#include "SeikyuBConst.h"
+#include "TDocKinds.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
-
-

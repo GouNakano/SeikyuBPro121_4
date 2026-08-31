@@ -41,6 +41,7 @@
 #include <Vcl.Graphics.hpp>
 #include "TListView2.h"
 #include "TSdo.h"
+#include "TCompanyInfos.h"
 //---------------------------------------------------------------------------
 class TMainForm : public TForm
 {
@@ -383,6 +384,8 @@ private:
 	int             SelARow;
 	//.sdoファイルのためのオブジェクト
 	TSdo            Sdo;
+	//自社情報
+	TCompanyInfos CompanyInfo;
 private:
 	//フォームがアクティブか記録
 	bool isFormActive;

@@ -11,8 +11,6 @@
 //---------------------------------------------------------------------------
 bool typDocComponentDefs::GetDocComponentDefFromName(String DocComponentName,typDocComponentDef& comp)
 {
-	const typDocComponentDef *pRes = nullptr;
-
 	for(int Cnt = 0;Cnt < DOC_COMPONENT_KIND_NUM;Cnt++)
 	{
 		//名前一致チェック

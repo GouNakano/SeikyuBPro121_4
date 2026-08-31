@@ -13,6 +13,7 @@
 #include "typReportData.h"
 #include "THistories.h"
 #include "SBRegIni.h"
+#include "TReopen.h"
 //---------------------------------------------------------------------------
 
 //標準列の数
@@ -75,10 +76,10 @@ public:
 	static bool                ReadZipList();
 	//ライセンス状態
 	static bool                CheckLicenceEnable();
-	//自社情報の読み込み
-	static bool                ReadCompanyInfo();
-	//自社情報の保存
-	static bool                SaveCompanyInfo();
+//	//自社情報の読み込み
+//	static bool                ReadCompanyInfo();
+//	//自社情報の保存
+//	static bool                SaveCompanyInfo();
 	//メインフォーム設定読み込み
 	static void                LoadMainFormSet();
 	//ディスクシリアル文字列を得る
@@ -87,10 +88,6 @@ public:
 	static void                LoadSBSet(typSBSetting& ES,bool Default);
 	//請求書番頭の設定保存
 	static void                SaveSBSet();
-	//再開処理情報を得る
-	static void                LoadReopenSet(bool& IsReopen,typReopen& ReopenInf);
-	//再開処理情報をセット
-	static void                SaveReopenSet(bool IsReopen,typReopen& ReopenInf);
 };
 
 //----- グローバル変数 -----

@@ -3,6 +3,7 @@
 #pragma hdrstop
 
 #include "SeikyuBDef.h"
+#include "TStdComponents.h"
 #include "zbWindowDef.h"
 #include "DispSettingFrm.h"
 //---------------------------------------------------------------------------

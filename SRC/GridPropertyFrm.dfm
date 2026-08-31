@@ -4,21 +4,41 @@ object GridPropertyForm: TGridPropertyForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #34920#12398#35373#23450
-  ClientHeight = 253
+  ClientHeight = 304
   ClientWidth = 432
   Color = clBtnFace
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poOwnerFormCenter
+  StyleElements = [seFont, seClient]
+  StyleName = 'Windows'
   OnClose = FormClose
+  OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 12
   object Panel1: TPanel
     Left = 0
-    Top = 217
+    Top = 268
     Width = 432
     Height = 36
     Align = alBottom
@@ -31,30 +51,38 @@ object GridPropertyForm: TGridPropertyForm
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      object CloseBtn: TBitBtn
-        Left = 168
+      object CloseBtn: TBitBtn2
+        Left = 164
         Top = 4
         Width = 75
         Height = 25
         Caption = #38281#12376#12427
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 1
         OnClick = CloseBtnClick
+        DownColor = clBtnFace
       end
-      object FormatBtn: TBitBtn
-        Left = 44
+      object FormatBtn: TBitBtn2
+        Left = 40
         Top = 4
         Width = 118
         Height = 25
         Caption = #35373#23450
         Default = True
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 0
         OnClick = FormatBtnClick
+        DownColor = clBtnFace
       end
     end
   end
   object GroupBox1: TGroupBox
     Left = 4
-    Top = 8
+    Top = 45
     Width = 237
     Height = 41
     Caption = ' '#34892#12398#35373#23450' '
@@ -73,17 +101,19 @@ object GridPropertyForm: TGridPropertyForm
       Height = 12
       Caption = #34892' (2'#65374'50'#12398#38291#12391#25351#23450#65289
     end
-    object RowNumEdit: TEdit
+    object RowNumEdit: TBaseEdit
       Left = 56
       Top = 14
       Width = 50
       Height = 20
       TabOrder = 0
+      dx = 0
+      dy = 0
     end
   end
   object GroupBox2: TGroupBox
     Left = 4
-    Top = 56
+    Top = 93
     Width = 425
     Height = 161
     Caption = ' '#21015#12398#35373#23450' '
@@ -193,40 +223,50 @@ object GridPropertyForm: TGridPropertyForm
       Height = 12
       Caption = #12479#12452#12488#12523
     end
-    object CT_0: TEdit
+    object CT_0: TBaseEdit
       Left = 80
       Top = 12
       Width = 100
       Height = 20
       TabOrder = 0
+      dx = 0
+      dy = 0
     end
-    object CT_1: TEdit
+    object CT_1: TBaseEdit
       Left = 80
       Top = 36
       Width = 100
       Height = 20
       TabOrder = 1
+      dx = 0
+      dy = 0
     end
-    object CT_2: TEdit
+    object CT_2: TBaseEdit
       Left = 80
       Top = 60
       Width = 100
       Height = 20
       TabOrder = 2
+      dx = 0
+      dy = 0
     end
-    object CT_4: TEdit
+    object CT_4: TBaseEdit
       Left = 80
       Top = 108
       Width = 100
       Height = 20
       TabOrder = 4
+      dx = 0
+      dy = 0
     end
-    object CT_5: TEdit
+    object CT_5: TBaseEdit
       Left = 80
       Top = 132
       Width = 100
       Height = 20
       TabOrder = 5
+      dx = 0
+      dy = 0
     end
     object FL_2: TCheckBox
       Left = 284
@@ -236,13 +276,15 @@ object GridPropertyForm: TGridPropertyForm
       Caption = #26689#21306#20999#12426#32218
       TabOrder = 12
     end
-    object FN_2: TEdit
+    object FN_2: TBaseEdit
       Left = 396
       Top = 59
       Width = 21
       Height = 20
       TabOrder = 13
       Text = '99'
+      dx = 0
+      dy = 0
     end
     object FL_4: TCheckBox
       Left = 284
@@ -252,13 +294,15 @@ object GridPropertyForm: TGridPropertyForm
       Caption = #26689#21306#20999#12426#32218
       TabOrder = 14
     end
-    object FN_4: TEdit
+    object FN_4: TBaseEdit
       Left = 396
       Top = 107
       Width = 21
       Height = 20
       TabOrder = 15
       Text = '99'
+      dx = 0
+      dy = 0
     end
     object FL_5: TCheckBox
       Left = 284
@@ -268,26 +312,30 @@ object GridPropertyForm: TGridPropertyForm
       Caption = #26689#21306#20999#12426#32218
       TabOrder = 16
     end
-    object FN_5: TEdit
+    object FN_5: TBaseEdit
       Left = 396
       Top = 131
       Width = 21
       Height = 20
       TabOrder = 17
       Text = '99'
+      dx = 0
+      dy = 0
     end
-    object CT_3: TEdit
+    object CT_3: TBaseEdit
       Left = 80
       Top = 84
       Width = 100
       Height = 20
       TabOrder = 3
+      dx = 0
+      dy = 0
     end
     object AL_0: TComboBoxEx
       Left = 184
       Top = 12
       Width = 95
-      Height = 21
+      Height = 22
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -312,7 +360,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 36
       Width = 95
-      Height = 21
+      Height = 22
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -337,7 +385,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 60
       Width = 95
-      Height = 21
+      Height = 22
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -362,7 +410,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 84
       Width = 95
-      Height = 21
+      Height = 22
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -387,7 +435,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 108
       Width = 95
-      Height = 21
+      Height = 22
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -412,7 +460,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 132
       Width = 95
-      Height = 21
+      Height = 22
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -434,9 +482,20 @@ object GridPropertyForm: TGridPropertyForm
       Images = AlignmentImageList
     end
   end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 432
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
+  end
   object AlignmentImageList: TImageList
     Left = 260
-    Top = 8
+    Top = 45
     Bitmap = {
       494C010103000400040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010

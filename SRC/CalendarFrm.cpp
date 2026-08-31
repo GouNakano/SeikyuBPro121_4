@@ -2,6 +2,8 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "zbWindowDef.h"
+#include "TStdComponents.h"
 #include "MainFrm.h"
 #include "CalendarFrm.h"
 //---------------------------------------------------------------------------
@@ -69,6 +71,9 @@ void __fastcall TCalendarForm::FormCreate(TObject *Sender)
 {
 	OSVERSIONINFO OSInf;
 	bool          IsVista = false;
+
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
 	//今日の日付を得る
 	TDateTime Now = TDateTime::CurrentDate();
 	//ｶﾚﾝﾀﾞｰにｾｯﾄ

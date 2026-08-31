@@ -7,6 +7,7 @@
 #include "nsMsgBox.h"
 #include "SeikyuBDef.h"
 #include "sbControlDef.h"
+#include "TCompanyInfos.h"
 #include "CompanyInfoFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -77,8 +78,9 @@ void __fastcall TCompanyInfoForm::FormCreate(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TCompanyInfoForm::FormShow(TObject *Sender)
 {
+	TCompanyInfos CompanyInfo;
 	//自社情報を得る
-	sbp::ReadCompanyInfo();
+	CompanyInfo.ReadCompanyInfo();
 	//-- データセット --
 	//自社情報１
 	CompanyNameEdit_1->Text = CompanyInfo[0].CompanyName;
@@ -138,6 +140,8 @@ void __fastcall TCompanyInfoForm::FormShow(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TCompanyInfoForm::ResistBtnClick(TObject *Sender)
 {
+	TCompanyInfos CompanyInfo;
+
 	//自社情報１
 	CompanyInfo[0].CompanyName = CompanyNameEdit_1->Text;
 	CompanyInfo[0].Represent   = RepresentEdit_1  ->Text;
@@ -175,7 +179,7 @@ void __fastcall TCompanyInfoForm::ResistBtnClick(TObject *Sender)
 	CompanyInfo[2].TaxRatio    = TaxEdit_3        ->Text.Trim();
 
 	//自社情報の保存
-	sbp::SaveCompanyInfo();
+	CompanyInfo.SaveCompanyInfo();
 	//閉じる
 	Close();
 }

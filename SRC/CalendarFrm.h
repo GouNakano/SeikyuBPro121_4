@@ -9,6 +9,7 @@
 #include <Vcl.StdCtrls.hpp>
 #include "TBorderEdit.h"
 #include "BitBtn2.h"
+#include <Vcl.TitleBarCtrls.hpp>
 ////---------------------------------------------------------------------------
 //#include <Classes.hpp>
 //#include <Controls.hpp>
@@ -25,6 +26,7 @@ __published:	// IDE 管理のコンポーネント
 	TPanel *Panel2;
 	TBitBtn2 *OKBtn;
 	TBitBtn2 *CancelBtn;
+	TTitleBarPanel *TitleBarPanel;
 	void __fastcall OKBtnClick(TObject *Sender);
 	void __fastcall FormCreate(TObject *Sender);
 private:

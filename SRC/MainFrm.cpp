@@ -29,6 +29,8 @@ using std::max;
 #include "A4L_Frm.h"
 #include "SubSelectFrm.h"
 #include "DispSettingFrm.h"
+#include "TStdComponents.h"
+#include "TZooms.h"
 #include "MainFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -95,7 +97,7 @@ void __fastcall TMainForm::FormShow(TObject *Sender)
 	//郵便番号一覧を得る
 	sbp::ReadZipList();
 	//自社情報の読み込み
-	sbp::ReadCompanyInfo();
+	CompanyInfo.ReadCompanyInfo();
 	//メッセージボックスのタイトル
 	nsLib::SetMsgBoxTitle(SYSTEM_NAME);
 
@@ -212,9 +214,9 @@ bool TMainForm::LoadReportHist()
 //-------------------------------------------------------------
 void TMainForm::RemainSetting()
 {
-	typReopen reInf;
-	String    File;
-	bool      IsParamOpen=false;
+	TReopen reInf;
+	String  File;
+	bool    IsParamOpen=false;
 
 	//開くﾌｧｲﾙを得る
 	if(ParamCount() >= 1)
@@ -235,7 +237,7 @@ void TMainForm::RemainSetting()
 	{
 		bool IsFileOpen = false;
 		//再開処理
-		sbp::LoadReopenSet(ES.IsRemain,reInf);
+		ES.IsRemain = TReopen::LoadReopenSet(reInf);
 		if(ES.IsRemain == true)
 		{
 			//再開対象ファイルを開く
@@ -309,7 +311,7 @@ bool TMainForm::selectHistViewFromHistID(const String& histID)
 //-------------------------------------------------------------
 void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 {
-	typReopen reInf;
+	TReopen reInf;
 	//再開処理のための保存
 	if(Document.File != L"" && Document.HistID != L"")
 	{
@@ -318,7 +320,7 @@ void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 		reInf.histID  = Document.HistID;
 	}
 	//再開情報保存処理
-	sbp::SaveReopenSet(ES.IsRemain,reInf);
+	TReopen::SaveReopenSet(ES.IsRemain,reInf);
 	//繰り返し入力データの追加
 	AddInputData();
 	//繰り返し入力用情報を保存
@@ -6301,7 +6303,7 @@ void __fastcall TMainForm::ZoomSetMenuClick(TObject *Sender)
 	String ZoomStr = MenuName.SubString(1,UBPos-1);
 	//ズーム名からズーム情報を得る
 	typZoomDef pZoomDef;
-	typZoomDefs::GetZoomDefFromName(ZoomStr,pZoomDef);
+	TZooms::GetZoomDefFromName(ZoomStr,pZoomDef);
 	//現在選択のズーム
 	Document.Zoom = pZoomDef.Number;
 	//メインパネルの表示更新
@@ -6331,11 +6333,11 @@ void __fastcall TMainForm::ZoomMenuClick(TObject *Sender)
 	//対象となるメニュー名を作成
 	String MenuName = String(NowZoom.ZoomName) + "_Menu";
 	//子のメニューのチェックの有無を設定
-	for(int Cnt = 0;Cnt < typZoomDefs::size();Cnt++)
+	for(int Cnt = 0;Cnt < TZooms::size();Cnt++)
 	{
 		typZoomDef zoom;
 		//コンポーネント名を作成
-		typZoomDefs::get(Cnt,zoom);
+		TZooms::get(Cnt,zoom);
 		String comp_nm = String(zoom.ZoomName) + "_Menu";
 		//対応TActionを得る
 		TComponent *pComp = FindComponent(comp_nm);
