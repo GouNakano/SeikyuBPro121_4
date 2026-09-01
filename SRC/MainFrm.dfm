@@ -2,7 +2,7 @@ object MainForm: TMainForm
   Left = 323
   Top = 86
   Caption = #35531#27714#26360#30058#38957
-  ClientHeight = 627
+  ClientHeight = 596
   ClientWidth = 1217
   Color = clWhite
   CustomTitleBar.Control = TitleBarPanel
@@ -44,7 +44,7 @@ object MainForm: TMainForm
     Left = 300
     Top = 88
     Width = 5
-    Height = 520
+    Height = 489
     Beveled = True
     Color = 13684944
     ParentColor = False
@@ -54,7 +54,7 @@ object MainForm: TMainForm
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 608
+    Top = 577
     Width = 1217
     Height = 19
     Panels = <
@@ -71,21 +71,19 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 639
   end
   object BasePanel: TPaintPanel
     Left = 305
     Top = 88
     Width = 912
-    Height = 520
+    Height = 489
     Align = alClient
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitHeight = 551
     object EditToolBar: TToolBar
       Left = 1
-      Top = 525
+      Top = 463
       Width = 910
       Height = 25
       Align = alBottom
@@ -404,7 +402,7 @@ object MainForm: TMainForm
       Left = 1
       Top = 1
       Width = 910
-      Height = 524
+      Height = 462
       VertScrollBar.Position = 162
       VertScrollBar.Smooth = True
       Align = alClient
@@ -546,16 +544,15 @@ object MainForm: TMainForm
     Left = 0
     Top = 88
     Width = 300
-    Height = 520
+    Height = 489
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitHeight = 551
     object HistListView: TListView2
       Left = 0
       Top = 0
       Width = 300
-      Height = 521
+      Height = 459
       Align = alClient
       Columns = <
         item
@@ -590,7 +587,7 @@ object MainForm: TMainForm
     end
     object Panel9: TPanel
       Left = 0
-      Top = 521
+      Top = 459
       Width = 300
       Height = 30
       Align = alBottom
@@ -601,7 +598,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 150
-        Height = 26
+        Height = 30
         Cursor = crHandPoint
         Align = alLeft
         AutoSize = True
@@ -978,6 +975,7 @@ object MainForm: TMainForm
           FFFFFFFFFFFFFFFF0000}
         Transparent = True
         OnClick = SakuraDensanMenuClick
+        ExplicitHeight = 26
       end
     end
   end

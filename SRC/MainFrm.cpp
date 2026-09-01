@@ -32,6 +32,7 @@ using std::max;
 #include "TStdComponents.h"
 #include "TZooms.h"
 #include "TZips.h"
+#include "TStdColumn.h"
 #include "MainFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -4005,7 +4006,7 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 			String   Str;
 
 			//半角にする
-			Str = sbp::StrToHan(wide_to_ansi(DispStr.c_str())).c_str();
+			Str = sbp::StrToHan(DispStr);
 			//数値にする
 			Val = Str.c_str();
 			//セルにセット
@@ -4038,7 +4039,7 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 		{
 			nsDouble Val;
 			//半角にする
-			String Str = sbp::StrToHan(wide_to_ansi(DispStr.c_str())).c_str();
+			String Str = sbp::StrToHan(DispStr);
 			//数値にする
 			Val = Str.c_str();
 			//セルにセット
@@ -8861,7 +8862,7 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 	//入力された郵便番号を得る
 	InputZipStr = pZipEdit->Text.Trim();
 	//半角にする
-	InputZipStr = sbp::StrToHan(wide_to_ansi(InputZipStr.c_str())).c_str();
+	InputZipStr = sbp::StrToHan(InputZipStr);
 	//数字文字だけを抽出(全角も)
 	for(int Cnt = 0;Cnt < (int)InputZipStr.Length();Cnt++)
 	{

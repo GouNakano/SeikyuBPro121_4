@@ -1,39 +1,38 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TCompanyInfos.cpp',0,1,1,1,8,0,0,,
-File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp',0,1,144,17,182,0,0,,
-File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SBRegIni.cpp',0,1,1,1,6,0,0,,
-File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TDocKinds.cpp',0,1,1,1,6,0,0,,
-File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp',0,1,1,1,1,0,0,,
-File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdComponents.cpp',0,1,1,1,1,0,0,,
-File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SeikyuBConst.cpp',0,1,1,1,1,0,0,,
-File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TReopen.cpp',0,1,1,44,16,0,0,,
-File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp',0,1,1,1,1,0,0,,
-File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZooms.cpp',0,1,1,13,32,0,0,,
-File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\PropertyFrm.cpp',0,1,7,1,1,0,0,,
-File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp',0,1,1,1,8,0,0,,
-File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CalendarFrm.cpp',0,1,1,1,6,0,0,,
-File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.cpp',0,1,1,61,9,0,0,,
-File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\GridPropertyFrm.cpp',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\TSCommonLib.cpp',0,1,1,1,8,0,0,,
+File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp',0,1,1,1,6,0,0,,
+File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp',0,1,1,1,6,0,0,,
+File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TCompanyInfos.cpp',0,1,1,1,8,0,0,,
+File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SBRegIni.cpp',0,1,1,1,6,0,0,,
+File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TDocKinds.cpp',0,1,1,1,6,0,0,,
+File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp',0,1,1,1,1,0,0,,
+File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdComponents.cpp',0,1,1,1,1,0,0,,
+File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SeikyuBConst.cpp',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TReopen.cpp',0,1,1,44,16,0,0,,
+File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp',0,1,1,1,1,0,0,,
+File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZooms.cpp',0,1,1,13,32,0,0,,
+File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\PropertyFrm.cpp',0,1,7,1,1,0,0,,
+File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp',0,1,1,1,8,0,0,,
 
 [Modules]
-Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
-Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp
-Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
-Module3=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
+Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
+Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
+Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp
+Module3=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZips.cpp
 Module4=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
 Count=5
 EditWindowCount=1
 
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
+ModuleType=TSourceModule
+
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZips.cpp]
 ModuleType=TSourceModule
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp]
@@ -41,7 +40,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=5
-CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
+CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 View0=0
 View1=1
 View2=2
@@ -83,9 +82,9 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-CursorX=16
-CursorY=100
-TopLine=132
+CursorX=1
+CursorY=8890
+TopLine=8864
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -106,8 +105,8 @@ EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
 CursorX=1
-CursorY=222
-TopLine=222
+CursorY=37
+TopLine=13
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -115,25 +114,25 @@ EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.
 
 [View3]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZips.cpp
 CursorX=1
-CursorY=6
-TopLine=1
+CursorY=12
+TopLine=7
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZips.cpp
 
 [View4]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp
-CursorX=1
-CursorY=6
-TopLine=1
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp
+CursorX=10
+CursorY=234
+TopLine=234
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp
 
 [Watches]
 Count=0

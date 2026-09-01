@@ -1,14 +1,11 @@
 //---------------------------------------------------------------------------
 #include <vcl.h>
+#include <winnls.h>
 #pragma hdrstop
 
+#include <windows.h>
 #include <fstream>
 #include <filesystem>
-
-#include <openssl/rsa.h>
-#include <openssl/engine.h>
-#include <openssl/err.h>
-#include <openssl/rc4.h>
 
 #include "nsDouble.h"
 #include "strconv.h"
@@ -16,22 +13,10 @@
 #include "MainFrm.h"
 #include "nsShellApi.h"
 #include "TSFileCL.h"
+#include "TStdColumn.h"
 #include "SeikyuBDef.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
-
-
-//標準列情報
-typStdColumnDef StdColumn[STD_COLUMN_NUM] = {
-	{L"項目"   ,taCenter      },
-	{L"品目名" ,taLeftJustify },
-	{L"数量"   ,taRightJustify},
-	{L"単位"   ,taCenter      },
-	{L"単価"   ,taRightJustify},
-	{L"金額"   ,taRightJustify}
-};
-
-
 
 //----- 共通変数定義 -----
 //初回使用フラグ
@@ -78,34 +63,15 @@ ClsInputDataList Inpts;
 //
 //  改定者   ：
 //-------------------------------------------------------------
-std::string sbp::StrToHan(std::string Str)
+String sbp::StrToHan(const String& Str)
 {
-	nsArray<wchar_t> wStrBuf;
-	wchar_t          hs[3];
-	String           RStr;
-	wchar_t          Nterm = 0;
-	//WideStringにする
-	String WStr(Str.c_str());
-	//一文字ずつ変換
-	wchar_t *pWS = WStr.c_str();
-
-	while(*pWS != 0)
-	{
-		//半角に変換
-		wsstr::wsZenToHan(*pWS,hs);
-
-		wStrBuf.Add(hs[0]);
-
-		if(hs[1] != 0)
-		{
-			wStrBuf.Add(hs[1]);
-		}
-		pWS++;
-	}
-	wStrBuf.Add(Nterm);
-
+	String dest;
+	//全角から半角
+	int len = LCMapStringW(LOCALE_SYSTEM_DEFAULT,LCMAP_HALFWIDTH,Str.c_str(),Str.Length(), NULL, 0);
+	dest.SetLength(len);
+	LCMapStringW(LOCALE_SYSTEM_DEFAULT, LCMAP_HALFWIDTH,Str.c_str(), Str.Length(),&dest[1], len);
 	//通常文字列に復帰
-	return wide_to_ansi(&(wStrBuf[0]));
+	return dest;
 }
 //-------------------------------------------------------------
 //  機能     ：ライセンス状態

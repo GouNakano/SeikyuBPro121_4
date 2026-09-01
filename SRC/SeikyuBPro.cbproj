@@ -550,6 +550,10 @@
             <DependentOn>TSdo.h</DependentOn>
             <BuildOrder>59</BuildOrder>
         </CppCompile>
+        <CppCompile Include="TStdColumn.cpp">
+            <DependentOn>TStdColumn.h</DependentOn>
+            <BuildOrder>75</BuildOrder>
+        </CppCompile>
         <CppCompile Include="TStdComponents.cpp">
             <DependentOn>TStdComponents.h</DependentOn>
             <BuildOrder>68</BuildOrder>
@@ -588,27 +592,27 @@
             <DependentOn>zbWindowDef.h</DependentOn>
             <BuildOrder>63</BuildOrder>
         </CppCompile>
-        <FormResources Include="SettingFrm.dfm"/>
         <FormResources Include="SeikyuPrintFrm.dfm"/>
+        <FormResources Include="SubSelectFrm.dfm"/>
+        <FormResources Include="SettingFrm.dfm"/>
         <FormResources Include="MainFrm.dfm"/>
         <FormResources Include="LicSetting.dfm"/>
         <FormResources Include="LicenseFrm.dfm"/>
-        <FormResources Include="PropertyFrm.dfm"/>
         <FormResources Include="nsMsgFrm.dfm"/>
+        <FormResources Include="PropertyFrm.dfm"/>
         <FormResources Include="VersionInf.dfm"/>
-        <FormResources Include="SubSelectFrm.dfm"/>
         <FormResources Include="A3L_Frm.dfm"/>
+        <FormResources Include="A3P_Frm.dfm"/>
+        <FormResources Include="A5P_Frm.dfm"/>
         <FormResources Include="A5L_Frm.dfm"/>
         <FormResources Include="A4P_Frm.dfm"/>
         <FormResources Include="A4L_Frm.dfm"/>
-        <FormResources Include="A3P_Frm.dfm"/>
-        <FormResources Include="A5P_Frm.dfm"/>
         <FormResources Include="FirstMesFrm.dfm"/>
         <FormResources Include="FigureSettingFrm.dfm"/>
         <FormResources Include="DispSettingFrm.dfm"/>
-        <FormResources Include="ComponentsFrm.dfm"/>
-        <FormResources Include="LabelModifyFrm.dfm"/>
         <FormResources Include="GridPropertyFrm.dfm"/>
+        <FormResources Include="LabelModifyFrm.dfm"/>
+        <FormResources Include="ComponentsFrm.dfm"/>
         <FormResources Include="B4P_Frm.dfm"/>
         <FormResources Include="B4L_Frm.dfm"/>
         <FormResources Include="A6P_Frm.dfm"/>
