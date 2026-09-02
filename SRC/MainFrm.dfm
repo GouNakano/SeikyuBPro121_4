@@ -2,7 +2,7 @@ object MainForm: TMainForm
   Left = 323
   Top = 86
   Caption = #35531#27714#26360#30058#38957
-  ClientHeight = 596
+  ClientHeight = 731
   ClientWidth = 1217
   Color = clWhite
   CustomTitleBar.Control = TitleBarPanel
@@ -44,7 +44,7 @@ object MainForm: TMainForm
     Left = 300
     Top = 88
     Width = 5
-    Height = 489
+    Height = 624
     Beveled = True
     Color = 13684944
     ParentColor = False
@@ -54,7 +54,7 @@ object MainForm: TMainForm
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 577
+    Top = 712
     Width = 1217
     Height = 19
     Panels = <
@@ -71,19 +71,21 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
+    ExplicitTop = 577
   end
   object BasePanel: TPaintPanel
     Left = 305
     Top = 88
     Width = 912
-    Height = 489
+    Height = 624
     Align = alClient
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
+    ExplicitHeight = 489
     object EditToolBar: TToolBar
       Left = 1
-      Top = 463
+      Top = 598
       Width = 910
       Height = 25
       Align = alBottom
@@ -94,6 +96,7 @@ object MainForm: TMainForm
       EdgeOuter = esNone
       TabOrder = 0
       Visible = False
+      ExplicitTop = 463
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -402,8 +405,8 @@ object MainForm: TMainForm
       Left = 1
       Top = 1
       Width = 910
-      Height = 462
-      VertScrollBar.Position = 162
+      Height = 597
+      VertScrollBar.Position = 89
       VertScrollBar.Smooth = True
       Align = alClient
       BevelInner = bvNone
@@ -416,9 +419,10 @@ object MainForm: TMainForm
       OnMouseWheelDown = ScrollBoxMouseWheelDown
       OnMouseWheelUp = ScrollBoxMouseWheelUp
       OnResize = ScrollBoxResize
+      ExplicitHeight = 462
       object DummyPanel: TPanel
         Left = 512
-        Top = 78
+        Top = 151
         Width = 33
         Height = 30
         BevelOuter = bvNone
@@ -426,7 +430,7 @@ object MainForm: TMainForm
       end
       object MainPanel: TPaintPanel
         Left = 43
-        Top = -149
+        Top = -76
         Width = 469
         Height = 673
         Color = clWhite
@@ -490,7 +494,6 @@ object MainForm: TMainForm
           FixedCols = 0
           RowCount = 15
           Options = [goRowSizing, goEditing]
-          PopupMenu = GridPopupMenu
           ScrollBars = ssNone
           TabOrder = 0
           OnDblClick = ObjectDblClick
@@ -544,15 +547,16 @@ object MainForm: TMainForm
     Left = 0
     Top = 88
     Width = 300
-    Height = 489
+    Height = 624
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitHeight = 489
     object HistListView: TListView2
       Left = 0
       Top = 0
       Width = 300
-      Height = 459
+      Height = 594
       Align = alClient
       Columns = <
         item
@@ -584,16 +588,18 @@ object MainForm: TMainForm
       OnDeletion = HistListViewDeletion
       OnMouseDown = HistListViewMouseDown
       HeaderColor = clBtnFace
+      ExplicitHeight = 459
     end
     object Panel9: TPanel
       Left = 0
-      Top = 459
+      Top = 594
       Width = 300
       Height = 30
       Align = alBottom
       BevelOuter = bvNone
       Color = clWhite
       TabOrder = 1
+      ExplicitTop = 459
       object SakuraImage: TImage
         Left = 0
         Top = 0
@@ -1849,10 +1855,6 @@ object MainForm: TMainForm
     OnTimer = FirstTimerTimer
     Left = 252
     Top = 512
-  end
-  object GridPopupMenu: TPopupMenu
-    Left = 244
-    Top = 248
   end
   object ModifyLabelPopupMenu: TPopupMenu
     AutoHotkeys = maManual

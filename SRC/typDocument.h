@@ -253,7 +253,7 @@ public:
 	//書類部品情報名から書類部品情報を得る
 	bool GetDocCompoFromName(const String& Name,typDocCompo& doc_compo);
 	//書類部品情報名から書類部品情報をセット
-	bool SetDocCompoFromName(String Name,const typDocCompo& doc_compo);
+	bool SetDocCompoFromName(const String& Name,const typDocCompo& doc_compo);
 };
 
 #endif

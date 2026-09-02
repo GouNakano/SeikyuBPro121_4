@@ -143,7 +143,8 @@ void __fastcall TComponentsForm::FormatBtnClick(TObject *Sender)
 	//選択ListItem
 	TListItem *pItem = ListView->Selected;
 	//対象データ
-	PropertyForm->pDoc = static_cast<typDocCompo *>(pItem->Data);
+	typDocCompo *pDoc  = static_cast<typDocCompo *>(pItem->Data);
+	PropertyForm->pDoc = (*pDoc);
 	//書式設定フォーム表示
 	PropertyForm->ShowModal();
 }

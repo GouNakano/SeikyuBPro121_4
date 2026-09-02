@@ -291,6 +291,8 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 		//セルの情報(先頭行)の更新
 		Document.SetDocCompoFromName(pDoc.Name,pDoc);
 	}
+	//グリッドの行数を保存
+	Document.SetDocCompoFromName(StdComponents[scStdComponent::scGrid].Name,pGridDoc);
 	//閉じる
 	ModalResult = mrOk;
 }

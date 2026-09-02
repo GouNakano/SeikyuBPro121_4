@@ -4,7 +4,7 @@ object GridPropertyForm: TGridPropertyForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #34920#12398#35373#23450
-  ClientHeight = 304
+  ClientHeight = 299
   ClientWidth = 432
   Color = clBtnFace
   CustomTitleBar.Control = TitleBarPanel
@@ -38,11 +38,12 @@ object GridPropertyForm: TGridPropertyForm
   TextHeight = 12
   object Panel1: TPanel
     Left = 0
-    Top = 268
+    Top = 263
     Width = 432
     Height = 36
     Align = alBottom
     TabOrder = 2
+    ExplicitTop = 268
     object Panel2: TPanel
       Left = 185
       Top = 1

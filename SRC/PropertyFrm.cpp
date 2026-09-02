@@ -43,11 +43,11 @@ void __fastcall TPropertyForm::FormShow(TObject *Sender)
 {
 	String Str;
 	//--- 部品情報表示 ---
-	NameLabel ->Caption = pDoc->Name;
-	XEdit     ->Text    = Str.sprintf(L"%.2Lf",pDoc->X);
-	YEdit     ->Text    = Str.sprintf(L"%.2Lf",pDoc->Y);
-	WidthEdit ->Text    = Str.sprintf(L"%.2Lf",pDoc->Width);
-	HeightEdit->Text    = Str.sprintf(L"%.2Lf",pDoc->Height);
+	NameLabel ->Caption = pDoc.Name;
+	XEdit     ->Text    = Str.sprintf(L"%.2Lf",pDoc.X);
+	YEdit     ->Text    = Str.sprintf(L"%.2Lf",pDoc.Y);
+	WidthEdit ->Text    = Str.sprintf(L"%.2Lf",pDoc.Width);
+	HeightEdit->Text    = Str.sprintf(L"%.2Lf",pDoc.Height);
 }
 //-------------------------------------------------------------
 //  機能     ：設定ボタン
@@ -67,12 +67,12 @@ void __fastcall TPropertyForm::FormShow(TObject *Sender)
 void __fastcall TPropertyForm::FormatBtnClick(TObject *Sender)
 {
 	//データセット
-	pDoc->X      = _wtold(XEdit     ->Text.c_str());
-	pDoc->Y      = _wtold(YEdit     ->Text.c_str());
-	pDoc->Width  = _wtold(WidthEdit ->Text.c_str());
-	pDoc->Height = _wtold(HeightEdit->Text.c_str());
+	pDoc.X      = _wtold(XEdit     ->Text.c_str());
+	pDoc.Y      = _wtold(YEdit     ->Text.c_str());
+	pDoc.Width  = _wtold(WidthEdit ->Text.c_str());
+	pDoc.Height = _wtold(HeightEdit->Text.c_str());
 	//書類部品情報からコンポーネントを配置
-	MainForm->SetComponentFromDocCompo(*pDoc);
+	MainForm->SetComponentFromDocCompo(pDoc);
 	//閉じる
 	Close();
 }

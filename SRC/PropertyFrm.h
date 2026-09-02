@@ -45,7 +45,7 @@ public:
 	__fastcall TPropertyForm(TComponent* Owner);
 public:
 	//ëŒè€ïîïi
-	typDocCompo *pDoc;
+	typDocCompo pDoc;
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TPropertyForm *PropertyForm;

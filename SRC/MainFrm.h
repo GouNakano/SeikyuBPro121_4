@@ -49,7 +49,6 @@ __published:	// IDE 管理のコンポーネント
 	TOpenPictureDialog *OpenPictureDialog;
 	TImageList *FileMenuImageList;
 	TTimer *FirstTimer;
-	TPopupMenu *GridPopupMenu;
 	TPopupMenu *ModifyLabelPopupMenu;
 	TMenuItem *ModifyValueMenu;
 	TMenuItem *N5;

@@ -43,8 +43,6 @@ object PropertyForm: TPropertyForm
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitTop = 145
-    ExplicitWidth = 209
     object Panel2: TPanel
       Left = -29
       Top = 0
@@ -53,7 +51,6 @@ object PropertyForm: TPropertyForm
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      ExplicitLeft = -37
       object CloseBtn: TBitBtn2
         Left = 168
         Top = 6
@@ -90,7 +87,6 @@ object PropertyForm: TPropertyForm
     Height = 143
     Align = alClient
     TabOrder = 1
-    ExplicitHeight = 139
     object Label1: TLabel
       Left = 12
       Top = 13
@@ -208,6 +204,5 @@ object PropertyForm: TPropertyForm
     Margins.Right = 50
     Margins.Bottom = 0
     CustomButtons = <>
-    ExplicitHeight = 31
   end
 end
