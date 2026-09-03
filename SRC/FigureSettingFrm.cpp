@@ -8,6 +8,7 @@
 #include "FigureSettingFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "BitBtn2"
 #pragma resource "*.dfm"
 TFigureSettingForm *FigureSettingForm;
 //---------------------------------------------------------------------------

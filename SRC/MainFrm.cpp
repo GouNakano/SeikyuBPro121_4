@@ -1436,33 +1436,10 @@ int TMainForm::GetPanelPixelFromPaperPosY(long double PY)
 	char       *p;
 	//long doble型でパネル上のピクセルを計算
 	dy = (static_cast<long double>(PaperHeightPixel) * PY) / PaperHeight;
-	//dxを四捨五入する
-	sprintf(buf,"%Lf",dy);
-	p = strchr(buf,'.');
-	if(p == 0)
-	{
-		//そのまま整数にする
-		Y = atoi(buf);
-	}
-	else
-	{
-		//繰上げするか？
-		if(p[1] >= '5' && p[1] <= '9')
-		{
-			//小数点以下削除
-			p[0] = '\0';
-			//繰上げ
-			Y = atoi(buf) + 1;
-		}
-		else
-		{
-			//小数点以下削除
-			p[0] = '\0';
-			//切捨て
-			Y = atoi(buf);
-		}
-	}
-	return Y;
+	//dyを四捨五入する
+	dy = std::round(dy);
+
+	return dy;
 }
 //-------------------------------------------------------------
 //  機能     ：パネル上のX座標ピクセルから用紙上の位置を計算
@@ -3019,36 +2996,6 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 	Document.SetDocCompoFromName(pImage->Name,pDoc);
 	//書類の変更の有無を設定
 	SetDocumentChange(true);
-}
-//-------------------------------------------------------------
-//  機能     ：日付関連入力の抑制
-//
-//  関数定義 ：void __fastcall YearEditKeyPress(TObject *Sender, char &Key)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：__published
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-void __fastcall TMainForm::_YearEditKeyPress(TObject *Sender, char &Key)
-{
-	//Enterは入力不可
-	if(Key == '\r')
-	{
-		Key = 0;
-	}
-	//入力可能文字をﾁｪｯｸ
-	if(Key < ' ' || (Key >= '0' && Key <= '9'))
-	{
-		return;
-	}
-	//入力できない文字は捨てる
-	Key = 0;
 }
 //-------------------------------------------------------------
 //  機能     ：文字列関連入力の抑制
@@ -7008,6 +6955,7 @@ void __fastcall TMainForm::AliginLeftMenuClick(TObject *Sender)
 	{
 		//対象コントロール
 		TControl *pCtrl = ResizeList[Cnt]->Control;
+
 		//左位置の修正
 		pCtrl->Left = LeftMin;
 		//リサイズコントロールの再描画

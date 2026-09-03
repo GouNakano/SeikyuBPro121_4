@@ -4,60 +4,96 @@ object FigureSettingForm: TFigureSettingForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = #26689#25968#35373#23450
-  ClientHeight = 99
-  ClientWidth = 210
+  ClientHeight = 136
+  ClientWidth = 211
   Color = clBtnFace
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
-  OldCreateOrder = False
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poMainFormCenter
+  StyleElements = [seFont, seClient]
+  StyleName = 'Windows'
   OnClose = FormClose
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 12
   object Label1: TLabel
     Left = 12
-    Top = 20
+    Top = 51
     Width = 24
     Height = 12
     Caption = #26689#25968
   end
   object Label2: TLabel
     Left = 96
-    Top = 20
+    Top = 51
     Width = 97
     Height = 12
     Caption = '(4'#65374'12'#12398#38291#12391#35373#23450')'
   end
   object FigureEdit: TEdit
     Left = 44
-    Top = 16
+    Top = 47
     Width = 37
     Height = 20
     MaxLength = 2
     TabOrder = 0
   end
-  object OkBtn: TButton
+  object OkBtn: TBitBtn2
     Left = 48
-    Top = 68
+    Top = 99
     Width = 75
     Height = 25
     Caption = #35373#23450
     Default = True
+    DoubleBuffered = True
+    DoubleBufferedMode = dbmRequested
+    ParentDoubleBuffered = False
     TabOrder = 1
     OnClick = OkBtnClick
+    DownColor = clBtnFace
   end
-  object CancelBtn: TButton
+  object CancelBtn: TBitBtn2
     Left = 128
-    Top = 68
+    Top = 99
     Width = 75
     Height = 25
     Cancel = True
     Caption = #12461#12515#12531#12475#12523
+    DoubleBuffered = True
+    DoubleBufferedMode = dbmRequested
+    ParentDoubleBuffered = False
     TabOrder = 2
     OnClick = CancelBtnClick
+    DownColor = clBtnFace
+  end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 211
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
   end
 end

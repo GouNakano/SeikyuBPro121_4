@@ -414,7 +414,7 @@ void __fastcall nsResizeCtrl::MoveGrips()
 void __fastcall nsResizeCtrl::SetControl(TControl *Control)
 {
 
-	if (Control == 0)
+	if(Control == nullptr)
 	{
 		if(FControl)
 		{
@@ -427,17 +427,26 @@ void __fastcall nsResizeCtrl::SetControl(TControl *Control)
 	}
 	else
 	{
-		FControl = Control;
-		TShape::SetParent(FControl->Parent);
-		//座標設定
-		SetBounds(FControl->Left-FSpace,FControl->Top-FSpace,FControl->Width+(FSpace * 2),FControl->Height+(FSpace * 2));
-		//座標記録
-		FControl_Left   = FControl->Left;
-		FControl_Top    = FControl->Top;
-		FControl_Width  = FControl->Width;
-		FControl_Height = FControl->Height;
-		//表示
-		Show();
+		//一旦消す
+		Hide();
+		//座標変更
+		try
+		{
+			FControl = Control;
+			TShape::SetParent(FControl->Parent);
+			//座標設定
+			SetBounds(FControl->Left-FSpace,FControl->Top-FSpace,FControl->Width+(FSpace * 2),FControl->Height+(FSpace * 2));
+			//座標記録
+			FControl_Left   = FControl->Left;
+			FControl_Top    = FControl->Top;
+			FControl_Width  = FControl->Width;
+			FControl_Height = FControl->Height;
+		}
+		__finally
+		{
+			//最後は必ず表示
+			Show();
+		}
 	}
 }
 //---------------------------------------------------------------------------

@@ -225,7 +225,6 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall MoneyEditKeyPress(TObject *Sender, char &Key);
 	void __fastcall CompanyInfoBtnClick(TObject *Sender);
 	void __fastcall StampImageClick(TObject *Sender);
-	void __fastcall _YearEditKeyPress(TObject *Sender, char &Key);
 	void __fastcall EditKeyDown(TObject *Sender, WORD &Key,
           TShiftState Shift);
 	void __fastcall EditKeyPress(TObject *Sender, wchar_t &Key);

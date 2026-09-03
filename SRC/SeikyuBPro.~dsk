@@ -2,7 +2,7 @@
 File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Graphics.pas',0,1,6397,1,6421,0,0,,
 File_1=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.ActnMenus.pas',0,1,1910,1,1934,0,0,,
 File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\source\rtl\common\System.Classes.pas',0,1,19094,1,19118,0,0,,
-File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Forms.pas',0,1,13420,1,13444,0,0,{{2054,4},{2070,15},{'TScrollWindow'}}{{2164,4},{2268,15},{'TMainMenuBarStyleHook'}},
+File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Forms.pas',0,1,13420,1,13444,0,0,{{2054,4}
 File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Controls.pas',0,1,11280,1,11304,0,0,,
 File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SSGO\TBorderEdit.cpp',0,1,406,1,430,0,0,,
 File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp',0,1,100,36,4,0,0,,
@@ -17,12 +17,16 @@ File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\C
 
 [Modules]
 Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
-Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.cpp
-Count=3
+Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuPrintFrm.cpp
+Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
+Module3=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.cpp
+Count=4
 EditWindowCount=1
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
+ModuleType=TSourceModule
+
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuPrintFrm.cpp]
 ModuleType=TSourceModule
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp]
@@ -32,11 +36,12 @@ ModuleType=TSourceModule
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=3
+ViewCount=4
 CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 View0=0
 View1=1
 View2=2
+View3=3
 PercentageSizes=1
 Create=1
 Visible=1
@@ -73,15 +78,26 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-CursorX=54
-CursorY=633
-TopLine=598
+CursorX=84
+CursorY=1687
+TopLine=2017
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 
 [View1]
+CustomEditViewType=TEditView
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuPrintFrm.cpp
+CursorX=1
+CursorY=146
+TopLine=145
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View2]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.cpp
 CursorX=18
@@ -92,7 +108,7 @@ Elisions=
 Bookmarks=
 EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TPaperDefs.cpp
 
-[View2]
+[View3]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
 CursorX=1
@@ -128,9 +144,8 @@ Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=2
+Count=1
 Breakpoint0='D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp',66,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint1='D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp',431,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -239,11 +254,6 @@ LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Action,
-ExpandedItems=Images=0,"LiveBinding デザイナ=0",MenuAnimation=0,Anchors=0,Constraints=0
 
 [frmDesignPreview]
 PercentageSizes=1
