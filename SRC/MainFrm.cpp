@@ -415,6 +415,8 @@ void __fastcall TMainForm::PrintBtnClick(TObject *Sender)
 	//パネル上のコンポーネントを印刷対象とする
 	for(int Cnt = 0;Cnt < MainPanel->ControlCount;Cnt++)
 	{
+
+
 		TWinShape      *pShape;
 		TWinLabel      *pWinLabel;
 		TBorderEdit    *pBorderEdit;
@@ -423,6 +425,7 @@ void __fastcall TMainForm::PrintBtnClick(TObject *Sender)
 
 		//パネル上のコントロールを得る
 		TControl *pCtrl = MainPanel->Controls[Cnt];
+
 		//コントロールのインデックス取得
 		int resize_idx = ResizeList.findResizeCtrl(pCtrl);
 		//あればば処理しない
@@ -592,7 +595,7 @@ void __fastcall TMainForm::PrintBtnClick(TObject *Sender)
 				}
 			}
 		}
-		else if((pImage = dynamic_cast<TImageControl *>(pCtrl)) != 0)
+		else if((pImage = dynamic_cast<TImageControl *>(pCtrl)) != nullptr)
 		{
 			String ImgName;
 			String ValStr;
@@ -627,10 +630,14 @@ void __fastcall TMainForm::PrintBtnClick(TObject *Sender)
 			bool IsDrawImage = true;
 			try
 			{
-				//イメージの設定
-				if(pImage->Picture->Width > 0 && pImage->Picture->Height > 0 )
+				//イメージが有効かチェック
+				if(pImage->Picture != nullptr)
 				{
-					pQRImage->Picture->Assign(pImage->Picture);
+					//イメージの設定
+					if(pImage->Picture->Width > 0 && pImage->Picture->Height > 0 )
+					{
+						pQRImage->Picture->Assign(pImage->Picture);
+					}
 				}
 			}
 			catch(...)
@@ -6986,7 +6993,7 @@ void __fastcall TMainForm::AliginLeftMenuClick(TObject *Sender)
 	if(ResizeList.size() < 1)
 	{
 		return;
-    }
+	}
 	//もっとも左の座標を得る
 	LeftMin = ResizeList[0]->Control->Left;
 	for(int Cnt = 1;Cnt < ResizeList.size();Cnt++)
@@ -7029,7 +7036,7 @@ void __fastcall TMainForm::AliginTopMenuClick(TObject *Sender)
 	if(ResizeList.size() < 1)
 	{
 		return;
-    }
+	}
 	//もっとも左の座標を得る
 	TopMin = ResizeList[0]->Control->Top;
 	for(int Cnt = 1;Cnt < ResizeList.size();Cnt++)
@@ -7048,7 +7055,6 @@ void __fastcall TMainForm::AliginTopMenuClick(TObject *Sender)
 		pCtrl->Top = TopMin;
 		//リサイズコントロールの再描画
 		ResizeList[Cnt]->Control = pCtrl;
-
 	}
 }
 //-------------------------------------------------------------

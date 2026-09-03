@@ -143,3 +143,4 @@ void __fastcall TSeikyuPrintForm::SeikyuRepStartPage(
 }
 //---------------------------------------------------------------------------
 
+

@@ -10,9 +10,7 @@ object SeikyuPrintForm: TSeikyuPrintForm
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
-  OldCreateOrder = False
   Scaled = False
-  PixelsPerInch = 96
   TextHeight = 12
   object SeikyuRep: TQuickRep
     Left = 14
