@@ -10,15 +10,27 @@
 #include "nsMsgBox.h"
 #include "nsShellApi.h"
 #include "SeikyuBDef.h"
+#include "zbWindowDef.h"
 #include "LicSetting.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "TBaseEdit"
+#pragma link "TBaseMemo"
+#pragma link "BitBtn2"
 #pragma resource "*.dfm"
 TLicSettingForm *LicSettingForm;
 //---------------------------------------------------------------------------
 __fastcall TLicSettingForm::TLicSettingForm(TComponent* Owner)
 	: TForm(Owner)
 {
+}
+//---------------------------------------------------------------------------
+//フォーム作成時
+//---------------------------------------------------------------------------
+void __fastcall TLicSettingForm::FormCreate(TObject *Sender)
+{
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
 }
 //-------------------------------------------------------------
 //  機能     ：フォームが表示された時
@@ -100,7 +112,8 @@ bool TLicSettingForm::sendMail()
 	MailData.DataStr     = body;
 	MailData.fDialog     = true;
 	//メールを送信する
-	if(nsSendMail(MailData) == false)
+//	if(nsSendMail(MailData) == false)
+	if(MailData.send() == false)
 	{
 		return false;
 	}
@@ -338,7 +351,7 @@ void __fastcall TLicSettingForm::LicPasteBtnClick(TObject *Sender)
 	//クリップボードに設定されている文字列
 	CopyStr = pClip->AsText.Trim();
 	//セット
-	if(CopyStr != "")
+	if(CopyStr != L"")
 	{
 		PasswordEdit->Text = CopyStr;
 	}
@@ -404,13 +417,15 @@ void __fastcall TLicSettingForm::LicAuthorizationOkBtnClick(TObject *Sender)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-void __fastcall TLicSettingForm::Yubin1EditKeyPress(TObject *Sender,
-      char &Key)
+void __fastcall TLicSettingForm::Yubin1EditKeyPress(TObject *Sender,char &Key)
 {
 	//Enterは入力不可
 	if(Key == '\r')Key = 0;
 	//入力可能文字をﾁｪｯｸ
-	if(Key < ' ' || (Key >= '0' && Key <= '9'))return;
+	if(Key < ' ' || (Key >= '0' && Key <= '9'))
+	{
+		return;
+	}
 	//入力できない文字は捨てる
 	Key = 0;
 }

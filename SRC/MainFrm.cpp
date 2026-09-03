@@ -25,8 +25,6 @@ using std::max;
 #include "LicSetting.h"
 #include "LicenseFrm.h"
 #include "SettingFrm.h"
-#include "A4P_Frm.h"
-#include "A4L_Frm.h"
 #include "SubSelectFrm.h"
 #include "DispSettingFrm.h"
 #include "TStdComponents.h"
@@ -2022,7 +2020,8 @@ bool TMainForm::SetComponentFromDocumentInfo()
 		SetComponentFromDocCompo(pDoc);
 	}
 	//現在の用紙に対応するテンプレートフォームを得る
-	pTemplateForm = GetTemplateFormPaper();
+	pTemplateForm = TPaperDefs::getTemplateFormPaper(Document.Paper);
+
 	//テンプレートパネル上のコンポーネントを設定対象とする
 	for(int Cnt = 0;Cnt < STD_COMPONENT_NUM;Cnt++)
 	{
@@ -2052,109 +2051,6 @@ bool TMainForm::SetComponentFromDocumentInfo()
 	SetTabOrder(MainPanel);
 
 	return true;
-}
-//-------------------------------------------------------------
-//  機能     ：現在の用紙に対応するテンプレートフォームを得る
-//
-//  関数定義 ：TForm* GetTemplateFormPaper()
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-TForm* TMainForm::GetTemplateFormPaper()
-{
-	TForm *pTemplateForm;
-	//対応するフォームを取得
-	switch(Document.Paper)
-	{
-		case A3P:
-		{
-			pTemplateForm      = A4P_Form;
-			pTemplateForm->Tag = 43;
-			break;
-		}
-		case A3L:
-		{
-			pTemplateForm      = A4L_Form;
-			pTemplateForm->Tag = 43;
-			break;
-		}
-		case A4P:
-		{
-			pTemplateForm      = A4P_Form;
-			pTemplateForm->Tag = 60;
-			break;
-		}
-		case A4L:
-		{
-			pTemplateForm      = A4L_Form;
-			pTemplateForm->Tag = 60;
-			break;
-		}
-		case A5P:
-		{
-			pTemplateForm      = A4P_Form;
-			pTemplateForm->Tag = 85;
-			break;
-		}
-		case A5L:
-		{
-			pTemplateForm      = A4L_Form;
-			pTemplateForm->Tag = 90;
-			break;
-		}
-		case A6P:
-		{
-			pTemplateForm      = A4P_Form;
-			pTemplateForm->Tag = 120;
-			break;
-		}
-		case A6L:
-		{
-			pTemplateForm      = A4L_Form;
-			pTemplateForm->Tag = 120;
-			break;
-		}
-		case B4P:
-		{
-			pTemplateForm      = A4P_Form;
-			pTemplateForm->Tag = 50;
-			break;
-		}
-		case B4L:
-		{
-			pTemplateForm      = A4L_Form;
-			pTemplateForm->Tag = 50;
-			break;
-		}
-		case B5P:
-		{
-			pTemplateForm      = A4P_Form;
-			pTemplateForm->Tag = 69;
-			break;
-		}
-		case B5L:
-		{
-			pTemplateForm      = A4L_Form;
-			pTemplateForm->Tag = 69;
-			break;
-		}
-		default :
-		{
-			pTemplateForm      = A4P_Form;
-			pTemplateForm->Tag = 60;
-			break;
-		}
-	}
-
-	return pTemplateForm;
 }
 //-------------------------------------------------------------
 //  機能     ：テンプレートフォームからコンポーネントをセット
@@ -2197,12 +2093,12 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 	}
 
 	//現在の用紙に対応するテンプレートフォームを得る
-	pTemplateForm = GetTemplateFormPaper();
+	pTemplateForm = TPaperDefs::getTemplateFormPaper(Document.Paper);
 
 	//名前に一致するテンプレートのコンポーネントを得る
 	TComponent *pTCompo = pTemplateForm->FindComponent(CtrlName);
 	//一致しない場合は処理しない
-	if(pTCompo == 0 || pTCompo->Name != CtrlName)
+	if(pTCompo == nullptr || pTCompo->Name != CtrlName)
 	{
 		return false;
 	}
@@ -2216,7 +2112,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 	{
 		return false;
 	}
-	else if((pTWinLabel = dynamic_cast<TWinLabel *>(pTCompo))!=0)
+	else if((pTWinLabel = dynamic_cast<TWinLabel *>(pTCompo))!=nullptr)
 	{
 		//ラベル
 		TType = dcLabel;
@@ -2225,19 +2121,19 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 		//元のフォントサイズ
 		OrgFontSize = pTWinLabel->Font->Size;
 	}
-	else if((pTBorderEdit = dynamic_cast<TBorderEdit *>(pTCompo))!=0)
+	else if((pTBorderEdit = dynamic_cast<TBorderEdit *>(pTCompo))!=nullptr)
 	{
 		//枠つきEdit
 		TType = dcMoneyEdit;
 		//元のフォントサイズ
 		OrgFontSize = pTBorderEdit->Font->Size;
 	}
-	else if((pTImage = dynamic_cast<TImageControl *>(pTCompo))!=0)
+	else if((pTImage = dynamic_cast<TImageControl *>(pTCompo))!=nullptr)
 	{
 		//画像
 		TType = dcImage;
 	}
-	else if((pTShape = dynamic_cast<TWinShape *>(pTCompo))!=0)
+	else if((pTShape = dynamic_cast<TWinShape *>(pTCompo))!=nullptr)
 	{
 		//Shape
 		if(pTShape->Height <= 2)
@@ -2245,7 +2141,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 		else
 			TType = dcVLine;
 	}
-	else if((pTGrid = dynamic_cast<XnsGrid *>(pTCompo))!=0)
+	else if((pTGrid = dynamic_cast<XnsGrid *>(pTCompo))!=nullptr)
 	{
 		//Grid
 		TType = dcGrid;
@@ -2382,11 +2278,11 @@ String TMainForm::GetControlStrValue(TControl *pCtrl)
 	TBorderEdit *pBorderEdit;
 	String       Val;
 	//型別処理
-	if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl))!=0)
+	if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl))!=nullptr)
 	{
 		Val = pWinLabel->Caption;
 	}
-	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl))!=0)
+	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl))!=nullptr)
 	{
 		Val = pBorderEdit->Text;
 	}
@@ -6391,15 +6287,13 @@ void __fastcall TMainForm::PaperSelectMenuClick(TObject *Sender)
 	//対象メニュー
 	TMenuItem *pMenu = static_cast<TMenuItem *>(Sender);
 	//名前を得る
-	String MenuName = pMenu->Name;
-	//アンダーバー以前の文字列
-	int    UBPos    = MenuName.Pos(L"_");
-	String PaperStr = MenuName.SubString(1,UBPos-1);
-	//メニューから用紙情報を得る
-	typPaperDef pPaperDef;
-	TPaperDefs::GetPaperDefFromName(PaperStr,pPaperDef);
+	String menuName = pMenu->Name;
+
+	//メインフォームクリックされたメニューの名前から用紙種類を得る
+	typPaperDef paperInfo;
+	TPaperDefs::getPaperFromMenyName(menuName,paperInfo);
 	//現在選択の用紙
-	Document.Paper = pPaperDef.Number;
+	Document.Paper = paperInfo.Number;
 	//メインパネルの表示更新
 	UpdateMainPanelDisp();
 	//スクロールBOXにフォーカスセット

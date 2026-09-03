@@ -11,6 +11,10 @@
 #include <ComCtrls.hpp>
 #include <ExtCtrls.hpp>
 #include "SendMail.hpp"
+#include "TBaseEdit.h"
+#include "TBaseMemo.h"
+#include "BitBtn2.h"
+#include <Vcl.TitleBarCtrls.hpp>
 //---------------------------------------------------------------------------
 class TLicSettingForm : public TForm
 {
@@ -28,45 +32,45 @@ __published:	// IDE 管理のコンポーネント
 	TLabel *Label6;
 	TLabel *Label7;
 	TLabel *Label9;
-	TEdit *NameEdit;
-	TEdit *MailEdit;
-	TEdit *Yubin1Edit;
-	TEdit *AddressEdit;
-	TEdit *Phone1Edit;
+	TBaseEdit *NameEdit;
+	TBaseEdit *MailEdit;
+	TBaseEdit *Yubin1Edit;
+	TBaseEdit *AddressEdit;
+	TBaseEdit *Phone1Edit;
 	TLabel *Label10;
-	TEdit *Phone2Edit;
-	TEdit *Phone3Edit;
+	TBaseEdit *Phone2Edit;
+	TBaseEdit *Phone3Edit;
 	TLabel *Label11;
 	TLabel *Label12;
-	TMemo *NoteMeno;
-	TBitBtn *LicNextBtn;
-	TEdit *Yubin2Edit;
-	TBitBtn *LicPrevBtn;
+	TBaseMemo *NoteMeno;
+	TBitBtn2 *LicNextBtn;
+	TBaseEdit *Yubin2Edit;
+	TBitBtn2 *LicPrevBtn;
 	TTabSheet *SendSheet;
 	TLabel *Label13;
-	TEdit *ToEdit;
+	TBaseEdit *ToEdit;
 	TLabel *Label14;
 	TLabel *Label15;
-	TEdit *SubjectEdit;
+	TBaseEdit *SubjectEdit;
 	TLabel *Label16;
-	TMemo *MailTextMemo;
-	TBitBtn *ToCopyBtn;
-	TBitBtn *SubjectBtn;
-	TBitBtn *MailTextBtn;
+	TBaseMemo *MailTextMemo;
+	TBitBtn2 *ToCopyBtn;
+	TBitBtn2 *SubjectBtn;
+	TBitBtn2 *MailTextBtn;
 	TLabel *Label17;
 	TLabel *Label18;
 	TLabel *Label19;
-	TBitBtn *SendMailBtn;
-	TBitBtn *RetBtn;
+	TBitBtn2 *SendMailBtn;
+	TBitBtn2 *RetBtn;
 	TLabel *Label20;
 	TLabel *Label21;
 	TLabel *Label22;
 	TLabel *Label23;
-	TBitBtn *EndBtn;
+	TBitBtn2 *EndBtn;
 	TTabSheet *AuthorizationSheet;
 	TLabel *Label25;
-	TEdit *PasswordEdit;
-	TBitBtn *LicPasteBtn;
+	TBaseEdit *PasswordEdit;
+	TBitBtn2 *LicPasteBtn;
 	TLabel *Label26;
 	TBitBtn *LicAuthorizationOkBtn;
 	TLabel *Label27;
@@ -74,7 +78,7 @@ __published:	// IDE 管理のコンポーネント
 	TLabel *Label29;
 	TLabel *Label30;
 	TLabel *Label31;
-	TBitBtn *BitBtn1;
+	TBitBtn2 *BitBtn1;
 	TBitBtn *LicOrderFromVectorBtn;
 	TLabel *Label8;
 	TLabel *Label24;
@@ -84,10 +88,10 @@ __published:	// IDE 管理のコンポーネント
 	TLabel *Label34;
 	TTabSheet *VectorSheet;
 	TLabel *Label35;
-	TEdit *VectorEdit;
-	TButton *VectorCopyBtn;
-	TBitBtn *BitBtn2;
-	TBitBtn *BitBtn3;
+	TBaseEdit *VectorEdit;
+	TBitBtn2 *VectorCopyBtn;
+	TBitBtn2 *PreBtn;
+	TBitBtn2 *CloseBtn;
 	TLabel *Label36;
 	TLabel *Label37;
 	TLabel *Label38;
@@ -97,6 +101,7 @@ __published:	// IDE 管理のコンポーネント
 	TLabel *Label42;
 	TLabel *Label43;
 	TLabel *Label44;
+	TTitleBarPanel *TitleBarPanel;
 	void __fastcall LicOrderBtnClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall LicNextBtnClick(TObject *Sender);
@@ -111,6 +116,7 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall Yubin1EditKeyPress(TObject *Sender, char &Key);
 	void __fastcall LicOrderFromVectorBtnClick(TObject *Sender);
 	void __fastcall VectorCopyBtnClick(TObject *Sender);
+	void __fastcall FormCreate(TObject *Sender);
 private:	// ユーザー宣言
 	//メール送信
 	bool sendMail();

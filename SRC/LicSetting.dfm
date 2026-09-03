@@ -4,24 +4,43 @@ object LicSettingForm: TLicSettingForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = #12521#12452#12475#12531#12473#35373#23450
-  ClientHeight = 324
+  ClientHeight = 369
   ClientWidth = 372
   Color = clBtnFace
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poOwnerFormCenter
+  StyleElements = [seFont, seClient]
   StyleName = 'Windows'
+  OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 12
   object PageControl: TPageControl
     Left = 0
-    Top = 0
+    Top = 30
     Width = 372
-    Height = 324
-    ActivePage = SendSheet
+    Height = 339
+    ActivePage = VectorSheet
     Align = alClient
     MultiLine = True
     TabOrder = 0
@@ -272,7 +291,7 @@ object LicSettingForm: TLicSettingForm
       end
       object Label10: TLabel
         Left = 128
-        Top = 88
+        Top = 89
         Width = 12
         Height = 12
         Caption = #65293
@@ -304,109 +323,139 @@ object LicSettingForm: TLicSettingForm
         Font.Style = []
         ParentFont = False
       end
-      object NameEdit: TEdit
+      object NameEdit: TBaseEdit
         Left = 84
         Top = 32
         Width = 260
         Height = 20
-        ImeMode = imHira
-        MaxLength = 128
         TabOrder = 0
+        MaxLength = 128
+        ImeMode = imHira
+        dx = 0
+        dy = 0
       end
-      object MailEdit: TEdit
+      object MailEdit: TBaseEdit
         Left = 84
         Top = 59
         Width = 260
         Height = 20
-        ImeMode = imDisable
-        MaxLength = 128
         TabOrder = 1
+        MaxLength = 128
+        ImeMode = imDisable
+        dx = 0
+        dy = 0
       end
-      object Yubin1Edit: TEdit
+      object Yubin1Edit: TBaseEdit
         Left = 84
         Top = 86
         Width = 41
         Height = 20
-        ImeMode = imDisable
-        MaxLength = 6
         TabOrder = 2
+        MaxLength = 6
+        ImeMode = imDisable
+        dx = 0
+        dy = 0
         OnKeyPress = Yubin1EditKeyPress
       end
-      object AddressEdit: TEdit
+      object AddressEdit: TBaseEdit
         Left = 84
         Top = 113
         Width = 260
         Height = 20
-        ImeMode = imHira
-        MaxLength = 128
         TabOrder = 4
+        MaxLength = 128
+        ImeMode = imHira
+        dx = 0
+        dy = 0
       end
-      object Phone1Edit: TEdit
+      object Phone1Edit: TBaseEdit
         Left = 84
         Top = 140
-        Width = 45
+        Width = 41
         Height = 20
-        ImeMode = imDisable
-        MaxLength = 6
         TabOrder = 5
+        MaxLength = 6
+        ImeMode = imDisable
+        dx = 0
+        dy = 0
         OnKeyPress = Yubin1EditKeyPress
       end
-      object Phone2Edit: TEdit
+      object Phone2Edit: TBaseEdit
         Left = 144
         Top = 140
         Width = 45
         Height = 20
-        ImeMode = imDisable
-        MaxLength = 6
         TabOrder = 6
+        MaxLength = 6
+        ImeMode = imDisable
+        dx = 0
+        dy = 0
         OnKeyPress = Yubin1EditKeyPress
       end
-      object Phone3Edit: TEdit
+      object Phone3Edit: TBaseEdit
         Left = 212
         Top = 140
         Width = 45
         Height = 20
-        ImeMode = imDisable
-        MaxLength = 6
         TabOrder = 7
+        MaxLength = 6
+        ImeMode = imDisable
+        dx = 0
+        dy = 0
         OnKeyPress = Yubin1EditKeyPress
       end
-      object NoteMeno: TMemo
+      object NoteMeno: TBaseMemo
         Left = 84
         Top = 168
         Width = 260
         Height = 81
+        BorderStyle = bsNone
+        Color = clWhite
+        DoubleBuffered = True
         ImeMode = imHira
         MaxLength = 256
+        ParentDoubleBuffered = False
         TabOrder = 8
+        ReadOnlyBorderColor = clGray
+        DisableBorderColor = clBlack
       end
-      object LicNextBtn: TBitBtn
+      object LicNextBtn: TBitBtn2
         Left = 268
         Top = 288
         Width = 75
         Height = 25
         Caption = '>>'#36914#12416
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 10
         OnClick = LicNextBtnClick
+        DownColor = clBtnFace
       end
-      object Yubin2Edit: TEdit
+      object Yubin2Edit: TBaseEdit
         Left = 144
         Top = 86
         Width = 41
         Height = 20
-        ImeMode = imDisable
-        MaxLength = 6
         TabOrder = 3
+        MaxLength = 6
+        ImeMode = imDisable
+        dx = 0
+        dy = 0
         OnKeyPress = Yubin1EditKeyPress
       end
-      object LicPrevBtn: TBitBtn
+      object LicPrevBtn: TBitBtn2
         Left = 184
         Top = 288
         Width = 75
         Height = 25
         Caption = '<<'#25147#12427
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 9
         OnClick = LicPrevBtnClick
+        DownColor = clBtnFace
       end
     end
     object SendSheet: TTabSheet
@@ -485,86 +534,120 @@ object LicSettingForm: TLicSettingForm
         Font.Style = []
         ParentFont = False
       end
-      object ToEdit: TEdit
+      object ToEdit: TBaseEdit
         Left = 56
         Top = 32
         Width = 241
         Height = 20
-        Color = clBtnFace
-        ReadOnly = True
         TabOrder = 0
+        ReadOnly = True
+        ReadOnlyColor = 14737632
+        dx = 0
+        dy = 0
       end
-      object SubjectEdit: TEdit
-        Left = 56
+      object SubjectEdit: TBaseEdit
+        Left = 57
         Top = 60
         Width = 241
         Height = 20
-        Color = clBtnFace
-        ReadOnly = True
         TabOrder = 1
+        ReadOnly = True
+        ReadOnlyColor = 14737632
+        dx = 0
+        dy = 0
       end
-      object MailTextMemo: TMemo
-        Left = 56
-        Top = 88
+      object MailTextMemo: TBaseMemo
+        Left = 57
+        Top = 89
         Width = 241
         Height = 153
-        Color = clBtnFace
+        BorderStyle = bsNone
+        Color = clSilver
+        DoubleBuffered = True
+        ParentDoubleBuffered = False
         ReadOnly = True
         TabOrder = 2
+        ReadOnlyColor = 14737632
+        ReadOnlyBorderColor = clGray
+        DisableBorderColor = clBlack
       end
-      object ToCopyBtn: TBitBtn
+      object ToCopyBtn: TBitBtn2
         Left = 304
         Top = 30
         Width = 45
         Height = 21
         Caption = #12467#12500#12540
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 3
         OnClick = ToCopyBtnClick
+        DownColor = clBtnFace
       end
-      object SubjectBtn: TBitBtn
+      object SubjectBtn: TBitBtn2
         Left = 304
         Top = 58
         Width = 45
         Height = 21
         Caption = #12467#12500#12540
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 4
         OnClick = ToCopyBtnClick
+        DownColor = clBtnFace
       end
-      object MailTextBtn: TBitBtn
+      object MailTextBtn: TBitBtn2
         Left = 304
         Top = 90
         Width = 45
         Height = 21
         Caption = #12467#12500#12540
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 5
         OnClick = ToCopyBtnClick
+        DownColor = clBtnFace
       end
-      object SendMailBtn: TBitBtn
+      object SendMailBtn: TBitBtn2
         Left = 272
-        Top = 288
+        Top = 297
         Width = 75
         Height = 25
         Caption = #12513#12540#12523#36865#20449
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 6
         OnClick = SendMailBtnClick
+        DownColor = clBtnFace
       end
-      object RetBtn: TBitBtn
+      object RetBtn: TBitBtn2
         Left = 188
-        Top = 288
+        Top = 297
         Width = 75
         Height = 25
         Caption = '<< '#25147#12427
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 7
         OnClick = RetBtnClick
+        DownColor = clBtnFace
       end
-      object EndBtn: TBitBtn
+      object EndBtn: TBitBtn2
         Left = 4
-        Top = 288
+        Top = 297
         Width = 75
         Height = 25
         Caption = #32066#20102
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 8
         OnClick = EndBtnClick
+        DownColor = clBtnFace
       end
     end
     object AuthorizationSheet: TTabSheet
@@ -655,39 +738,49 @@ object LicSettingForm: TLicSettingForm
         Font.Style = []
         ParentFont = False
       end
-      object PasswordEdit: TEdit
+      object PasswordEdit: TBaseEdit
         Left = 3
         Top = 68
         Width = 293
         Height = 20
         TabOrder = 0
+        dx = 0
+        dy = 0
       end
-      object LicPasteBtn: TBitBtn
+      object LicPasteBtn: TBitBtn2
         Left = 300
-        Top = 66
+        Top = 68
         Width = 49
-        Height = 21
+        Height = 20
         Caption = #36028#20184
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 1
         OnClick = LicPasteBtnClick
+        DownColor = clBtnFace
       end
       object LicAuthorizationOkBtn: TBitBtn
         Left = 252
-        Top = 284
+        Top = 293
         Width = 75
         Height = 25
         Caption = #35469#35388#12377#12427
         TabOrder = 2
         OnClick = LicAuthorizationOkBtnClick
       end
-      object BitBtn1: TBitBtn
+      object BitBtn1: TBitBtn2
         Left = 160
-        Top = 284
+        Top = 293
         Width = 75
         Height = 25
         Caption = '<<'#25147#12427
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 3
         OnClick = LicPrevBtnClick
+        DownColor = clBtnFace
       end
     end
     object VectorSheet: TTabSheet
@@ -804,41 +897,67 @@ object LicSettingForm: TLicSettingForm
         Font.Style = []
         ParentFont = False
       end
-      object VectorEdit: TEdit
+      object VectorEdit: TBaseEdit
         Left = 8
         Top = 36
         Width = 241
         Height = 20
-        ReadOnly = True
         TabOrder = 0
+        ReadOnly = True
+        ReadOnlyColor = 14737632
+        dx = 0
+        dy = 0
       end
-      object VectorCopyBtn: TButton
+      object VectorCopyBtn: TBitBtn2
         Left = 256
-        Top = 34
+        Top = 36
         Width = 49
         Height = 21
         Caption = #12467#12500#12540
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 1
         OnClick = VectorCopyBtnClick
+        DownColor = clBtnFace
       end
-      object BitBtn2: TBitBtn
+      object PreBtn: TBitBtn2
         Left = 184
-        Top = 288
+        Top = 294
         Width = 75
         Height = 25
         Caption = '<< '#25147#12427
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 2
         OnClick = LicPrevBtnClick
+        DownColor = clBtnFace
       end
-      object BitBtn3: TBitBtn
+      object CloseBtn: TBitBtn2
         Left = 4
-        Top = 288
+        Top = 294
         Width = 75
         Height = 25
         Caption = #32066#20102
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 3
         OnClick = EndBtnClick
+        DownColor = clBtnFace
       end
     end
+  end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 372
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
   end
 end

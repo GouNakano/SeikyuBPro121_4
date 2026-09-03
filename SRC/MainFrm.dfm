@@ -71,7 +71,6 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 577
   end
   object BasePanel: TPaintPanel
     Left = 305
@@ -82,7 +81,6 @@ object MainForm: TMainForm
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitHeight = 489
     object EditToolBar: TToolBar
       Left = 1
       Top = 598
@@ -96,7 +94,6 @@ object MainForm: TMainForm
       EdgeOuter = esNone
       TabOrder = 0
       Visible = False
-      ExplicitTop = 463
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -419,7 +416,6 @@ object MainForm: TMainForm
       OnMouseWheelDown = ScrollBoxMouseWheelDown
       OnMouseWheelUp = ScrollBoxMouseWheelUp
       OnResize = ScrollBoxResize
-      ExplicitHeight = 462
       object DummyPanel: TPanel
         Left = 512
         Top = 151
@@ -551,7 +547,6 @@ object MainForm: TMainForm
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitHeight = 489
     object HistListView: TListView2
       Left = 0
       Top = 0
@@ -588,7 +583,6 @@ object MainForm: TMainForm
       OnDeletion = HistListViewDeletion
       OnMouseDown = HistListViewMouseDown
       HeaderColor = clBtnFace
-      ExplicitHeight = 459
     end
     object Panel9: TPanel
       Left = 0
@@ -599,7 +593,6 @@ object MainForm: TMainForm
       BevelOuter = bvNone
       Color = clWhite
       TabOrder = 1
-      ExplicitTop = 459
       object SakuraImage: TImage
         Left = 0
         Top = 0

@@ -1,57 +1,47 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\PropertyFrm.cpp',0,1,37,88,64,0,0,,
-File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp',0,1,373,86,397,0,0,,
-File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp',0,1,1,36,4,0,0,,
-File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp',0,1,209,45,234,0,0,,
-File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicSetting.cpp',0,1,208,1,1,0,0,,
-File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\include\strconv.h',0,1,156,27,73,0,0,,
-File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\include\windows\rtl\ustring.h',0,1,185,1,214,0,0,,
-File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZips.cpp',0,1,43,1,12,0,0,,
-File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdColumn.cpp',0,1,1,1,6,0,0,,
-File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\A4P_Frm.cpp',0,1,1,1,1,0,0,,
-File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\TSCommonLib.cpp',0,1,1,1,8,0,0,,
-File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp',0,1,1,1,6,0,0,,
-File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TCompanyInfos.cpp',0,1,1,1,8,0,0,,
-File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SBRegIni.cpp',0,1,1,1,6,0,0,,
-File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TDocKinds.cpp',0,1,1,1,6,0,0,,
+File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicSetting.dfm',0,1,1,1,1,0,0,,
+File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicSetting.cpp',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp',0,1,1,1,6,0,0,,
+File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp',0,1,51,1,75,0,0,,
+File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\GridPropertyFrm.cpp',0,1,212,1,218,0,0,,
+File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp',0,1,46,3,91,0,0,,
+File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\Common\nsSendMail.cpp',0,1,88,1,137,0,0,,
+File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp',0,1,115,8,146,0,0,,
+File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicenseFrm.cpp',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\PropertyFrm.cpp',0,1,37,88,64,0,0,,
+File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp',0,1,373,86,397,0,0,,
+File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp',0,1,209,45,234,0,0,,
+File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\include\strconv.h',0,1,156,27,73,0,0,,
+File_13=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\include\windows\rtl\ustring.h',0,1,185,1,214,0,0,,
+File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZips.cpp',0,1,43,1,12,0,0,,
 
 [Modules]
-Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
-Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\GridPropertyFrm.cpp
-Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp
+Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicSetting.cpp
+Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp
+Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp
 Module3=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-Module4=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
-Module5=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
-Count=6
+Count=4
 EditWindowCount=1
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicSetting.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\GridPropertyFrm.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp]
 ModuleType=TSourceModule
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp]
-ModuleType=TSourceModule
-
 [EditWindow0]
-ViewCount=6
-CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
+ViewCount=4
+CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicSetting.cpp
 View0=0
 View1=1
 View2=2
 View3=3
-View4=4
-View5=5
 PercentageSizes=1
 Create=1
 Visible=1
@@ -90,7 +80,7 @@ CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 CursorX=13
 CursorY=5466
-TopLine=5460
+TopLine=5532
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -98,58 +88,36 @@ EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 
 [View1]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp
-CursorX=8
-CursorY=146
-TopLine=115
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp
+CursorX=36
+CursorY=4
+TopLine=100
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp
 
 [View2]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp
-CursorX=64
-CursorY=124
-TopLine=122
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.h
-
-[View3]
-CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\GridPropertyFrm.cpp
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicSetting.cpp
 CursorX=1
-CursorY=225
-TopLine=204
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\GridPropertyFrm.cpp
-
-[View4]
-CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
-CursorX=1
-CursorY=6
+CursorY=1
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
+EditViewName=Borland.FormDesignerView
 
-[View5]
+[View3]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp
 CursorX=1
-CursorY=75
-TopLine=51
+CursorY=8
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp
 
 [Watches]
 Count=0
@@ -176,9 +144,8 @@ Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=2
+Count=1
 Breakpoint0='D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp',66,'',0,1,'',1,0,0,'',1,'','','',0,''
-Breakpoint1='D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\GridPropertyFrm.cpp',218,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -290,8 +257,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=,
-ExpandedItems=Anchors=0,Constraints=0
+SelectedItem=Name,CustomHint
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,CustomTitleBar=1,Font=0,LiveBindings=0,"LiveBinding デザイナ=0",Margins=0
 
 [frmDesignPreview]
 PercentageSizes=1

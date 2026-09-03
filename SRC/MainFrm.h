@@ -465,8 +465,6 @@ private:
 	bool SetDocControl(TControl *pCtrl);
 	//グリッド行高さの調整
 	bool AdjustRowHeights();
-	//現在の用紙に対応するテンプレートフォームを得る
-	TForm* GetTemplateFormPaper();
 	//コンポーネントの型を得る
 	dcDocComponent GetComponentType(TComponent *pCompo);
 	//ステータスバーの表示
