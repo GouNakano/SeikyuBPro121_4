@@ -1,78 +1,124 @@
 object SubSelectForm: TSubSelectForm
   Left = 530
   Top = 183
-  Width = 280
-  Height = 301
   BorderIcons = [biSystemMenu]
   Caption = 'SubSelectForm'
+  ClientHeight = 358
+  ClientWidth = 423
   Color = clBtnFace
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
-  OldCreateOrder = False
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poMainFormCenter
+  StyleElements = [seFont, seClient]
+  StyleName = 'Windows'
+  OnCreate = FormCreate
   OnShow = FormShow
-  PixelsPerInch = 96
   TextHeight = 12
   object Panel1: TPanel
     Left = 0
-    Top = 232
-    Width = 272
-    Height = 35
+    Top = 317
+    Width = 423
+    Height = 41
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitTop = 384
+    ExplicitWidth = 509
     object Panel2: TPanel
-      Left = 110
+      Left = 242
       Top = 0
-      Width = 162
-      Height = 35
+      Width = 181
+      Height = 41
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 0
-      object CancelBtn: TButton
-        Left = 84
-        Top = 4
+      ExplicitLeft = 328
+      object CancelBtn: TBitBtn2
+        Left = 94
+        Top = 9
         Width = 75
         Height = 25
         Cancel = True
         Caption = #38281#12376#12427
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 0
         OnClick = CancelBtnClick
+        DownColor = clBtnFace
       end
-      object OkBtn: TButton
-        Left = 3
-        Top = 4
+      object OkBtn: TBitBtn2
+        Left = 13
+        Top = 9
         Width = 75
         Height = 25
         Caption = #36984#25246
         Default = True
+        DoubleBuffered = True
+        DoubleBufferedMode = dbmRequested
+        ParentDoubleBuffered = False
         TabOrder = 1
         OnClick = OkBtnClick
+        DownColor = clBtnFace
       end
     end
   end
   object ItemListBox: TListBox
     Left = 0
-    Top = 13
-    Width = 272
-    Height = 219
+    Top = 43
+    Width = 423
+    Height = 274
     Align = alClient
     ItemHeight = 12
     PopupMenu = PopupMenu
     TabOrder = 1
     OnDblClick = OkBtnClick
+    ExplicitLeft = 161
+    ExplicitTop = 117
+    ExplicitWidth = 264
+    ExplicitHeight = 214
   end
   object Panel3: TPanel
     Left = 0
     Top = 0
-    Width = 272
+    Width = 423
     Height = 13
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitWidth = 509
+  end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 13
+    Width = 423
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
+    ExplicitWidth = 509
   end
   object PopupMenu: TPopupMenu
     Left = 36

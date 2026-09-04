@@ -151,4 +151,20 @@ String TLicense::getCorrectLicenceString()
 {
 	return getLicenceSettingString();
 }
-
+//---------------------------------------------------------------------------
+//ライセンスの状態を得る(Trueライセンス有効)
+//---------------------------------------------------------------------------
+bool TLicense::isLicenceEnable()
+{
+	//ライセンス文字列取得
+	String LicenseStr  = getLicenceStringFromReg();
+	//正解のライセンス文字列取得
+	String TrueLicStr = getLicenceSettingString();
+	//レジストリのライセンス文字列と比較
+	if(TrueLicStr == LicenseStr)
+	{
+		//ライセンスあり
+		return true;
+	}
+	return false;
+}

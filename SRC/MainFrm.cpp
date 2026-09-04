@@ -378,11 +378,6 @@ void __fastcall TMainForm::FirstTimerTimer(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TMainForm::PrintBtnClick(TObject *Sender)
 {
-	int          FontHeight;
-	long double  dcy;
-	long double  x,y,w,h;
-	String       ValStr;
-
 	//繰り返し入力データの追加
 	AddInputData();
 	//移動・大きさ変更を取りやめる
@@ -394,313 +389,51 @@ void __fastcall TMainForm::PrintBtnClick(TObject *Sender)
 	//印刷フォームの作成
 	SeikyuPrintForm = new TSeikyuPrintForm(this);
 	SeikyuPrintForm->Parent = this;
-	//用紙の設定
-	SeikyuPrintForm->SeikyuRep->Page->PaperSize    = PaperDef[Document.Paper].PaperSize;
-	SeikyuPrintForm->SeikyuRep->Page->Orientation  = PaperDef[Document.Paper].Orientation;
-	SeikyuPrintForm->SeikyuRep->Zoom               = 300;
 
-	//印刷対象レポート
-	TQuickRep *pRep = SeikyuPrintForm->SeikyuRep;
-	//印刷対象バンド
-	TQRBand *pBand = SeikyuPrintForm->PrintBand;
-
-	//大きさを得るためのテストShape
-	TQRShape *pQRTestShape = new TQRShape(pBand);
-	pQRTestShape->Parent = pBand;
-	pQRTestShape->Name   = "pQRTestShape";
-	pQRTestShape->Left   = 0;
-	pQRTestShape->Top    = 0;
-	pQRTestShape->Width  = 5;
-	pQRTestShape->Height = 5;
-	//パネル上のコンポーネントを印刷対象とする
-	for(int Cnt = 0;Cnt < MainPanel->ControlCount;Cnt++)
+	//印刷処理
+	try
 	{
-
-
-		TWinShape      *pShape;
-		TWinLabel      *pWinLabel;
-		TBorderEdit    *pBorderEdit;
-		TImageControl  *pImage;
-		XnsGrid        *pGrid;
-
-		//パネル上のコントロールを得る
-		TControl *pCtrl = MainPanel->Controls[Cnt];
-
-		//コントロールのインデックス取得
-		int resize_idx = ResizeList.findResizeCtrl(pCtrl);
-		//あればば処理しない
-		if(resize_idx >= 0)
+		//印刷実行(PDF出力)
+		if(Sender == PDFBtn || Sender == PDFSaveMenu)
 		{
-			continue;
-		}
-		//書類部品情報取得
-		typDocCompo pDoc;
-		bool res = Document.GetDocCompoFromName(pCtrl->Name,pDoc);
-		//部品情報が得られなければ次にいく
-		if(res == false)
-		{
-			continue;
-		}
-		//印刷対象でなければ次にいく
-		if(pDoc.Visible == false || pDoc.IsPrint == false)
-		{
-			continue;
-		}
-		//TShapeの場合
-		if((pShape = dynamic_cast<TWinShape *>(pCtrl)) != 0)
-		{
-			//TQRShape作成
-			TQRShape *pQRShape     = new TQRShape(pBand);
-			pQRShape->Parent       = pBand;
-			if(pDoc.Type == dcCLine)
+			String FileName;
+			//ファイル名設定処理
+			if(PDFSaveDialog->Execute()==true)
 			{
-				//横線Shape
-				pQRShape->Size->Left      = pDoc.X;
-				pQRShape->Size->Top       = pDoc.Y;
-				pQRShape->Size->Width     = pDoc.Width;
-				pQRShape->Size->Height    = 0.5;
-				pQRShape->Shape           = qrsHorLine;
+				FileName = PDFSaveDialog->FileName;
 			}
 			else
 			{
-				//四角形Shape
-				pQRShape->Size->Left         = pDoc.X;
-				pQRShape->Size->Top          = pDoc.Y;
-
-				//テストShapeの配置
-				pQRTestShape->Size->Left = (pDoc.X + pDoc.Width);
-				pQRTestShape->Size->Top  = (pDoc.Y + pDoc.Height);
-				//pQRShapeの補正
-				pQRShape->Width  = (pQRTestShape->Left - pQRShape->Left);
-				pQRShape->Height = (pQRTestShape->Top  - pQRShape->Top);
+				return;
+			}
+			//仮出力実行
+			SeikyuPrintForm->SeikyuRep->Prepare();
+			//PDF出力データ取得
+			nsQRepPDF& QRepPDF = SeikyuPrintForm->QRepPDF;
+			//PDFファイル出力を実行
+			if(QRepPDF.MakePdfFile(FileName) == false)
+			{
+				nsLib::ErrMsgBox(Handle,"PDFファイル[%s]の保存に失敗しました。",FileName.c_str());
+				return;
 			}
 		}
-		else if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl)) != 0)
+		else if(Sender == PrintBtn || Sender == PrintPreviewMenu)
 		{
-
-			if(pWinLabel->BorderDraw == true)
-			{
-				//枠線あり
-				TQRShape *pQRShape     = new TQRShape(pBand);
-				pQRShape->Parent       = pBand;
-				pQRShape->Brush->Style = bsSolid;
-				pQRShape->Size->Left   = pDoc.X;
-				pQRShape->Size->Top    = pDoc.Y;
-
-				//テストShapeの配置
-				pQRTestShape->Size->Left = (pDoc.X + pDoc.Width);
-				pQRTestShape->Size->Top  = (pDoc.Y + pDoc.Height);
-				//pQRShapeの補正
-				pQRShape->Width  = (pQRTestShape->Left - pQRShape->Left);
-				pQRShape->Height = (pQRTestShape->Top  - pQRShape->Top);
-
-			}
-			//TQRLabel作成
-			TQRLabel *pQRLabel     = new TQRLabel(pBand);
-			pQRLabel->Parent       = pBand;
-			pQRLabel->AutoSize     = true;
-			DocFontInfToTFont(pDoc.Font,pQRLabel->Font,false);
-			pQRLabel->Alignment    = pDoc.Alignment;
-			pQRLabel->Caption      = pWinLabel->Caption;
-			//高さを得る
-			long double LblHeight = pQRLabel->Size->Height;
-			//自動サイズをやめる
-			pQRLabel->AutoSize     = false;
-			//横位置と幅決定
-			pQRLabel->Size->Left   = pDoc.X     + ((pWinLabel->BorderDraw == true)?PRINT_BORDER_MARGIN      :0.0);
-			pQRLabel->Size->Width  = pDoc.Width - ((pWinLabel->BorderDraw == true)?PRINT_BORDER_MARGIN * 2.0:0.0);
-			//Top,Heightの決定
-			if(LblHeight == pDoc.Height)
-			{
-				pQRLabel->Size->Height       = pDoc.Height;
-				pQRLabel->Size->Top          = pDoc.Y;
-			}
-			else if(LblHeight > pDoc.Height)
-			{
-				//ラベルの高さよりフォントが大きい
-				pQRLabel->Size->Height       = pDoc.Height;
-				pQRLabel->Size->Top          = pDoc.Y;
-			}
-			else
-			{
-				//補正量
-				dcy = (pDoc.Height - LblHeight) / 2.0;
-				//中段に寄せる
-				pQRLabel->Size->Height  = LblHeight;
-				pQRLabel->Size->Top     = pDoc.Y + dcy;
-			}
+			//プレビュー
+			SeikyuPrintForm->SeikyuRep->PreviewModal();
 		}
-		else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl)) != 0)
-		{
-			//桁区切り線の有無を確認
-			if(pBorderEdit->ColSeparateDraw == true)
-			{
-				//桁区切り線あり
-				PrintColumnSeparateText(pDoc.X,pDoc.Y,pDoc.Width,pDoc.Height,pDoc.Font,pDoc.Figures,pBorderEdit->GetDispStr());
-			}
-			else
-			{
-				//---- 桁区切り線なし----
-
-				if(pBorderEdit->BorderDraw == true)
-				{
-					TQRShape *pQRShape     = new TQRShape(pBand);
-					pQRShape->Parent       = pBand;
-					pQRShape->Brush->Style = bsSolid;
-					pQRShape->Size->Left   = pDoc.X;
-					pQRShape->Size->Top    = pDoc.Y;
-
-					//テストShapeの配置
-					pQRTestShape->Size->Left = (pDoc.X + pDoc.Width);
-					pQRTestShape->Size->Top  = (pDoc.Y + pDoc.Height);
-					//pQRShapeの補正
-					pQRShape->Width  = (pQRTestShape->Left - pQRShape->Left);
-					pQRShape->Height = (pQRTestShape->Top  - pQRShape->Top);
-				}
-				//TQRLabel作成
-				long double LblHeight;
-				TQRLabel *pQRLabel     = new TQRLabel(pBand);
-				pQRLabel->Parent       = pBand;
-				pQRLabel->AutoSize     = true;
-
-				pQRLabel->Alignment    = pDoc.Alignment;
-				DocFontInfToTFont(pDoc.Font,pQRLabel->Font,false);
-
-				pQRLabel->Caption      = pBorderEdit->GetDispStr();
-				LblHeight              = pQRLabel->Size->Height;
-				pQRLabel->AutoSize     = false;
-
-				pQRLabel->Size->Left   = pDoc.X     + ((pBorderEdit->BorderDraw==true) ? PRINT_BORDER_MARGIN      :0.0);
-				pQRLabel->Size->Width  = pDoc.Width - ((pBorderEdit->BorderDraw==true) ? PRINT_BORDER_MARGIN * 2.0:0.0);
-
-				//Top,Heightの決定
-				if(LblHeight == pDoc.Height)
-				{
-					pQRLabel->Size->Height = pDoc.Height;
-					pQRLabel->Size->Top    = pDoc.Y;
-				}
-				else if(LblHeight > pDoc.Height)
-				{
-					//エディットの高さよりフォントが大きい
-					pQRLabel->Size->Height       = LblHeight;
-					pQRLabel->Size->Top          = pDoc.Y - (LblHeight - pDoc.Height);
-				}
-				else
-				{
-					//補正量
-					long double dcy = (pDoc.Height - LblHeight) / 2.0;
-					//中段に寄せる
-					pQRLabel->Size->Height       = LblHeight;
-					pQRLabel->Size->Top          = pDoc.Y + dcy;
-				}
-			}
-		}
-		else if((pImage = dynamic_cast<TImageControl *>(pCtrl)) != nullptr)
-		{
-			String ImgName;
-			String ValStr;
-
-			//TQRShape作成
-			if(pDoc.Border == true)
-			{
-				TQRShape *pQRShape      = new TQRShape(pBand);
-				pQRShape->Parent        = pBand;
-				pQRShape->Brush->Style  = bsSolid;
-				pQRShape->Size->Left    = pDoc.X;
-				pQRShape->Size->Top     = pDoc.Y;
-
-				//テストShapeの配置
-				pQRTestShape->Size->Left = (pDoc.X + pDoc.Width);
-				pQRTestShape->Size->Top  = (pDoc.Y + pDoc.Height);
-				//pQRShapeの補正
-				pQRShape->Width  = (pQRTestShape->Left - pQRShape->Left);
-				pQRShape->Height = (pQRTestShape->Top  - pQRShape->Top);
-			}
-			//TQRImage作成
-			TQRImage *pQRImage     = new TQRImage(pBand);
-			pQRImage->Parent       = pBand;
-			pQRImage->AutoSize     = false;
-			pQRImage->Center       = true;
-
-			pQRImage->Size->Left   = pDoc.X;
-			pQRImage->Size->Top    = pDoc.Y;
-			pQRImage->Size->Width  = pDoc.Width;
-			pQRImage->Size->Height = pDoc.Height;
-			//イメージ取り込み
-			bool IsDrawImage = true;
-			try
-			{
-				//イメージが有効かチェック
-				if(pImage->Picture != nullptr)
-				{
-					//イメージの設定
-					if(pImage->Picture->Width > 0 && pImage->Picture->Height > 0 )
-					{
-						pQRImage->Picture->Assign(pImage->Picture);
-					}
-				}
-			}
-			catch(...)
-			{
-			}
-		}
-		else if((pGrid = dynamic_cast<XnsGrid *>(pCtrl)) != 0)
-		{
-			//グリッドの印刷
-			PrintGrid();
-		}
-	}
-	//テストShape削除
-	delete pQRTestShape;
-
-	//ライセンス未設定の印刷
-	if(LicenseSettingBtn->Visible == true)
-	{
-		TQRLabel *pQRLabel     = new TQRLabel(pBand);
-		pQRLabel->Parent       = pBand;
-		pQRLabel->AutoSize     = false;
-		pQRLabel->Alignment    = taCenter;
-		pQRLabel->Brush->Style = (decltype(pQRLabel->Brush->Style))bsNone;
-		pQRLabel->Font->Size   = 16;
-		pQRLabel->Width        = pBand->Width;
-		pQRLabel->Top          = pRep->Height / 2;
-		pQRLabel->Caption      = L"この請求書番頭 プロ版には正規ライセンスが設定されていません。";
-	}
-
-	//印刷実行
-	if(Sender == PDFBtn || Sender == PDFSaveMenu)
-	{
-		String FileName;
-		//ファイル名設定処理
-		if(PDFSaveDialog->Execute()==true)
-			FileName = PDFSaveDialog->FileName;
 		else
-			return;
-		//仮出力実行
-		SeikyuPrintForm->SeikyuRep->Prepare();
-		//PDF出力データ取得
-		nsQRepPDF& QRepPDF = SeikyuPrintForm->QRepPDF;
-		//PDFファイル出力を実行
-		if(QRepPDF.MakePdfFile(FileName) == false)
 		{
-			nsLib::ErrMsgBox(Handle,"PDFファイル[%s]の保存に失敗しました。",FileName.c_str());
-			return;
+			//印刷
+			SeikyuPrintForm->SeikyuRep->Print();
 		}
 	}
-	else if(Sender == PrintPreviewMenu || Sender == PrintBtn)
+	__finally
 	{
-		//プレビュー
-		SeikyuPrintForm->SeikyuRep->PreviewModal();
+		//フォームの破棄
+		delete SeikyuPrintForm;
 	}
-	else
-	{
-		//印刷
-		SeikyuPrintForm->SeikyuRep->Print();
-	}
-	//フォームの破棄
-	delete SeikyuPrintForm;
 }
-
 //-------------------------------------------------------------
 //  機能     ：部品情報のフォントの情報をTFontに反映
 //
@@ -795,273 +528,6 @@ void TMainForm::TFontToDocFontInf(typFontDef& FontDef,TFont *pFont,bool IsCalcSi
 	FontDef.Italic = pFont->Style.Contains(fsItalic);
 	//下線
 	FontDef.Under  = pFont->Style.Contains(fsUnderline);
-}
-//-------------------------------------------------------------
-//  機能     ：グリッドの印刷
-//
-//  関数定義 ：void PrintGrid()
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-void TMainForm::PrintGrid()
-{
-	long double  x,y,w,h;
-	String       ValStr;
-
-	//印刷対象レポート
-	TQuickRep *pRep = SeikyuPrintForm->SeikyuRep;
-	//印刷対象バンド
-	TQRBand  *pBand = SeikyuPrintForm->PrintBand;
-
-	//グリッドの情報
-	typDocCompo pGridDoc;
-	Document.GetDocCompoFromName(StdComponents[scStdComponent::scGrid].Name,pGridDoc);
-
-	//大きさを得るためのテストShapeを得る
-	TQRShape *pQRTestShape = (TQRShape *)pBand->FindComponent("pQRTestShape");
-
-	//Shapeの作成
-	for(int Col = 0;Col < Grid->ColCount;Col++)
-	{
-		//列の情報
-		typDocCompo pColDoc;
-
-		ValStr.sprintf(L"D_%02d_%02d",0,Col);
-		Document.GetDocCompoFromName(ValStr,pColDoc);
-
-		for(int Row = 0;Row < Grid->RowCount;Row++)
-		{
-			//座標作成
-			x = pColDoc.X;
-			y = pGridDoc.Y + ((static_cast<long double>(Row) * pGridDoc.Height) / static_cast<long double>(pGridDoc.RowNum));
-			w = pColDoc.Width;
-			h = pGridDoc.Height / static_cast<long double>(pGridDoc.RowNum);
-
-			//TQRShape作成
-			TQRShape *pQRShape     = new TQRShape(pBand);
-			pQRShape->Parent       = pBand;
-			pQRShape->Brush->Style = bsSolid;
-			pQRShape->Size->Left   = x;
-			pQRShape->Size->Top    = y;
-			//テストShapeの配置
-			pQRTestShape->Size->Left = (x + w);
-			pQRTestShape->Size->Top  = (y + h);
-			//pQRShapeの補正
-			pQRShape->Width  = (pQRTestShape->Left - pQRShape->Left);
-			pQRShape->Height = (pQRTestShape->Top - pQRShape->Top);
-
-			//表示文字列の取得
-			String DispStr = Grid->GetDispCellStr(Row,Col);
-
-			//寄せの設定
-			if(Row == 0)
-			{
-				//TQRLabel作成
-				TQRLabel *pQRLabel     = new TQRLabel(pBand);
-				pQRLabel->Parent       = pBand;
-
-				DocFontInfToTFont(pGridDoc.Font,pQRLabel->Font,false);
-
-				pQRLabel->AutoSize     = false;
-				//タイトルは真ん中
-				pQRLabel->Alignment = taCenter;
-				//ラベルの設定
-				pQRLabel->AutoSize     = false;
-				pQRLabel->Caption      = DispStr;
-				pQRLabel->Size->Left   = x + PRINT_BORDER_MARGIN;
-				pQRLabel->Size->Top    = y + PRINT_BORDER_MARGIN;
-				pQRLabel->Size->Width  = w - PRINT_BORDER_MARGIN * 2.0;
-				pQRLabel->Size->Height = h - PRINT_BORDER_MARGIN * 2.0;
-			}
-			else
-			{
-				if(Col == 0) //項目
-				{
-					//TQRLabel作成
-					TQRLabel *pQRLabel     = new TQRLabel(pBand);
-					pQRLabel->Parent       = pBand;
-
-					DocFontInfToTFont(pGridDoc.Font,pQRLabel->Font,false);
-
-					pQRLabel->AutoSize  = false;
-					//寄せ
-					pQRLabel->Alignment = pColDoc.Alignment;
-					//ラベルの設定
-					pQRLabel->Caption      = DispStr;
-					pQRLabel->Size->Left   = x + PRINT_BORDER_MARGIN;
-					pQRLabel->Size->Top    = y + PRINT_BORDER_MARGIN;
-					pQRLabel->Size->Width  = w - PRINT_BORDER_MARGIN * 2.0;
-					pQRLabel->Size->Height = h - PRINT_BORDER_MARGIN * 2.0;
-				}
-				else if(Col == 1)  //商品名
-				{
-					//TQRLabel作成
-					TQRLabel *pQRLabel     = new TQRLabel(pBand);
-					pQRLabel->Parent       = pBand;
-
-					DocFontInfToTFont(pGridDoc.Font,pQRLabel->Font,false);
-
-					pQRLabel->AutoSize     = false;
-					//寄せ
-					pQRLabel->Alignment = pColDoc.Alignment;
-					//ラベルの設定
-					pQRLabel->Caption      = DispStr;
-					pQRLabel->Size->Left   = x + PRINT_BORDER_MARGIN;
-					pQRLabel->Size->Top    = y + PRINT_BORDER_MARGIN;
-					pQRLabel->Size->Width  = w - PRINT_BORDER_MARGIN * 2.0;
-					pQRLabel->Size->Height = h - PRINT_BORDER_MARGIN * 2.0;
-				}
-				else if(Col == 3)  //単位
-				{
-					//TQRLabel作成
-					TQRLabel *pQRLabel     = new TQRLabel(pBand);
-					pQRLabel->Parent       = pBand;
-
-					DocFontInfToTFont(pGridDoc.Font,pQRLabel->Font,false);
-
-					pQRLabel->AutoSize     = false;
-					//寄せ
-					pQRLabel->Alignment = pColDoc.Alignment;
-					//ラベルの設定
-					pQRLabel->Caption      = DispStr;
-					pQRLabel->Size->Left   = x + PRINT_BORDER_MARGIN;
-					pQRLabel->Size->Top    = y + PRINT_BORDER_MARGIN;
-					pQRLabel->Size->Width  = w - PRINT_BORDER_MARGIN * 2.0;
-					pQRLabel->Size->Height = h - PRINT_BORDER_MARGIN * 2.0;
-				}
-				else
-				{
-					if(pColDoc.FigureLine == true)
-					{
-						//桁区切り線印刷
-						PrintColumnSeparateText(x,y,w,h,pGridDoc.Font,pColDoc.Figures,DispStr);
-					}
-					else
-					{
-						//TQRLabel作成
-						TQRLabel *pQRLabel     = new TQRLabel(pBand);
-						pQRLabel->Parent       = pBand;
-
-						DocFontInfToTFont(pGridDoc.Font,pQRLabel->Font,false);
-
-						pQRLabel->AutoSize     = false;
-						//寄せ
-						pQRLabel->Alignment = pColDoc.Alignment;
-						//ラベルの設定
-						pQRLabel->Caption      = DispStr;
-						pQRLabel->Size->Left   = x + PRINT_BORDER_MARGIN;
-						pQRLabel->Size->Top    = y + PRINT_BORDER_MARGIN;
-						pQRLabel->Size->Width  = w - PRINT_BORDER_MARGIN * 2.0;
-						pQRLabel->Size->Height = h - PRINT_BORDER_MARGIN * 2.0;
-					}
-				}
-			}
-		}
-	}
-}
-//-------------------------------------------------------------
-//  機能     ：桁区切り線ありの文字列を印刷
-//
-//  関数定義 ：void PrintColumnSeparateText(long double X,long double Y,long double W,long double H,typFontDef& FontDef,int Figures,String Str)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-void TMainForm::PrintColumnSeparateText(long double X,long double Y,long double W,long double H,typFontDef& FontDef,int Figures,String Str)
-{
-	TQRShape *pQRShape;
-
-	//印刷対象バンド
-	TQRBand *pBand = SeikyuPrintForm->PrintBand;
-	//大きさを得るためのテストShapeを得る
-	TQRShape *pQRTestShape = (TQRShape *)pBand->FindComponent("pQRTestShape");
-	//文字数
-	int SLen = Str.Length();
-	//文字の作成
-	for(int Cnt = 0;Cnt < Figures;Cnt++)
-	{
-		//文字の作成
-		if(Figures - Cnt -1 < SLen)
-		{
-			int dx = 0;
-			int dy = 0;
-			long double LblHeight;
-			//作成X座標
-			long double X0 = X + ((W * static_cast<long double>(Cnt)) / static_cast<long double>(Figures));
-			//TQRLabel作成
-			TQRLabel *pQRLabel     = new TQRLabel(pBand);
-			pQRLabel->Parent       = pBand;
-			pQRLabel->AutoSize     = true;
-			pQRLabel->Alignment    = taCenter;
-			DocFontInfToTFont(FontDef,pQRLabel->Font,false);
-			pQRLabel->Caption      = Str.SubString(Cnt - (Figures - SLen) + 1,1);
-			LblHeight              = pQRLabel->Size->Height;
-			pQRLabel->AutoSize     = false;
-			pQRLabel->Size->Left   = X0 + PRINT_ADJUST_DIFF;
-			pQRLabel->Size->Width  = W / static_cast<long double>(Figures) - PRINT_ADJUST_DIFF * 2.0;
-			//Top,Heightの決定
-			if(LblHeight == H)
-			{
-				pQRLabel->Size->Height = H;
-				pQRLabel->Size->Top    = Y;
-			}
-			else if(LblHeight > H)
-			{
-				//エディットの高さよりフォントが大きい
-				pQRLabel->Size->Height       = LblHeight;
-				pQRLabel->Size->Top          = Y - (LblHeight - H);
-			}
-			else
-			{
-				//補正量
-				long double dcy = (H - LblHeight) / 2.0;
-				//中段に寄せる
-				pQRLabel->Size->Height       = LblHeight;
-				pQRLabel->Size->Top          = Y + dcy;
-			}
-		}
-	}
-	//区切り線の作成
-	for(int Cnt = 1;Cnt < Figures;Cnt++)
-	{
-		pQRShape               = new TQRShape(pBand);
-		pQRShape->Parent       = pBand;
-		pQRShape->Shape        = qrsVertLine; //縦線
-		pQRShape->Pen->Style   = psDot;
-		pQRShape->Size->Left   = X + ((W * static_cast<long double>(Cnt)) / static_cast<long double>(Figures));
-		pQRShape->Size->Top    = Y;
-		pQRShape->Size->Width  = 0.5;
-		pQRShape->Size->Height = H;
-	}
-	//枠線の作成
-	pQRShape               = new TQRShape(pBand);
-	pQRShape->Parent       = pBand;
-	pQRShape->Brush->Style = bsClear;
-	pQRShape->Size->Left   = X;
-	pQRShape->Size->Top    = Y;
-	pQRShape->Size->Width  = W;
-	pQRShape->Size->Height = H;
-	//テストShapeの配置
-	pQRTestShape->Size->Left = (X + W);
-	pQRTestShape->Size->Top  = (Y + H);
-	//pQRShapeの補正
-	pQRShape->Width  = (pQRTestShape->Left - pQRShape->Left);
-	pQRShape->Height = (pQRTestShape->Top  - pQRShape->Top);
 }
 //-------------------------------------------------------------
 //  機能     ：移動・大きさ変更が可能かチェックする
@@ -6955,7 +6421,6 @@ void __fastcall TMainForm::AliginLeftMenuClick(TObject *Sender)
 	{
 		//対象コントロール
 		TControl *pCtrl = ResizeList[Cnt]->Control;
-
 		//左位置の修正
 		pCtrl->Left = LeftMin;
 		//リサイズコントロールの再描画
@@ -8097,12 +7562,8 @@ void __fastcall TMainForm::LicTimerTimer(TObject *Sender)
 	//ライセンスオブジェクト
 	TLicense license;
 
-	//ライセンス文字列取得
-	LicenseStr  = license.getLicenceStringFromReg();
-	//正解のライセンス文字列取得
-	String TrueLicStr = license.getLicenceSettingString();
-	//レジストリのライセンス文字列と比較
-	if(TrueLicStr == LicenseStr)
+	//ライセンスの状態を得る(Trueライセンス有効)
+	if(license.isLicenceEnable() == true)
 	{
 		//ライセンスあり
 		//ボタン非表示
@@ -9253,6 +8714,37 @@ void TMainForm::setFormDeactiveColor()
 	ClockBorder2    ->Color       = (TColor)0x00C99D67;
 	//フォームがアクティブか記録
 	isFormActive = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::SpeedButton1Click(TObject *Sender)
+{
+	int          FontHeight;
+	long double  dcy;
+	long double  x,y,w,h;
+	String       ValStr;
+
+	//繰り返し入力データの追加
+	AddInputData();
+	//移動・大きさ変更を取りやめる
+	CancelResizeMode(true);
+	//リサイズモードを不許可にする
+	SetResizeMode(false);
+	//MainPanel上の値をデータにセット
+	SetDocDataFromMainPanel();
+	//印刷フォームの作成
+	SeikyuPrintForm = new TSeikyuPrintForm(this);
+	SeikyuPrintForm->Parent = this;
+	//用紙の設定
+	SeikyuPrintForm->SeikyuRep->Page->PaperSize    = PaperDef[Document.Paper].PaperSize;
+	SeikyuPrintForm->SeikyuRep->Page->Orientation  = PaperDef[Document.Paper].Orientation;
+	SeikyuPrintForm->SeikyuRep->Zoom               = 300;
+
+	//印刷対象レポート
+	TQuickRep *pRep = SeikyuPrintForm->SeikyuRep;
+	//印刷対象バンド
+	TQRBand *pBand = SeikyuPrintForm->PrintBand;
+
 }
 //---------------------------------------------------------------------------
 

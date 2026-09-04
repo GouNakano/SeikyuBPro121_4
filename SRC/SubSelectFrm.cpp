@@ -1,12 +1,13 @@
 //---------------------------------------------------------------------------
-
 #include <vcl.h>
 #pragma hdrstop
 
+#include "zbWindowDef.h"
 #include "SeikyuBDef.h"
 #include "SubSelectFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "BitBtn2"
 #pragma resource "*.dfm"
 TSubSelectForm *SubSelectForm;
 //---------------------------------------------------------------------------
@@ -14,7 +15,14 @@ __fastcall TSubSelectForm::TSubSelectForm(TComponent* Owner)
 	: TForm(Owner)
 {
 }
-
+//---------------------------------------------------------------------------
+//フォーム作成時
+//---------------------------------------------------------------------------
+void __fastcall TSubSelectForm::FormCreate(TObject *Sender)
+{
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
+}
 //-------------------------------------------------------------
 //  機能     ：フォーム表示時
 //

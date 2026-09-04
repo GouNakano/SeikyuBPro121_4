@@ -213,6 +213,7 @@ __published:	// IDE 管理のコンポーネント
 	TTimer *FormActiveTimer;
 	TAction *PaperSelectParentMenu;
 	TAction *ZoomRootMenu;
+	TSpeedButton *SpeedButton1;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall PrintBtnClick(TObject *Sender);
 	void __fastcall GridCellAttr(TObject *Sender, int ARow, int ACol,
@@ -343,6 +344,7 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall ClockTimerTimer(TObject *Sender);
 	void __fastcall FormActiveTimerTimer(TObject *Sender);
 	void __fastcall FormDeactivate(TObject *Sender);
+	void __fastcall SpeedButton1Click(TObject *Sender);
 
 
 private:
@@ -474,8 +476,6 @@ private:
 	String       GetControlStrValue(TControl *pCtrl);
 	//BaseControl上のコントロールのTabOrderを動的に決定する
 	TWinControl *SetTabOrder(TWinControl *BaseControl);
-	//桁区切り線ありの文字列を印刷
-	void PrintColumnSeparateText(long double X,long double Y,long double W,long double H,typFontDef& FontDef,int Figures,String Str);
 	//編集ツールバーの状態設定
 	void SetEditToolBarCondition();
 	//履歴IDからsdoファイルを開く
@@ -484,8 +484,6 @@ private:
 	void SetDocumentCtrlZOrder();
 	//書類情報Zオーダーを設定
 	void SetZOrderFromDocumentInfo();
-	//グリッドの印刷
-	void PrintGrid();
 	//部品情報のフォントの情報をTFontに反映
 	void DocFontInfToTFont(typFontDef& FontDef,TFont *pFont,bool IsCalcSize);
 	//TFontのフォント情報を部品情報に反映
