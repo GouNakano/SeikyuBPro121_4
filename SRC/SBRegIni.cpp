@@ -30,4 +30,25 @@ __fastcall SBHistRegIni::~SBHistRegIni()
 {
 }
 
+//レジストリ関連名前空間
+namespace regsp
+{
 
+//初回起動か？
+bool getIsFirstUse()
+{
+	std::unique_ptr<SBRegIni> pReg(new SBRegIni);
+
+	return pReg->ReadBool(C_SYSTEM_SETTING,V_IS_FIRST,true);
+}
+//初回起動フラグセット
+bool setIsFirstUse(bool first)
+{
+	std::unique_ptr<SBRegIni> pReg(new SBRegIni);
+
+	pReg->WriteBool(C_SYSTEM_SETTING,V_IS_FIRST,first);
+
+	return true;
+}
+
+}

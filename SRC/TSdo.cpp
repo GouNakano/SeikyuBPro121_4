@@ -277,7 +277,7 @@ bool TSdo::readComponents(std::unique_ptr<TMemIniFile>& pIni,typDocument& DocInf
 				//å^Çê›íË
 				if(std_valid == true)
 				{
-					pDoc.Type  = pStd.Type;
+					pDoc.Type  = pStd.CompoKind;
 				}
 				else
 				{

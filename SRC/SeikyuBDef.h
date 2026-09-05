@@ -18,9 +18,7 @@
 //---------------------------------------------------------------------------
 
 //共通変数定義
-extern bool         IsFirstUse;            //初回起動
 extern typSBSetting ES;
-extern String       LicenseStr;            //ライセンス文字列
 
 //----- 共通関数 -----
 
@@ -33,8 +31,6 @@ public:
 	static bool   CheckLicenceEnable();
 	//メインフォーム設定読み込み
 	static void   LoadMainFormSet();
-	//ディスクシリアル文字列を得る
-	static String GetDiskSerialString();
 	//請求書番頭の設定読み込み
 	static void   LoadSBSet(typSBSetting& ES,bool Default);
 	//請求書番頭の設定保存

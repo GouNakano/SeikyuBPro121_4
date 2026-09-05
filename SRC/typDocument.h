@@ -126,7 +126,6 @@ public:
 			typDocOneRowData pItem;
 			//データコピー
 			pItem = Him.GridData[Cnt];
-//			pItem.Copy(Him.GridData[Cnt]);
 			//リストに追加
 			GridData.push_back(pItem);
 		}
@@ -202,7 +201,6 @@ public:
 //Zオーダソート用書類部品情報
 class typZOrderDocCompo : public typDocCompo
 {
-//	typDocCompo *pDoc;
 public:
 	//コンストラクタ
 	typZOrderDocCompo()  = default;

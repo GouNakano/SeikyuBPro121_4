@@ -20,4 +20,12 @@ public:
 	__fastcall ~SBHistRegIni();
 };
 
+//レジストリ関連名前空間
+namespace regsp
+{
+	//初回起動か？
+	bool getIsFirstUse();
+	//初回起動フラグセット
+	bool setIsFirstUse(bool first);
+}
 #endif

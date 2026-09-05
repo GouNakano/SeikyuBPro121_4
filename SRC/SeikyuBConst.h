@@ -61,6 +61,17 @@ enum dcDocComponent
 	dcCell       , //グリッドのセル
 };
 
+//書類部品のデータ型
+enum dtypCompo
+{
+	dtyInteger = 0, //整数
+	dtyReal,        //小数点型
+	dtyString,      //文字列型
+	dtyImage,       //画像
+	dtyGrid,        //グリッド
+	dtyShape        //図形
+};
+
 //標準コンポーネント番号
 enum scStdComponent
 {

@@ -19,10 +19,6 @@
 #pragma package(smart_init)
 
 //----- 共通変数定義 -----
-//初回使用フラグ
-bool IsFirstUse;
-//ライセンス文字列
-String LicenseStr;
 
 //請求書番頭の設定
 typSBSetting ES;
@@ -126,84 +122,11 @@ void sbp::LoadMainFormSet()
 	std::unique_ptr<SBRegIni> pReg(new SBRegIni());
 	//EXEの位置とバージョンをレジストリに書く
 	pReg->WriteString(C_SYSTEM_SETTING,V_INSTALL_EXE,MyPath);
-	//初回起動か？
-	IsFirstUse       = pReg->ReadBool(C_SYSTEM_SETTING,V_IS_FIRST,true);
-	//ライセンス文字列
-	LicenseStr       = pReg->ReadString(C_SYSTEM_SETTING,LICENSE_STRING,L"");
 	//レジストリから各部のデータセット
 	M->Top           = pReg->ReadInteger(C_SYSTEM_SETTING,V_WINDOW_TOP ,4);
 	M->Left          = pReg->ReadInteger(C_SYSTEM_SETTING,V_WINDOW_LEFT,50);
 	M->Width         = pReg->ReadInteger(C_SYSTEM_SETTING,V_WINDOW_WIDTH ,900);
 	M->Height        = pReg->ReadInteger(C_SYSTEM_SETTING,V_WINDOW_HEIGHT,756);
-}
-//-------------------------------------------------------------
-//  機能     ：Iniにフォント設定の情報をセット
-//
-//  関数定義 ：void SetColInfToIni(TMemIniFile *Ini,String Sec,String Val,typFontDef& ECol)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：中野
-//
-//  改定者   ：
-//-------------------------------------------------------------
-//void sbp::SetColInfToIni(TMemIniFile *Ini,String Sec,String Val,typFontDef& ECol)
-//{
-//	String Str;
-//	//セットする文字列作成
-//	Str.sprintf(L"%s,%d,%d,%d,%d,%d",
-//		ECol.Name.c_str(),
-//		ECol.Size,
-//		(int)ECol.Color,
-//		(ECol.Bold == true),
-//		(ECol.Italic == true),
-//		(ECol.Under == true)
-//	);
-//	//文字列をセットする
-//	Ini->WriteString(Sec,Val,Str);
-//}
-//-------------------------------------------------------------
-//  機能     ：ディスクシリアル文字列を得る
-//
-//  関数定義 ：String GetDiskSerialString()
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：public
-//
-//  引数     ：
-//
-//  戻り値   ：true Ok
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-String sbp::GetDiskSerialString()
-{
-	wchar_t VolumeName[1000];
-	wchar_t SystemName[1000];
-	DWORD   SerialNumber;
-	DWORD   FileNameLength;
-	DWORD   Flags;
-	String  Str;
-
-	//Cドライブの情報を得る
-	GetVolumeInformationW(
-		L"C:\\",
-		VolumeName,
-		1000,
-		&SerialNumber,
-		&FileNameLength,
-		&Flags,
-		SystemName,
-		1000);
-	//ディスクシリアル文字列を作成
-	Str.sprintf(DISK_SERIAL_STRING,SerialNumber);
-
-	return Str;
 }
 //-------------------------------------------------------------
 //  機能     ：請求書番頭の設定読み込み

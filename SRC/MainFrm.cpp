@@ -110,6 +110,8 @@ void __fastcall TMainForm::FormShow(TObject *Sender)
 	SetReportKindBtnDisp();
 	//MainPanelを中央に移動する
 	SetCenterMainPanel();
+	//初回起動か？
+	bool IsFirstUse = regsp::getIsFirstUse();
 	//初回起動時のメッセージ表示
 	if(IsFirstUse == true)
 	{
@@ -1282,30 +1284,30 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo& pDoc)
 	{
 		pDoc.Type = Type;
 	}
-	else if(std_vaild == true && (Type == dcUnknown || Type != pStdCompo.Type))
+	else if(std_vaild == true && (Type == dcUnknown || Type != pStdCompo.CompoKind))
 	{
 		bool IsBorderEdit    = (Type == dcEdit            || Type == dcDayEdit            || Type == dcMoneyEdit);
-		bool IsStdBorderEdit = (pStdCompo.Type == dcEdit  || pStdCompo.Type == dcDayEdit  || pStdCompo.Type == dcMoneyEdit);
+		bool IsStdBorderEdit = (pStdCompo.CompoKind == dcEdit  || pStdCompo.CompoKind == dcDayEdit  || pStdCompo.CompoKind == dcMoneyEdit);
 
 		if((IsBorderEdit == true && IsStdBorderEdit == true) == false)
 		{
 			//コンポーネント削除
 			delete pCtrl;
 			//部品の種類ごとに作成
-			pCtrl = CreateControl(pDoc.Name,pStdCompo.Type);
+			pCtrl = CreateControl(pDoc.Name,pStdCompo.CompoKind);
 		}
 	}
 	else if(pDoc.Type != Type)
 	{
 		bool IsBorderEdit    = (Type == dcEdit            || Type == dcDayEdit            || Type == dcMoneyEdit);
-		bool IsStdBorderEdit = (pStdCompo.Type == dcEdit  || pStdCompo.Type == dcDayEdit  || pStdCompo.Type == dcMoneyEdit);
+		bool IsStdBorderEdit = (pStdCompo.CompoKind == dcEdit  || pStdCompo.CompoKind == dcDayEdit  || pStdCompo.CompoKind == dcMoneyEdit);
 
 		if((IsBorderEdit == true && IsStdBorderEdit == true) == false)
 		{
 			//コンポーネント削除
 			delete pCtrl;
 			//部品の種類ごとに作成
-			pCtrl = CreateControl(pDoc.Name,pStdCompo.Type);
+			pCtrl = CreateControl(pDoc.Name,pStdCompo.CompoKind);
 		}
 	}
 	//ヒントの設定
@@ -1604,14 +1606,14 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 	//コンポーネントの型を得る
 	Type = GetComponentType(pCtrl);
 	//型が一致しない場合は、一旦破棄して作成する
-	if(TType != Type || pStdCompo.Type != Type)
+	if(TType != Type || pStdCompo.CompoKind != Type)
 	{
 		//破棄
 		delete pCtrl;
 		//コントロールを作成する
-		pCtrl = CreateControl(CtrlName,pStdCompo.Type);
+		pCtrl = CreateControl(CtrlName,pStdCompo.CompoKind);
 		//型セット
-		Type = pStdCompo.Type;
+		Type = pStdCompo.CompoKind;
 	}
 	//テンプレートフォームのズーム
 	int TZoom = pTemplateForm->Tag;
@@ -1620,7 +1622,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 	//コントロールにキャスト
 	TControl *pTCtrl = dynamic_cast<TControl *>(pTCompo);
 	//コントロールにキャスト出来ない場合は処理しない
-	if(pTCtrl == 0 || pCtrl == 0)
+	if(pTCtrl == nullptr || pCtrl == nullptr)
 	{
 		return false;
 	}
@@ -1650,7 +1652,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 		pDoc.Visible  = pStdCompo.Visible;
 		pDoc.IsPrint  = true;
 	}
-	pDoc.Type       = pStdCompo.Type;
+	pDoc.Type       = pStdCompo.CompoKind;
 	pDoc.Alignment  = pStdCompo.Alignment;
 	pDoc.Border     = pStdCompo.Border;
 	pDoc.Font.Size  = CalcPrintFontSize((Zoom * OrgFontSize)/TZoom);
@@ -8717,34 +8719,4 @@ void TMainForm::setFormDeactiveColor()
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::SpeedButton1Click(TObject *Sender)
-{
-	int          FontHeight;
-	long double  dcy;
-	long double  x,y,w,h;
-	String       ValStr;
-
-	//繰り返し入力データの追加
-	AddInputData();
-	//移動・大きさ変更を取りやめる
-	CancelResizeMode(true);
-	//リサイズモードを不許可にする
-	SetResizeMode(false);
-	//MainPanel上の値をデータにセット
-	SetDocDataFromMainPanel();
-	//印刷フォームの作成
-	SeikyuPrintForm = new TSeikyuPrintForm(this);
-	SeikyuPrintForm->Parent = this;
-	//用紙の設定
-	SeikyuPrintForm->SeikyuRep->Page->PaperSize    = PaperDef[Document.Paper].PaperSize;
-	SeikyuPrintForm->SeikyuRep->Page->Orientation  = PaperDef[Document.Paper].Orientation;
-	SeikyuPrintForm->SeikyuRep->Zoom               = 300;
-
-	//印刷対象レポート
-	TQuickRep *pRep = SeikyuPrintForm->SeikyuRep;
-	//印刷対象バンド
-	TQRBand *pBand = SeikyuPrintForm->PrintBand;
-
-}
-//---------------------------------------------------------------------------
 
