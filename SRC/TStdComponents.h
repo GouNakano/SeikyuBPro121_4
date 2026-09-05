@@ -130,6 +130,8 @@ public:
 	bool getCompoData(const String& nm,dcDocComponent dc,TCompoData& data);
 	//MainPanelから指定Nameのコントロールを得る
 	TControl *FindControlFromMainPanel(const String& Name);
+	//コンポーネントの型を得る
+	dcDocComponent GetComponentType(TComponent *pCompo);
 };
 
 //書類部品処理オブジェクト

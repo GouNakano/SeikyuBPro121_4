@@ -38,15 +38,15 @@ void __fastcall TCalendarForm::OKBtnClick(TObject *Sender)
 	TBorderEdit *pEdit;
 	//Žw’èEdit‚É“ú•t¾¯Ä
 	//”N
-	pCtrl       = MainForm->FindControlFromMainPanel(StdComponents[scYearEdit].Name);
+	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scYearEdit].Name);
 	pEdit       = static_cast<TBorderEdit *>(pCtrl);
 	pEdit->Text = MonthCalendar->Date.FormatString("yyyy");
 	//ŒŽ
-	pCtrl       = MainForm->FindControlFromMainPanel(StdComponents[scMonthEdit].Name);
+	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scMonthEdit].Name);
 	pEdit       = static_cast<TBorderEdit *>(pCtrl);
 	pEdit->Text = MonthCalendar->Date.FormatString("m");
 	//“ú
-	pCtrl       = MainForm->FindControlFromMainPanel(StdComponents[scDayEdit].Name);
+	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scDayEdit].Name);
 	pEdit       = static_cast<TBorderEdit *>(pCtrl);
 	pEdit->Text = MonthCalendar->Date.FormatString("d");
 

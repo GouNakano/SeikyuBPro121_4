@@ -464,8 +464,6 @@ private:
 	bool SetDocControl(TControl *pCtrl);
 	//グリッド行高さの調整
 	bool AdjustRowHeights();
-	//コンポーネントの型を得る
-	dcDocComponent GetComponentType(TComponent *pCompo);
 	//ステータスバーの表示
 	void         DispStatus();
 	//コントロールを作成する
@@ -537,8 +535,8 @@ public:
 	bool SetComponentFromDocCompo(typDocCompo& doc);
 	//書類部品情報からグリッドを配置
 	bool SetGridFromDocCompo();
-	//MainPanelから指定Nameのコントロールを得る
-	TControl *FindControlFromMainPanel(String Name);
+//	//MainPanelから指定Nameのコントロールを得る
+//	TControl *FindControlFromMainPanel(String Name);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TMainForm *MainForm;

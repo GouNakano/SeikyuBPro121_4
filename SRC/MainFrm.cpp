@@ -1230,19 +1230,19 @@ TControl *TMainForm::CreateControl(String CtrlName,dcDocComponent Type)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-TControl *TMainForm::FindControlFromMainPanel(String Name)
-{
-	for(int Cnt=0;Cnt < MainPanel->ControlCount;Cnt++)
-	{
-		TControl *pCtrl = MainPanel->Controls[Cnt];
-
-		if(pCtrl->Name == Name)
-		{
-			return pCtrl;
-		}
-	}
-	return 0;
-}
+//TControl *TMainForm::FindControlFromMainPanel(String Name)
+//{
+//	for(int Cnt=0;Cnt < MainPanel->ControlCount;Cnt++)
+//	{
+//		TControl *pCtrl = MainPanel->Controls[Cnt];
+//
+//		if(pCtrl->Name == Name)
+//		{
+//			return pCtrl;
+//		}
+//	}
+//	return 0;
+//}
 //-------------------------------------------------------------
 //  機能     ：書類部品情報からコンポーネントを配置
 //
@@ -1269,7 +1269,7 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo& pDoc)
 	//名前からコントロールを得る
 	TControl *pCtrl = compo.FindControlFromMainPanel(pDoc.Name);
 	//コンポーネントの型を得る
-	dcDocComponent Type = GetComponentType(pCtrl);
+	dcDocComponent Type = compo.GetComponentType(pCtrl);
 	//コンポーネント名から標準コンポーネント情報を得る
 	typStdComponentDef pStdCompo;
 	bool std_vaild = compo.GetStdComponentDefFromName(pDoc.Name,pStdCompo,Document.DocKind);
@@ -1485,7 +1485,7 @@ bool TMainForm::SetComponentFromDocumentInfo()
 			typDocCompo pDoc;
 			bool doc_valid = Document.GetDocCompoFromName(CtrlName,pDoc);
 			//コンポーネントはあるか
-			TControl *pCtrl = FindControlFromMainPanel(CtrlName);
+			TControl *pCtrl = compo.FindControlFromMainPanel(CtrlName);
 			//コンポーネントの配置
 			if(doc_valid == false || pCtrl == nullptr)
 			{
@@ -1555,7 +1555,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 		return false;
 	}
 	//名前に一致するコンポーネントを得る
-	TControl   *pCtrl  = FindControlFromMainPanel(CtrlName);
+	TControl   *pCtrl  = compo.FindControlFromMainPanel(CtrlName);
 	//コンポーネント名から標準コンポーネント情報を得る
 	typStdComponentDef  pStdCompo;
 	bool std_valid = compo.GetStdComponentDefFromName(CtrlName,pStdCompo,Document.DocKind);
@@ -1604,7 +1604,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 		TType = dcUnknown;
 	}
 	//コンポーネントの型を得る
-	Type = GetComponentType(pCtrl);
+	Type = compo.GetComponentType(pCtrl);
 	//型が一致しない場合は、一旦破棄して作成する
 	if(TType != Type || pStdCompo.CompoKind != Type)
 	{
@@ -1739,76 +1739,6 @@ String TMainForm::GetControlStrValue(TControl *pCtrl)
 		Val = pBorderEdit->Text;
 	}
 	return Val;
-}
-//-------------------------------------------------------------
-//  機能     ：コンポーネントの型を得る
-//
-//  関数定義 ：dcDocComponent GetComponentType(TComponent *pCompo)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-dcDocComponent TMainForm::GetComponentType(TComponent *pCompo)
-{
-	TWinLabel       *pWinLabel   = nullptr;
-	TBorderEdit     *pBorderEdit = nullptr;
-	TImageControl   *pImage      = nullptr;
-	TWinShape       *pShape      = nullptr;
-	XnsGrid         *pGrid       = nullptr;
-	dcDocComponent   Type;
-	//コンポーネントの型を得る
-	if(pCompo == nullptr)
-	{
-		//不明
-		Type = dcUnknown;
-	}
-	else if((pWinLabel = dynamic_cast<TWinLabel *>(pCompo)) != nullptr)
-	{
-		//ラベル
-		Type = dcLabel;
-	}
-	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCompo)) != nullptr)
-	{
-		//枠つきEdit
-		Type = dcMoneyEdit;
-	}
-	else if((pImage = dynamic_cast<TImageControl *>(pCompo)) != nullptr)
-	{
-		//画像
-		Type = dcImage;
-	}
-	else if((pShape = dynamic_cast<TWinShape *>(pCompo)) != nullptr)
-	{
-		//Shape
-		if(pShape->Height <= 2)
-		{
-			//横線
-			Type = dcCLine;
-		}
-		else
-		{
-			//縦線
-			Type = dcVLine;
-		}
-	}
-	else if((pGrid = dynamic_cast<XnsGrid *>(pCompo)) != nullptr)
-	{
-		//画像
-		Type = dcGrid;
-	}
-	else
-	{
-		//不明
-		Type = dcUnknown;
-	}
-	return Type;
 }
 //-------------------------------------------------------------
 //  機能     ：印刷フォントサイズの計算
@@ -3106,7 +3036,7 @@ void __fastcall TMainForm::GridKeyDown(TObject *Sender, WORD &Key,TShiftState Sh
 		if(NowRow == Grid->FixedRows)
 		{
 			//MainPanelから指定Nameのコントロールを得る
-			TControl    *pCtrl = FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
+			TControl    *pCtrl = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
 			//MainPanelから指定Nameのコントロールを得る
 			TWinControl *pMoneyEdit = static_cast<TWinControl *>(pCtrl);
 			//金額欄にフォーカス
@@ -3126,7 +3056,7 @@ void __fastcall TMainForm::GridKeyDown(TObject *Sender, WORD &Key,TShiftState Sh
 		if(NowRow == Grid->RowCount - 1)
 		{
 			//MainPanelから指定Nameのコントロールを得る
-			TControl    *pCtrl = FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
+			TControl    *pCtrl = compo.FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
 			//MainPanelから指定Nameのコントロールを得る
 			TWinControl *pSubtotalEdit = static_cast<TWinControl *>(pCtrl);
 			//小計欄にフォーカス
@@ -3418,22 +3348,22 @@ void TMainForm::DispTotalInfo()
 		}
 	}
 	//小計、消費税、合計金額、金額のEditを得る
-	pCtrl               = FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
 	pSubtotalEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
 	pTaxEdit            = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
 	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
 	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
 	//データが無効の時
 	if(IsEffect == false)
 	{
 		//小計、消費税、合計金額は空欄
-		pSubtotalEdit->Text = "";
-		pTaxEdit     ->Text = "";
-		pTotalEdit   ->Text = "";
-		pMoneyEdit   ->Text = "";
+		pSubtotalEdit->Text = L"";
+		pTaxEdit     ->Text = L"";
+		pTotalEdit   ->Text = L"";
+		pMoneyEdit   ->Text = L"";
 
 		return;
 	}
@@ -3473,13 +3403,13 @@ void TMainForm::SetTaxAndTotalInfo()
 	TBorderEdit  *pMoneyEdit;
 
 	//小計、消費税、合計金額、金額のEditを得る
-	pCtrl               = FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
 	pSubtotalEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
 	pTaxEdit            = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
 	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
 	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
 	//該当データを得る
 	typDocData& DocData = Document.Data[Document.DocKind];
@@ -3533,13 +3463,13 @@ void TMainForm::SetTotalInfo()
 	TBorderEdit  *pMoneyEdit;
 
 	//小計、消費税、合計金額、金額のEditを得る
-	pCtrl               = FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
 	pSubtotalEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
 	pTaxEdit            = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
 	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
 	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
 	//該当データを得る
 	typDocData& DocData = Document.Data[Document.DocKind];
@@ -3582,9 +3512,9 @@ void TMainForm::SetMainTotalInfo()
 	TBorderEdit  *pMoneyEdit;
 
 	//小計、消費税、合計金額、金額のEditを得る
-	pCtrl               = FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
 	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
+	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
 	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
 	//合計金額のセット
 	pMoneyEdit->Text = pTotalEdit->Text;
@@ -4313,7 +4243,7 @@ void TMainForm::SetZOrderFromDocumentInfo()
 		//名前を得る
 		String CtrlName = pDoc.Name;
 		//コントロールを得る
-		TControl *pCtrl = FindControlFromMainPanel(CtrlName);
+		TControl *pCtrl = compo.FindControlFromMainPanel(CtrlName);
 		//有効か？
 		if(pCtrl != nullptr)
 		{
@@ -4327,7 +4257,7 @@ void TMainForm::SetZOrderFromDocumentInfo()
 //-------------------------------------------------------------
 bool TMainForm::setStdEdit(scStdComponent comp_typ,const String& val)
 {
-	TControl    *pCtrl = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl    *pCtrl = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TBorderEdit *pEdit = static_cast<TBorderEdit *>(pCtrl);
 	//数値と
 	pEdit->Text = val;
@@ -4336,7 +4266,7 @@ bool TMainForm::setStdEdit(scStdComponent comp_typ,const String& val)
 }
 bool TMainForm::setStdEdit(scStdComponent comp_typ,const nsLong& val)
 {
-	TControl    *pCtrl = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl    *pCtrl = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TBorderEdit *pEdit = static_cast<TBorderEdit *>(pCtrl);
 	//数値と
 	pEdit->Text = val.ToStr();
@@ -4345,7 +4275,7 @@ bool TMainForm::setStdEdit(scStdComponent comp_typ,const nsLong& val)
 }
 bool TMainForm::setStdEdit(scStdComponent comp_typ,const nsDouble& val)
 {
-	TControl    *pCtrl = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl    *pCtrl = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TBorderEdit *pEdit = static_cast<TBorderEdit *>(pCtrl);
 	//数値と
 	pEdit->Text = val.ToStr();
@@ -4358,7 +4288,7 @@ bool TMainForm::setStdEdit(scStdComponent comp_typ,const nsDouble& val)
 //-------------------------------------------------------------
 bool TMainForm::setStdLabel(scStdComponent comp_typ,const String& val)
 {
-	TControl  *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl  *pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TWinLabel *pLabel = static_cast<TWinLabel *>(pCtrl);
 	pLabel->Caption  = val;
 
@@ -4369,7 +4299,7 @@ bool TMainForm::setStdLabel(scStdComponent comp_typ,const String& val)
 //-------------------------------------------------------------
 bool TMainForm::setStdImage(scStdComponent comp_typ,const nsBitmap& bmp)
 {
-	TControl      *pCtrl   = FindControlFromMainPanel(StdComponents[scStampImage1].Name);
+	TControl      *pCtrl   = compo.FindControlFromMainPanel(StdComponents[scStampImage1].Name);
 	TImageControl *pImage  = static_cast<TImageControl *>(pCtrl);
 	pImage->LoadFromBitmap(bmp.get());
 
@@ -4527,7 +4457,7 @@ void TMainForm::SetDataFromDocData()
 //-------------------------------------------------------------
 bool TMainForm::setDocValFrom(String& val,scStdComponent comp_typ)
 {
-	TControl    *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl    *pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TBorderEdit *pEdit  = static_cast<TBorderEdit *>(pCtrl);
 	//値をセット
 	val = pEdit->Text;
@@ -4536,7 +4466,7 @@ bool TMainForm::setDocValFrom(String& val,scStdComponent comp_typ)
 }
 bool TMainForm::setDocValFrom(nsLong& val,scStdComponent comp_typ)
 {
-	TControl    *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl    *pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TBorderEdit *pEdit  = static_cast<TBorderEdit *>(pCtrl);
 	//値をセット
 	val = pEdit->Text.c_str();
@@ -4545,7 +4475,7 @@ bool TMainForm::setDocValFrom(nsLong& val,scStdComponent comp_typ)
 }
 bool TMainForm::setDocValFrom(nsDouble& val,scStdComponent comp_typ)
 {
-	TControl    *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl    *pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TBorderEdit *pEdit  = static_cast<TBorderEdit *>(pCtrl);
 	//値をセット
 	val = pEdit->Text.c_str();
@@ -4557,7 +4487,7 @@ bool TMainForm::setDocValFrom(nsDouble& val,scStdComponent comp_typ)
 //-------------------------------------------------------------
 bool TMainForm::setDocValFromLabel(String& val,scStdComponent comp_typ)
 {
-	TControl * pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl * pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TWinLabel *pLabel = static_cast<TWinLabel *>(pCtrl);
 	val = pLabel->Caption;
 
@@ -4568,7 +4498,7 @@ bool TMainForm::setDocValFromLabel(String& val,scStdComponent comp_typ)
 //-------------------------------------------------------------
 bool TMainForm::setDocValFromImage(nsBitmap& val,scStdComponent comp_typ)
 {
-	TControl      *pCtrl  = FindControlFromMainPanel(StdComponents[comp_typ].Name);
+	TControl      *pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TImageControl *pImage = static_cast<TImageControl *>(pCtrl);
 	//値をセット
 	val.get()->Assign(pImage->Picture);
@@ -8120,7 +8050,7 @@ void TMainForm::AddInputData()
 	//---- 繰り返し入力用ﾃﾞｰﾀ更新(名前) ----
 	NameEditName = StdComponents[scNameEdit].Name;
 	//MainPanelから指定Nameのコントロールを得る
-	pCtrl        = FindControlFromMainPanel(NameEditName);
+	pCtrl        = compo.FindControlFromMainPanel(NameEditName);
 	//コントロールのTextまたはCaptionを得る
 	Txt          = GetControlStrValue(pCtrl);
 	Inpts.AddInputData(NameEditName.c_str(),Txt.c_str());
@@ -8128,7 +8058,7 @@ void TMainForm::AddInputData()
 	//---- 繰り返し入力用ﾃﾞｰﾀ更新(件名) ----
 	ItemEditName = StdComponents[scItemEdit].Name;
 	//MainPanelから指定Nameのコントロールを得る
-	pCtrl        = FindControlFromMainPanel(ItemEditName);
+	pCtrl        = compo.FindControlFromMainPanel(ItemEditName);
 	//コントロールのTextまたはCaptionを得る
 	Txt          = GetControlStrValue(pCtrl);
 	Inpts.AddInputData(ItemEditName.c_str(),Txt.c_str());
@@ -8163,11 +8093,11 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 	TBorderEdit *pAdr1Edit;
 
 	//客先郵便番号
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerZipCodeEdit].Name);
+	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scCustomerZipCodeEdit].Name);
 	pZipEdit    = static_cast<TBorderEdit *>(pCtrl);
 
 	//客先住所１
-	pCtrl       = FindControlFromMainPanel(StdComponents[scCustomerAddress1Edit].Name);
+	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scCustomerAddress1Edit].Name);
 	pAdr1Edit   = static_cast<TBorderEdit *>(pCtrl);
 
 	//入力された郵便番号を得る

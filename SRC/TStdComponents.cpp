@@ -2,6 +2,7 @@
 #include<vcl.h>
 #pragma hdrstop
 
+#include "TBorderEdit.h"
 #include "MainFrm.h"
 #include "TStdComponents.h"
 //---------------------------------------------------------------------------
@@ -90,5 +91,63 @@ TControl *TDocCompo::FindControlFromMainPanel(const String& Name)
 		}
 	}
 	return 0;
+}
+//-------------------------------------------------------------
+//コンポーネントの型を得る
+//-------------------------------------------------------------
+dcDocComponent TDocCompo::GetComponentType(TComponent *pCompo)
+{
+	TWinLabel       *pWinLabel   = nullptr;
+	TBorderEdit     *pBorderEdit = nullptr;
+	TImageControl   *pImage      = nullptr;
+	TWinShape       *pShape      = nullptr;
+	XnsGrid         *pGrid       = nullptr;
+	dcDocComponent   Type;
+	//コンポーネントの型を得る
+	if(pCompo == nullptr)
+	{
+		//不明
+		Type = dcUnknown;
+	}
+	else if((pWinLabel = dynamic_cast<TWinLabel *>(pCompo)) != nullptr)
+	{
+		//ラベル
+		Type = dcLabel;
+	}
+	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCompo)) != nullptr)
+	{
+		//枠つきEdit
+		Type = dcMoneyEdit;
+	}
+	else if((pImage = dynamic_cast<TImageControl *>(pCompo)) != nullptr)
+	{
+		//画像
+		Type = dcImage;
+	}
+	else if((pShape = dynamic_cast<TWinShape *>(pCompo)) != nullptr)
+	{
+		//Shape
+		if(pShape->Height <= 2)
+		{
+			//横線
+			Type = dcCLine;
+		}
+		else
+		{
+			//縦線
+			Type = dcVLine;
+		}
+	}
+	else if((pGrid = dynamic_cast<XnsGrid *>(pCompo)) != nullptr)
+	{
+		//画像
+		Type = dcGrid;
+	}
+	else
+	{
+		//不明
+		Type = dcUnknown;
+	}
+	return Type;
 }
 
