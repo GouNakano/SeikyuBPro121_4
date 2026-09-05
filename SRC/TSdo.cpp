@@ -180,7 +180,7 @@ bool TSdo::setBasicInfo(std::unique_ptr<TMemIniFile>& pIni,const String& sdo_fil
 
 		//用紙種別
 		Val             = pIni->ReadString (S_SECTION_SETTING,V_DOCKIND,DocKindDef[pmSeikyu].KindName);
-		typDocKindDefs::GetDocKindDefFromName(Val,pDocKindDef);
+		compo.GetDocKindDefFromName(Val,pDocKindDef);
 		DocInfo.DocKind = pDocKindDef.Number;
 
 		//ズーム
@@ -273,7 +273,7 @@ bool TSdo::readComponents(std::unique_ptr<TMemIniFile>& pIni,typDocument& DocInf
 			{
 				//名前から標準コンポーネント情報を得る
 				typStdComponentDef pStd;
-				bool std_valid = typDocKindDefs::GetStdComponentDefFromName(pDoc.Name,pStd,DocInfo.DocKind);
+				bool std_valid = compo.GetStdComponentDefFromName(pDoc.Name,pStd,DocInfo.DocKind);
 				//型を設定
 				if(std_valid == true)
 				{

@@ -67,7 +67,7 @@ void __fastcall TDispSettingForm::FormShow(TObject *Sender)
 		}
 		//コンポーネント名から標準コンポーネント情報を得る
 		typStdComponentDef pStdCompo;
-		bool std_valid = typDocKindDefs::GetStdComponentDefFromName(pDoc.Name,pStdCompo,Document.DocKind);
+		bool std_valid = compo.GetStdComponentDefFromName(pDoc.Name,pStdCompo,Document.DocKind);
 		//リストアイテムの作成
 		TListItem *pItem = ObjectListView->Items->Add();
 		//部品情報を関連付け

@@ -1267,12 +1267,12 @@ bool TMainForm::SetComponentFromDocCompo(typDocCompo& pDoc)
 	TImageControl *pImage;
 
 	//名前からコントロールを得る
-	TControl *pCtrl = FindControlFromMainPanel(pDoc.Name);
+	TControl *pCtrl = compo.FindControlFromMainPanel(pDoc.Name);
 	//コンポーネントの型を得る
 	dcDocComponent Type = GetComponentType(pCtrl);
 	//コンポーネント名から標準コンポーネント情報を得る
 	typStdComponentDef pStdCompo;
-	bool std_vaild = typDocKindDefs::GetStdComponentDefFromName(pDoc.Name,pStdCompo,Document.DocKind);
+	bool std_vaild = compo.GetStdComponentDefFromName(pDoc.Name,pStdCompo,Document.DocKind);
 
 	//コンポーネントの作成・書類部品の型設定
 	if(Type == dcUnknown && pDoc.Type == dcUnknown && std_vaild == false)
@@ -1558,7 +1558,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 	TControl   *pCtrl  = FindControlFromMainPanel(CtrlName);
 	//コンポーネント名から標準コンポーネント情報を得る
 	typStdComponentDef  pStdCompo;
-	bool std_valid = typDocKindDefs::GetStdComponentDefFromName(CtrlName,pStdCompo,Document.DocKind);
+	bool std_valid = compo.GetStdComponentDefFromName(CtrlName,pStdCompo,Document.DocKind);
 	//該当しない場合は処理しない
 	if(std_valid == false)
 	{
@@ -2331,7 +2331,7 @@ void __fastcall TMainForm::CancelStampImageClick(TObject *Sender)
 	//標準コンポーネントかチェック
 	typStdComponentDef pStdInf;
 
-	if(typDocKindDefs::GetStdComponentDefFromName(pDoc.Name,pStdInf,Document.DocKind) == true)
+	if(compo.GetStdComponentDefFromName(pDoc.Name,pStdInf,Document.DocKind) == true)
 	{
 		//画像セット
 		switch(pStdInf.Number)
@@ -2429,7 +2429,7 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 	typStdComponentDef pStdInf;
 
 	//標準コンポーネントかチェック
-	if(typDocKindDefs::GetStdComponentDefFromName(pDoc.Name,pStdInf,Document.DocKind) == true)
+	if(compo.GetStdComponentDefFromName(pDoc.Name,pStdInf,Document.DocKind) == true)
 	{
 		//画像セット
 		switch(pStdInf.Number)
@@ -8062,7 +8062,7 @@ void __fastcall TMainForm::EditDblClick(TObject *Sender)
 	String      CtrlName = pCompo->Name;
 	//コンポーネント名から標準コンポーネント情報を得る
 	typStdComponentDef pStdCompo;
-	bool std_valid = typDocKindDefs::GetStdComponentDefFromName(CtrlName,pStdCompo,Document.DocKind);
+	bool std_valid = compo.GetStdComponentDefFromName(CtrlName,pStdCompo,Document.DocKind);
 	//情報はある？
 	if(std_valid == false)
 	{

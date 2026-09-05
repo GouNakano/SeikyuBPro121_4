@@ -2,15 +2,17 @@
 #ifndef TStdComponentsH
 #define TStdComponentsH
 //---------------------------------------------------------------------------
+#include <map>
+#include "nsBitmap.h"
 #include "SeikyuBConst.h"
 #include "TDocKinds.h"
-
 //標準コンポーネントの数
 constexpr const int STD_COMPONENT_NUM = 49;
 
 //標準コンポーネントの定義
 struct typStdComponentDef
 {
+public:
 	scStdComponent   Number;     //コンポーネント番号
 	const wchar_t   *Name;       //名前
 	dcDocComponent   CompoKind;  //コンポーネント種別
@@ -21,6 +23,14 @@ struct typStdComponentDef
 	const wchar_t   *NoCaption;  //内容が空の時の代替表示文字列
 	const wchar_t   *Explain;    //説明(ヒント)
 	bool             Visible;    //初期表示するか
+public:
+	//コンストラクタ
+	typStdComponentDef() = default;
+	//コピーコンストラクタ
+	typStdComponentDef(const typStdComponentDef& h) = default;
+public:
+	//代入演算子
+	typStdComponentDef& operator = (const typStdComponentDef& h) = default;
 };
 
 //標準コンポーネント
@@ -76,15 +86,53 @@ constexpr const typStdComponentDef StdComponents[STD_COMPONENT_NUM] = {
 };
 
 //---------------------------------------------------------------------------
-//書類種類名から書類種類情報を得る
+//書類部品用汎用データクラス
 //---------------------------------------------------------------------------
-class typDocKindDefs
+class TCompoData
 {
 public:
-	//用紙種別を得る
-	static bool GetDocKindDefFromName(const String& DocKindName,typDocKindDef& kind);
-	//コンポーネント名から標準コンポーネント情報を得る
-	static bool GetStdComponentDefFromName(const String& StdComponentName,typStdComponentDef& comp,const typProcMode docMode);
+	dtypCompo type = dtyInteger;
+public:
+	int      int_val = 0;
+	double   dbl_val = 0.0;
+	String   str_val;
+	nsBitmap bmp_val;
+public:
+	//コンストラクタ
+	TCompoData() = default;
+	//コピーコンストラクタ
+	TCompoData(const TCompoData& h) = default;
+public:
+	//代入
+	TCompoData& operator = (const TCompoData& h) = default;
 };
+
+//---------------------------------------------------------------------------
+//書類部品処理クラス
+//---------------------------------------------------------------------------
+class TDocCompo
+{
+private:
+	//標準コンポーネントオブジェクトのコンポーネント番号のMap
+	std::map<scStdComponent,typStdComponentDef> StdCompNumberMap;
+	//標準コンポーネントオブジェクトの名前のMap
+	std::map<String,typStdComponentDef> StdNameMap;
+public:
+	//コンストラクタ
+	TDocCompo();
+public:
+	//用紙種別を得る
+	bool GetDocKindDefFromName(const String& DocKindName,typDocKindDef& kind);
+	//コンポーネント名から標準コンポーネント情報を得る
+	bool GetStdComponentDefFromName(const String& StdComponentName,typStdComponentDef& comp,const typProcMode docMode);
+public:
+	//コンポーネント名と標準コンポーネント番号からデータを得る
+	bool getCompoData(const String& nm,dcDocComponent dc,TCompoData& data);
+	//MainPanelから指定Nameのコントロールを得る
+	TControl *FindControlFromMainPanel(const String& Name);
+};
+
+//書類部品処理オブジェクト
+extern TDocCompo compo;
 
 #endif

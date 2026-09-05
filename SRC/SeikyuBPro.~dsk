@@ -1,52 +1,61 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.dfm',0,1,1,1,1,0,0,,
-File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.cpp',0,1,1,1,1,0,0,,
-File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp',0,1,1,76,9,0,0,,
-File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuPrintFrm.cpp',0,1,1,33,14,0,0,,
-File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp',0,1,49,1,6,0,0,,
-File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp',0,1,108,59,137,0,0,,
-File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\QRep\nsQRepPDF.cpp',0,1,1,1,1,0,0,,
-File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp',0,1,1,1,1,0,0,,
-File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZooms.cpp',0,1,1,1,6,0,0,,
-File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdComponents.cpp',0,1,1,1,6,0,0,,
-File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SeikyuBConst.cpp',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\SeikyuBConst.cpp',0,1,1,1,1,0,0,,
+File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp',0,1,1,1,1,0,0,,
+File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp',0,1,1,1,24,0,0,,
+File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp',0,1,12,16,49,0,0,,
+File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.dfm',0,1,1,1,1,0,0,,
+File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuPrintFrm.cpp',0,1,1,33,14,0,0,,
+File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp',0,1,49,1,6,0,0,,
+File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp',0,1,108,59,137,0,0,,
+File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\QRep\nsQRepPDF.cpp',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp',0,1,1,1,1,0,0,,
+File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TZooms.cpp',0,1,1,1,6,0,0,,
 File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SSGO\TBorderEdit.cpp',0,1,1,1,8,0,0,,
 File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_3\SRC\MainFrm.cpp',0,1,674,1,707,0,0,,
 File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SubSelectFrm.cpp',0,1,1,1,1,0,0,,
-File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsResizeCtrl.cpp',0,1,403,30,447,0,0,,
 
 [Modules]
-Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.cpp
-Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp
-Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp
-Module3=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
-Module4=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-Count=5
+Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdComponents.cpp
+Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp
+Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
+Module3=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
+Module4=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
+Module5=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.cpp
+Module6=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\DispSettingFrm.cpp
+Count=7
 EditWindowCount=1
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdComponents.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp]
 ModuleType=TSourceModule
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
 ModuleType=TSourceModule
 
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp]
+ModuleType=TSourceModule
+
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.cpp]
+ModuleType=TSourceModule
+
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\DispSettingFrm.cpp]
+ModuleType=TSourceModule
+
 [EditWindow0]
-ViewCount=5
-CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.cpp
+ViewCount=7
+CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdComponents.cpp
 View0=0
 View1=1
 View2=2
 View3=3
 View4=4
+View5=5
+View6=6
 PercentageSizes=1
 Create=1
 Visible=1
@@ -83,9 +92,9 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-CursorX=1
-CursorY=115
-TopLine=104
+CursorX=31
+CursorY=7065
+TopLine=7016
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -93,14 +102,14 @@ EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 
 [View1]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp
-CursorX=16
-CursorY=49
-TopLine=12
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
+CursorX=109
+CursorY=271
+TopLine=251
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp
 
 [View2]
 CustomEditViewType=TEditView
@@ -115,25 +124,47 @@ EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm
 
 [View3]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp
-CursorX=1
-CursorY=24
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
+CursorX=76
+CursorY=9
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.h
 
 [View4]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
-CursorX=24
-CursorY=103
-TopLine=103
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdComponents.cpp
+CursorX=15
+CursorY=31
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TStdComponents.h
+
+[View5]
+CustomEditViewType=TEditView
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp
+CursorX=1
+CursorY=6
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\nsBitmap.cpp
+
+[View6]
+CustomEditViewType=TEditView
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\DispSettingFrm.cpp
+CursorX=35
+CursorY=70
+TopLine=45
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\DispSettingFrm.cpp
 
 [Watches]
 Count=0
@@ -269,11 +300,6 @@ LRDockWidth=1896
 Dockable=1
 StayOnTop=0
 SplitPos=111
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Action,OnCreate
-ExpandedItems="LiveBinding デザイナ=0",Images=0,MenuAnimation=0,Anchors=0,BorderIcons=0,Constraints=0,CustomTitleBar=1,Font=0,GlassFrame=0,HorzScrollBar=0,LiveBindings=0,Margins=0,Padding=0,StyleElements=0,ImageMargins=0
 
 [frmDesignPreview]
 PercentageSizes=1

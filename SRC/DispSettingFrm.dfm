@@ -4,7 +4,7 @@ object DispSettingForm: TDispSettingForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = #26360#39006#37096#21697#34920#31034#35373#23450
-  ClientHeight = 628
+  ClientHeight = 597
   ClientWidth = 478
   Color = clBtnFace
   CustomTitleBar.Control = TitleBarPanel
@@ -37,7 +37,7 @@ object DispSettingForm: TDispSettingForm
   TextHeight = 12
   object Panel1: TPanel
     Left = 0
-    Top = 586
+    Top = 555
     Width = 478
     Height = 42
     Align = alBottom
@@ -45,6 +45,7 @@ object DispSettingForm: TDispSettingForm
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
+    ExplicitTop = 586
     object Panel2: TPanel
       Left = 215
       Top = 0
@@ -81,7 +82,7 @@ object DispSettingForm: TDispSettingForm
     Left = 0
     Top = 30
     Width = 478
-    Height = 556
+    Height = 525
     Align = alClient
     TabOrder = 1
     ExplicitTop = 0
