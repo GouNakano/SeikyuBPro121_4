@@ -8091,10 +8091,12 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 	TControl    *pCtrl;
 	TBorderEdit *pZipEdit;
 	TBorderEdit *pAdr1Edit;
+	TCompoData   compoData;
 
 	//‹qæ—X•Ö”Ô†
-	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scCustomerZipCodeEdit].Name);
-	pZipEdit    = static_cast<TBorderEdit *>(pCtrl);
+	compo.getCompoData(scZipCodeLabel,compoData);
+//	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scCustomerZipCodeEdit].Name);
+//	pZipEdit    = static_cast<TBorderEdit *>(pCtrl);
 
 	//‹qæZŠ‚P
 	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scCustomerAddress1Edit].Name);

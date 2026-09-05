@@ -150,4 +150,81 @@ dcDocComponent TDocCompo::GetComponentType(TComponent *pCompo)
 	}
 	return Type;
 }
+//-------------------------------------------------------------
+//コンポーネント名と標準コンポーネント番号からデータを得る
+//-------------------------------------------------------------
+bool TDocCompo::getCompoData(scStdComponent sc,TCompoData& data)
+{
+	TWinLabel   *pLabel = nullptr;
+	TBorderEdit *pEdit  = nullptr;
+
+	//データ初期化
+	data.clear();
+	//標準コンポーネント名からコンポーネントを得る
+	TControl *pCtrl = FindControlFromMainPanel(StdComponents[sc].Name);
+	//チェック
+	if(pLabel == nullptr)
+	{
+		return false;
+	}
+	//標準番号から型を得る
+	dcDocComponent typ = StdComponents[sc].CompoKind;
+	//コンポーネントの型に沿ってキャスト
+	switch(typ)
+	{
+		case dcLabel:
+		{
+			//ラベルにキャスト
+			pLabel = dynamic_cast<TWinLabel *>(pCtrl);
+			//チェック
+			if(pLabel == nullptr)
+			{
+				return false;
+			}
+			//ラベルの内容
+			data.str_val = pLabel->Caption;
+			break;
+		}
+		case dcDayEdit:
+		{
+			//ラベルにキャスト
+			pEdit = dynamic_cast<TBorderEdit *>(pCtrl);
+			//チェック
+			if(pEdit == nullptr)
+			{
+				return false;
+			}
+			//日付(年、月、日)内容
+			data.int_val = pEdit->Text.ToIntDef(0);
+			break;
+		}
+		case dcMoneyEdit:
+		{
+			//ラベルにキャスト
+			pEdit = dynamic_cast<TBorderEdit *>(pCtrl);
+			//チェック
+			if(pEdit == nullptr)
+			{
+				return false;
+			}
+			//日付(年、月、日)内容
+			data.dbl_val = std::_wtof(pEdit->Text.c_str());
+			break;
+		}
+		case dcEdit:
+		{
+			//ラベルにキャスト
+			pEdit = dynamic_cast<TBorderEdit *>(pCtrl);
+			//チェック
+			if(pEdit == nullptr)
+			{
+				return false;
+			}
+			//文字列
+			data.str_val = pEdit->Text;
+			break;
+		}
+	}
+    return true;
+}
 

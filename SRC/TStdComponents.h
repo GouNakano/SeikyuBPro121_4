@@ -105,8 +105,15 @@ public:
 public:
 	//代入
 	TCompoData& operator = (const TCompoData& h) = default;
-};
+public:
+	//初期化
+	bool clear()
+	{
+		*this = TCompoData();
 
+		return true;
+	}
+};
 //---------------------------------------------------------------------------
 //書類部品処理クラス
 //---------------------------------------------------------------------------
@@ -127,7 +134,7 @@ public:
 	bool GetStdComponentDefFromName(const String& StdComponentName,typStdComponentDef& comp,const typProcMode docMode);
 public:
 	//コンポーネント名と標準コンポーネント番号からデータを得る
-	bool getCompoData(const String& nm,dcDocComponent dc,TCompoData& data);
+	bool getCompoData(scStdComponent sc,TCompoData& data);
 	//MainPanelから指定Nameのコントロールを得る
 	TControl *FindControlFromMainPanel(const String& Name);
 	//コンポーネントの型を得る
