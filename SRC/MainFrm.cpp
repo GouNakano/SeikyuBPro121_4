@@ -3366,47 +3366,32 @@ void TMainForm::DispTotalInfo()
 //-------------------------------------------------------------
 void TMainForm::SetTaxAndTotalInfo()
 {
-	nsDouble      SubTotal;
-	nsDouble      Tax;
-	nsDouble      MoneyVal;
-	nsDouble      TaxVal;
-	TControl     *pCtrl;
-	TBorderEdit  *pSubtotalEdit;
-	TBorderEdit  *pTaxEdit;
-	TBorderEdit  *pTotalEdit;
-	TBorderEdit  *pMoneyEdit;
-
-	//小計、消費税、合計金額、金額のEditを得る
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
-	pSubtotalEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
-	pTaxEdit            = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
-	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
-	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
 	//該当データを得る
 	typDocData& DocData = Document.Data[Document.DocKind];
 	//小計の取得
-	SubTotal = pSubtotalEdit->Text.c_str();
+	nsDouble SubTotal = compo.getCompoData(scSubtotalEdit).c_str();
 	//消費税率を得る
-	TaxVal = DocData.ConsumptionTaxRatio.c_str();
+	nsDouble TaxVal = DocData.ConsumptionTaxRatio.c_str();
 	//消費税のセット
 	if(TaxVal.IsNull() == false)
 	{
+		nsDouble Tax;
+
 		if(SubTotal.IsNull() == false)
 		{
-			Tax            = ((typ_nsdouble)TaxVal * (typ_nsdouble)SubTotal) / 100.0;
-			pTaxEdit->Text = Tax.ToStrEX(ES.AccuracyR4,ES.RateTyp4,true);
-			Tax            = pTaxEdit->Text.c_str();
+			//消費税の計算
+			Tax = ((typ_nsdouble)TaxVal * (typ_nsdouble)SubTotal) / 100.0;
+			//丸めを行う
+			compo.setCompoData(scTaxEdit,Tax,ES.AccuracyR4,ES.RateTyp4,true);
+			//丸めをした消費税
+			Tax = compo.getCompoData(scTaxEdit).c_str();
 		}
 		else
 		{
-			pTaxEdit->Text = "";
+			compo.setCompoData(scTaxEdit,String(L""));
 			Tax.SetNULL();
 		}
 	}
-
 	//合計金額の計算
 	SetTotalInfo();
 }
