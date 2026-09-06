@@ -71,7 +71,6 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 681
   end
   object BasePanel: TPaintPanel
     Left = 305
@@ -82,10 +81,9 @@ object MainForm: TMainForm
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitHeight = 593
     object EditToolBar: TToolBar
       Left = 1
-      Top = 567
+      Top = 412
       Width = 910
       Height = 25
       Align = alBottom
@@ -404,7 +402,7 @@ object MainForm: TMainForm
       Left = 1
       Top = 1
       Width = 910
-      Height = 566
+      Height = 411
       VertScrollBar.Position = 89
       VertScrollBar.Smooth = True
       Align = alClient
@@ -549,12 +547,11 @@ object MainForm: TMainForm
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitHeight = 593
     object HistListView: TListView2
       Left = 0
       Top = 0
       Width = 300
-      Height = 563
+      Height = 408
       Align = alClient
       Columns = <
         item
@@ -589,7 +586,7 @@ object MainForm: TMainForm
     end
     object Panel9: TPanel
       Left = 0
-      Top = 563
+      Top = 408
       Width = 300
       Height = 30
       Align = alBottom
@@ -600,7 +597,7 @@ object MainForm: TMainForm
         Left = 0
         Top = 0
         Width = 150
-        Height = 26
+        Height = 30
         Cursor = crHandPoint
         Align = alLeft
         AutoSize = True
@@ -977,6 +974,7 @@ object MainForm: TMainForm
           FFFFFFFFFFFFFFFF0000}
         Transparent = True
         OnClick = SakuraDensanMenuClick
+        ExplicitHeight = 26
       end
     end
   end

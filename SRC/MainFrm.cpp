@@ -1216,34 +1216,6 @@ TControl *TMainForm::CreateControl(String CtrlName,dcDocComponent Type)
 	return pCtrl;
 }
 //-------------------------------------------------------------
-//  機能     ：MainPanelから指定Nameのコントロールを得る
-//
-//  関数定義 ：TControl *FindControlFromMainPanel(String Name)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-//TControl *TMainForm::FindControlFromMainPanel(String Name)
-//{
-//	for(int Cnt=0;Cnt < MainPanel->ControlCount;Cnt++)
-//	{
-//		TControl *pCtrl = MainPanel->Controls[Cnt];
-//
-//		if(pCtrl->Name == Name)
-//		{
-//			return pCtrl;
-//		}
-//	}
-//	return 0;
-//}
-//-------------------------------------------------------------
 //  機能     ：書類部品情報からコンポーネントを配置
 //
 //  関数定義 ：bool SetComponentFromDocCompo(typDocCompo& pDoc)
@@ -1479,6 +1451,8 @@ bool TMainForm::SetComponentFromDocumentInfo()
 	{
 		try
 		{
+
+
 			//コントロールの名前を得る
 			String CtrlName = StdComponents[Cnt].Name;
 			//書類部品情報があるか
@@ -1724,22 +1698,22 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-String TMainForm::GetControlStrValue(TControl *pCtrl)
-{
-	TWinLabel    *pWinLabel;
-	TBorderEdit *pBorderEdit;
-	String       Val;
-	//型別処理
-	if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl))!=nullptr)
-	{
-		Val = pWinLabel->Caption;
-	}
-	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl))!=nullptr)
-	{
-		Val = pBorderEdit->Text;
-	}
-	return Val;
-}
+//String TMainForm::GetControlStrValue(TControl *pCtrl)
+//{
+//	TWinLabel    *pWinLabel;
+//	TBorderEdit *pBorderEdit;
+//	String       Val;
+//	//型別処理
+//	if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl))!=nullptr)
+//	{
+//		Val = pWinLabel->Caption;
+//	}
+//	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl))!=nullptr)
+//	{
+//		Val = pBorderEdit->Text;
+//	}
+//	return Val;
+//}
 //-------------------------------------------------------------
 //  機能     ：印刷フォントサイズの計算
 //
@@ -3456,38 +3430,27 @@ void TMainForm::SetTotalInfo()
 	nsDouble      SubTotal;
 	nsDouble      Tax;
 	nsDouble      MoneyVal;
-	TControl     *pCtrl;
-	TBorderEdit  *pSubtotalEdit;
-	TBorderEdit  *pTaxEdit;
-	TBorderEdit  *pTotalEdit;
-	TBorderEdit  *pMoneyEdit;
 
 	//小計、消費税、合計金額、金額のEditを得る
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
-	pSubtotalEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
-	pTaxEdit            = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
-	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
-	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
+	SubTotal = compo.getCompoData(scSubtotalEdit).c_str();
+	Tax      = compo.getCompoData(scTaxEdit).c_str();
 	//該当データを得る
 	typDocData& DocData = Document.Data[Document.DocKind];
-	//小計の取得
-	SubTotal = pSubtotalEdit->Text.c_str();
-	//消費税の取得
-	Tax      = pTaxEdit->Text.c_str();
 	//合計金額のセット
 	if(SubTotal.IsNull() == false || Tax.IsNull() == false)
 	{
+		//合計金額(小計+消費税)
 		MoneyVal         = (typ_nsdouble)SubTotal + (typ_nsdouble)Tax;
-		pTotalEdit->Text = MoneyVal.ToStrEX(ES.AccuracyR5,ES.RateTyp5,true);
-		pMoneyEdit->Text = MoneyVal.ToStrEX(ES.AccuracyR5,ES.RateTyp5,true);
+		//合計金額セット(右下の欄)
+		compo.setCompoData(scTotalEdit,MoneyVal,ES.AccuracyR5,ES.RateTyp5,true);
+
+		//合計金額セット(請求金額などの欄)
+		compo.setCompoData(scMoneyEdit,MoneyVal,ES.AccuracyR5,ES.RateTyp5,true);
 	}
 	else
 	{
-		pTotalEdit->Text = "";
-		pMoneyEdit->Text = "";
+		compo.setCompoData(scTotalEdit,String(L""));
+		compo.setCompoData(scMoneyEdit,String(L""));
 	}
 }
 //-------------------------------------------------------------
@@ -3507,17 +3470,10 @@ void TMainForm::SetTotalInfo()
 //-------------------------------------------------------------
 void TMainForm::SetMainTotalInfo()
 {
-	TControl     *pCtrl;
-	TBorderEdit  *pTotalEdit;
-	TBorderEdit  *pMoneyEdit;
-
-	//小計、消費税、合計金額、金額のEditを得る
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
-	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
-	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
+	//合計値を得る
+	String total = compo.getCompoData(scTotalEdit);
 	//合計金額のセット
-	pMoneyEdit->Text = pTotalEdit->Text;
+	compo.setCompoData(scMoneyEdit,nsDouble(total.c_str()));
 }
 //-------------------------------------------------------------
 //  機能     ：セル表示内容の設定
@@ -7569,7 +7525,7 @@ void __fastcall TMainForm::EditChange(TObject *Sender)
 	SetDocumentChange(true);
 	//対象エディットを得る
 	pEdit  = dynamic_cast<TEdit *>(Sender);
-	if(pEdit)
+	if(pEdit != nullptr)
 	{
 		pBEdit = dynamic_cast<TBorderEdit *>(pEdit->Parent);
 	}
@@ -7942,8 +7898,7 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-void __fastcall TMainForm::BasePanelFileDrop(TObject *Sender,
-      TStrings *Files)
+void __fastcall TMainForm::BasePanelFileDrop(TObject *Sender,TStrings *Files)
 {
 	//拡張子 .sdo のファイルを一つ開く
 	for(int Cnt = 0;Cnt < Files->Count;Cnt++)
@@ -7986,8 +7941,6 @@ void __fastcall TMainForm::EditDblClick(TObject *Sender)
 {
 	//コンポーネントを得る
 	TComponent  *pCompo  = static_cast<TComponent *>(Sender);
-	//Editを得る
-	TBorderEdit *pEdit   = static_cast<TBorderEdit *>(pCompo);
 	//Editの名前を得る
 	String      CtrlName = pCompo->Name;
 	//コンポーネント名から標準コンポーネント情報を得る
@@ -8009,7 +7962,7 @@ void __fastcall TMainForm::EditDblClick(TObject *Sender)
 		if(SubSelectForm->ShowModal() == mrOk)
 		{
 			//データをセット
-			pEdit->Text = SubSelectForm->Value;
+			compo.setCompoData(scNameEdit,SubSelectForm->Value);
 		}
 	}
 	else if(pStdCompo.Number == scItemEdit)
@@ -8022,7 +7975,7 @@ void __fastcall TMainForm::EditDblClick(TObject *Sender)
 		if(SubSelectForm->ShowModal() == mrOk)
 		{
 			//データをセット
-			pEdit->Text = SubSelectForm->Value;
+			compo.setCompoData(scItemEdit,SubSelectForm->Value);
 		}
 	}
 }
@@ -8043,25 +7996,15 @@ void __fastcall TMainForm::EditDblClick(TObject *Sender)
 //-------------------------------------------------------------
 void TMainForm::AddInputData()
 {
-	TControl *pCtrl;
-	String    NameEditName;
-	String    ItemEditName;
-	String    Txt;
-	//---- 繰り返し入力用ﾃﾞｰﾀ更新(名前) ----
-	NameEditName = StdComponents[scNameEdit].Name;
-	//MainPanelから指定Nameのコントロールを得る
-	pCtrl        = compo.FindControlFromMainPanel(NameEditName);
-	//コントロールのTextまたはCaptionを得る
-	Txt          = GetControlStrValue(pCtrl);
-	Inpts.AddInputData(NameEditName.c_str(),Txt.c_str());
+	//現在の名前入力値
+	String name = compo.getCompoData(scNameEdit);
+	//繰り返し入力用ﾃﾞｰﾀ更新(名前)
+	Inpts.AddInputData(compo.getCompoName(scNameEdit),name);
 
-	//---- 繰り返し入力用ﾃﾞｰﾀ更新(件名) ----
-	ItemEditName = StdComponents[scItemEdit].Name;
-	//MainPanelから指定Nameのコントロールを得る
-	pCtrl        = compo.FindControlFromMainPanel(ItemEditName);
-	//コントロールのTextまたはCaptionを得る
-	Txt          = GetControlStrValue(pCtrl);
-	Inpts.AddInputData(ItemEditName.c_str(),Txt.c_str());
+	//現在の件名入力値
+	String item = compo.getCompoData(scItemEdit);
+	//繰り返し入力用ﾃﾞｰﾀ更新(件名)
+	Inpts.AddInputData(compo.getCompoName(scItemEdit),item);
 }
 //-------------------------------------------------------------
 //  機能     ：郵便番号から住所を検索ボタン
@@ -8088,22 +8031,9 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 	String       ZipStr;
 	String       NumStr;
 	int          HyphenPos;
-	TControl    *pCtrl;
-	TBorderEdit *pZipEdit;
-	TBorderEdit *pAdr1Edit;
-	TCompoData   compoData;
-
-	//客先郵便番号
-	compo.getCompoData(scZipCodeLabel,compoData);
-//	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scCustomerZipCodeEdit].Name);
-//	pZipEdit    = static_cast<TBorderEdit *>(pCtrl);
-
-	//客先住所１
-	pCtrl       = compo.FindControlFromMainPanel(StdComponents[scCustomerAddress1Edit].Name);
-	pAdr1Edit   = static_cast<TBorderEdit *>(pCtrl);
 
 	//入力された郵便番号を得る
-	InputZipStr = pZipEdit->Text.Trim();
+	InputZipStr = compo.getCompoData(scCustomerZipCodeEdit).Trim();
 	//半角にする
 	InputZipStr = sbp::StrToHan(InputZipStr);
 	//数字文字だけを抽出(全角も)
@@ -8134,7 +8064,7 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 	//住所を作成
 	AllAddrStr = Prefecture + City + Address;
 	//セット
-	pAdr1Edit->Text = AllAddrStr;
+	compo.setCompoData(scCustomerAddress1Edit,AllAddrStr);
 }
 //-------------------------------------------------------------
 //  機能     ：書類部品表示設定メニュー

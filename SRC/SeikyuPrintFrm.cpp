@@ -92,7 +92,7 @@ void __fastcall TSeikyuPrintForm::SeikyuRepBeforePrint(TCustomQuickRep *Sender, 
 				continue;
 			}
 			//TShapeÇÃèÍçá
-			if((pShape = dynamic_cast<TWinShape *>(pCtrl)) != 0)
+			if((pShape = dynamic_cast<TWinShape *>(pCtrl)) != nullptr)
 			{
 				//TQRShapeçÏê¨
 				TQRShape *pQRShape     = new TQRShape(pBand);
@@ -120,7 +120,7 @@ void __fastcall TSeikyuPrintForm::SeikyuRepBeforePrint(TCustomQuickRep *Sender, 
 					pQRShape->Height = (pQRTestShape->Top  - pQRShape->Top);
 				}
 			}
-			else if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl)) != 0)
+			else if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl)) != nullptr)
 			{
 
 				if(pWinLabel->BorderDraw == true)
@@ -175,7 +175,7 @@ void __fastcall TSeikyuPrintForm::SeikyuRepBeforePrint(TCustomQuickRep *Sender, 
 					pQRLabel->Size->Top     = pDoc.Y + dcy;
 				}
 			}
-			else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl)) != 0)
+			else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl)) != nullptr)
 			{
 				//åÖãÊêÿÇËê¸ÇÃóLñ≥ÇämîF
 				if(pBorderEdit->ColSeparateDraw == true)

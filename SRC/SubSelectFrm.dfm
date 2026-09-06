@@ -93,10 +93,6 @@ object SubSelectForm: TSubSelectForm
     PopupMenu = PopupMenu
     TabOrder = 1
     OnDblClick = OkBtnClick
-    ExplicitLeft = 161
-    ExplicitTop = 117
-    ExplicitWidth = 264
-    ExplicitHeight = 214
   end
   object Panel3: TPanel
     Left = 0

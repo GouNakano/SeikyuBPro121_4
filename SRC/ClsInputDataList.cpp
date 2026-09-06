@@ -50,23 +50,19 @@
 bool ClsInputDataList::Load()
 {
 	//入力履歴レジストリを開く
-	SBRegIni *pIni = new SBRegIni;
+	std::unique_ptr<SBRegIni> pIni(new SBRegIni);
 	//Value一覧を得る
-	TStringList *pValues = new TStringList;
-	pIni->ReadSectionValues(INI_REG_INPUT,pValues);
+	std::unique_ptr<TStringList> pValues(new TStringList);
+	pIni->ReadSectionValues(INI_REG_INPUT,pValues.get());
 	//データ取り込み
 	for(int Cnt = 0;Cnt < pValues->Count;Cnt++)
 	{
-//		wchar_t   Buf[1024];
 		std::vector<String> sptr;
-//		wchar_t *sptr[256];
 
 		//名前を得る
 		String Name = pValues->Names[Cnt];
 		//内容取り込み
 		String Val  = pValues->Values[Name];
-//		//バッファにコピー
-//		wcscpy(Buf,Val.c_str());
 		//分解
 		int DivNum = TSCommonLib::CSVDivide(sptr,Val);
 		//データ追加
@@ -74,7 +70,6 @@ bool ClsInputDataList::Load()
 		{
 			//ﾘｽﾄのｱｲﾃﾑを生成
 			InputData Item;
-//			InputData *Item = new InputData();
 			//ｺﾝﾄﾛｰﾙ名
 			Item.CtrlName  = sptr[0];
 			//内容
@@ -83,13 +78,8 @@ bool ClsInputDataList::Load()
 			Item.Rank      = sptr[2];
 			//ﾘｽﾄに追加
 			StrList.push_back(Item);
-//			StrList.SortingAdd(Item);
 		}
 	}
-	//開放
-	delete pIni;
-	delete pValues;
-
 	return true;
 }
 //-------------------------------------------------------------
@@ -145,7 +135,6 @@ bool ClsInputDataList::Save()
 //-------------------------------------------------------------
 void ClsInputDataList::AddInputData(String ctrlname,String str)
 {
-//	InputData *SrchItem;
 	//内容が空文字列なら登録しない
 	if(str == L"")
 	{
@@ -163,18 +152,16 @@ void ClsInputDataList::AddInputData(String ctrlname,String str)
 	//同じ物があるかﾁｪｯｸ
 	decltype(StrList)::iterator it = std::find(StrList.begin(),StrList.end(),Item);
 
-//	if((SrchItem = StrList.Search(*Item)) != 0)
 	if(it != StrList.end())
 	{
 		//同じのがある場合は時刻だけ変更
 		InputData& SrchItem = (*it);
 		SrchItem.Rank = DTStr;
-//		delete Item;
 		return;
 	}
 	//登録
+	StrList.push_back(std::move(Item));
 	std::sort(StrList.begin(),StrList.end());
-//	StrList.SortingAdd(Item);
 }
 //-------------------------------------------------------------
 //  機能     ：削除

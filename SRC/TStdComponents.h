@@ -3,6 +3,8 @@
 #define TStdComponentsH
 //---------------------------------------------------------------------------
 #include <map>
+#include "nsLong.h"
+#include "nsDouble.h"
 #include "nsBitmap.h"
 #include "SeikyuBConst.h"
 #include "TDocKinds.h"
@@ -86,35 +88,6 @@ constexpr const typStdComponentDef StdComponents[STD_COMPONENT_NUM] = {
 };
 
 //---------------------------------------------------------------------------
-//書類部品用汎用データクラス
-//---------------------------------------------------------------------------
-class TCompoData
-{
-public:
-	dtypCompo type = dtyInteger;
-public:
-	int      int_val = 0;
-	double   dbl_val = 0.0;
-	String   str_val;
-	nsBitmap bmp_val;
-public:
-	//コンストラクタ
-	TCompoData() = default;
-	//コピーコンストラクタ
-	TCompoData(const TCompoData& h) = default;
-public:
-	//代入
-	TCompoData& operator = (const TCompoData& h) = default;
-public:
-	//初期化
-	bool clear()
-	{
-		*this = TCompoData();
-
-		return true;
-	}
-};
-//---------------------------------------------------------------------------
 //書類部品処理クラス
 //---------------------------------------------------------------------------
 class TDocCompo
@@ -133,12 +106,20 @@ public:
 	//コンポーネント名から標準コンポーネント情報を得る
 	bool GetStdComponentDefFromName(const String& StdComponentName,typStdComponentDef& comp,const typProcMode docMode);
 public:
-	//コンポーネント名と標準コンポーネント番号からデータを得る
-	bool getCompoData(scStdComponent sc,TCompoData& data);
+	//標準コンポーネント番号のコンポーネントにデータセット
+	bool setCompoData(scStdComponent sc,const String& data);
+	bool setCompoData(scStdComponent sc,nsLong in);
+	bool setCompoData(scStdComponent sc,nsDouble in,int Accuracy=2,TValuateType offType=TValuateType::tOmit,bool IsDelete0 = true);
+	//標準コンポーネント番号のコンポーネント名取得
+	String getCompoName(scStdComponent sc);
+	//標準コンポーネント番号のコンポーネントのデータ取得
+	String getCompoData(scStdComponent sc);
 	//MainPanelから指定Nameのコントロールを得る
 	TControl *FindControlFromMainPanel(const String& Name);
 	//コンポーネントの型を得る
 	dcDocComponent GetComponentType(TComponent *pCompo);
+	//コンポーネントの名前からコントロールのTextまたはCaptionを得る
+	String GetControlStrValue(TControl *pCtrl);
 };
 
 //書類部品処理オブジェクト

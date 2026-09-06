@@ -62,7 +62,6 @@ void __fastcall TSubSelectForm::CancelBtnClick(TObject *Sender)
 {
 	ModalResult = mrCancel;
 }
-
 //-------------------------------------------------------------
 //  機能     ：選択ボタン
 //
@@ -83,13 +82,15 @@ void __fastcall TSubSelectForm::OkBtnClick(TObject *Sender)
 	//選択アイテム
 	int Idx = ItemListBox->ItemIndex;
 	//チェック
-	if(Idx < 0)return;
+	if(Idx < 0)
+	{
+		return;
+	}
 	//選択内容を得る
 	Value = ItemListBox->Items->Strings[Idx];
 	//選択終了
 	ModalResult = mrOk;
 }
-
 //-------------------------------------------------------------
 //  機能     ：削除メニュー
 //
@@ -110,7 +111,10 @@ void __fastcall TSubSelectForm::DeleteMenuClick(TObject *Sender)
 	//選択アイテム
 	int Idx = ItemListBox->ItemIndex;
 	//チェック
-	if(Idx < 0)return;
+	if(Idx < 0)
+	{
+		return;
+	}
 	//選択内容を得る
 	Value = ItemListBox->Items->Strings[Idx];
 	//削除

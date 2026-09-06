@@ -468,8 +468,8 @@ private:
 	void         DispStatus();
 	//コントロールを作成する
 	TControl    *CreateControl(String CtrlName,dcDocComponent Type);
-	//コントロールのTextまたはCaptionを得る
-	String       GetControlStrValue(TControl *pCtrl);
+//	//コントロールのTextまたはCaptionを得る
+//	String       GetControlStrValue(TControl *pCtrl);
 	//BaseControl上のコントロールのTabOrderを動的に決定する
 	TWinControl *SetTabOrder(TWinControl *BaseControl);
 	//編集ツールバーの状態設定
@@ -535,8 +535,6 @@ public:
 	bool SetComponentFromDocCompo(typDocCompo& doc);
 	//書類部品情報からグリッドを配置
 	bool SetGridFromDocCompo();
-//	//MainPanelから指定Nameのコントロールを得る
-//	TControl *FindControlFromMainPanel(String Name);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TMainForm *MainForm;
