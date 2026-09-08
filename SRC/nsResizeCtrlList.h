@@ -3,6 +3,7 @@
 #define nsResizeCtrlListH
 //---------------------------------------------------------------------------
 #include <vector>
+#include "XnsGrid.h"
 #include "nsResizeCtrl.h"
 
 class nsResizeCtrlList
@@ -10,9 +11,12 @@ class nsResizeCtrlList
 private:
 	//編集対象のコントロールリスト
 	std::vector<std::unique_ptr<nsResizeCtrl>> ResizeList;
+	//移動ベクトル
 private:
 	//インデックスからリサイズコントロールを得る
 	nsResizeCtrl* get(int idx);
+	//グリッド行高さの調整
+	bool AdjustRowHeights(XnsGrid *Grid);
 public:
 	//コンストラクタ
 	nsResizeCtrlList() = default;
@@ -27,17 +31,15 @@ public:
 	//リサイズコントロールの全消去
 	bool clear(TWinControl *Parent);
 	//追加
-	//Parent               リサイズコントロールを配置する親コンポーネント
-	//Control              リサイズコントロールで制御するコントロール
-	//ResizeHide           リサイズコントロールが消えるとき(確定時)のイベント
-	//ResizeCtrlMove       リサイズコントロール移動・大きさ変更のイベント
-	//ResizeCtrlMouseDown  リサイズコントロール移動・大きさ変更コントロールのマウスダウンイベント
-	//ResizeCtrlMouseUp    リサイズコントロール移動・大きさ変更コントロールのマウスアップイベント
 	nsResizeCtrl* add(TWinControl *Parent,TControl *Control,TNotifyEvent ResizeHide,TResizeCtrlMoveEvent ResizeCtrlMove,TMouseEvent ResizeCtrlMouseDown,TMouseEvent ResizeCtrlMouseUp);
 	//指定されたTControlポインターからnsResizeCtrlを検索してインデックスを返す
 	int findResizeCtrl(TControl *ctrl);
 	//インデックス指定のリサイズコントロールを削除
 	bool erase(int idx);
+	//コントロール移動・大きさ変更
+	void ResizeCtrlMove(int dx,int dy,int dw,int dh,bool CtrlMove = true);
+	//キーボードキーによるコントロール移動・大きさ変更
+	bool ResizeKeyMove(WORD Key,const TShiftState& Shift,bool CtrlMove = true);
 };
 
 #endif

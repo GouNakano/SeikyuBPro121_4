@@ -2,7 +2,7 @@ object MainForm: TMainForm
   Left = 323
   Top = 86
   Caption = #35531#27714#26360#30058#38957
-  ClientHeight = 514
+  ClientHeight = 359
   ClientWidth = 1217
   Color = clWhite
   CustomTitleBar.Control = TitleBarPanel
@@ -44,7 +44,7 @@ object MainForm: TMainForm
     Left = 300
     Top = 88
     Width = 5
-    Height = 407
+    Height = 252
     Beveled = True
     Color = 13684944
     ParentColor = False
@@ -54,7 +54,7 @@ object MainForm: TMainForm
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 495
+    Top = 340
     Width = 1217
     Height = 19
     Panels = <
@@ -71,21 +71,21 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 526
+    ExplicitTop = 433
   end
   object BasePanel: TPaintPanel
     Left = 305
     Top = 88
     Width = 912
-    Height = 407
+    Height = 252
     Align = alClient
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitHeight = 438
+    ExplicitHeight = 345
     object EditToolBar: TToolBar
       Left = 1
-      Top = 412
+      Top = 319
       Width = 910
       Height = 25
       Align = alBottom
@@ -404,7 +404,7 @@ object MainForm: TMainForm
       Left = 1
       Top = 1
       Width = 910
-      Height = 411
+      Height = 318
       VertScrollBar.Position = 89
       VertScrollBar.Smooth = True
       Align = alClient
@@ -545,16 +545,16 @@ object MainForm: TMainForm
     Left = 0
     Top = 88
     Width = 300
-    Height = 407
+    Height = 252
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitHeight = 438
+    ExplicitHeight = 345
     object HistListView: TListView2
       Left = 0
       Top = 0
       Width = 300
-      Height = 408
+      Height = 315
       Align = alClient
       Columns = <
         item
@@ -589,7 +589,7 @@ object MainForm: TMainForm
     end
     object Panel9: TPanel
       Left = 0
-      Top = 408
+      Top = 315
       Width = 300
       Height = 30
       Align = alBottom

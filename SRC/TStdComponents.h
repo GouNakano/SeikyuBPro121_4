@@ -97,6 +97,9 @@ private:
 	std::map<scStdComponent,typStdComponentDef> StdCompNumberMap;
 	//標準コンポーネントオブジェクトの名前のMap
 	std::map<String,typStdComponentDef> StdNameMap;
+private:
+	//コンポーネントの名前からコントロールのTextまたはCaptionを得る
+	String GetControlStrValue(TControl *pCtrl);
 public:
 	//コンストラクタ
 	TDocCompo();
@@ -118,8 +121,6 @@ public:
 	TControl *FindControlFromMainPanel(const String& Name);
 	//コンポーネントの型を得る
 	dcDocComponent GetComponentType(TComponent *pCompo);
-	//コンポーネントの名前からコントロールのTextまたはCaptionを得る
-	String GetControlStrValue(TControl *pCtrl);
 };
 
 //書類部品処理オブジェクト

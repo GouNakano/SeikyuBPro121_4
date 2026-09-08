@@ -1563,9 +1563,13 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 	{
 		//Shape
 		if(pTShape->Height <= 2)
+		{
 			TType = dcCLine;
+		}
 		else
+		{
 			TType = dcVLine;
+		}
 	}
 	else if((pTGrid = dynamic_cast<XnsGrid *>(pTCompo))!=nullptr)
 	{
@@ -1683,37 +1687,6 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 
 	return true;
 }
-//-------------------------------------------------------------
-//  機能     ：コントロールのTextまたはCaptionを得る
-//
-//  関数定義 ：String GetControlStrValue(TControl *pCtrl)
-//
-//  ｱｸｾｽﾚﾍﾞﾙ ：
-//
-//  引数     ：
-//
-//  戻り値   ：
-//
-//  作成者　 ：
-//
-//  改定者   ：
-//-------------------------------------------------------------
-//String TMainForm::GetControlStrValue(TControl *pCtrl)
-//{
-//	TWinLabel    *pWinLabel;
-//	TBorderEdit *pBorderEdit;
-//	String       Val;
-//	//型別処理
-//	if((pWinLabel = dynamic_cast<TWinLabel *>(pCtrl))!=nullptr)
-//	{
-//		Val = pWinLabel->Caption;
-//	}
-//	else if((pBorderEdit = dynamic_cast<TBorderEdit *>(pCtrl))!=nullptr)
-//	{
-//		Val = pBorderEdit->Text;
-//	}
-//	return Val;
-//}
 //-------------------------------------------------------------
 //  機能     ：印刷フォントサイズの計算
 //
@@ -3291,18 +3264,7 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 void TMainForm::DispTotalInfo()
 {
 	nsDouble      SubTotal;
-	nsDouble      Tax;
 	bool          IsEffect = false;
-	TControl     *pCtrl;
-	TBorderEdit  *pSubtotalEdit;
-	TBorderEdit  *pTaxEdit;
-	TBorderEdit  *pTotalEdit;
-	TBorderEdit  *pMoneyEdit;
-	String        SubTotalStr;
-	String        TaxStr;
-	nsDouble      SubTotalVal;
-	nsDouble      TaxVal;
-	nsDouble      MoneyVal;
 	String        Str;
 	//金額の合計値を得る
 	for(int Cnt = Grid->FixedRows;Cnt < Grid->RowCount;Cnt++)
@@ -3322,30 +3284,21 @@ void TMainForm::DispTotalInfo()
 		}
 	}
 	//小計、消費税、合計金額、金額のEditを得る
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scSubtotalEdit].Name);
-	pSubtotalEdit       = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTaxEdit].Name);
-	pTaxEdit            = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scTotalEdit].Name);
-	pTotalEdit          = static_cast<TBorderEdit *>(pCtrl);
-	pCtrl               = compo.FindControlFromMainPanel(StdComponents[scMoneyEdit].Name);
-	pMoneyEdit          = static_cast<TBorderEdit *>(pCtrl);
+	if(IsEffect == true)
+	{
+		compo.setCompoData(scSubtotalEdit,SubTotal,ES.AccuracyR3,ES.RateTyp3,true);
+	}
 	//データが無効の時
-	if(IsEffect == false)
+	else
 	{
 		//小計、消費税、合計金額は空欄
-		pSubtotalEdit->Text = L"";
-		pTaxEdit     ->Text = L"";
-		pTotalEdit   ->Text = L"";
-		pMoneyEdit   ->Text = L"";
+		compo.setCompoData(scSubtotalEdit,String(L""));
+		compo.setCompoData(scTaxEdit,String(L""));
+		compo.setCompoData(scTotalEdit,String(L""));
+		compo.setCompoData(scMoneyEdit,String(L""));
 
 		return;
 	}
-	//該当データを得る
-	typDocData& DocData = Document.Data[Document.DocKind];
-	//小計のセット
-	pSubtotalEdit->Text = SubTotal.ToStrEX(ES.AccuracyR3,ES.RateTyp3,true);
-
 	//消費税、合計金額の計算
 	SetTaxAndTotalInfo();
 }
@@ -5369,7 +5322,6 @@ bool TMainForm::OverWrite()
 //-------------------------------------------------------------
 void __fastcall TMainForm::ApplicationEventsMessage(tagMSG &Msg,bool &Handled)
 {
-
 	if(Msg.message == WM_KEYDOWN)
 	{
 		TShiftState    Shift;
@@ -5388,76 +5340,20 @@ void __fastcall TMainForm::ApplicationEventsMessage(tagMSG &Msg,bool &Handled)
 		bool IsShift = ((GetKeyState(VK_SHIFT) & 0x80) != 0);
 
 		//キーによる操作
-		if(IsShift == false)
+		if(ResizeList.ResizeKeyMove(Key,Shift) == true)
 		{
-			switch(Key)
-			{
-				case VK_RIGHT:
-				{
-					ResizeCtrlMove(this,IsUserMove,1,0,0,0);
-					Key = 0;
-					break;
-				}
-				case VK_LEFT:
-				{
-					ResizeCtrlMove(this,IsUserMove,-1,0,0,0);
-					Key = 0;
-					break;
-				}
-				case VK_DOWN:
-				{
-					ResizeCtrlMove(this,IsUserMove,0,1,0,0);
-					Key = 0;
-					break;
-				}
-				case VK_UP:
-				{
-					ResizeCtrlMove(this,IsUserMove,0,-1,0,0);
-					Key = 0;
-					break;
-				}
-				case VK_ESCAPE:
-				{
-					//編集対象のコントロール
-					if(ResizeList.size() > 0)
-					{
-						//移動・大きさ変更を取りやめる
-						CancelResizeMode(true);
-						Key = 0;
-						break;
-					}
-				}
-			}
+			Key = 0;
+			//書類の変更の有無を設定
+			SetDocumentChange(true);
 		}
-		else
+		else if(Key == VK_ESCAPE)
 		{
-			//Shiftキー押下時
-			switch(Key)
+			//編集対象のコントロール
+			if(ResizeList.size() > 0)
 			{
-				case VK_RIGHT:
-				{
-					ResizeCtrlMove(this,IsUserMove,0,0,1,0);
-					Key = 0;
-					break;
-				}
-				case VK_LEFT:
-				{
-					ResizeCtrlMove(this,IsUserMove,0,0,-1,0);
-					Key = 0;
-					break;
-				}
-				case VK_DOWN:
-				{
-					ResizeCtrlMove(this,IsUserMove,0,0,0,1);
-					Key = 0;
-					break;
-				}
-				case VK_UP:
-				{
-					ResizeCtrlMove(this,IsUserMove,0,0,0,-1);
-					Key = 0;
-					break;
-				}
+				//移動・大きさ変更を取りやめる
+				CancelResizeMode(true);
+				Key = 0;
 			}
 		}
 	}
@@ -6537,7 +6433,7 @@ void __fastcall TMainForm::MaxHeightMenuClick(TObject *Sender)
 	if(ResizeList.size() < 1)
 	{
 		return;
-    }
+	}
 	//もっとも最小の幅を得る
 	HeightMax = ResizeList[0]->Control->Height;
 	for(int Cnt = 1;Cnt < ResizeList.size();Cnt++)
@@ -7270,9 +7166,13 @@ void __fastcall TMainForm::GridUserDrawCell(TObject *Sender,
 			int TxtHeight = pCanvas->TextHeight(S);
 			//X,Yずらしを算出
 			if(TxtWidth < X - X0)
+			{
 				dx = ((X - X0) - TxtWidth)/2;
+			}
 			if(TxtHeight < Height)
+			{
 				dy = ((ARect.Height() - TxtHeight) / 2) - 1;
+			}
 			//描画範囲
 			TRect R(X0+1,ARect.Top+1,X-1,ARect.Bottom-1);
 			//文字描画
@@ -7504,8 +7404,8 @@ void __fastcall TMainForm::OptionMenuClick(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TMainForm::EditChange(TObject *Sender)
 {
-	TEdit       *pEdit  = 0;
-	TBorderEdit *pBEdit = 0;
+	TEdit       *pEdit  = nullptr;
+	TBorderEdit *pBEdit = nullptr;
 	//変更ありにする
 	SetDocumentChange(true);
 	//対象エディットを得る
@@ -7515,7 +7415,7 @@ void __fastcall TMainForm::EditChange(TObject *Sender)
 		pBEdit = dynamic_cast<TBorderEdit *>(pEdit->Parent);
 	}
 	//エディットが有効？
-	if(pBEdit)
+	if(pBEdit != nullptr)
 	{
 		//名前
 		String EditName = pBEdit->Name;

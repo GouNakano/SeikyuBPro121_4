@@ -55,6 +55,12 @@ bool nsResizeCtrlList::clear(TWinControl *Parent)
 }
 //-------------------------------------------------------------
 //リサイズコントロール追加
+//Parent               リサイズコントロールを配置する親コンポーネント
+//Control              リサイズコントロールで制御するコントロール
+//ResizeHide           リサイズコントロールが消えるとき(確定時)のイベント
+//ResizeCtrlMove       リサイズコントロール移動・大きさ変更のイベント
+//ResizeCtrlMouseDown  リサイズコントロール移動・大きさ変更コントロールのマウスダウンイベント
+//ResizeCtrlMouseUp    リサイズコントロール移動・大きさ変更コントロールのマウスアップイベント
 //-------------------------------------------------------------
 nsResizeCtrl* nsResizeCtrlList::add(TWinControl *Parent,TControl *Control,TNotifyEvent ResizeHide,TResizeCtrlMoveEvent ResizeCtrlMove,TMouseEvent ResizeCtrlMouseDown,TMouseEvent ResizeCtrlMouseUp)
 {
@@ -141,3 +147,130 @@ bool nsResizeCtrlList::erase(int idx)
 	}
 	return true;
 }
+//-------------------------------------------------------------
+//コントロール移動・大きさ変更
+//-------------------------------------------------------------
+void nsResizeCtrlList::ResizeCtrlMove(int dx,int dy,int dw,int dh,bool CtrlMove)
+{
+	//リストに登録されているコントロールの移動
+	for(int Cnt = 0;Cnt < ResizeList.size();Cnt++)
+	{
+		//移動・サイズ変更実行
+		ResizeList[Cnt]->DMove(dx,dy,dw,dh,CtrlMove);
+		//グリッド場合
+		XnsGrid *pGrid = dynamic_cast<XnsGrid *>(ResizeList[Cnt]->Control);
+		if(pGrid != nullptr)
+		{
+			//グリッド行高さの調整
+			AdjustRowHeights(pGrid);
+		}
+	}
+}
+//-------------------------------------------------------------
+//キーボードキーによるコントロール移動・大きさ変更
+//-------------------------------------------------------------
+bool nsResizeCtrlList::ResizeKeyMove(WORD Key,const TShiftState& Shift,bool CtrlMove)
+{
+	//移動ベクトル(dx,dy,dw,dh)
+	std::tuple<int,int,int,int> mv;
+	//Shift状態
+	bool IsShift = ((GetKeyState(VK_SHIFT) & 0x80) != 0);
+
+	//キーによる操作
+	if(IsShift == true)
+	{
+		//Shiftキー押下時
+		switch(Key)
+		{
+			case VK_RIGHT:
+			{
+				mv = {0,0,1,0};
+				break;
+			}
+			case VK_LEFT:
+			{
+				mv = {0,0,-1,0};
+				break;
+			}
+			case VK_DOWN:
+			{
+				mv = {0,0,0,1};
+				break;
+			}
+			case VK_UP:
+			{
+				mv = {0,0,0,-1};
+				break;
+			}
+			default:
+			{
+				return false;
+			}
+		}
+	}
+	else
+	{
+		switch(Key)
+		{
+			case VK_RIGHT:
+			{
+				mv = {1,0,0,0};
+				break;
+			}
+			case VK_LEFT:
+			{
+				mv = {-1,0,0,0};
+				break;
+			}
+			case VK_DOWN:
+			{
+				mv = {0,1,0,0};
+				break;
+			}
+			case VK_UP:
+			{
+				mv = {0,-1,0,0};
+				break;
+			}
+			default:
+			{
+				return false;
+			}
+		}
+	}
+	//移動ベクトル(dx,dy,dw,dh)取得
+	auto [dx,dy,dw,dh] = mv;
+	//コントロール移動・大きさ変更
+	ResizeCtrlMove(dx,dy,dw,dh);
+
+    return true;
+}
+//-------------------------------------------------------------
+//グリッド行高さの調整
+//-------------------------------------------------------------
+bool nsResizeCtrlList::AdjustRowHeights(XnsGrid *Grid)
+{
+	//デフォルト行高さ
+	Grid->DefaultRowHeight = (Grid->Height / Grid->RowCount);
+	//調整値を得る
+	int DiffY = Grid->Height - Grid->RowCount * Grid->DefaultRowHeight;
+	//調整
+	if(DiffY > 0)
+	{
+		for(int Cnt = 0;Cnt < DiffY;Cnt++)
+		{
+			Grid->RowHeights[Cnt] = Grid->RowHeights[Cnt] + 1;
+		}
+	}
+	else if(DiffY < 0)
+	{
+		DiffY = -DiffY;
+
+		for(int Cnt = 0;Cnt < DiffY;Cnt++)
+		{
+			Grid->RowHeights[Cnt] = Grid->RowHeights[Cnt] - 1;
+		}
+	}
+	return true;
+}
+
