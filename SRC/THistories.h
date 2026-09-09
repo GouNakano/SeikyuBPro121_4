@@ -3,6 +3,7 @@
 #define THistoriesH
 //---------------------------------------------------------------------------
 #include <System.IOUtils.hpp>
+#include <System.SysUtils.hpp>
 #include <System.Win.ComObj.hpp>
 #include <vector>
 
@@ -207,6 +208,8 @@ public:
 	bool save(const THistory& hist);
 	//履歴情報をレジストリから削除
 	bool deleteHistReg(THistory& hist);
+	//指定したファイルパスと同じデータがある場合はIDを返す(ない場合は空文字列)
+	String getSameFilePathID(const String& chkFilePath);
 };
 
 //現在使用中の履歴情報

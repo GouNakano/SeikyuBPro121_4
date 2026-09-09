@@ -226,13 +226,46 @@ bool THistories::deleteHistReg(THistory& hist)
 		});
 		if(it != Histories.end())
 		{
-            Histories.erase(it);
-        }
+			Histories.erase(it);
+		}
 	}
 	catch (...)
 	{
 		return false;
 	}
 	return true;
+}
+//---------------------------------------------------------------------------
+//指定したファイルパスと同じデータがある場合はIDを返す(ない場合は空文字列)
+//---------------------------------------------------------------------------
+String THistories::getSameFilePathID(const String& chkFilePath)
+{
+	String findID = L"";
+
+	try
+	{
+		//指定したファイルパスを正規化
+		String cmpPath1 = TPath::GetFullPath(chkFilePath);
+		//履歴ループ
+		for(int idx = 0;idx < size();idx++)
+		{
+			//インデックスに対応する履歴情報
+			THistory& histInf = Histories[idx];
+			// 1. 相対パスや「.」「..」を含む表記を、きれいな絶対パス（フルパス）に補完・正規化
+			String cmpPath2 = TPath::GetFullPath(histInf.getFilePath());
+			// 2. Windowsの仕様（大文字小文字を区別しない）に合わせてパスを比較
+			if(SameFileName(cmpPath1, cmpPath2) == true)
+			{
+				return histInf.getID();
+			}
+		}
+	}
+	catch (...)
+	{
+		// 無効な文字が含まれているなど、パスとして解析できない場合はIDは返さない
+		return L"";
+	}
+	//見つからないで最後まで来た
+	return L"";
 }
 
