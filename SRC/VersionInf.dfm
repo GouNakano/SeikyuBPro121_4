@@ -3641,15 +3641,19 @@ object AboutBox: TAboutBox
       TabOrder = 3
     end
   end
-  object OKButton: TButton
+  object OKButton: TBitBtn2
     Left = 355
     Top = 308
     Width = 75
     Height = 25
     Caption = 'OK'
     Default = True
+    DoubleBuffered = True
+    DoubleBufferedMode = dbmRequested
     ModalResult = 1
+    ParentDoubleBuffered = False
     TabOrder = 1
+    DownColor = clBtnFace
   end
   object TitleBarPanel: TTitleBarPanel
     Left = 0
@@ -3661,7 +3665,6 @@ object AboutBox: TAboutBox
     Margins.Right = 50
     Margins.Bottom = 0
     CustomButtons = <>
-    ExplicitHeight = 31
   end
   object Timer: TTimer
     Enabled = False

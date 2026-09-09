@@ -2,6 +2,7 @@
 #ifndef THistoriesH
 #define THistoriesH
 //---------------------------------------------------------------------------
+#include <System.IOUtils.hpp>
 #include <System.Win.ComObj.hpp>
 #include <vector>
 
@@ -127,7 +128,7 @@ public:
 
 		return true;
 	}
-	//件名を得る
+	//ファイルパスを得る
 	String getFilePath() const
 	{
 		return FilePath;
@@ -139,6 +140,22 @@ public:
 
 		return true;
 	}
+	//拡張子無しのファイル名を得る
+	String getFileNameOnly() const
+	{
+		return TPath::GetFileNameWithoutExtension(FilePath);
+	}
+	//格納フォルダパスを得る
+	String getDirectoryName() const
+	{
+		return TPath::GetDirectoryName(FilePath);
+	}
+	//日付文字列を得る
+	String getDayString() const
+	{
+		return String(getYear()) + L"/" + getMonth() + L"/" + getDay();
+	}
+
 public:
 	//ID振り直し
 	bool renumberID()

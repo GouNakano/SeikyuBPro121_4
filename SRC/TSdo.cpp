@@ -334,6 +334,9 @@ bool TSdo::loadDocumentData(std::unique_ptr<TMemIniFile>& pIni,typDocument& DocI
 	//読み込み処理
 	try
 	{
+		//請求書番頭の設定
+		TSBSetting ES;
+        TSBSetting::LoadSBSet(ES,false);
 		//iniファイルのパス
 		String FilePath = pIni->FileName;
 		//Iniファイルの格納ディレクトリを得る
@@ -1048,6 +1051,9 @@ bool TSdo::writeCompoInfo(const String& SecName,typDocument& DocInfo,std::unique
 //---------------------------------------------------------------------------
 bool TSdo::makeBackup(typDocument& DocInfo)
 {
+	//請求書番頭の設定
+	TSBSetting ES;
+	TSBSetting::LoadSBSet(ES,false);
 	//現在のファイルのバックアップを取る
 	if(ES.BackupFile == true)
 	{

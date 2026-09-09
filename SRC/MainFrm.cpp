@@ -31,6 +31,7 @@ using std::max;
 #include "TZooms.h"
 #include "TZips.h"
 #include "TStdColumn.h"
+#include "TSBSetting.h"
 #include "MainFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -90,14 +91,24 @@ void __fastcall TMainForm::FormCreate(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TMainForm::FormShow(TObject *Sender)
 {
-	//請求書番頭の設定を読み込む
-	sbp::LoadSBSet(ES,false);
-	//メインフォーム設定読み込み
-	sbp::LoadMainFormSet();
+	//自分のﾌﾙﾊﾟｽを得る
+	String MyPath = ParamStr(0);
+	//自分の存在するﾃﾞｨﾚｸﾄﾘ
+	String MyDir  = ExtractFileDir(MyPath);
+	//EXEの場所をカレントディレクトリにする
+	SetCurrentDir(MyDir);
 	//郵便番号一覧を得る
 	Zips.load();
 	//自社情報の読み込み
 	CompanyInfo.ReadCompanyInfo();
+	//請求書番頭の設定を読み込む
+	TSBSetting::LoadSBSet(ES,false);
+	//フォームの位置や大きさのセット
+	Top              = ES.Top;
+	Left             = ES.Left;
+	Width            = ES.Width;
+	Height           = ES.Height;
+	HistPanel->Width = ES.HistWidth;
 	//メッセージボックスのタイトル
 	nsLib::SetMsgBoxTitle(SYSTEM_NAME);
 
@@ -184,9 +195,11 @@ bool TMainForm::LoadReportHist()
 		TListItem *pItem = HistListView->Items->Add();
 
 		// ListViewアイテムセット
-		pItem->Caption = String(hist.getYear()) + L"/" + hist.getMonth() + L"/" + hist.getDay(); // 日付
-		pItem->SubItems->Add(hist.getName()); // 名前
-		pItem->SubItems->Add(hist.getItem()); // 件名
+		pItem->Caption = hist.getFileNameOnly();        // ファイル名
+		pItem->SubItems->Add(hist.getDayString());      // 日付
+		pItem->SubItems->Add(hist.getName());           // 名前
+		pItem->SubItems->Add(hist.getItem());           // 件名
+		pItem->SubItems->Add(hist.getDirectoryName());  // フォルダ
 		//紐づけるデータセット
 		pItem->Data = new THistory(hist);
 	}
@@ -328,13 +341,18 @@ void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 	//繰り返し入力用情報を保存
 	Inpts.Save();
 
-	//レジストリ
-	std::unique_ptr<SBRegIni> pReg(new SBRegIni);
-	//レジストリから各部のデータセット
-	pReg->WriteInteger(C_SYSTEM_SETTING,V_WINDOW_TOP ,Top);
-	pReg->WriteInteger(C_SYSTEM_SETTING,V_WINDOW_LEFT,Left);
-	pReg->WriteInteger(C_SYSTEM_SETTING,V_WINDOW_WIDTH ,Width);
-	pReg->WriteInteger(C_SYSTEM_SETTING,V_WINDOW_HEIGHT,Height);
+	//請求書番頭の設定を読み込む
+	TSBSetting ES;
+	TSBSetting::LoadSBSet(ES,false);
+	//現在の状態をセット
+	ES.Top       = Top;
+	ES.Left      = Left;
+	ES.Width     = Width;
+	ES.Height    = Height;
+	ES.HistWidth = HistPanel->Width;
+
+	//レジストリに保存
+	TSBSetting::SaveSBSet(ES);
 	//編集対象のコントロールを削除
 	ResizeList.clear(MainPanel);
 	//タイマーをとめる
@@ -3201,7 +3219,7 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 			String   Str;
 
 			//半角にする
-			Str = sbp::StrToHan(DispStr);
+			Str = TSCommonLib::StrToHan(DispStr);
 			//数値にする
 			Val = Str.c_str();
 			//セルにセット
@@ -3234,7 +3252,7 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 		{
 			nsDouble Val;
 			//半角にする
-			String Str = sbp::StrToHan(DispStr);
+			String Str = TSCommonLib::StrToHan(DispStr);
 			//数値にする
 			Val = Str.c_str();
 			//セルにセット
@@ -3286,6 +3304,7 @@ void TMainForm::DispTotalInfo()
 	//小計、消費税、合計金額、金額のEditを得る
 	if(IsEffect == true)
 	{
+		//小計、消費税、合計金額、金額のEditを得る
 		compo.setCompoData(scSubtotalEdit,SubTotal,ES.AccuracyR3,ES.RateTyp3,true);
 	}
 	//データが無効の時
@@ -3474,7 +3493,7 @@ void __fastcall TMainForm::GridDispCellStr(TObject *Sender, int ARow,int ACol, S
 			//内容チェック
 			if(nVal.IsNull() == true)
 			{
-				DispStr = "";
+				DispStr = L"";
 			}
 			else
 			{
@@ -7501,25 +7520,32 @@ void __fastcall TMainForm::FormCloseQuery(TObject *Sender, bool &CanClose)
 		//選択別処理
 		switch(Sel)
 		{
+			//はいを選んだ場合
 			case nsLib::mbselYES:
 			{
+				//上書き
 				if(OverWrite() == true)
 				{
 					break;
 				}
 				else
 				{
+					//閉じるのをやめる
 					CanClose = false;
 					break;
 				}
 			}
+			//キャンセルを選んだ場合
 			case nsLib::mbselCancel:
 			{
+				//閉じるのをやめる
 				CanClose = false;
 				break;
 			}
+			//いいえを選んだ場合
 			case nsLib::mbselNO:
 			{
+				//保存せずに閉じる
 				break;
 			}
 		}
@@ -7920,7 +7946,7 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 	//入力された郵便番号を得る
 	InputZipStr = compo.getCompoData(scCustomerZipCodeEdit).Trim();
 	//半角にする
-	InputZipStr = sbp::StrToHan(InputZipStr);
+	InputZipStr = TSCommonLib::StrToHan(InputZipStr);
 	//数字文字だけを抽出(全角も)
 	for(int Cnt = 0;Cnt < (int)InputZipStr.Length();Cnt++)
 	{
@@ -8071,31 +8097,31 @@ void __fastcall TMainForm::HistListViewCompare(TObject *Sender, TListItem *Item1
 		String DateStr1;
 		String DateStr2;
 
-		// 日付の取得
-		try
-		{
-			TDateTime Date1 = TDateTime(Item1->Caption, TDateTime::Date);
-
-			DateStr1 = Date1.FormatString("yyyy/mm/dd");
-		}
-		catch (...)
-		{
-			DateStr1 = TDateTime::CurrentDate().FormatString("yyyy/mm/dd");
-		}
-
-		try
-		{
-			TDateTime Date2 = TDateTime(Item2->Caption, TDateTime::Date);
-
-			DateStr2 = Date2.FormatString("yyyy/mm/dd");
-		}
-		catch (...)
-		{
-			DateStr2 = TDateTime::CurrentDate().FormatString("yyyy/mm/dd");
-		}
-
-		// 比較
-		Compare = SortVect[ColumnToSort] * CompareText(DateStr1, DateStr2);
+//		//日付の取得
+//		try
+//		{
+//			TDateTime Date1 = TDateTime(Item1->Caption, TDateTime::Date);
+//
+//			DateStr1 = Date1.FormatString("yyyy/mm/dd");
+//		}
+//		catch (...)
+//		{
+//			DateStr1 = TDateTime::CurrentDate().FormatString("yyyy/mm/dd");
+//		}
+//
+//		try
+//		{
+//			TDateTime Date2 = TDateTime(Item2->Caption, TDateTime::Date);
+//
+//			DateStr2 = Date2.FormatString("yyyy/mm/dd");
+//		}
+//		catch (...)
+//		{
+//			DateStr2 = TDateTime::CurrentDate().FormatString("yyyy/mm/dd");
+//		}
+//
+//		// 比較
+//		Compare = SortVect[ColumnToSort] * CompareText(DateStr1, DateStr2);
 	}
 	else
 	{
@@ -8156,17 +8182,17 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 		pLV->Canvas->Brush->Color = clSkyBlue;
 		pLV->Canvas->FillRect(R);
 
-		// -----   一列目 -----
-		// カラム情報
-		TListColumn *pCol = pLV->Columns->Items[0];
-		// 描画範囲
-		ListView_GetItemRect(pLV->Handle, Item->Index, &rc, LVIR_LABEL);
-		// 色
-		pLV->Canvas->Font->Color = clBlue;
-		// ロック解除
-		pLV->Canvas->Refresh();
+//		// -----   一列目 -----
+//		// カラム情報
+//		TListColumn *pCol = pLV->Columns->Items[0];
+//		// 描画範囲
+//		ListView_GetItemRect(pLV->Handle, Item->Index, &rc, LVIR_LABEL);
+//		// 色
+//		pLV->Canvas->Font->Color = clRed;
+//		// ロック解除
+//		pLV->Canvas->Refresh();
 
-		// -----  日付 ------
+		// -----  ファイル名 ------
 		// カラム情報
 		pCol = pLV->Columns->Items[0];
 		// 表示文字列
@@ -8177,12 +8203,10 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 		pLV->Canvas->Font->Color = clBlue;
 		// 描画
 		pLV->Canvas->TextRect(rc, rc.left + 4, rc.top, DispStr);
-		// //表示非表示の描画
-		// pImgList->Draw(pLV->Canvas,rc.left,rc.top,0);
 		// ロック解除
 		pLV->Canvas->Refresh();
 
-		// -----  客先名 ------
+		// -----  日付 ------
 		// カラム情報
 		pCol = pLV->Columns->Items[1];
 		// 表示文字列
@@ -8196,7 +8220,7 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 		// ロック解除
 		pLV->Canvas->Refresh();
 
-		// -----  件名 ------
+		// -----  客先名 ------
 		// カラム情報
 		pCol = pLV->Columns->Items[2];
 		// 表示文字列
@@ -8209,6 +8233,35 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 		pLV->Canvas->TextRect(rc, rc.left + 4, rc.top, DispStr);
 		// ロック解除
 		pLV->Canvas->Refresh();
+
+		// -----  件名 ------
+		// カラム情報
+		pCol = pLV->Columns->Items[3];
+		// 表示文字列
+		DispStr = String(" ") + Item->SubItems->Strings[2];
+		// 描画範囲
+		ListView_GetSubItemRect(pLV->Handle, Item->Index, 3, LVIR_LABEL, &rc);
+		// 色
+		pLV->Canvas->Font->Color = clBlack;
+		// 描画
+		pLV->Canvas->TextRect(rc, rc.left + 4, rc.top, DispStr);
+		// ロック解除
+		pLV->Canvas->Refresh();
+
+		// -----  フォルダ ------
+		// カラム情報
+		pCol = pLV->Columns->Items[4];
+		// 表示文字列
+		DispStr = String(" ") + Item->SubItems->Strings[3];
+		// 描画範囲
+		ListView_GetSubItemRect(pLV->Handle, Item->Index, 4, LVIR_LABEL, &rc);
+		// 色
+		pLV->Canvas->Font->Color = clBlack;
+		// 描画
+		pLV->Canvas->TextRect(rc, rc.left + 4, rc.top, DispStr);
+		// ロック解除
+		pLV->Canvas->Refresh();
+
 	}
 	else
 	{
@@ -8218,15 +8271,15 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 			pLV->Canvas->Brush->Color = TColor(0x00E8E8E8);
 			pLV->Canvas->FillRect(R);
 		}
-		// -----   一列目 -----
-		// カラム情報
-		TListColumn *pCol = pLV->Columns->Items[0];
-		// 描画範囲
-		ListView_GetItemRect(pLV->Handle, Item->Index, &rc, LVIR_LABEL);
-		// ロック解除
-		pLV->Canvas->Refresh();
+//		// -----   一列目 -----
+//		// カラム情報
+//		TListColumn *pCol = pLV->Columns->Items[0];
+//		// 描画範囲
+//		ListView_GetItemRect(pLV->Handle, Item->Index, &rc, LVIR_LABEL);
+//		// ロック解除
+//		pLV->Canvas->Refresh();
 
-		// -----  日付 ------
+		// -----  ファイル名 ------
 		// カラム情報
 		pCol = pLV->Columns->Items[0];
 		// 表示文字列
@@ -8237,12 +8290,11 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 		pLV->Canvas->Font->Color = clBlue;
 		// 描画
 		pLV->Canvas->TextRect(rc, rc.left + 4, rc.top, DispStr);
-		// //表示非表示の描画
-		// pImgList->Draw(pLV->Canvas,rc.left,rc.top,0);
 		// ロック解除
 		pLV->Canvas->Refresh();
 
-		// -----  客先名 ------
+
+		// -----  日付 ------
 		// カラム情報
 		pCol = pLV->Columns->Items[1];
 		// 表示文字列
@@ -8256,13 +8308,41 @@ void __fastcall TMainForm::HistListViewCustomDrawItem(TCustomListView *Sender, T
 		// ロック解除
 		pLV->Canvas->Refresh();
 
-		// -----  件名 ------
+		// -----  客先名 ------
 		// カラム情報
 		pCol = pLV->Columns->Items[2];
 		// 表示文字列
 		DispStr = String(" ") + Item->SubItems->Strings[1];
 		// 描画範囲
 		ListView_GetSubItemRect(pLV->Handle, Item->Index, 2, LVIR_LABEL, &rc);
+		// 色
+		pLV->Canvas->Font->Color = clBlack;
+		// 描画
+		pLV->Canvas->TextRect(rc, rc.left + 4, rc.top, DispStr);
+		// ロック解除
+		pLV->Canvas->Refresh();
+
+		// -----  件名 ------
+		// カラム情報
+		pCol = pLV->Columns->Items[3];
+		// 表示文字列
+		DispStr = String(" ") + Item->SubItems->Strings[2];
+		// 描画範囲
+		ListView_GetSubItemRect(pLV->Handle, Item->Index, 3, LVIR_LABEL, &rc);
+		// 色
+		pLV->Canvas->Font->Color = clBlack;
+		// 描画
+		pLV->Canvas->TextRect(rc, rc.left + 4, rc.top, DispStr);
+		// ロック解除
+		pLV->Canvas->Refresh();
+
+		// -----  フォルダ ------
+		// カラム情報
+		pCol = pLV->Columns->Items[4];
+		// 表示文字列
+		DispStr = String(" ") + Item->SubItems->Strings[3];
+		// 描画範囲
+		ListView_GetSubItemRect(pLV->Handle, Item->Index, 4, LVIR_LABEL, &rc);
 		// 色
 		pLV->Canvas->Font->Color = clBlack;
 		// 描画

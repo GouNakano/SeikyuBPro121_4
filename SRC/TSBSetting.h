@@ -5,7 +5,7 @@
 #include "SeikyuBConst.h"
 
 //請求書番頭設定格納
-struct typSBSetting
+struct TSBSetting
 {
 public:
 	//共通定義
@@ -24,11 +24,21 @@ public:
 	TValuateType RateTyp3        = tOmit;  //小数点有効桁以下処理タイプ
 	TValuateType RateTyp4        = tOmit;  //小数点有効桁以下処理タイプ
 	TValuateType RateTyp5        = tOmit;  //小数点有効桁以下処理タイプ
+	int          Top             = 4;      //請求書番頭の初期左上Y座標
+	int          Left            = 50;     //請求書番頭の初期左上X座標
+	int          Width           = 900;    //請求書番頭の初期幅
+	int          Height          = 756;    //請求書番頭の初期高さ
+	int          HistWidth       = 300;    //履歴エリアの幅
 public:
 	//コンストラクタ
-	typSBSetting() = default;
+	TSBSetting() = default;
 	//コピーコンストラクタ
-	typSBSetting(const typSBSetting& h) = default;
+	TSBSetting(const TSBSetting& h) = default;
+public:
+	//請求書番頭の設定読み込み
+	static bool LoadSBSet(TSBSetting& es,bool Default);
+	//請求書番頭の設定保存
+	static bool SaveSBSet(const TSBSetting& es);
 };
 
 #endif

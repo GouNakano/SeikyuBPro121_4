@@ -120,10 +120,8 @@ __published:	// IDE 管理のコンポーネント
 	TMenuItem *NonDispObjectMenu;
 	TSaveDialog *PDFSaveDialog;
 	XnsGrid *Grid;
-	TPanel *Panel6;
+	TPanel *HistPanel;
 	TListView2 *HistListView;
-	TPanel *Panel9;
-	TImage *SakuraImage;
 	TSplitter *Splitter1;
 	TPopupMenu *HistPopupMenu;
 	TMenuItem *DeleteHistMenu;
@@ -384,6 +382,8 @@ private:
 	TSdo            Sdo;
 	//自社情報
 	TCompanyInfos CompanyInfo;
+	//請求書番頭の設定
+	TSBSetting ES;
 private:
 	//フォームがアクティブか記録
 	bool isFormActive;

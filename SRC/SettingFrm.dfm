@@ -4,40 +4,68 @@ object SettingForm: TSettingForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = #12458#12503#12471#12519#12531
-  ClientHeight = 413
-  ClientWidth = 360
+  ClientHeight = 460
+  ClientWidth = 369
   Color = clBtnFace
+  CustomTitleBar.Control = TitleBarPanel
+  CustomTitleBar.Enabled = True
+  CustomTitleBar.Height = 31
+  CustomTitleBar.BackgroundColor = clWhite
+  CustomTitleBar.ForegroundColor = 65793
+  CustomTitleBar.InactiveBackgroundColor = clWhite
+  CustomTitleBar.InactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonForegroundColor = 65793
+  CustomTitleBar.ButtonBackgroundColor = clWhite
+  CustomTitleBar.ButtonHoverForegroundColor = 65793
+  CustomTitleBar.ButtonHoverBackgroundColor = 16053492
+  CustomTitleBar.ButtonPressedForegroundColor = 65793
+  CustomTitleBar.ButtonPressedBackgroundColor = 15395562
+  CustomTitleBar.ButtonInactiveForegroundColor = 10066329
+  CustomTitleBar.ButtonInactiveBackgroundColor = clWhite
   Font.Charset = SHIFTJIS_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
   Font.Style = []
+  GlassFrame.Enabled = True
+  GlassFrame.Top = 31
   Position = poMainFormCenter
+  StyleElements = [seFont, seClient]
+  StyleName = 'Windows'
+  OnCreate = FormCreate
   OnShow = FormShow
   TextHeight = 12
-  object OkBtn: TButton
-    Left = 196
-    Top = 384
+  object OkBtn: TBitBtn2
+    Left = 190
+    Top = 426
     Width = 75
     Height = 25
     Caption = 'OK'
     Default = True
+    DoubleBuffered = True
+    DoubleBufferedMode = dbmRequested
+    ParentDoubleBuffered = False
     TabOrder = 0
     OnClick = OkBtnClick
+    DownColor = clBtnFace
   end
-  object CancelBtn: TButton
-    Left = 280
-    Top = 384
+  object CancelBtn: TBitBtn2
+    Left = 274
+    Top = 426
     Width = 75
     Height = 25
     Cancel = True
     Caption = #12461#12515#12531#12475#12523
+    DoubleBuffered = True
+    DoubleBufferedMode = dbmRequested
+    ParentDoubleBuffered = False
     TabOrder = 1
     OnClick = CancelBtnClick
+    DownColor = clBtnFace
   end
   object PageControl: TPageControl
     Left = 4
-    Top = 4
+    Top = 43
     Width = 353
     Height = 377
     ActivePage = TabSheet2
@@ -218,14 +246,16 @@ object SettingForm: TSettingForm
           ParentFont = False
           TabOrder = 3
         end
-        object Ratio00Edit: TEdit
+        object Ratio00Edit: TBaseEdit
           Left = 112
           Top = 16
           Width = 25
           Height = 20
-          ImeMode = imDisable
-          MaxLength = 1
           TabOrder = 0
+          MaxLength = 1
+          ImeMode = imDisable
+          dx = 0
+          dy = 0
         end
       end
       object GroupBox2: TGroupBox
@@ -313,14 +343,16 @@ object SettingForm: TSettingForm
           TabOrder = 3
           TabStop = True
         end
-        object Ratio02Edit: TEdit
+        object Ratio02Edit: TBaseEdit
           Left = 112
           Top = 16
           Width = 25
           Height = 20
-          ImeMode = imDisable
-          MaxLength = 1
           TabOrder = 0
+          MaxLength = 1
+          ImeMode = imDisable
+          dx = 0
+          dy = 0
         end
       end
       object GroupBox3: TGroupBox
@@ -408,14 +440,16 @@ object SettingForm: TSettingForm
           TabOrder = 3
           TabStop = True
         end
-        object Ratio01Edit: TEdit
+        object Ratio01Edit: TBaseEdit
           Left = 112
           Top = 16
           Width = 25
           Height = 20
-          ImeMode = imDisable
-          MaxLength = 1
           TabOrder = 0
+          MaxLength = 1
+          ImeMode = imDisable
+          dx = 0
+          dy = 0
         end
       end
       object GroupBox4: TGroupBox
@@ -503,14 +537,16 @@ object SettingForm: TSettingForm
           TabOrder = 3
           TabStop = True
         end
-        object Ratio03Edit: TEdit
+        object Ratio03Edit: TBaseEdit
           Left = 112
           Top = 16
           Width = 25
           Height = 20
-          ImeMode = imDisable
-          MaxLength = 1
           TabOrder = 0
+          MaxLength = 1
+          ImeMode = imDisable
+          dx = 0
+          dy = 0
         end
       end
       object GroupBox5: TGroupBox
@@ -598,21 +634,34 @@ object SettingForm: TSettingForm
           TabOrder = 3
           TabStop = True
         end
-        object Ratio04Edit: TEdit
+        object Ratio04Edit: TBaseEdit
           Left = 112
           Top = 16
           Width = 25
           Height = 20
-          ImeMode = imDisable
-          MaxLength = 1
           TabOrder = 0
+          MaxLength = 1
+          ImeMode = imDisable
+          dx = 0
+          dy = 0
         end
       end
     end
   end
+  object TitleBarPanel: TTitleBarPanel
+    Left = 0
+    Top = 0
+    Width = 369
+    Height = 30
+    Margins.Left = 0
+    Margins.Top = 0
+    Margins.Right = 50
+    Margins.Bottom = 0
+    CustomButtons = <>
+  end
   object OpenDialog: TOpenDialog
     Filter = #35531#27714#26360#30058#38957' '#25991#26360#12501#12449#12452#12523'(*.sdo)|*.sdo'
     Left = 252
-    Top = 20
+    Top = 59
   end
 end

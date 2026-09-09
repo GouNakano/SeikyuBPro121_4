@@ -1,5 +1,4 @@
 //---------------------------------------------------------------------------
-
 #ifndef SettingFrmH
 #define SettingFrmH
 //---------------------------------------------------------------------------
@@ -11,12 +10,16 @@
 #include <Buttons.hpp>
 #include <Dialogs.hpp>
 #include <ComCtrls.hpp>
+#include "TSBSetting.h"
+#include <Vcl.TitleBarCtrls.hpp>
+#include "BitBtn2.h"
+#include "TBaseEdit.h"
 //---------------------------------------------------------------------------
 class TSettingForm : public TForm
 {
 __published:	// IDE 管理のコンポーネント
-	TButton *OkBtn;
-	TButton *CancelBtn;
+	TBitBtn2 *OkBtn;
+	TBitBtn2 *CancelBtn;
 	TOpenDialog *OpenDialog;
 	TPageControl *PageControl;
 	TTabSheet *GeneralTabSheet;
@@ -35,7 +38,7 @@ __published:	// IDE 管理のコンポーネント
 	TRadioButton *RB00;
 	TRadioButton *RB01;
 	TRadioButton *RB02;
-	TEdit *Ratio00Edit;
+	TBaseEdit *Ratio00Edit;
 	TGroupBox *GroupBox2;
 	TLabel *Label1;
 	TLabel *Label3;
@@ -43,7 +46,7 @@ __published:	// IDE 管理のコンポーネント
 	TRadioButton *RB20;
 	TRadioButton *RB21;
 	TRadioButton *RB22;
-	TEdit *Ratio02Edit;
+	TBaseEdit *Ratio02Edit;
 	TGroupBox *GroupBox3;
 	TLabel *Label5;
 	TLabel *Label6;
@@ -51,7 +54,7 @@ __published:	// IDE 管理のコンポーネント
 	TRadioButton *RB10;
 	TRadioButton *RB11;
 	TRadioButton *RB12;
-	TEdit *Ratio01Edit;
+	TBaseEdit *Ratio01Edit;
 	TGroupBox *GroupBox4;
 	TLabel *Label8;
 	TLabel *Label9;
@@ -59,7 +62,7 @@ __published:	// IDE 管理のコンポーネント
 	TRadioButton *RB30;
 	TRadioButton *RB31;
 	TRadioButton *RB32;
-	TEdit *Ratio03Edit;
+	TBaseEdit *Ratio03Edit;
 	TGroupBox *GroupBox5;
 	TLabel *Label13;
 	TLabel *Label14;
@@ -67,15 +70,19 @@ __published:	// IDE 管理のコンポーネント
 	TRadioButton *RB40;
 	TRadioButton *RB41;
 	TRadioButton *RB42;
-	TEdit *Ratio04Edit;
+	TBaseEdit *Ratio04Edit;
+	TTitleBarPanel *TitleBarPanel;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall CancelBtnClick(TObject *Sender);
 	void __fastcall OkBtnClick(TObject *Sender);
 	void __fastcall UseTemplateCBoxClick(TObject *Sender);
 	void __fastcall FIB_01Click(TObject *Sender);
 	void __fastcall RatioCNumEditKeyPress(TObject *Sender, char &Key);
-private:	// ユーザー宣言
-public:		// ユーザー宣言
+	void __fastcall FormCreate(TObject *Sender);
+private:
+	//請求書番頭の設定
+	TSBSetting ES;
+public:
 	__fastcall TSettingForm(TComponent* Owner);
 };
 //---------------------------------------------------------------------------

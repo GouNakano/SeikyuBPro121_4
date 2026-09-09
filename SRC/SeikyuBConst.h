@@ -184,6 +184,7 @@ constexpr const wchar_t  *V_WINDOW_TOP                  = L"WINDOW_TOP";        
 constexpr const wchar_t  *V_WINDOW_LEFT                 = L"WINDOW_LEFT";               //ウィンドウ座標(Y)
 constexpr const wchar_t  *V_WINDOW_WIDTH                = L"WINDOW_WIDTH";              //ウィンドウ幅
 constexpr const wchar_t  *V_WINDOW_HEIGHT               = L"WINDOW_HEIGHT";             //ウィンドウ高さ
+constexpr const wchar_t  *V_WINDOW_HIST_WIDTH           = L"WINDOW_HIST_WIDTH";         //履歴エリアの幅
 constexpr const wchar_t  *V_IS_FIRST                    = L"IS_FIRST";                  //初回起動？
 constexpr const wchar_t  *V_INSTALL_EXE                 = L"INSTALL_EXE";               //EXEの位置
 constexpr const wchar_t  *V_VERSION                     = L"VERSION";                   //バージョン

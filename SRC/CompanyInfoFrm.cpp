@@ -231,7 +231,7 @@ void __fastcall TCompanyInfoForm::ZipToAddressBtnClick(TObject *Sender)
 	//“ü—Í‚³‚ê‚½—X•Ö”Ô†‚ğ“¾‚é
 	InputZipStr = ZipEdit->Text.Trim();
 	//”¼Šp‚É‚·‚é
-	InputZipStr = sbp::StrToHan(InputZipStr);
+	InputZipStr = TSCommonLib::StrToHan(InputZipStr);
 	//”š•¶š‚¾‚¯‚ğ’Šo(‘SŠp‚à)
 	for(int Cnt = 0;Cnt < (int)InputZipStr.Length();Cnt++)
 	{

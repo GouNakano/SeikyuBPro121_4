@@ -1,18 +1,28 @@
 //---------------------------------------------------------------------------
-
 #include <vcl.h>
 #pragma hdrstop
 
+#include "zbWindowDef.h"
 #include "SeikyuBDef.h"
 #include "SettingFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
+#pragma link "BitBtn2"
+#pragma link "TBaseEdit"
 #pragma resource "*.dfm"
 TSettingForm *SettingForm;
 //---------------------------------------------------------------------------
 __fastcall TSettingForm::TSettingForm(TComponent* Owner)
 	: TForm(Owner)
 {
+}
+//---------------------------------------------------------------------------
+//フォーム作成時
+//---------------------------------------------------------------------------
+void __fastcall TSettingForm::FormCreate(TObject *Sender)
+{
+	//タイトルバーに標準色を設定する
+	zbWindowDef::setStdTitlebarColor(this);
 }
 //-------------------------------------------------------------
 //  機能     ：フォーム表示時
@@ -35,6 +45,9 @@ void __fastcall TSettingForm::FormShow(TObject *Sender)
 	PageControl->ActivePage = GeneralTabSheet;
 	//フォーカス
 	RemainCBox->SetFocus();
+	//請求書番頭の設定を読み込む
+    TSBSetting ES;
+	TSBSetting::LoadSBSet(ES,false);
 	//設定を画面に反映
 	RemainCBox      ->Checked = ES.IsRemain;
 	BackupFileCBox  ->Checked = ES.BackupFile;
@@ -90,6 +103,9 @@ void __fastcall TSettingForm::FormShow(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TSettingForm::OkBtnClick(TObject *Sender)
 {
+	//請求書番頭の設定を読み込む
+	TSBSetting ES;
+	TSBSetting::LoadSBSet(ES,false);
 	//画面の設定を反映
 	ES.IsRemain        = RemainCBox      ->Checked;
 	ES.BackupFile      = BackupFileCBox  ->Checked;
@@ -125,11 +141,10 @@ void __fastcall TSettingForm::OkBtnClick(TObject *Sender)
 	if(RB42->Checked == true)ES.RateTyp5 = tRound;
 
 	//保存する
-	sbp::SaveSBSet();
+	TSBSetting::SaveSBSet(ES);
 	//閉じる
 	Close();
 }
-
 //-------------------------------------------------------------
 //  機能     ：キャンセルボタン
 //
@@ -232,4 +247,5 @@ void __fastcall TSettingForm::RatioCNumEditKeyPress(TObject *Sender,
 	Key = 0;
 }
 //---------------------------------------------------------------------------
+
 

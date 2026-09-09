@@ -2,11 +2,13 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "TLicense.h"
 #include "nsCPURatio.h"
 #include "SeikyuBDef.h"
 #include "zbWindowDef.h"
 #include "VersionInf.h"
 //---------------------------------------------------------------------
+#pragma link "BitBtn2"
 #pragma resource "*.dfm"
 TAboutBox *AboutBox;
 //---------------------------------------------------------------------
@@ -73,8 +75,11 @@ void __fastcall TAboutBox::FormShow(TObject *Sender)
 	TCHAR         proc_arch[32];
 	TCHAR         proc_level[32];
 	DWORD         proc_count;
-	//ライセンスチェック
-	bool IsLicOk = sbp::CheckLicenceEnable();
+
+	//ライセンスオブジェクト
+	TLicense license;
+	//ライセンスの状態を得る(Trueライセンス有効)
+	bool IsLicOk = license.isLicenceEnable();
 	//ライセンス表示の設定
 	if(IsLicOk == true)
 	{

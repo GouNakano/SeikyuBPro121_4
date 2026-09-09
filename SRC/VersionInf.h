@@ -14,12 +14,13 @@
 #include <ExtCtrls.hpp>
 #include <ComCtrls.hpp>
 #include <Vcl.TitleBarCtrls.hpp>
+#include "BitBtn2.h"
 //----------------------------------------------------------------------------
 class TAboutBox : public TForm
 {
 __published:
 	TPanel *Panel1;
-	TButton *OKButton;
+	TBitBtn2 *OKButton;
 	TLabel *Label1;
 	TLabel *VerLbl;
 	TLabel *CopyrightLbl;
