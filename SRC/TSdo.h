@@ -2,6 +2,7 @@
 #ifndef TSdoH
 #define TSdoH
 //---------------------------------------------------------------------------
+#include <System.IniFiles.hpp>
 #include "typDocument.h"
 
 //.sdoファイルのためのクラス

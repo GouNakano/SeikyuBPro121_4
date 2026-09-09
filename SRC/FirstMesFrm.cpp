@@ -2,8 +2,8 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "SeikyuBDef.h"
 #include "zbWindowDef.h"
+#include "SBRegIni.h"
 #include "FirstMesFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

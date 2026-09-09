@@ -3,7 +3,7 @@
 #pragma hdrstop
 
 #include "zbWindowDef.h"
-#include "SeikyuBDef.h"
+#include "ClsInputDataList.h"
 #include "SubSelectFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

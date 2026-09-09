@@ -4,7 +4,6 @@
 
 #include "TLicense.h"
 #include "nsCPURatio.h"
-#include "SeikyuBDef.h"
 #include "zbWindowDef.h"
 #include "VersionInf.h"
 //---------------------------------------------------------------------

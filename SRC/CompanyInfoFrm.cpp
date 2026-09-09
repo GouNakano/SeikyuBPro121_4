@@ -2,10 +2,10 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "TSCommonLib.h"
 #include "zbWindowDef.h"
 #include "strconv.h"
 #include "nsMsgBox.h"
-#include "SeikyuBDef.h"
 #include "sbControlDef.h"
 #include "TCompanyInfos.h"
 #include "TZips.h"

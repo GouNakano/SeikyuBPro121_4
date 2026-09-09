@@ -10,7 +10,6 @@
 #include <Buttons.hpp>
 #include <ComCtrls.hpp>
 #include <ExtCtrls.hpp>
-#include "SeikyuBDef.h"
 #include "BitBtn2.h"
 #include <Vcl.TitleBarCtrls.hpp>
 #include "TListView2.h"

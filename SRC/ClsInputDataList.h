@@ -2,6 +2,7 @@
 #ifndef ClsInputDataListH
 #define ClsInputDataListH
 //---------------------------------------------------------------------------
+#include<vector>
 
 //ŒJ‚è•Ô‚µ“ü—Í—pØ½Ä¸×½
 class ClsInputDataList
@@ -83,5 +84,8 @@ public:
 	//Žæ“¾
 	void GetInputDataList(String ctrlname,TStrings *List);
 };
+
+//ŒJ‚è•Ô‚µ“ü—Í—pØ½Ä¸×½‚ÌµÌÞ¼Þª¸Ä
+extern ClsInputDataList Inpts;
 
 #endif

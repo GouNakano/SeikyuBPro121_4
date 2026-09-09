@@ -9,6 +9,7 @@ using std::max;
 
 #include "nsDebug.h"
 
+#include "TSCommonLib.h"
 #include "TLicense.h"
 #include "strconv.h"
 #include "nsFolderDlg.h"
@@ -32,6 +33,11 @@ using std::max;
 #include "TZips.h"
 #include "TStdColumn.h"
 #include "TSBSetting.h"
+#include "SBRegIni.h"
+#include "THistories.h"
+#include "TReopen.h"
+#include "ClsInputDataList.h"
+#include "typReportData.h"
 #include "MainFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

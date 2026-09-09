@@ -3,7 +3,6 @@
 #pragma hdrstop
 
 #include "zbWindowDef.h"
-#include "SeikyuBDef.h"
 #include "SettingFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

@@ -2,9 +2,9 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "SeikyuBDef.h"
 #include "TStdComponents.h"
 #include "zbWindowDef.h"
+#include "typDocument.h"
 #include "DispSettingFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

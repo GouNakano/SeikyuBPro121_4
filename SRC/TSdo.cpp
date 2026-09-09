@@ -10,12 +10,12 @@
 #include "nsShellApi.h"
 #include "TSFileCL.h"
 #include "TSCommonLib.h"
-#include "SeikyuBDef.h"
 #include "THistories.h"
 #include "TStdComponents.h"
 #include "typDocComponentDefs.h"
 #include "TZooms.h"
 #include "TCompanyInfos.h"
+#include "TSBSetting.h"
 #include "TSdo.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

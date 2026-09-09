@@ -477,10 +477,6 @@
             <DependentOn>SeikyuBConst.h</DependentOn>
             <BuildOrder>50</BuildOrder>
         </CppCompile>
-        <CppCompile Include="SeikyuBDef.cpp">
-            <DependentOn>SeikyuBDef.h</DependentOn>
-            <BuildOrder>29</BuildOrder>
-        </CppCompile>
         <CppCompile Include="SeikyuBPro.cpp">
             <BuildOrder>0</BuildOrder>
         </CppCompile>

@@ -19,7 +19,6 @@
 #include "XnsGrid.h"
 #include "nsMsgBox.h"
 #include "nsResizeCtrlList.h"
-#include "SeikyuBDef.h"
 #include "PaintPanel.h"
 #include "EditAlignment.h"
 #include "ImageControl.h"
@@ -42,6 +41,7 @@
 #include "TListView2.h"
 #include "TSdo.h"
 #include "TCompanyInfos.h"
+#include "TSBSetting.h"
 //---------------------------------------------------------------------------
 class TMainForm : public TForm
 {

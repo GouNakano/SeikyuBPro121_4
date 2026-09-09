@@ -7,12 +7,12 @@
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
-#include "SeikyuBDef.h"
 #include <Buttons.hpp>
 #include <ExtCtrls.hpp>
 #include "TBaseEdit.h"
 #include "BitBtn2.h"
 #include <Vcl.TitleBarCtrls.hpp>
+#include "typDocument.h"
 //---------------------------------------------------------------------------
 class TPropertyForm : public TForm
 {

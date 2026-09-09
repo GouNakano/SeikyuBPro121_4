@@ -71,7 +71,6 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 309
   end
   object BasePanel: TPaintPanel
     Left = 405
@@ -82,9 +81,6 @@ object MainForm: TMainForm
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitLeft = 305
-    ExplicitWidth = 912
-    ExplicitHeight = 221
     object EditToolBar: TToolBar
       Left = 1
       Top = 584
@@ -98,8 +94,6 @@ object MainForm: TMainForm
       EdgeOuter = esNone
       TabOrder = 0
       Visible = False
-      ExplicitTop = 195
-      ExplicitWidth = 910
       object Panel7: TPanel
         Left = 0
         Top = 0
@@ -422,8 +416,6 @@ object MainForm: TMainForm
       OnMouseWheelDown = ScrollBoxMouseWheelDown
       OnMouseWheelUp = ScrollBoxMouseWheelUp
       OnResize = ScrollBoxResize
-      ExplicitWidth = 910
-      ExplicitHeight = 194
       object DummyPanel: TPanel
         Left = 512
         Top = 151
@@ -587,6 +579,7 @@ object MainForm: TMainForm
       Font.Height = -13
       Font.Name = #65325#65331' '#65328#12468#12471#12483#12463
       Font.Style = []
+      OwnerDraw = True
       ReadOnly = True
       RowSelect = True
       ParentFont = False
@@ -599,8 +592,6 @@ object MainForm: TMainForm
       OnDeletion = HistListViewDeletion
       OnMouseDown = HistListViewMouseDown
       HeaderColor = clBtnFace
-      ExplicitWidth = 300
-      ExplicitHeight = 191
     end
   end
   object TitleBarPanel: TTitleBarPanel

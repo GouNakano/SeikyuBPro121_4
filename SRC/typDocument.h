@@ -254,4 +254,8 @@ public:
 	bool SetDocCompoFromName(const String& Name,const typDocCompo& doc_compo);
 };
 
+//‘—Şî•ñ
+extern typDocument Document;
+
+
 #endif

@@ -9,8 +9,8 @@
 #include "nsSendMail.h"
 #include "nsMsgBox.h"
 #include "nsShellApi.h"
-#include "SeikyuBDef.h"
 #include "zbWindowDef.h"
+#include "SBRegIni.h"
 #include "LicSetting.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
