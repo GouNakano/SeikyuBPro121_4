@@ -236,25 +236,25 @@ bool TMainForm::LoadReportHist()
 void TMainForm::RemainSetting()
 {
 	TReopen reInf;
-	String  File;
-	bool    IsParamOpen=false;
+	String  filePath;
+	bool    isParamOpen=false;
 
 	//開くﾌｧｲﾙを得る
 	if(ParamCount() >= 1)
 	{
-		File = ParamStr(1);
+		filePath = ParamStr(1);
 	}
-	File = File.Trim();
+	filePath = filePath.Trim();
 	//ﾌｧｲﾙが指定されているなら開く
-	if(File != "")
+	if(filePath != L"")
 	{
 		//ﾌｧｲﾙを開く
-		OpenFile(File);
+		OpenFile(filePath,L"");
 		//コマンドラインで開かれた
-		IsParamOpen = true;
+		isParamOpen = true;
 	}
 	//コマンドラインで開かれないばあいは、通常の再開処理
-	if(IsParamOpen == false)
+	if(isParamOpen == false)
 	{
 		bool IsFileOpen = false;
 		//再開処理
@@ -262,7 +262,7 @@ void TMainForm::RemainSetting()
 		if(ES.IsRemain == true)
 		{
 			//再開対象ファイルを開く
-			if(OpenFile(reInf.histID) == true)
+			if(OpenFile(reInf.sdoPath,reInf.histID) == true)
 			{
 				IsFileOpen = true;
 			}
@@ -2473,7 +2473,7 @@ void __fastcall TMainForm::OpenMenuClick(TObject *Sender)
 		//指定ファイルパス
 		File = OpenDialog->FileName;
 		//ファイルを開く
-		if(OpenFile(File) == false)
+		if(OpenFile(File,L"") == false)
 		{
 			nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]のオープンに失敗しました。",File.c_str());
 			return;
@@ -2495,7 +2495,7 @@ void __fastcall TMainForm::OpenMenuClick(TObject *Sender)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-bool TMainForm::OpenFile(const String& histID)
+bool TMainForm::OpenFile(const String& filePath,const String& histID)
 {
 	//書類ファイルの読み込み
 	if(Sdo.readSDO(histID,Document) == false)
@@ -7833,7 +7833,7 @@ void __fastcall TMainForm::BasePanelFileDrop(TObject *Sender,TStrings *Files)
 				break;
 			}
 			//ファイルを開く
-			OpenFile(FilePath);
+			OpenFile(FilePath,L"");
 			//処理終了
 			break;
 		}
@@ -8412,9 +8412,11 @@ void __fastcall TMainForm::HistListViewMouseDown(TObject *Sender, TMouseButton B
 			// 関連データ
 			THistory *pData = static_cast<THistory*>(pItem->Data);
 			//履歴IDを得る
-			String FileID = pData->getID();
+			String fileID = pData->getID();
+			//ファイルパスを得る
+			String filePath = pData->getFilePath();
 			// 書類を読む
-			if(OpenFile(FileID) == false)
+			if(OpenFile(filePath,fileID) == false)
 			{
 				nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]のオープンに失敗しました。",pData->getFilePath().c_str());
 				return;

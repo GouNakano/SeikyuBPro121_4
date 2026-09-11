@@ -473,7 +473,7 @@ private:
 	//編集ツールバーの状態設定
 	void SetEditToolBarCondition();
 	//履歴IDからsdoファイルを開く
-	bool OpenFile(const String& histID);
+	bool OpenFile(const String& filePath,const String& histID);
 	//書類情報のZオーダを決定する
 	void SetDocumentCtrlZOrder();
 	//書類情報Zオーダーを設定

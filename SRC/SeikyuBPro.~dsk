@@ -1,42 +1,37 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp',0,1,56,76,97,0,0,,
-File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp',0,1,1,1,9,0,0,,
-File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SettingFrm.cpp',0,1,1,1,1,0,0,,
-File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,21559,1,21583,0,0,,
-File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\37.0\SOURCE\VCL\Vcl.Controls.pas',0,1,10840,1,10864,0,0,,
-File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SettingFrm.dfm',0,1,1,1,1,0,0,,
-File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp',0,1,1,1,6,0,0,,
-File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\common\TSCommonLib.cpp',0,1,331,19,363,0,0,,
-File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp',0,1,209,30,234,0,0,,
-File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp',0,1,1,1,9,0,0,,
-File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp',0,1,1030,1,1060,0,0,,
-File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\common\wstr.cpp',0,1,142,1,1,0,0,,
-File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\include\strconv.h',0,1,355,1,1,0,0,,
-File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TLicense.cpp',0,1,120,1,138,0,0,,
-File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.dfm',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBDef.cpp',0,1,1,37,6,0,0,,
+File_1=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SBRegIni.cpp',0,1,1,1,6,0,0,,
+File_2=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typDocument.cpp',0,1,1,1,6,0,0,,
+File_3=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ComponentsFrm.cpp',0,1,1,1,1,0,0,,
+File_4=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\DispSettingFrm.cpp',0,1,1,1,8,0,0,,
+File_5=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\FirstMesFrm.cpp',0,1,1,1,7,0,0,,
+File_6=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp',0,1,1,1,8,0,0,,
+File_7=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TReopen.cpp',0,1,1,1,8,0,0,,
+File_8=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\ClsInputDataList.cpp',0,1,1,1,11,0,0,,
+File_9=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\typReportData.cpp',0,1,1,1,8,0,0,,
+File_10=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\PropertyFrm.cpp',0,1,1,1,1,0,0,,
+File_11=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\VersionInf.cpp',0,1,1,1,7,0,0,,
+File_12=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSdo.cpp',0,1,1,1,19,0,0,,
+File_13=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\TSBSetting.cpp',0,1,1,1,7,0,0,,
+File_14=TSourceModule,'D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\LicSetting.cpp',0,1,1,36,16,0,0,,
 
 [Modules]
 Module0=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp
-Module2=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
-Count=3
+Module1=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp
+Count=2
 EditWindowCount=1
 
 [D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp]
 ModuleType=TSourceModule
 
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp]
-ModuleType=TSourceModule
-
-[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp]
+[D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp]
 ModuleType=TSourceModule
 
 [EditWindow0]
-ViewCount=3
+ViewCount=2
 CurrentEditView=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 View0=0
 View1=1
-View2=2
 PercentageSizes=1
 Create=1
 Visible=1
@@ -73,9 +68,9 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
-CursorX=43
-CursorY=8217
-TopLine=8153
+CursorX=1
+CursorY=41
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -83,25 +78,14 @@ EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\MainFrm.cpp
 
 [View1]
 CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp
+Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp
 CursorX=1
-CursorY=260
-TopLine=221
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\THistories.cpp
-
-[View2]
-CustomEditViewType=TEditView
-Module=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.cpp
-CursorX=1
-CursorY=1
+CursorY=9
 TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\SeikyuBConst.h
+EditViewName=D:\Users\gosan\Documents\Projects12\SeikyuBPro121_4\SRC\CompanyInfoFrm.cpp
 
 [Watches]
 Count=0
@@ -231,7 +215,7 @@ MaxTop=-1
 ClientWidth=1896
 ClientHeight=4874
 PixelsPerInch=96
-MonitorNum=1
+MonitorNum=0
 TBDockHeight=9012
 LRDockWidth=1896
 Dockable=1
@@ -565,7 +549,7 @@ MaxTop=-1
 ClientWidth=2339
 ClientHeight=1473
 PixelsPerInch=96
-MonitorNum=1
+MonitorNum=0
 TBDockHeight=1473
 LRDockWidth=2339
 Dockable=1
@@ -591,7 +575,7 @@ MaxTop=-1
 ClientWidth=3823
 ClientHeight=1415
 PixelsPerInch=96
-MonitorNum=1
+MonitorNum=0
 TBDockHeight=1415
 LRDockWidth=3823
 Dockable=1
@@ -617,7 +601,7 @@ MaxTop=-1
 ClientWidth=2000
 ClientHeight=4545
 PixelsPerInch=96
-MonitorNum=1
+MonitorNum=0
 TBDockHeight=9012
 LRDockWidth=2000
 Dockable=1
@@ -643,7 +627,7 @@ MaxTop=-1
 ClientWidth=1896
 ClientHeight=3498
 PixelsPerInch=96
-MonitorNum=1
+MonitorNum=0
 TBDockHeight=9012
 LRDockWidth=1896
 Dockable=1
@@ -669,7 +653,7 @@ MaxTop=-1
 ClientWidth=2000
 ClientHeight=3828
 PixelsPerInch=96
-MonitorNum=1
+MonitorNum=0
 TBDockHeight=9012
 LRDockWidth=2000
 Dockable=1
