@@ -211,6 +211,7 @@ __published:	// IDE 管理のコンポーネント
 	TTimer *FormActiveTimer;
 	TAction *PaperSelectParentMenu;
 	TAction *ZoomRootMenu;
+	TTimer *HistTimer;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall PrintBtnClick(TObject *Sender);
 	void __fastcall GridCellAttr(TObject *Sender, int ARow, int ACol,
@@ -341,6 +342,7 @@ __published:	// IDE 管理のコンポーネント
 	void __fastcall ClockTimerTimer(TObject *Sender);
 	void __fastcall FormActiveTimerTimer(TObject *Sender);
 	void __fastcall FormDeactivate(TObject *Sender);
+	void __fastcall HistTimerTimer(TObject *Sender);
 
 
 private:

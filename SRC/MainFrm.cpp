@@ -8409,20 +8409,24 @@ void __fastcall TMainForm::HistListViewMouseDown(TObject *Sender, TMouseButton B
 			{
 				return;
 			}
-			// 関連データ
-			THistory *pData = static_cast<THistory*>(pItem->Data);
-			//履歴IDを得る
-			String fileID = pData->getID();
-			//ファイルパスを得る
-			String filePath = pData->getFilePath();
-			// 書類を読む
-			if(OpenFile(filePath,fileID) == false)
-			{
-				nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]のオープンに失敗しました。",pData->getFilePath().c_str());
-				return;
-			}
-			//現在の履歴をセット
-			NowHistory = (*pData);
+//			// 関連データ
+//			THistory *pData = static_cast<THistory*>(pItem->Data);
+//			//履歴IDを得る
+//			String fileID = pData->getID();
+//			//ファイルパスを得る
+//			String filePath = pData->getFilePath();
+//			// 書類を読む
+//			if(OpenFile(filePath,fileID) == false)
+//			{
+//				nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]のオープンに失敗しました。",pData->getFilePath().c_str());
+//				return;
+//			}
+//			//現在の履歴をセット
+//			NowHistory = (*pData);
+
+
+			//履歴タイマー起動
+			HistTimer->Enabled = true;
 		}
 		catch(...)
 		{
@@ -8553,5 +8557,28 @@ void TMainForm::setFormDeactiveColor()
 	isFormActive = false;
 }
 //---------------------------------------------------------------------------
-
+//履歴タイマー
+//---------------------------------------------------------------------------
+void __fastcall TMainForm::HistTimerTimer(TObject *Sender)
+{
+	//履歴タイマーを止める
+	HistTimer->Enabled = false;
+	// 関連データを得る
+	TListItem *pItem = HistListView->Selected;
+	// 関連データ
+	THistory *pData = static_cast<THistory*>(pItem->Data);
+	//履歴IDを得る
+	String fileID = pData->getID();
+	//ファイルパスを得る
+	String filePath = pData->getFilePath();
+	// 書類を読む
+	if(OpenFile(filePath,fileID) == false)
+	{
+		nsLib::ErrMsgBox(Handle,L"請求書番頭ファイル[%s]のオープンに失敗しました。",pData->getFilePath().c_str());
+		return;
+	}
+	//現在の履歴をセット
+	NowHistory = (*pData);
+}
+//---------------------------------------------------------------------------
 

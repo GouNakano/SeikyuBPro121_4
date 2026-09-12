@@ -3424,4 +3424,11 @@ object MainForm: TMainForm
     Left = 384
     Top = 282
   end
+  object HistTimer: TTimer
+    Enabled = False
+    Interval = 1
+    OnTimer = HistTimerTimer
+    Left = 296
+    Top = 224
+  end
 end
