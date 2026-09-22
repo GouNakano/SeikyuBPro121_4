@@ -2583,16 +2583,20 @@ bool TMainForm::Save()
 		//保存に失敗
 		return false;
 	}
-	//履歴ID
-	std::wstring id;
-	//同じパスのsdoファイルが履歴にあるかチェック
-	if(Histories.getSameFilePathID(saveFile,id) == true)
-	{
-		//書類の履歴一覧読み込み処理
-		LoadReportHist();
-		//今開いている書類のIDで履歴一覧の行を選択する
-		selectHistViewFromHistID(Document.histID);
-	}
+//	//履歴ID
+//	std::wstring id;
+//	//同じパスのsdoファイルが履歴にあるかチェック
+//	if(Histories.getSameFilePathID(saveFile,id) == true)
+//	{
+//		//書類の履歴一覧読み込み処理
+//		LoadReportHist();
+//		//今開いている書類のIDで履歴一覧の行を選択する
+//		selectHistViewFromHistID(Document.histID);
+//	}
+	//書類の履歴一覧読み込み処理
+	LoadReportHist();
+	//今開いている書類のIDで履歴一覧の行を選択する
+	selectHistViewFromHistID(Document.histID);
 	//書類の変更の有無を設定
 	SetDocumentChange(false);
 
