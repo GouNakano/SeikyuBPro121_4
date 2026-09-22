@@ -170,7 +170,7 @@ void __fastcall TLicSettingForm::LicNextBtnClick(TObject *Sender)
 	}
 	//ライセンス申請文字列
 	TLicense license;
-	String LicStr = license.getCorrectLicenceString();
+	std::wstring LicStr = license.getCorrectLicenceString();
 	//メールの送信内容組み立て
 	MailStr.sprintf(pLicStr,
 		LName  .c_str(),
@@ -375,10 +375,10 @@ void __fastcall TLicSettingForm::LicAuthorizationOkBtnClick(TObject *Sender)
 {
 	wchar_t LicPath[512];
 	//入力されたパスワード
-	String Passwd = PasswordEdit->Text.Trim();
+	std::wstring Passwd = trim(PasswordEdit->Text.c_str());
 	//正しいライセンス設定文字列の作成
 	TLicense license;
-	String LicSet = license.getCorrectLicenceString();
+	std::wstring LicSet = license.getCorrectLicenceString();
 	//比較をする
 	if(Passwd != LicSet)
 	{
@@ -390,7 +390,7 @@ void __fastcall TLicSettingForm::LicAuthorizationOkBtnClick(TObject *Sender)
 	//ライセンスパスワード書き込み
 	pReg->WriteString(C_SYSTEM_SETTING,LICENSE_STRING,LicSet);
 	//ベリファイ文字列
-	String chk_lic_str = pReg->ReadString(C_SYSTEM_SETTING,LICENSE_STRING,L"");
+	std::wstring chk_lic_str = pReg->ReadString(C_SYSTEM_SETTING,LICENSE_STRING,L"");
 	//書き込みチェック
 	if(chk_lic_str != LicSet)
 	{
@@ -450,9 +450,9 @@ void __fastcall TLicSettingForm::LicOrderFromVectorBtnClick(TObject *Sender)
 	PageControl->ActivePage = VectorSheet;
 	//ライセンス申請文字列
 	TLicense license;
-	String LicStr = license.getCorrectLicenceString();
+	std::wstring LicStr = license.getCorrectLicenceString();
 	//セット
-	VectorEdit->Text = LicStr;
+	VectorEdit->Text = LicStr.c_str();
 	//URL作成
 	String URL = L"https://s.shop.vector.co.jp/cart_purchase2/add.php?ITEM_NO=SR168620";
 	//注文ＷＥＢページを開く

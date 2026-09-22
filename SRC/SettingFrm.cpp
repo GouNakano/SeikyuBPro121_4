@@ -52,7 +52,7 @@ void __fastcall TSettingForm::FormShow(TObject *Sender)
 	BackupFileCBox  ->Checked = ES.BackupFile;
 	UseTemplateCBox ->Checked = ES.UseTemplateFile;
 	TodayCBox       ->Checked = ES.IsToday;
-	TemplateFileEdit->Text    = ES.TemplateFile;
+	TemplateFileEdit->Text    = ES.TemplateFile.c_str();
 
 	//¬”“_ŠÖŒW‚ÌÝ’è
 	Ratio00Edit    ->Text = ES.AccuracyR1;

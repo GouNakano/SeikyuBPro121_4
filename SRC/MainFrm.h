@@ -475,7 +475,7 @@ private:
 	//編集ツールバーの状態設定
 	void SetEditToolBarCondition();
 	//履歴IDからsdoファイルを開く
-	bool OpenFile(const String& filePath,const String& histID);
+	bool OpenFile(const std::wstring& filePath,const std::wstring& histID);
 	//書類情報のZオーダを決定する
 	void SetDocumentCtrlZOrder();
 	//書類情報Zオーダーを設定
@@ -511,25 +511,25 @@ private:
 	//空の書類にする(日付は本日)
 	bool setVoidDocument();
 	//今開いている書類のIDで履歴一覧の行を選択する
-	bool selectHistViewFromHistID(const String& histID);
+	bool selectHistViewFromHistID(const std::wstring& histID);
 	//標準Editの内容をセット
-	bool setStdEdit(scStdComponent comp_typ,const String& val);
+	bool setStdEdit(scStdComponent comp_typ,const std::wstring& val);
 	bool setStdEdit(scStdComponent comp_typ,const nsLong& val);
 	bool setStdEdit(scStdComponent comp_typ,const nsDouble& val);
 	//標準Labelの内容をセット
-	bool setStdLabel(scStdComponent comp_typ,const String& val);
+	bool setStdLabel(scStdComponent comp_typ,const std::wstring& val);
 	//標準Imageの内容をセット
 	bool setStdImage(scStdComponent comp_typ,const nsBitmap& bmp);
 	//MainFormパネル上EditコンポーネントからDocDataのメンバの値をセット
-	bool setDocValFrom(String& val,scStdComponent comp_typ);
+	bool setDocValFrom(std::wstring& val,scStdComponent comp_typ);
 	bool setDocValFrom(nsLong& val,scStdComponent comp_typ);
 	bool setDocValFrom(nsDouble& val,scStdComponent comp_typ);
 	//MainFormパネル上ImageコンポーネントからDocDataのメンバの値をセット
 	bool setDocValFromImage(nsBitmap& val,scStdComponent comp_typ);
 	//ラベルのCaptionをDocにセット
-	bool setDocValFromLabel(String& val,scStdComponent comp_typ);
+	bool setDocValFromLabel(std::wstring& val,scStdComponent comp_typ);
 	//自社情報の一つをラベルにセットする
-	bool setLabelFromCompanyInfo(scStdComponent comp,const String& inf);
+	bool setLabelFromCompanyInfo(scStdComponent comp,const std::wstring& inf);
 public:
 	//書類部品情報からコンポーネントを配置
 	bool SetComponentFromDocCompo(typDocCompo& doc);

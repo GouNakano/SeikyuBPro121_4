@@ -147,9 +147,9 @@ String TLicense::getLicenceStringFromReg()
 //---------------------------------------------------------------------------
 //正解のライセンス文字列を得る
 //---------------------------------------------------------------------------
-String TLicense::getCorrectLicenceString()
+std::wstring TLicense::getCorrectLicenceString()
 {
-	return getLicenceSettingString();
+	return getLicenceSettingString().c_str();
 }
 //---------------------------------------------------------------------------
 //ライセンスの状態を得る(Trueライセンス有効)

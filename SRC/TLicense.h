@@ -21,10 +21,9 @@ public:
 	//現在レジストリに設定されているライセンス文字列を得る
 	String getLicenceStringFromReg();
 	//正解のライセンス文字列を得る
-	String getCorrectLicenceString();
+	std::wstring getCorrectLicenceString();
 	//ライセンスの状態を得る(Trueライセンス有効)
 	bool isLicenceEnable();
-
 };
 
 #endif

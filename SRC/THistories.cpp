@@ -32,7 +32,7 @@ bool THistories::clear()
 //---------------------------------------------------------------------------
 //IDで検索
 //---------------------------------------------------------------------------
-int THistories::getIndexFromID(const String& id)
+int THistories::getIndexFromID(const std::wstring& id)
 {
 	//検索
 	decltype(Histories)::iterator it = std::find(Histories.begin(),Histories.end(),id);
@@ -73,14 +73,14 @@ bool THistories::write_histreg(const THistory& hist)
 	std::unique_ptr<SBHistRegIni> pReg(new SBHistRegIni);
 
 	// キー名の作成
-	String KeyName = NowHistory.getID();
+	std::wstring KeyName = NowHistory.getID();
 	// 履歴データ保存
-	pReg->WriteString (KeyName,INI_REG_FILE_PATH ,hist.getFilePath()); //ファイルパス
-	pReg->WriteString (KeyName,INI_REG_NAME      ,hist.getName());     //名前
-	pReg->WriteString (KeyName,INI_REG_ITEM_NAME ,hist.getItem());     //件名
-	pReg->WriteInteger(KeyName,INI_REG_YEAR      ,hist.getYear());     //年
-	pReg->WriteInteger(KeyName,INI_REG_MONTH     ,hist.getMonth());    //月
-	pReg->WriteInteger(KeyName,INI_REG_DAY       ,hist.getDay());      //日
+	pReg->WriteString (KeyName.c_str(),INI_REG_FILE_PATH ,hist.getFilePath().c_str()); //ファイルパス
+	pReg->WriteString (KeyName.c_str(),INI_REG_NAME      ,hist.getName().c_str());     //名前
+	pReg->WriteString (KeyName.c_str(),INI_REG_ITEM_NAME ,hist.getItem().c_str());     //件名
+	pReg->WriteInteger(KeyName.c_str(),INI_REG_YEAR      ,hist.getYear());             //年
+	pReg->WriteInteger(KeyName.c_str(),INI_REG_MONTH     ,hist.getMonth());            //月
+	pReg->WriteInteger(KeyName.c_str(),INI_REG_DAY       ,hist.getDay());              //日
 
 	return true;
 }
@@ -115,7 +115,7 @@ bool THistories::update(THistory& new_hist)
 //---------------------------------------------------------------------------
 //IDから履歴情報取得
 //---------------------------------------------------------------------------
-bool THistories::get(const String& id,THistory& hist)
+bool THistories::get(const std::wstring& id,THistory& hist)
 {
 	//IDで検索
 	int hist_idx = getIndexFromID(id);
@@ -168,17 +168,17 @@ bool THistories::load()
 		String SectionStr = pSections->Strings[Cnt];
 
 		// データを得る
-		int Year        = pReg->ReadInteger(SectionStr,INI_REG_YEAR ,2000);     // 年
-		int Month       = pReg->ReadInteger(SectionStr,INI_REG_MONTH,1);        // 月
-		int Day         = pReg->ReadInteger(SectionStr,INI_REG_DAY  ,1);        // 日
-		String NameStr  = pReg->ReadString(SectionStr ,INI_REG_NAME ,L"");      // 名前
-		String ItemStr  = pReg->ReadString(SectionStr ,INI_REG_ITEM_NAME ,L""); // 件名
-		String FilePath = pReg->ReadString(SectionStr,INI_REG_FILE_PATH,L"");   // 請求書番頭ファイルのパス
-		String FileID   = SectionStr;                                           // 請求書番頭ファイルのID
+		int Year              = pReg->ReadInteger(SectionStr,INI_REG_YEAR ,2000);              // 年
+		int Month             = pReg->ReadInteger(SectionStr,INI_REG_MONTH,1);                 // 月
+		int Day               = pReg->ReadInteger(SectionStr,INI_REG_DAY  ,1);                 // 日
+		std::wstring NameStr  = pReg->ReadString(SectionStr ,INI_REG_NAME ,L"").c_str();       // 名前
+		std::wstring ItemStr  = pReg->ReadString(SectionStr ,INI_REG_ITEM_NAME ,L"").c_str();  // 件名
+		std::wstring filePath = pReg->ReadString(SectionStr,INI_REG_FILE_PATH,L"").c_str();    // 請求書番頭ファイルのパス
+		std::wstring FileID   = SectionStr.c_str();                                            // 請求書番頭ファイルのID
 
 		// 関連データ
 		THistory  pData;
-		pData.setAll(FileID,Year,Month,Day,NameStr,ItemStr,FilePath);
+		pData.setAll(FileID,Year,Month,Day,NameStr,ItemStr,filePath);
 
 		//履歴データリスト更新
 		update(pData);
@@ -193,15 +193,15 @@ bool THistories::save(const THistory& hist)
 	// レジストリ
 	std::unique_ptr<SBHistRegIni> pReg(new SBHistRegIni);
 	// レジストリをセット
-	String SectionStr = hist.getID();
+	std::wstring SectionStr = hist.getID();
 
 	// データをレジストリに保存
-	pReg->WriteInteger(SectionStr,INI_REG_YEAR      ,hist.getYear());     // 年
-	pReg->WriteInteger(SectionStr,INI_REG_MONTH     ,hist.getMonth());    // 月
-	pReg->WriteInteger(SectionStr,INI_REG_DAY       ,hist.getDay());      // 日
-	pReg->WriteString (SectionStr,INI_REG_NAME      ,hist.getName());     // 名前
-	pReg->WriteString (SectionStr,INI_REG_ITEM_NAME ,hist.getItem());     // 件名
-	pReg->WriteString (SectionStr,INI_REG_FILE_PATH ,hist.getFilePath()); // 請求書番頭ファイルのパス
+	pReg->WriteInteger(SectionStr.c_str(),INI_REG_YEAR      ,hist.getYear());             // 年
+	pReg->WriteInteger(SectionStr.c_str(),INI_REG_MONTH     ,hist.getMonth());            // 月
+	pReg->WriteInteger(SectionStr.c_str(),INI_REG_DAY       ,hist.getDay());              // 日
+	pReg->WriteString (SectionStr.c_str(),INI_REG_NAME      ,hist.getName().c_str());     // 名前
+	pReg->WriteString (SectionStr.c_str(),INI_REG_ITEM_NAME ,hist.getItem().c_str());     // 件名
+	pReg->WriteString (SectionStr.c_str(),INI_REG_FILE_PATH ,hist.getFilePath().c_str()); // 請求書番頭ファイルのパス
 
 	return true;
 }
@@ -214,11 +214,11 @@ bool THistories::deleteHistReg(THistory& hist)
 	try
 	{
 		//IDを得る
-		String id = hist.getID();
+		std::wstring id = hist.getID();
 		//履歴のレジストリオブジェクト作成
 		std::unique_ptr<SBHistRegIni> pReg(new SBHistRegIni);
 		//削除を試みる
-		pReg->EraseSection(hist.getID());
+		pReg->EraseSection(hist.getID().c_str());
 		//リストから削除
 		decltype(Histories)::iterator it = std::find_if(Histories.begin(), Histories.end(), [id](const THistory& e)
 		{
@@ -236,27 +236,30 @@ bool THistories::deleteHistReg(THistory& hist)
 	return true;
 }
 //---------------------------------------------------------------------------
-//指定したファイルパスと同じデータがある場合はIDを返す(ない場合は空文字列)
+//指定したファイルパスと同じデータがある場合はIDを返す(ない場合はfalse)
 //---------------------------------------------------------------------------
-String THistories::getSameFilePathID(const String& chkFilePath)
+bool THistories::getSameFilePathID(const std::wstring& chkFilePath,std::wstring& id)
 {
-	String findID = L"";
+	std::wstring findID = L"";
 
 	try
 	{
 		//指定したファイルパスを正規化
-		String cmpPath1 = TPath::GetFullPath(chkFilePath);
+		std::wstring cmpPath1 = TPath::GetFullPath(chkFilePath.c_str()).c_str();
 		//履歴ループ
 		for(int idx = 0;idx < size();idx++)
 		{
 			//インデックスに対応する履歴情報
 			THistory& histInf = Histories[idx];
 			// 1. 相対パスや「.」「..」を含む表記を、きれいな絶対パス（フルパス）に補完・正規化
-			String cmpPath2 = TPath::GetFullPath(histInf.getFilePath());
+			std::wstring cmpPath2 = TPath::GetFullPath(histInf.getFilePath().c_str()).c_str();
 			// 2. Windowsの仕様（大文字小文字を区別しない）に合わせてパスを比較
-			if(SameFileName(cmpPath1, cmpPath2) == true)
+			if(SameFileName(cmpPath1.c_str(), cmpPath2.c_str()) == true)
 			{
-				return histInf.getID();
+				//IDセット
+				id = histInf.getID();
+
+				return true;
 			}
 		}
 	}

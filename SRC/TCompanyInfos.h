@@ -9,16 +9,16 @@ constexpr const int COMPANY_INFO_NUM = 3;
 //©Ğî•ñ‚Ì’è‹`
 struct typCompanyInfoDef
 {
-	String CompanyName;  //‰ïĞ–¼
-	String Represent;    //‘ã•\Ò
-	String ZipNumber;    //—X•Ö”Ô†
-	String Address1;     //ZŠ‚P
-	String Address2;     //ZŠ‚Q
-	String TEL;          //“d˜b”Ô†
-	String FAX;          //FAX”Ô†
-	String Transfer1;    //Uæ‚P
-	String Transfer2;    //Uæ‚Q
-	String TaxRatio;     //Á”ïÅ—¦
+	std::wstring CompanyName;  //‰ïĞ–¼
+	std::wstring Represent;    //‘ã•\Ò
+	std::wstring ZipNumber;    //—X•Ö”Ô†
+	std::wstring Address1;     //ZŠ‚P
+	std::wstring Address2;     //ZŠ‚Q
+	std::wstring TEL;          //“d˜b”Ô†
+	std::wstring FAX;          //FAX”Ô†
+	std::wstring Transfer1;    //Uæ‚P
+	std::wstring Transfer2;    //Uæ‚Q
+	std::wstring TaxRatio;     //Á”ïÅ—¦
 public:
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	typCompanyInfoDef() = default;

@@ -6,8 +6,8 @@
 class TReopen
 {
 public:
-	String  sdoPath;  //ファイル(.sdo)パス
-	String  histID;   //履歴ID
+	std::wstring  sdoPath;  //ファイル(.sdo)パス
+	std::wstring  histID;   //履歴ID
 public:
 	//コンストラクタ
 	TReopen() = default;

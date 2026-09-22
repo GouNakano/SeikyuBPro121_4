@@ -11,13 +11,13 @@
 class THistory
 {
 private:
-	String   ID    = L""; //ID(レジストリキー)
-	int      Year  = 0;   //年
-	int      Month = 0;   //月
-	int      Day   = 0;   //日
-	String   NameStr;     //名前
-	String   ItemStr;     //件名
-	String   FilePath;    //ファイルパス
+	std::wstring ID    = L""; //ID(レジストリキー)
+	int          Year  = 0;   //年
+	int          Month = 0;   //月
+	int          Day   = 0;   //日
+	std::wstring NameStr;     //名前
+	std::wstring ItemStr;     //件名
+	std::wstring FilePath;    //ファイルパス
 public:
 	//コンストラクタ
 	THistory() = default;
@@ -28,18 +28,20 @@ public:
 	THistory& operator = (const THistory& h) = default;
 public:
 	//同じキーかチェック
-	bool operator == (const String& h)
+	bool operator == (const std::wstring& h)
 	{
 		return (ID == h);
 	}
 	//同じ相手か
 	bool operator == (const THistory& h)
 	{
-		return (FilePath.CompareIC(h.FilePath) == 0);
+		String compStr = FilePath.c_str();
+
+		return (compStr.CompareIC(h.FilePath.c_str()) == 0);
 	}
 public:
 	//全てのメンバーをセット
-	bool setAll(const String& sid,int y,int m,int d,const String& nm,const String& itm,const String& fn)
+	bool setAll(const std::wstring& sid,int y,int m,int d,const std::wstring& nm,const std::wstring& itm,const std::wstring& fn)
 	{
 		setID(sid);
 		setYear(y);
@@ -53,12 +55,12 @@ public:
 	}
 
 	//IDを得る
-	String getID() const
+	std::wstring getID() const
 	{
 		return ID;
 	}
 	//IDをセット
-	bool setID(const String& sid)
+	bool setID(const std::wstring& sid)
 	{
 		ID = sid;
 
@@ -106,55 +108,57 @@ public:
 		return true;
 	}
 	//名前を得る
-	String getName() const
+	std::wstring getName() const
 	{
 		return NameStr;
 	}
 	//名前をセット
-	bool setName(const String& nm)
+	bool setName(const std::wstring& nm)
 	{
 		NameStr = nm;
 
 		return true;
 	}
 	//件名を得る
-	String getItem() const
+	std::wstring getItem() const
 	{
 		return ItemStr;
 	}
 	//件名をセット
-	bool setItem(const String& itm)
+	bool setItem(const std::wstring& itm)
 	{
 		ItemStr = itm;
 
 		return true;
 	}
 	//ファイルパスを得る
-	String getFilePath() const
+	std::wstring getFilePath() const
 	{
 		return FilePath;
 	}
 	//ファイルパスをセット
-	bool setFilePath(const String& fn)
+	bool setFilePath(const std::wstring& fn)
 	{
 		FilePath = fn;
 
 		return true;
 	}
 	//拡張子無しのファイル名を得る
-	String getFileNameOnly() const
+	std::wstring getFileNameOnly() const
 	{
-		return TPath::GetFileNameWithoutExtension(FilePath);
+		return TPath::GetFileNameWithoutExtension(FilePath.c_str()).c_str();
 	}
 	//格納フォルダパスを得る
-	String getDirectoryName() const
+	std::wstring getDirectoryName() const
 	{
-		return TPath::GetDirectoryName(FilePath);
+		return TPath::GetDirectoryName(FilePath.c_str()).c_str();
 	}
 	//日付文字列を得る
-	String getDayString() const
+	std::wstring getDayString() const
 	{
-		return String(getYear()) + L"/" + getMonth() + L"/" + getDay();
+		std::wstring dayStr = std::to_wstring(getYear()) + L"/" + std::to_wstring(getMonth()) + L"/" + std::to_wstring(getDay());
+
+		return dayStr.c_str();
 	}
 
 public:
@@ -183,7 +187,7 @@ private:
 	std::vector<THistory> Histories;
 private:
 	//IDで検索
-	int getIndexFromID(const String& id);
+	int getIndexFromID(const std::wstring& id);
 	//履歴をレジストリに記載
 	bool write_histreg(const THistory& hist);
 	//履歴の上書きか追加を判断する(trueの場合追加) hist_idxは上書きの場合の対象のインデックスを返却
@@ -199,7 +203,7 @@ public:
 	//更新
 	bool update(THistory& hist);
 	//IDから履歴情報取得
-	bool get(const String& id,THistory& hist);
+	bool get(const std::wstring& id,THistory& hist);
 	//インデックスから履歴情報取得
 	bool get(int idx,THistory& hist);
 	//レジストリから履歴の一覧をセット
@@ -208,8 +212,8 @@ public:
 	bool save(const THistory& hist);
 	//履歴情報をレジストリから削除
 	bool deleteHistReg(THistory& hist);
-	//指定したファイルパスと同じデータがある場合はIDを返す(ない場合は空文字列)
-	String getSameFilePathID(const String& chkFilePath);
+	//指定したファイルパスと同じデータがある場合はIDを返す(ない場合はfalse)
+	bool getSameFilePathID(const std::wstring& chkFilePath,std::wstring& id);
 };
 
 //現在使用中の履歴情報

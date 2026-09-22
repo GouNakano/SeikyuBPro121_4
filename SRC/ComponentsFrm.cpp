@@ -2,6 +2,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "strconv.h"
 #include "zbWindowDef.h"
 #include "PropertyFrm.h"
 #include "ComponentsFrm.h"
@@ -41,7 +42,7 @@ void __fastcall TComponentsForm::FormCreate(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TComponentsForm::FormShow(TObject *Sender)
 {
-	String Str;
+	std::wstring str;
 	//ListViewの消去
 	ListView->Clear();
 	//部品一覧表の作成
@@ -87,17 +88,17 @@ void __fastcall TComponentsForm::FormShow(TObject *Sender)
 			pItem->SubItems->Add("しない");
 		}
 		//水平位置
-		Str.sprintf(L"%.2Lf",pDoc.X);
-		pItem->SubItems->Add(Str);
+		str = std_format(L"%.2Lf",pDoc.X);
+		pItem->SubItems->Add(str.c_str());
 		//垂直位置
-		Str.sprintf(L"%.2Lf",pDoc.Y);
-		pItem->SubItems->Add(Str);
+		str = std_format(L"%.2Lf",pDoc.Y);
+		pItem->SubItems->Add(str.c_str());
 		//幅
-		Str.sprintf(L"%.2Lf",pDoc.Width);
-		pItem->SubItems->Add(Str);
+		str = std_format(L"%.2Lf",pDoc.Width);
+		pItem->SubItems->Add(str.c_str());
 		//高さ
-		Str.sprintf(L"%.2Lf",pDoc.Height);
-		pItem->SubItems->Add(Str);
+		str = std_format(L"%.2Lf",pDoc.Height);
+		pItem->SubItems->Add(str.c_str());
 		//内容
 		pItem->SubItems->Add(pDoc.Caption);
 		//関連データ

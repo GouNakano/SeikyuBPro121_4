@@ -38,8 +38,8 @@ bool TReopen::SaveReopenSet(bool IsReopen,const TReopen& reopenInf)
 	//再開処理の有無をセット
 	Ini->WriteBool   (INI_DEF_REOPEN,INI_ROP_ISREOPEN,IsReopen);
 	//再開ファイルの情報セット
-	Ini->WriteString(INI_DEF_REOPEN,INI_ROP_SDOPATH,reopenInf.sdoPath);
-	Ini->WriteString(INI_DEF_REOPEN,INI_ROP_HISTID ,reopenInf.histID);
+	Ini->WriteString(INI_DEF_REOPEN,INI_ROP_SDOPATH,reopenInf.sdoPath.c_str());
+	Ini->WriteString(INI_DEF_REOPEN,INI_ROP_HISTID ,reopenInf.histID.c_str());
 
 	return true;
 }

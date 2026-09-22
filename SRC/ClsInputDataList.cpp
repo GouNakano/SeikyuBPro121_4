@@ -4,6 +4,7 @@
 #pragma hdrstop
 
 #include <algorithm>
+#include "strconv.h"
 #include "TSCommonLib.h"
 #include "SeikyuBConst.h"
 #include "SBRegIni.h"
@@ -109,13 +110,13 @@ bool ClsInputDataList::Save()
 	//データ追加
 	for(int Cnt = 0;Cnt <  StrList.size();Cnt++)
 	{
-		String Buf;
+		std::wstring Buf;
 		//名前を生成
-		String Name = CreateClassID();
+		std::wstring Name = CreateClassID().c_str();
 		//ﾃﾞｰﾀを取得
 		InputData& Item = StrList[Cnt];
 		//内容作成
-		Buf.sprintf(L"\"%s\",\"%s\",\"%s\"",Item.CtrlName.c_str(),Item.Str.c_str(),Item.Rank.c_str());
+		Buf = std_format(L"\"%s\",\"%s\",\"%s\"",Item.CtrlName.c_str(),Item.Str.c_str(),Item.Rank.c_str());
 		//レジストリに書き込み
 		pIni->WriteString(INI_REG_INPUT,Name,Buf);
 	}

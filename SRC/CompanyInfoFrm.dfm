@@ -4,7 +4,7 @@ object CompanyInfoForm: TCompanyInfoForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = #33258#31038#24773#22577
-  ClientHeight = 366
+  ClientHeight = 335
   ClientWidth = 483
   Color = clWhite
   CustomTitleBar.Control = TitleBarPanel

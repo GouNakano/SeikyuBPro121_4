@@ -14,12 +14,12 @@
 //書類の表１行分データ定義
 struct typDocOneRowData
 {
-	String   Item;       //項目
-	String   Name;       //品目名
-	nsDouble Num;        //数量
-	String   Unit;       //単位
-	nsDouble PriceUnit;  //単価
-	nsDouble Money;      //金額
+	std::wstring   Item;       //項目
+	std::wstring   Name;       //品目名
+	nsDouble       Num;        //数量
+	std::wstring   Unit;       //単位
+	nsDouble       PriceUnit;  //単価
+	nsDouble       Money;      //金額
 public:
 	//コンストラクタ
 	typDocOneRowData() = default;
@@ -37,50 +37,50 @@ struct typDocData
 	nsLong                   Year;                //年
 	nsLong                   Month;               //月
 	nsLong                   Day;                 //日
-	String                   No;                  //番号
-	String                   Name;                //名前
-	String                   Item;                //件名
+	std::wstring             No;                  //番号
+	std::wstring             Name;                //名前
+	std::wstring             Item;                //件名
 	nsDouble                 Money;               //金額
 	nsDouble                 Subtotal;            //小計
 	nsDouble                 Tax;                 //消費税
 	nsDouble                 Total;               //合計
-	String                   CustomerZipCode;     //客先郵便番号
-	String                   CustomerAddress1;    //客先住所1
-	String                   CustomerAddress2;    //客先住所2
-	String                   CustomerTEL;         //客先電話番号
-	String                   CustomerFAX;         //客先ＦＡＸ番号
+	std::wstring             CustomerZipCode;     //客先郵便番号
+	std::wstring             CustomerAddress1;    //客先住所1
+	std::wstring             CustomerAddress2;    //客先住所2
+	std::wstring             CustomerTEL;         //客先電話番号
+	std::wstring             CustomerFAX;         //客先ＦＡＸ番号
 	nsLong                   RowNum;              //行数
 	nsLong                   ColNum;              //列数
 	//ラベル内容
-	String                   BillLabel;           //書類種類名ラベル"
-	String                   YearLabel;           //年ラベル
-	String                   MonthLabel;          //月ラベル
-	String                   DayLabel;            //日ラベル
-	String                   NumberLabel;         //書類番号ラベル
-	String                   HonorificTitleLabel; //敬称ラベル
-	String                   RequestLabel;        //用件ラベル
-	String                   TitleLabel;          //件名ラベル
-	String                   ChargedAmountLabel;  //金額ラベル
-	String                   CompanyNameLabel;    //会社名ラベル
-	String                   PersonLabel;         //代表者ラベル
-	String                   ZipCodeLabel;        //郵便番号ラベル
-	String                   AddressLabel1;       //住所１ラベル
-	String                   AddressLabel2;       //住所２ラベル
-	String                   TELLabel;            //電話番号ラベル
-	String                   FAXLabel;            //ＦＡＸ番号ラベル
-	String                   UnitLabel;           //単位ラベル
-	String                   SubTotalLabel;       //小計ラベル
-	String                   TaxLabel;            //消費税ラベル
-	String                   TotalLabel;          //合計金額ラベル
-	String                   NoteLabel;           //備考ラベル
-	String                   TransferLabel1;      //振込先１ラベル
-	String                   TransferLabel2;      //振込先２ラベル
+	std::wstring            BillLabel;           //書類種類名ラベル"
+	std::wstring            YearLabel;           //年ラベル
+	std::wstring            MonthLabel;          //月ラベル
+	std::wstring            DayLabel;            //日ラベル
+	std::wstring            NumberLabel;         //書類番号ラベル
+	std::wstring            HonorificTitleLabel; //敬称ラベル
+	std::wstring            RequestLabel;        //用件ラベル
+	std::wstring            TitleLabel;          //件名ラベル
+	std::wstring            ChargedAmountLabel;  //金額ラベル
+	std::wstring            CompanyNameLabel;    //会社名ラベル
+	std::wstring            PersonLabel;         //代表者ラベル
+	std::wstring            ZipCodeLabel;        //郵便番号ラベル
+	std::wstring            AddressLabel1;       //住所１ラベル
+	std::wstring            AddressLabel2;       //住所２ラベル
+	std::wstring            TELLabel;            //電話番号ラベル
+	std::wstring            FAXLabel;            //ＦＡＸ番号ラベル
+	std::wstring            UnitLabel;           //単位ラベル
+	std::wstring            SubTotalLabel;       //小計ラベル
+	std::wstring            TaxLabel;            //消費税ラベル
+	std::wstring            TotalLabel;          //合計金額ラベル
+	std::wstring            NoteLabel;           //備考ラベル
+	std::wstring            TransferLabel1;      //振込先１ラベル
+	std::wstring            TransferLabel2;      //振込先２ラベル
 	//画像関連
 	nsBitmap                 StampImage1;         //印影１
 	nsBitmap                 StampImage2;         //印影２
 	nsBitmap                 LogoImage;           //ロゴ
 	//消費税率
-	String  ConsumptionTaxRatio;
+	std::wstring             ConsumptionTaxRatio;
 	//表のデータ
 	std::vector<typDocOneRowData> GridData;
 public:
@@ -224,8 +224,8 @@ class typDocument
 private:
 	std::vector<typDocCompo> DocCompo;              //書類部品リスト
 public:
-    String                 HistID;                  //現在の履歴ID
-	String                 File;                    //現在の書類ファイルパス
+    std::wstring           histID;                  //現在の履歴ID
+	std::wstring           file;                    //現在の書類ファイルパス
 	psPaperSize            Paper;                   //現在の用紙
 	zoZoomDef              Zoom;                    //現在のズーム
 	typProcMode            DocKind;                 //現在の書類種別

@@ -84,40 +84,40 @@ void __fastcall TCompanyInfoForm::FormShow(TObject *Sender)
 	CompanyInfo.ReadCompanyInfo();
 	//-- データセット --
 	//自社情報１
-	CompanyNameEdit_1->Text = CompanyInfo[0].CompanyName;
-	RepresentEdit_1  ->Text = CompanyInfo[0].Represent;
-	ZipNumberEdit_1  ->Text = CompanyInfo[0].ZipNumber;
-	AddressEdit1_1   ->Text = CompanyInfo[0].Address1;
-	AddressEdit2_1   ->Text = CompanyInfo[0].Address2;
-	TELEdit_1        ->Text = CompanyInfo[0].TEL;
-	FAXEdit_1        ->Text = CompanyInfo[0].FAX;
-	TransferEdit1_1  ->Text = CompanyInfo[0].Transfer1;
-	TransferEdit2_1  ->Text = CompanyInfo[0].Transfer2;
-	TaxEdit_1        ->Text = CompanyInfo[0].TaxRatio;
+	CompanyNameEdit_1->Text = CompanyInfo[0].CompanyName.c_str();
+	RepresentEdit_1  ->Text = CompanyInfo[0].Represent.c_str();
+	ZipNumberEdit_1  ->Text = CompanyInfo[0].ZipNumber.c_str();
+	AddressEdit1_1   ->Text = CompanyInfo[0].Address1.c_str();
+	AddressEdit2_1   ->Text = CompanyInfo[0].Address2.c_str();
+	TELEdit_1        ->Text = CompanyInfo[0].TEL.c_str();
+	FAXEdit_1        ->Text = CompanyInfo[0].FAX.c_str();
+	TransferEdit1_1  ->Text = CompanyInfo[0].Transfer1.c_str();
+	TransferEdit2_1  ->Text = CompanyInfo[0].Transfer2.c_str();
+	TaxEdit_1        ->Text = CompanyInfo[0].TaxRatio.c_str();
 
 	//自社情報２
-	CompanyNameEdit_2->Text = CompanyInfo[1].CompanyName;
-	RepresentEdit_2  ->Text = CompanyInfo[1].Represent;
-	ZipNumberEdit_2  ->Text = CompanyInfo[1].ZipNumber;
-	AddressEdit1_2   ->Text = CompanyInfo[1].Address1;
-	AddressEdit2_2   ->Text = CompanyInfo[1].Address2;
-	TELEdit_2        ->Text = CompanyInfo[1].TEL;
-	FAXEdit_2        ->Text = CompanyInfo[1].FAX;
-	TransferEdit1_2  ->Text = CompanyInfo[1].Transfer1;
-	TransferEdit2_2  ->Text = CompanyInfo[1].Transfer2;
-	TaxEdit_2        ->Text = CompanyInfo[1].TaxRatio;
+	CompanyNameEdit_2->Text = CompanyInfo[1].CompanyName.c_str();
+	RepresentEdit_2  ->Text = CompanyInfo[1].Represent.c_str();
+	ZipNumberEdit_2  ->Text = CompanyInfo[1].ZipNumber.c_str();
+	AddressEdit1_2   ->Text = CompanyInfo[1].Address1.c_str();
+	AddressEdit2_2   ->Text = CompanyInfo[1].Address2.c_str();
+	TELEdit_2        ->Text = CompanyInfo[1].TEL.c_str();
+	FAXEdit_2        ->Text = CompanyInfo[1].FAX.c_str();
+	TransferEdit1_2  ->Text = CompanyInfo[1].Transfer1.c_str();
+	TransferEdit2_2  ->Text = CompanyInfo[1].Transfer2.c_str();
+	TaxEdit_2        ->Text = CompanyInfo[1].TaxRatio.c_str();
 
 	//自社情報３
-	CompanyNameEdit_3->Text = CompanyInfo[2].CompanyName;
-	RepresentEdit_3  ->Text = CompanyInfo[2].Represent;
-	ZipNumberEdit_3  ->Text = CompanyInfo[2].ZipNumber;
-	AddressEdit1_3   ->Text = CompanyInfo[2].Address1;
-	AddressEdit2_3   ->Text = CompanyInfo[2].Address2;
-	TELEdit_3        ->Text = CompanyInfo[2].TEL;
-	FAXEdit_3        ->Text = CompanyInfo[2].FAX;
-	TransferEdit1_3  ->Text = CompanyInfo[2].Transfer1;
-	TransferEdit2_3  ->Text = CompanyInfo[2].Transfer2;
-	TaxEdit_3        ->Text = CompanyInfo[2].TaxRatio;
+	CompanyNameEdit_3->Text = CompanyInfo[2].CompanyName.c_str();
+	RepresentEdit_3  ->Text = CompanyInfo[2].Represent.c_str();
+	ZipNumberEdit_3  ->Text = CompanyInfo[2].ZipNumber.c_str();
+	AddressEdit1_3   ->Text = CompanyInfo[2].Address1.c_str();
+	AddressEdit2_3   ->Text = CompanyInfo[2].Address2.c_str();
+	TELEdit_3        ->Text = CompanyInfo[2].TEL.c_str();
+	FAXEdit_3        ->Text = CompanyInfo[2].FAX.c_str();
+	TransferEdit1_3  ->Text = CompanyInfo[2].Transfer1.c_str();
+	TransferEdit2_3  ->Text = CompanyInfo[2].Transfer2.c_str();
+	TaxEdit_3        ->Text = CompanyInfo[2].TaxRatio.c_str();
 
 	//アクティブページ
 	CPageCtrl->ActivePage = C1;

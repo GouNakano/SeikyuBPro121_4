@@ -112,7 +112,7 @@ typFontDef TSdo::GetColInfFromIni(TMemIniFile *Ini,String Sec,String Val)
 //---------------------------------------------------------------------------
 //sdoファイルを展開する
 //---------------------------------------------------------------------------
-bool TSdo::expandSDO(const String sdo_file,std::unique_ptr<TMemIniFile>& pIni,String& TmpIniPath)
+bool TSdo::expandSDO(const std::wstring sdo_file,std::unique_ptr<TMemIniFile>& pIni,std::wstring& TmpIniPath)
 {
 	//ファイルの存在を確認する
 	if(sdo_file != L"" && _waccess(sdo_file.c_str(),00) != 0)
@@ -145,7 +145,7 @@ bool TSdo::expandSDO(const String sdo_file,std::unique_ptr<TMemIniFile>& pIni,St
 	if(sdo_file != L"")
 	{
 		//Iniファイルを開く
-		pIni.reset(new TMemIniFile(TmpIniPath));
+		pIni.reset(new TMemIniFile(TmpIniPath.c_str()));
 	}
 	else
 	{
@@ -157,7 +157,7 @@ bool TSdo::expandSDO(const String sdo_file,std::unique_ptr<TMemIniFile>& pIni,St
 //---------------------------------------------------------------------------
 //基礎情報のセット
 //---------------------------------------------------------------------------
-bool TSdo::setBasicInfo(std::unique_ptr<TMemIniFile>& pIni,const String& sdo_file,const String& fileID,typDocument& DocInfo)
+bool TSdo::setBasicInfo(std::unique_ptr<TMemIniFile>& pIni,const std::wstring& sdo_file,const std::wstring& fileID,typDocument& DocInfo)
 {
 	try
 	{
@@ -170,9 +170,9 @@ bool TSdo::setBasicInfo(std::unique_ptr<TMemIniFile>& pIni,const String& sdo_fil
 		DocInfo.ClearDocCompo();
 		//--- 基礎情報 ---
 		//ファイルパスセット
-		DocInfo.File    = sdo_file;
+		DocInfo.file    = sdo_file;
 		//履歴ID
-		DocInfo.HistID  = fileID;
+		DocInfo.histID  = fileID;
 		//用紙名
 		Val             = pIni->ReadString (S_SECTION_SETTING,V_PAPER_SIZE,PaperDef[A4P].PaperName);
 		TPaperDefs::GetPaperDefFromName(Val,pPaperDef);
@@ -466,13 +466,13 @@ bool TSdo::loadDocumentData(std::unique_ptr<TMemIniFile>& pIni,typDocument& DocI
 			//消費税率を得る
 			try
 			{
-				DocData.ConsumptionTaxRatio = pIni->ReadString(SecName,COMPANY_INFO_TAXRATIO,CompanyInfo[0].TaxRatio).Trim();
+				DocData.ConsumptionTaxRatio = trim(pIni->ReadString(SecName,COMPANY_INFO_TAXRATIO,CompanyInfo[0].TaxRatio.c_str()).c_str());
 			}
 			catch(...)
 			{
 				long TaxVal;
-				TaxVal                       = pIni->ReadInteger(SecName,COMPANY_INFO_TAXRATIO,CompanyInfo[0].TaxRatio.ToIntDef(STD_TAXRATIO));
-				DocData.ConsumptionTaxRatio  = String(TaxVal);
+				TaxVal                       = pIni->ReadInteger(SecName,COMPANY_INFO_TAXRATIO,STD_TAXRATIO);
+				DocData.ConsumptionTaxRatio  = std::to_wstring(TaxVal);
 			}
 		}
 		//変更はなし
@@ -650,7 +650,7 @@ bool TSdo::updateDocumentVersion(typDocument& DocInfo)
 //---------------------------------------------------------------------------
 //.sdoファイルの読み込み
 //---------------------------------------------------------------------------
-bool TSdo::readSDO(const String& fileID,typDocument& document)
+bool TSdo::readSDO(const std::wstring& fileID,typDocument& document)
 {
 	//該当履歴を取得
 	THistory hist;
@@ -660,10 +660,10 @@ bool TSdo::readSDO(const String& fileID,typDocument& document)
 		return false;
 	}
 	//sdoファイルを取得
-	String sdo_file = hist.getFilePath();
+	std::wstring sdo_file = hist.getFilePath();
 	//sdoファイルを展開する
 	std::unique_ptr<TMemIniFile> pIni;
-	String TmpIniPath;
+	std::wstring TmpIniPath;
 
 	try
 	{
@@ -723,10 +723,10 @@ bool TSdo::readSDO(const String& fileID,typDocument& document)
 //---------------------------------------------------------------------------
 //テンプレート.sdoファイルの読み込み
 //---------------------------------------------------------------------------
-bool TSdo::readTemplateSDO(const String& filePath,typDocument& DocInfo)
+bool TSdo::readTemplateSDO(const std::wstring& filePath,typDocument& DocInfo)
 {
 	//sdoファイルを取得
-	String sdo_file = filePath;
+	std::wstring sdo_file = filePath;
 	//sdoファイルを展開する
 	std::unique_ptr<TMemIniFile> pIni;
 	String TmpIniPath;
@@ -836,18 +836,18 @@ bool TSdo::writeDocInfo(const String& SecName,typDocData& DocData,std::unique_pt
 		pIni->WriteString(SecName,StdComponents[scYearEdit           ].Name,DocData.Year    .ToStr()   ); //年
 		pIni->WriteString(SecName,StdComponents[scMonthEdit          ].Name,DocData.Month   .ToStr()   ); //月
 		pIni->WriteString(SecName,StdComponents[scDayEdit            ].Name,DocData.Day     .ToStr()   ); //日
-		pIni->WriteString(SecName,StdComponents[scNoEdit             ].Name,DocData.No                 ); //番号
-		pIni->WriteString(SecName,StdComponents[scNameEdit           ].Name,DocData.Name               ); //名前
-		pIni->WriteString(SecName,StdComponents[scItemEdit           ].Name,DocData.Item               ); //件名
+		pIni->WriteString(SecName,StdComponents[scNoEdit             ].Name,DocData.No.c_str()         ); //番号
+		pIni->WriteString(SecName,StdComponents[scNameEdit           ].Name,DocData.Name.c_str()       ); //名前
+		pIni->WriteString(SecName,StdComponents[scItemEdit           ].Name,DocData.Item.c_str()       ); //件名
 		pIni->WriteString(SecName,StdComponents[scMoneyEdit          ].Name,DocData.Money   .ToStr()   ); //請求金額
 		pIni->WriteString(SecName,StdComponents[scSubtotalEdit       ].Name,DocData.Subtotal.ToStr()   ); //小計
 		pIni->WriteString(SecName,StdComponents[scTaxEdit            ].Name,DocData.Tax     .ToStr()   ); //消費税
 		pIni->WriteString(SecName,StdComponents[scTotalEdit          ].Name,DocData.Total   .ToStr()   ); //合計
-		pIni->WriteString(SecName,StdComponents[scCustomerZipCodeEdit ].Name,DocData.CustomerZipCode    ); //客先郵便番号
-		pIni->WriteString(SecName,StdComponents[scCustomerAddress1Edit].Name,DocData.CustomerAddress1   ); //客先住所1
-		pIni->WriteString(SecName,StdComponents[scCustomerAddress2Edit].Name,DocData.CustomerAddress2   ); //客先住所2
-		pIni->WriteString(SecName,StdComponents[scCustomerTELEdit     ].Name,DocData.CustomerTEL        ); //客先電話番号
-		pIni->WriteString(SecName,StdComponents[scCustomerFAXEdit     ].Name,DocData.CustomerFAX        ); //客先FAX番号
+		pIni->WriteString(SecName,StdComponents[scCustomerZipCodeEdit ].Name,DocData.CustomerZipCode.c_str()    ); //客先郵便番号
+		pIni->WriteString(SecName,StdComponents[scCustomerAddress1Edit].Name,DocData.CustomerAddress1.c_str()   ); //客先住所1
+		pIni->WriteString(SecName,StdComponents[scCustomerAddress2Edit].Name,DocData.CustomerAddress2.c_str()   ); //客先住所2
+		pIni->WriteString(SecName,StdComponents[scCustomerTELEdit     ].Name,DocData.CustomerTEL.c_str()        ); //客先電話番号
+		pIni->WriteString(SecName,StdComponents[scCustomerFAXEdit     ].Name,DocData.CustomerFAX.c_str()        ); //客先FAX番号
 	}
 	catch(Exception& e)
 	{
@@ -862,29 +862,29 @@ bool TSdo::writeLableInfo(const String& SecName,typDocData& DocData,std::unique_
 {
 	try
 	{
-		pIni->WriteString(SecName,StdComponents[scYearLabel          ].Name,DocData.YearLabel          ); //年ラベル
-		pIni->WriteString(SecName,StdComponents[scMonthLabel         ].Name,DocData.MonthLabel         ); //月ラベル
-		pIni->WriteString(SecName,StdComponents[scDayLabel           ].Name,DocData.DayLabel           ); //日ラベル
-		pIni->WriteString(SecName,StdComponents[scNumberLabel        ].Name,DocData.NumberLabel        ); //書類番号ラベル
-		pIni->WriteString(SecName,StdComponents[scTitleLabel         ].Name,DocData.TitleLabel         ); //件名ラベル
-		pIni->WriteString(SecName,StdComponents[scHonorificTitleLabel].Name,DocData.HonorificTitleLabel); //敬称ラベル
-		pIni->WriteString(SecName,StdComponents[scCompanyNameLabel   ].Name,DocData.CompanyNameLabel   ); //会社名ラベル
-		pIni->WriteString(SecName,StdComponents[scPersonLabel        ].Name,DocData.PersonLabel        ); //代表者ラベル
-		pIni->WriteString(SecName,StdComponents[scZipCodeLabel       ].Name,DocData.ZipCodeLabel       ); //郵便番号ラベル
-		pIni->WriteString(SecName,StdComponents[scAddressLabel1      ].Name,DocData.AddressLabel1      ); //住所１ラベル
-		pIni->WriteString(SecName,StdComponents[scAddressLabel2      ].Name,DocData.AddressLabel2      ); //住所２ラベル
-		pIni->WriteString(SecName,StdComponents[scTELLabel           ].Name,DocData.TELLabel           ); //電話番号ラベル
-		pIni->WriteString(SecName,StdComponents[scFAXLabel           ].Name,DocData.FAXLabel           ); //ＦＡＸ番号ラベル
-		pIni->WriteString(SecName,StdComponents[scUnitLabel          ].Name,DocData.UnitLabel          ); //単位ラベル
-		pIni->WriteString(SecName,StdComponents[scSubTotalLabel      ].Name,DocData.SubTotalLabel      ); //小計ラベル
-		pIni->WriteString(SecName,StdComponents[scTaxLabel           ].Name,DocData.TaxLabel           ); //消費税ラベル
-		pIni->WriteString(SecName,StdComponents[scTotalLabel         ].Name,DocData.TotalLabel         ); //合計金額ラベル
-		pIni->WriteString(SecName,StdComponents[scNoteLabel          ].Name,DocData.NoteLabel          ); //備考ラベル
-		pIni->WriteString(SecName,StdComponents[scBillLabel          ].Name,DocData.BillLabel          ); //書類種類名ラベル
-		pIni->WriteString(SecName,StdComponents[scRequestLabel       ].Name,DocData.RequestLabel       ); //用件ラベル
-		pIni->WriteString(SecName,StdComponents[scChargedAmountLabel ].Name,DocData.ChargedAmountLabel ); //金額ラベル
-		pIni->WriteString(SecName,StdComponents[scTransferLabel1     ].Name,DocData.TransferLabel1     ); //振込先１ラベル
-		pIni->WriteString(SecName,StdComponents[scTransferLabel2     ].Name,DocData.TransferLabel2     ); //振込先２ラベル
+		pIni->WriteString(SecName,StdComponents[scYearLabel          ].Name,DocData.YearLabel.c_str()          ); //年ラベル
+		pIni->WriteString(SecName,StdComponents[scMonthLabel         ].Name,DocData.MonthLabel.c_str()         ); //月ラベル
+		pIni->WriteString(SecName,StdComponents[scDayLabel           ].Name,DocData.DayLabel.c_str()           ); //日ラベル
+		pIni->WriteString(SecName,StdComponents[scNumberLabel        ].Name,DocData.NumberLabel.c_str()        ); //書類番号ラベル
+		pIni->WriteString(SecName,StdComponents[scTitleLabel         ].Name,DocData.TitleLabel.c_str()         ); //件名ラベル
+		pIni->WriteString(SecName,StdComponents[scHonorificTitleLabel].Name,DocData.HonorificTitleLabel.c_str()); //敬称ラベル
+		pIni->WriteString(SecName,StdComponents[scCompanyNameLabel   ].Name,DocData.CompanyNameLabel.c_str()   ); //会社名ラベル
+		pIni->WriteString(SecName,StdComponents[scPersonLabel        ].Name,DocData.PersonLabel.c_str()        ); //代表者ラベル
+		pIni->WriteString(SecName,StdComponents[scZipCodeLabel       ].Name,DocData.ZipCodeLabel.c_str()       ); //郵便番号ラベル
+		pIni->WriteString(SecName,StdComponents[scAddressLabel1      ].Name,DocData.AddressLabel1.c_str()      ); //住所１ラベル
+		pIni->WriteString(SecName,StdComponents[scAddressLabel2      ].Name,DocData.AddressLabel2.c_str()      ); //住所２ラベル
+		pIni->WriteString(SecName,StdComponents[scTELLabel           ].Name,DocData.TELLabel.c_str()           ); //電話番号ラベル
+		pIni->WriteString(SecName,StdComponents[scFAXLabel           ].Name,DocData.FAXLabel.c_str()           ); //ＦＡＸ番号ラベル
+		pIni->WriteString(SecName,StdComponents[scUnitLabel          ].Name,DocData.UnitLabel.c_str()          ); //単位ラベル
+		pIni->WriteString(SecName,StdComponents[scSubTotalLabel      ].Name,DocData.SubTotalLabel.c_str()      ); //小計ラベル
+		pIni->WriteString(SecName,StdComponents[scTaxLabel           ].Name,DocData.TaxLabel.c_str()           ); //消費税ラベル
+		pIni->WriteString(SecName,StdComponents[scTotalLabel         ].Name,DocData.TotalLabel.c_str()         ); //合計金額ラベル
+		pIni->WriteString(SecName,StdComponents[scNoteLabel          ].Name,DocData.NoteLabel.c_str()          ); //備考ラベル
+		pIni->WriteString(SecName,StdComponents[scBillLabel          ].Name,DocData.BillLabel.c_str()          ); //書類種類名ラベル
+		pIni->WriteString(SecName,StdComponents[scRequestLabel       ].Name,DocData.RequestLabel.c_str()       ); //用件ラベル
+		pIni->WriteString(SecName,StdComponents[scChargedAmountLabel ].Name,DocData.ChargedAmountLabel.c_str() ); //金額ラベル
+		pIni->WriteString(SecName,StdComponents[scTransferLabel1     ].Name,DocData.TransferLabel1.c_str()     ); //振込先１ラベル
+		pIni->WriteString(SecName,StdComponents[scTransferLabel2     ].Name,DocData.TransferLabel2.c_str()     ); //振込先２ラベル
 	}
 	catch(Exception& e)
 	{
@@ -950,8 +950,8 @@ bool TSdo::writeGridInfo(const String& SecName,typDocData& DocData,std::unique_p
 				String Money      = RowData.Money    .ToStr();
 
 				//改行を\r\nに変換する
-				String ItemBuf = StringReplace(RowData.Item,L"\r\n",L"\\r\\n", TReplaceFlags() << rfReplaceAll);
-				String NameBuf = StringReplace(RowData.Name,L"\r\n",L"\\r\\n", TReplaceFlags() << rfReplaceAll);
+				String ItemBuf = StringReplace(RowData.Item.c_str(),L"\r\n",L"\\r\\n", TReplaceFlags() << rfReplaceAll);
+				String NameBuf = StringReplace(RowData.Name.c_str(),L"\r\n",L"\\r\\n", TReplaceFlags() << rfReplaceAll);
 
 				//一行分のデータ文字列作成
 				GridStr.sprintf(L"\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
@@ -967,12 +967,12 @@ bool TSdo::writeGridInfo(const String& SecName,typDocData& DocData,std::unique_p
 			{
 				//一行分のデータ文字列作成
 				GridStr.sprintf(L"\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
-					"",
-					"",
-					"",
-					"",
-					"",
-					""
+					L"",
+					L"",
+					L"",
+					L"",
+					L"",
+					L""
 				);
 			}
 			//書き込み
@@ -1058,12 +1058,12 @@ bool TSdo::makeBackup(typDocument& DocInfo)
 	if(ES.BackupFile == true)
 	{
 		//現在のファイルは存在するか？
-		if(_waccess(Document.File.c_str(),00) == 0)
+		if(_waccess(Document.file.c_str(),00) == 0)
 		{
 			//現在のファイルパスに .bak を追加
-			String BackupFile = Document.File + L".bak";
+			std::wstring BackupFile = Document.file + L".bak";
 			//コピーする
-			CopyFileW(Document.File.c_str(),BackupFile.c_str(),FALSE);
+			CopyFileW(Document.file.c_str(),BackupFile.c_str(),FALSE);
 		}
 	}
 	return true;
@@ -1090,7 +1090,7 @@ bool TSdo::makeCompression(std::unique_ptr<TStringList>& pFiles,std::unique_ptr<
 //---------------------------------------------------------------------------
 //sdoファイルを作成する
 //---------------------------------------------------------------------------
-bool TSdo::makeSDO(const String& TmpDirStr,	std::unique_ptr<TStringList>& pFiles,const String& FilePath)
+bool TSdo::makeSDO(const String& TmpDirStr,	std::unique_ptr<TStringList>& pFiles,const std::wstring& FilePath)
 {
 	String FileListPath;
 	//ファイル一覧のファイル作成
@@ -1115,7 +1115,7 @@ bool TSdo::makeSDO(const String& TmpDirStr,	std::unique_ptr<TStringList>& pFiles
 //---------------------------------------------------------------------------
 //.sdoファイルの保存
 //---------------------------------------------------------------------------
-bool TSdo::writeSDO(typDocument& DocInfo,const String& FilePath)
+bool TSdo::writeSDO(typDocument& DocInfo,const std::wstring& filePath)
 {
 	String SecName;
 	String Str;
@@ -1132,7 +1132,7 @@ bool TSdo::writeSDO(typDocument& DocInfo,const String& FilePath)
 	makeCompression(pFiles,pIni,TmpDirStr);
 
 	//ファイルパスセット
-	DocInfo.File = FilePath;
+	DocInfo.file = filePath;
 	//基礎情報の保存
 	writeBasicInfo(DocInfo,pIni);
 
@@ -1140,17 +1140,17 @@ bool TSdo::writeSDO(typDocument& DocInfo,const String& FilePath)
 	//対象データ構造体
 	typDocData& HistDocData = DocInfo.Data[DocInfo.DocKind];
 	//年
-	nsLong Year  = HistDocData.Year;
+	nsLong Year        = HistDocData.Year;
 	//月
-	nsLong Month = HistDocData.Month;
+	nsLong Month       = HistDocData.Month;
 	//日
-	nsLong Day   = HistDocData.Day;
+	nsLong Day         = HistDocData.Day;
 	//名前
-	String name  = HistDocData.Name;
+	std::wstring name  = HistDocData.Name;
 	//件名
-	String item  = HistDocData.Item;
+	std::wstring item  = HistDocData.Item;
 	//ファイル名
-	String file  = FilePath;
+	std::wstring file  = filePath;
 
 	//部品用のデータ
 	String paper_mn = PaperDef[DocInfo.Paper].PaperName;
@@ -1176,7 +1176,7 @@ bool TSdo::writeSDO(typDocument& DocInfo,const String& FilePath)
 		writeImageInfo(SecName,TmpDirStr,KindCnt,DocData,pFiles,pIni);
 
 		//消費税率
-		pIni->WriteString(SecName,COMPANY_INFO_TAXRATIO,DocData.ConsumptionTaxRatio);
+		pIni->WriteString(SecName,COMPANY_INFO_TAXRATIO,DocData.ConsumptionTaxRatio.c_str());
 
 		//グリッド情報を保存
 		writeGridInfo(SecName,DocData,pIni);
@@ -1189,7 +1189,7 @@ bool TSdo::writeSDO(typDocument& DocInfo,const String& FilePath)
 	//変更はなし
 	DocInfo.Edited = false;
 	//sdoファイル作成
-	makeSDO(TmpDirStr,pFiles,FilePath);
+	makeSDO(TmpDirStr,pFiles,filePath);
 
 	//---- 履歴をレジストリに記載 ----
 	//履歴情報セット

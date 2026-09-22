@@ -12,7 +12,7 @@ public:
 	bool         IsRemain        = true;   //前回のを再現
 	bool         BackupFile      = true;   //バックアップファイルの作成
 	bool         UseTemplateFile = false;  //新規作成時のテンプレートファイルの使用
-	String       TemplateFile;             //新規作成時のテンプレートファイル
+	std::wstring TemplateFile;             //新規作成時のテンプレートファイル
 	bool         IsToday         = true;   //新規作成時、本日の日付をセットするか
 	int          AccuracyR1      = 0;      //小数点以下の桁数
 	int          AccuracyR2      = 0;      //小数点以下の桁数

@@ -2,7 +2,7 @@ object ComponentsForm: TComponentsForm
   Left = 402
   Top = 171
   Caption = #37096#21697#19968#35239#34920
-  ClientHeight = 471
+  ClientHeight = 409
   ClientWidth = 739
   Color = clWhite
   CustomTitleBar.Control = TitleBarPanel
@@ -35,13 +35,14 @@ object ComponentsForm: TComponentsForm
   TextHeight = 12
   object Panel1: TPanel
     Left = 0
-    Top = 435
+    Top = 373
     Width = 739
     Height = 36
     Align = alBottom
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
+    ExplicitTop = 435
     object Panel2: TPanel
       Left = 492
       Top = 1
@@ -82,7 +83,7 @@ object ComponentsForm: TComponentsForm
     Left = 0
     Top = 30
     Width = 739
-    Height = 405
+    Height = 343
     Align = alClient
     Columns = <
       item
@@ -119,6 +120,7 @@ object ComponentsForm: TComponentsForm
     ViewStyle = vsReport
     OnDeletion = ListViewDeletion
     HeaderColor = clBtnFace
+    ExplicitHeight = 405
   end
   object TitleBarPanel: TTitleBarPanel
     Left = 0

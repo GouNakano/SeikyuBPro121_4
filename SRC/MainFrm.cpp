@@ -38,6 +38,7 @@ using std::max;
 #include "TReopen.h"
 #include "ClsInputDataList.h"
 #include "typReportData.h"
+#include "typDocument.h"
 #include "MainFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -201,11 +202,11 @@ bool TMainForm::LoadReportHist()
 		TListItem *pItem = HistListView->Items->Add();
 
 		// ListViewアイテムセット
-		pItem->Caption = hist.getFileNameOnly();        // ファイル名
-		pItem->SubItems->Add(hist.getDayString());      // 日付
-		pItem->SubItems->Add(hist.getName());           // 名前
-		pItem->SubItems->Add(hist.getItem());           // 件名
-		pItem->SubItems->Add(hist.getDirectoryName());  // フォルダ
+		pItem->Caption = hist.getFileNameOnly().c_str();        // ファイル名
+		pItem->SubItems->Add(hist.getDayString().c_str());      // 日付
+		pItem->SubItems->Add(hist.getName().c_str());           // 名前
+		pItem->SubItems->Add(hist.getItem().c_str());           // 件名
+		pItem->SubItems->Add(hist.getDirectoryName().c_str());  // フォルダ
 		//紐づけるデータセット
 		pItem->Data = new THistory(hist);
 	}
@@ -214,7 +215,7 @@ bool TMainForm::LoadReportHist()
 	// 表示再開
 	HistListView->Items->EndUpdate();
 	//今開いている書類のIDで履歴一覧の行を選択する
-	selectHistViewFromHistID(Document.HistID);
+	selectHistViewFromHistID(Document.histID);
 
 	return true;
 }
@@ -235,16 +236,16 @@ bool TMainForm::LoadReportHist()
 //-------------------------------------------------------------
 void TMainForm::RemainSetting()
 {
-	TReopen reInf;
-	String  filePath;
-	bool    isParamOpen=false;
+	TReopen       reInf;
+	std::wstring  filePath;
+	bool          isParamOpen=false;
 
 	//開くﾌｧｲﾙを得る
 	if(ParamCount() >= 1)
 	{
 		filePath = ParamStr(1);
 	}
-	filePath = filePath.Trim();
+	filePath = trim(filePath);
 	//ﾌｧｲﾙが指定されているなら開く
 	if(filePath != L"")
 	{
@@ -282,12 +283,12 @@ void TMainForm::RemainSetting()
 	//繰り返し入力用情報を読む
 	Inpts.Load();
 	//今開いている書類のIDで履歴一覧の行を選択する
-	selectHistViewFromHistID(Document.HistID);
+	selectHistViewFromHistID(Document.histID);
 }
 //-------------------------------------------------------------
 //今開いている書類のIDで履歴一覧の行を選択する
 //-------------------------------------------------------------
-bool TMainForm::selectHistViewFromHistID(const String& histID)
+bool TMainForm::selectHistViewFromHistID(const std::wstring& histID)
 {
 	//履歴の数
 	int histNum = HistListView->Items->Count;
@@ -334,11 +335,11 @@ void __fastcall TMainForm::FormClose(TObject *Sender, TCloseAction &Action)
 {
 	TReopen reInf;
 	//再開処理のための保存
-	if(Document.File != L"" && Document.HistID != L"")
+	if(Document.file != L"" && Document.histID != L"")
 	{
 		//開いているファイルがある場合は追加
-		reInf.sdoPath = Document.File;
-		reInf.histID  = Document.HistID;
+		reInf.sdoPath = Document.file;
+		reInf.histID  = Document.histID;
 	}
 	//再開情報保存処理
 	TReopen::SaveReopenSet(ES.IsRemain,reInf);
@@ -2455,7 +2456,7 @@ void __fastcall TMainForm::EditKeyDown(TObject *Sender, WORD &Key,TShiftState Sh
 //-------------------------------------------------------------
 void __fastcall TMainForm::OpenMenuClick(TObject *Sender)
 {
-	String File;
+	std::wstring File;
 	//移動・大きさ変更を取りやめる
 	CancelResizeMode(true);
 	//MainPanel上の値をデータにセット
@@ -2495,7 +2496,7 @@ void __fastcall TMainForm::OpenMenuClick(TObject *Sender)
 //
 //  改定者   ：
 //-------------------------------------------------------------
-bool TMainForm::OpenFile(const String& filePath,const String& histID)
+bool TMainForm::OpenFile(const std::wstring& filePath,const std::wstring& histID)
 {
 	//書類ファイルの読み込み
 	if(Sdo.readSDO(histID,Document) == false)
@@ -2529,6 +2530,7 @@ bool TMainForm::OpenFile(const String& filePath,const String& histID)
 //-------------------------------------------------------------
 void __fastcall TMainForm::SaveBtnClick(TObject *Sender)
 {
+	//名前をつけて保存
 	Save();
 
 	return;
@@ -2559,12 +2561,12 @@ bool TMainForm::Save()
 	SetDocDataFromMainPanel();
 	//--- 現在のファイルのパスをデフォルトにする ----
 	//ファイルパスを得る
-	String FilePath = Document.File.Trim();
+	std::wstring filePath = trim(Document.file);
 	//無題チェック
-	if(FilePath != "")
+	if(filePath != L"")
 	{
-		SaveDialog->InitialDir = ExtractFileDir(FilePath);
-		SaveDialog->FileName   = ExtractFileName(FilePath);
+		SaveDialog->InitialDir = ExtractFileDir(filePath.c_str());
+		SaveDialog->FileName   = ExtractFileName(filePath.c_str());
 	}
 	//保存ダイアログ表示
 	Res = SaveDialog->Execute();
@@ -2574,9 +2576,23 @@ bool TMainForm::Save()
 		return false;
 	}
 	//対象ファイル
-	String File = SaveDialog->FileName;
+	std::wstring saveFile = SaveDialog->FileName.c_str();
 	//保存
-	Sdo.writeSDO(Document,File);
+	if(Sdo.writeSDO(Document,saveFile) == false)
+	{
+		//保存に失敗
+		return false;
+	}
+	//履歴ID
+	std::wstring id;
+	//同じパスのsdoファイルが履歴にあるかチェック
+	if(Histories.getSameFilePathID(saveFile,id) == true)
+	{
+		//書類の履歴一覧読み込み処理
+		LoadReportHist();
+		//今開いている書類のIDで履歴一覧の行を選択する
+		selectHistViewFromHistID(Document.histID);
+	}
 	//書類の変更の有無を設定
 	SetDocumentChange(false);
 
@@ -2599,7 +2615,7 @@ bool TMainForm::Save()
 //-------------------------------------------------------------
 nsLib::mbsel TMainForm::ChangedSave()
 {
-	String       FileName;
+	String       fileName;
 	nsLib::mbsel Res;
 	//変更があるか？
 	if(Document.Edited == false)
@@ -2609,16 +2625,16 @@ nsLib::mbsel TMainForm::ChangedSave()
 	}
 
 	//表示ファイル名の設定
-	if(Document.File != "")
+	if(Document.file != L"")
 	{
-		FileName = Document.File;
+		fileName = Document.file;
 	}
 	else
 	{
-		FileName = L"無題";
+		fileName = L"無題";
 	}
 	//問合せ
-	nsLib::mbsel Sel = nsLib::YesNoCancelMsgBox(Handle,L"[%s]は変更されています、保存しますか？",FileName.c_str());
+	nsLib::mbsel Sel = nsLib::YesNoCancelMsgBox(Handle,L"[%s]は変更されています、保存しますか？",fileName.c_str());
 	//選択別処理
 	switch(Sel)
 	{
@@ -2707,7 +2723,7 @@ void TMainForm::NewFile()
 			return;
 		}
 		//ファイルパスは空
-		Document.File = L"";
+		Document.file = L"";
 		//メインパネルの表示更新
 		UpdateMainPanelDisp();
 
@@ -2732,7 +2748,7 @@ bool TMainForm::setVoidDocument()
 	//データを消す
 	Document.ClearData();
 	//ファイルパスは空
-	Document.File = L"";
+	Document.file = L"";
 	//データを空読み
 	Sdo.readVoid(Document);
 	//再表示
@@ -4174,12 +4190,12 @@ void TMainForm::SetZOrderFromDocumentInfo()
 //-------------------------------------------------------------
 //標準Editの内容をセット
 //-------------------------------------------------------------
-bool TMainForm::setStdEdit(scStdComponent comp_typ,const String& val)
+bool TMainForm::setStdEdit(scStdComponent comp_typ,const std::wstring& val)
 {
 	TControl    *pCtrl = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TBorderEdit *pEdit = static_cast<TBorderEdit *>(pCtrl);
 	//数値と
-	pEdit->Text = val;
+	pEdit->Text = val.c_str();
 
 	return true;
 }
@@ -4205,11 +4221,11 @@ bool TMainForm::setStdEdit(scStdComponent comp_typ,const nsDouble& val)
 //-------------------------------------------------------------
 //標準Labelの内容をセット
 //-------------------------------------------------------------
-bool TMainForm::setStdLabel(scStdComponent comp_typ,const String& val)
+bool TMainForm::setStdLabel(scStdComponent comp_typ,const std::wstring& val)
 {
 	TControl  *pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TWinLabel *pLabel = static_cast<TWinLabel *>(pCtrl);
-	pLabel->Caption  = val;
+	pLabel->Caption   = val.c_str();
 
 	return true;
 }
@@ -4374,7 +4390,7 @@ void TMainForm::SetDataFromDocData()
 //-------------------------------------------------------------
 //MainFormパネル上のEditコンポーネントからDocDataのメンバの値をセット
 //-------------------------------------------------------------
-bool TMainForm::setDocValFrom(String& val,scStdComponent comp_typ)
+bool TMainForm::setDocValFrom(std::wstring& val,scStdComponent comp_typ)
 {
 	TControl    *pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TBorderEdit *pEdit  = static_cast<TBorderEdit *>(pCtrl);
@@ -4404,7 +4420,7 @@ bool TMainForm::setDocValFrom(nsDouble& val,scStdComponent comp_typ)
 //-------------------------------------------------------------
 //MainFormパネル上のLabelコンポーネントからDocDataのメンバの値をセット
 //-------------------------------------------------------------
-bool TMainForm::setDocValFromLabel(String& val,scStdComponent comp_typ)
+bool TMainForm::setDocValFromLabel(std::wstring& val,scStdComponent comp_typ)
 {
 	TControl * pCtrl  = compo.FindControlFromMainPanel(StdComponents[comp_typ].Name);
 	TWinLabel *pLabel = static_cast<TWinLabel *>(pCtrl);
@@ -5298,9 +5314,9 @@ bool TMainForm::OverWrite()
 {
 	bool Res;
 	//ファイルパスを得る
-	String FilePath = Document.File.Trim();
+	std::wstring filePath = trim(Document.file);
 	//無題チェック
-	if(FilePath == L"")
+	if(filePath == L"")
 	{
 		//名前をつけて保存
 		Res = Save();
@@ -5315,18 +5331,18 @@ bool TMainForm::OverWrite()
 	//MainPanel上の値をデータにセット
 	SetDocDataFromMainPanel();
 	//存在しないなら名前をつけて保存
-	if(FilePath == L"")
+	if(filePath == L"")
 	{
 		//名前をつけて保存
 		Res = Save();
 		return Res;
 	}
 	//上書きする
-	Sdo.writeSDO(Document,FilePath);
+	Sdo.writeSDO(Document,filePath);
 	//書類の変更の有無を設定
 	SetDocumentChange(false);
 	//今開いている書類のIDで履歴一覧の行を選択する
-	selectHistViewFromHistID(Document.HistID);
+	selectHistViewFromHistID(Document.histID);
 
 	return true;
 }
@@ -6537,7 +6553,7 @@ void TMainForm::DispStatus()
 	String TitleStr;
 
 	//アプリケーションタイトルの作成
-	if(Document.File == L"")
+	if(Document.file == L"")
 	{
 		//タイトル
 		TitleStr = String(L"無題 - ") + SYSTEM_NAME;
@@ -6545,9 +6561,9 @@ void TMainForm::DispStatus()
 	else
 	{
 		//ファイル名を得る
-		String FileName = ExtractFileName(Document.File);
+		std::wstring fileName = ExtractFileName(Document.file.c_str()).c_str();
 		//タイトル
-		TitleStr = FileName + L" - " + SYSTEM_NAME;
+		TitleStr = fileName + L" - " + SYSTEM_NAME;
 	}
 	//アプリケーションタイトルの表示
 	Caption            = TitleStr;
@@ -6571,7 +6587,7 @@ void TMainForm::DispStatus()
 //-------------------------------------------------------------
 //自社情報の一つをラベルにセットする
 //-------------------------------------------------------------
-bool TMainForm::setLabelFromCompanyInfo(scStdComponent comp,const String& inf)
+bool TMainForm::setLabelFromCompanyInfo(scStdComponent comp,const std::wstring& inf)
 {
 	typDocCompo  pDoc;
 
@@ -7513,9 +7529,9 @@ void __fastcall TMainForm::FormCloseQuery(TObject *Sender, bool &CanClose)
 	{
 		String FileName;
 		//表示ファイル名の設定
-		if(Document.File != L"")
+		if(Document.file != L"")
 		{
-			FileName = Document.File;
+			FileName = Document.file;
 		}
 		else
 		{
@@ -7685,9 +7701,9 @@ void __fastcall TMainForm::AskMenuClick(TObject *Sender)
 void __fastcall TMainForm::FileFolderMenuClick(TObject *Sender)
 {
 	//ファイルパスを得る
-	String FilePath = Document.File;
+	std::wstring FilePath = Document.file;
 	//ディレクトリを得る
-	String Dir = ExtractFileDir(FilePath);
+	std::wstring Dir = ExtractFileDir(FilePath.c_str()).c_str();
 	//プロジェクトフォルダを開く
 	ShellExecuteW(Handle,L"open",Dir.c_str(),NULL,NULL,SW_SHOWNORMAL);
 }
@@ -7759,8 +7775,7 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 			continue;
 		}
 
-		String FileName;
-		String FullPath;
+		String fullPath;
 		//請求書番頭フリー版の対象データ
 		typReportData& pData = SBFreeDataList[Cnt];
 		//出力ファイルのフルパス作成
@@ -7768,19 +7783,21 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 		{
 			if(cnt == 0)
 			{
+				String fileName;
 				//ファイル名を作成する
-				FileName.sprintf(L"%04d%02d%02d-%s-%s%s",pData.Year,pData.Month,pData.Day,pData.NameStr.c_str(),pData.ItemStr.c_str(),STD_FILEXT);
+				fileName.sprintf(L"%04d%02d%02d-%s-%s%s",pData.Year,pData.Month,pData.Day,pData.NameStr.c_str(),pData.ItemStr.c_str(),STD_FILEXT);
 				//フルパスを作成する
-				FullPath = DispFolder + "\\" + FileName;
+				fullPath = DispFolder + "\\" + fileName;
 			}
 			else
 			{
+				String fileName;
 				//ファイル名を作成する
-				FileName.sprintf(L"%04d%02d%02d-%s-%s_%d%s",pData.Year,pData.Month,pData.Day,pData.NameStr.c_str(),pData.ItemStr.c_str(),cnt,STD_FILEXT);
+				fileName.sprintf(L"%04d%02d%02d-%s-%s_%d%s",pData.Year,pData.Month,pData.Day,pData.NameStr.c_str(),pData.ItemStr.c_str(),cnt,STD_FILEXT);
 				//フルパスを作成する
-				FullPath = DispFolder + "\\" + FileName;
+				fullPath = DispFolder + "\\" + fileName;
 			}
-			if(FileExists(FullPath) == false)
+			if(FileExists(fullPath) == false)
 			{
 				//ファイルが存在しないのでフルパス作成完了
 				break;
@@ -7789,7 +7806,7 @@ void __fastcall TMainForm::SaveReportHist_Free_MenuClick(TObject *Sender)
 		//IDのリセット
 		NowHistory.renumberID();
 		//ファイルの保存
-		Sdo.writeSDO(pDoc,FullPath);
+		Sdo.writeSDO(pDoc,fullPath.c_str());
 	}
 	//書類の変更の有無を設定
 	SetDocumentChange(false);
@@ -7821,9 +7838,9 @@ void __fastcall TMainForm::BasePanelFileDrop(TObject *Sender,TStrings *Files)
 	for(int Cnt = 0;Cnt < Files->Count;Cnt++)
 	{
 		//ファイルパス
-		String FilePath = Files->Strings[Cnt];
+		std::wstring filePath = Files->Strings[Cnt].c_str();
 		//拡張子
-		String Ext = ExtractFileExt(FilePath);
+		String Ext = ExtractFileExt(filePath.c_str());
 		//.sdoか？
 		if(Ext.CompareIC(STD_FILEXT) == 0)
 		{
@@ -7833,7 +7850,7 @@ void __fastcall TMainForm::BasePanelFileDrop(TObject *Sender,TStrings *Files)
 				break;
 			}
 			//ファイルを開く
-			OpenFile(FilePath,L"");
+			OpenFile(filePath,L"");
 			//処理終了
 			break;
 		}
@@ -8568,9 +8585,9 @@ void __fastcall TMainForm::HistTimerTimer(TObject *Sender)
 	// 関連データ
 	THistory *pData = static_cast<THistory*>(pItem->Data);
 	//履歴IDを得る
-	String fileID = pData->getID();
+	std::wstring fileID = pData->getID();
 	//ファイルパスを得る
-	String filePath = pData->getFilePath();
+	std::wstring filePath = pData->getFilePath();
 	// 書類を読む
 	if(OpenFile(filePath,fileID) == false)
 	{
