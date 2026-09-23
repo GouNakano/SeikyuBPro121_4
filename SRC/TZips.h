@@ -7,10 +7,10 @@
 //—X•Ö”Ô†‚Ìƒf[ƒ^
 struct typZip
 {
-	String ZipCode;    //—X•Ö”Ô†
-	String Prefecture; //“s“¹•{Œ§
-	String City;       //s’¬‘º
-	String Address;    //ZŠ
+	std::wstring ZipCode;    //—X•Ö”Ô†
+	std::wstring Prefecture; //“s“¹•{Œ§
+	std::wstring City;       //s’¬‘º
+	std::wstring Address;    //ZŠ
 public:
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	typZip() = default;
@@ -41,7 +41,7 @@ class TZips
 {
 private:
 	//—X•Ö”Ô†‚ğƒL[‚É‚µ‚½—X•Ö”Ô†ƒf[ƒ^MAP
-	std::map<String,typZip> zipList;
+	std::map<std::wstring,typZip> zipList;
 public:
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	TZips() = default;
@@ -51,7 +51,7 @@ public:
 	//—X•Ö”Ô†CSV‚©‚ç“Ç‚İ‚İ
 	bool load();
 	//—X•Ö”Ô†‚©‚çZŠ‚ğ“¾‚é
-	bool getAdress(const String& zipCode,String& prefecture,String& city,String& address);
+	bool getAdress(const std::wstring& zipCode,std::wstring& prefecture,std::wstring& city,std::wstring& address);
 };
 
 //—X•Ö”Ô†‚Ìƒf[ƒ^ƒŠƒXƒg

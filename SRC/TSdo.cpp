@@ -1196,7 +1196,7 @@ bool TSdo::writeSDO(typDocument& DocInfo,const std::wstring& filePath)
 	NowHistory.setAll(NowHistory.getID(),Year,Month,Day,name,item,file);
 
 	//リストを更新
-	Histories.update(NowHistory);
+	Histories.update(NowHistory,true);
 	//レジストリに書き込み
 	Histories.save(NowHistory);
 

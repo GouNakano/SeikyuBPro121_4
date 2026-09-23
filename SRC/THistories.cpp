@@ -87,7 +87,7 @@ bool THistories::write_histreg(const THistory& hist)
 //---------------------------------------------------------------------------
 //XV
 //---------------------------------------------------------------------------
-bool THistories::update(THistory& new_hist)
+bool THistories::update(THistory& new_hist,bool isUpdateID)
 {
 	int hist_idx;
 	//—š—ğ‚Ìã‘‚«‚©’Ç‰Á‚ğ”»’f‚·‚é(true‚Ìê‡’Ç‰Á)
@@ -96,8 +96,12 @@ bool THistories::update(THistory& new_hist)
 	//ã‘‚«orV‹Kì¬
 	if(isAdd == true)
 	{
-		//ID‚ğU‚è’¼‚·
-		new_hist.renumberID();
+		//isUpdateID‚ªtrue‚È‚çID‚ğU‚è’¼‚·
+		if(isUpdateID == true)
+		{
+			//ID‚ğU‚è’¼‚·
+			new_hist.renumberID();
+		}
 		//’Ç‰Á
 		Histories.push_back(new_hist);
 	}

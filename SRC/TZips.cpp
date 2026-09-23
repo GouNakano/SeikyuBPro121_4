@@ -70,7 +70,7 @@ bool TZips::load()
 //---------------------------------------------------------------------------
 //—X•Ö”Ô†‚©‚çZŠ‚ğ“¾‚é
 //---------------------------------------------------------------------------
-bool TZips::getAdress(const String& zipCode,String& prefecture,String& city,String& address)
+bool TZips::getAdress(const std::wstring& zipCode,std::wstring& prefecture,std::wstring& city,std::wstring& address)
 {
 	//ŒŸõ
 	decltype(zipList)::iterator find_iter = zipList.find(zipCode);

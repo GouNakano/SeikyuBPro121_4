@@ -201,13 +201,13 @@ void __fastcall TCompanyInfoForm::ResistBtnClick(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TCompanyInfoForm::ZipToAddressBtnClick(TObject *Sender)
 {
-	String Prefecture;
-	String City;
-	String Address;
-	String AllAddrStr;
-	String InputZipStr;
-	String ZipStr;
-	String NumStr;
+	std::wstring Prefecture;
+	std::wstring City;
+	std::wstring Address;
+	std::wstring AllAddrStr;
+	std::wstring InputZipStr;
+	std::wstring ZipStr;
+	std::wstring NumStr;
 	int    HyphenPos;
 	//対象Editコントロール(郵便番号、住所)
 	TBaseEdit *ZipEdit;
@@ -229,39 +229,33 @@ void __fastcall TCompanyInfoForm::ZipToAddressBtnClick(TObject *Sender)
 		AdrEdit = AddressEdit1_3;
 	}
 	//入力された郵便番号を得る
-	InputZipStr = ZipEdit->Text.Trim();
+	InputZipStr = ZipEdit->Text.Trim().c_str();
 	//半角にする
 	InputZipStr = TSCommonLib::StrToHan(InputZipStr);
 	//数字文字だけを抽出(全角も)
-	for(int Cnt = 0;Cnt < (int)InputZipStr.Length();Cnt++)
+	for(decltype(InputZipStr)::iterator it = InputZipStr.begin();it != InputZipStr.end();it++)
 	{
-		//指定位置の文字を得る
-		NumStr = InputZipStr.SubString(Cnt+1,1);
-		//数字なら追加
-		if(NumStr.ToIntDef(-1) >= 0)
+		//一文字取り出す
+		wchar_t wc = (*it);
+		//数字かどうか判定
+		if(std::iswdigit(wc) != 0)
 		{
-			ZipStr += NumStr;
+			//数字なら追加
+			ZipStr += wc;
 		}
 	}
 	//長さチェック
-	if(ZipStr.Length() != 7)
+	if(ZipStr.size() != 7)
 	{
 		nsLib::ErrMsgBox(Handle,"郵便番号の桁数が７桁ではありません。\n処理を中止します。");
 		return;
 	}
-	//数字だけで構成されているか？
-	if(ZipStr.ToIntDef(-1) == -1)
-	{
-		nsLib::ErrMsgBox(Handle,"郵便番号に不要な文字が入力されています。\n処理を中止します。");
-		return;
-	}
 	//郵便番号検索
 	Zips.getAdress(ZipStr,Prefecture,City,Address);
-//	sbp::GetAdressFromZipCode(ZipStr,Prefecture,City,Address);
 	//住所を作成
 	AllAddrStr = Prefecture + City + Address;
 	//住所をセット
-	AdrEdit->Text = AllAddrStr;
+	AdrEdit->Text = AllAddrStr.c_str();
 	//郵便番号の補正
 	ModifyInputZipStr(ZipEdit);
 }

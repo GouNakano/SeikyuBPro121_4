@@ -3238,19 +3238,19 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 		case 2:  //数量
 		case 4:  //単価
 		{
-			nsDouble Val;
-			nsDouble NumVal;
-			nsDouble UnitVal;
-			nsDouble MoneyVal;
-			String   Str;
+			nsDouble     Val;
+			nsDouble     NumVal;
+			nsDouble     UnitVal;
+			nsDouble     MoneyVal;
+			std::wstring Str;
 
 			//半角にする
-			Str = TSCommonLib::StrToHan(DispStr);
+			Str = TSCommonLib::StrToHan(DispStr.c_str());
 			//数値にする
 			Val = Str.c_str();
 			//セルにセット
 			Str = Val.ToStr();
-			Grid->Cells[ACol][ARow] = Str;
+			Grid->Cells[ACol][ARow] = Str.c_str();
 			//数量、単価文字列
 			NumVal  = Grid->GetDispCellStr(ARow,2).c_str();
 			UnitVal = Grid->GetDispCellStr(ARow,4).c_str();
@@ -3258,7 +3258,7 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 			if(NumVal.IsNull() == true || UnitVal.IsNull() == true)
 			{
 				//金額は無し
-				Grid->Cells[5][ARow] = "";
+				Grid->Cells[5][ARow] = L"";
 			}
 			else
 			{
@@ -3278,7 +3278,7 @@ void __fastcall TMainForm::GridAfterEdit(TObject *Sender, int ARow,int ACol, Str
 		{
 			nsDouble Val;
 			//半角にする
-			String Str = TSCommonLib::StrToHan(DispStr);
+			std::wstring Str = TSCommonLib::StrToHan(DispStr.c_str());
 			//数値にする
 			Val = Str.c_str();
 			//セルにセット
@@ -7961,13 +7961,13 @@ void TMainForm::AddInputData()
 //-------------------------------------------------------------
 void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 {
-	String       Prefecture;
-	String       City;
-	String       Address;
+	std::wstring Prefecture;
+	std::wstring City;
+	std::wstring Address;
 	std::wstring AllAddrStr;
-	String       InputZipStr;
-	String       ZipStr;
-	String       NumStr;
+	std::wstring InputZipStr;
+	std::wstring ZipStr;
+	std::wstring NumStr;
 	int          HyphenPos;
 
 	//入力された郵便番号を得る
@@ -7975,26 +7975,20 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 	//半角にする
 	InputZipStr = TSCommonLib::StrToHan(InputZipStr);
 	//数字文字だけを抽出(全角も)
-	for(int Cnt = 0;Cnt < (int)InputZipStr.Length();Cnt++)
+	for(decltype(InputZipStr)::iterator it = InputZipStr.begin();it != InputZipStr.end();it++)
 	{
 		//指定位置の文字を得る
-		NumStr = InputZipStr.SubString(Cnt+1,1);
+		wchar_t c = (*it);
 		//数字なら追加
-		if(NumStr.ToIntDef(-1) >= 0)
+		if(std::iswdigit(c) != 0)
 		{
-			ZipStr += NumStr;
+			ZipStr += c;
 		}
 	}
 	//長さチェック
-	if(ZipStr.Length() != 7)
+	if(ZipStr.size() != 7)
 	{
-		nsLib::ErrMsgBox(Handle,"郵便番号の桁数が７桁ではありません。\n処理を中止します。");
-		return;
-	}
-	//数字だけで構成されているか？
-	if(ZipStr.ToIntDef(-1) == -1)
-	{
-		nsLib::ErrMsgBox(Handle,"郵便番号に不要な文字が入力されています。\n処理を中止します。");
+		nsLib::ErrMsgBox(Handle,L"郵便番号の桁数が７桁ではありません。\n処理を中止します。");
 		return;
 	}
 	//郵便番号検索

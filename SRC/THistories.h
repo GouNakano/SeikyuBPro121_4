@@ -207,7 +207,7 @@ public:
 	//リストの消去
 	bool clear();
 	//更新
-	bool update(THistory& hist);
+	bool update(THistory& hist,bool isUpdateID = false);
 	//IDから履歴情報取得
 	bool get(const std::wstring& id,THistory& hist);
 	//インデックスから履歴情報取得
