@@ -147,7 +147,7 @@ dcDocComponent TDocCompo::GetComponentType(TComponent *pCompo)
 //-------------------------------------------------------------
 //標準コンポーネント番号のコンポーネントにデータセット
 //-------------------------------------------------------------
-bool TDocCompo::setCompoData(scStdComponent sc,const String& data)
+bool TDocCompo::setCompoData(scStdComponent sc,const std::wstring& data)
 {
 	TWinLabel   *pLabel = nullptr;
 	TBorderEdit *pEdit  = nullptr;
@@ -174,7 +174,7 @@ bool TDocCompo::setCompoData(scStdComponent sc,const String& data)
 				return false;
 			}
 			//ラベルの内容セット
-			pLabel->Caption = data;
+			pLabel->Caption = data.c_str();
 			break;
 		}
 		case dcDayEdit:
@@ -187,7 +187,7 @@ bool TDocCompo::setCompoData(scStdComponent sc,const String& data)
 				return false;
 			}
 			//日付(年、月、日)内容
-			pEdit->Text = data;
+			pEdit->Text = data.c_str();
 			break;
 		}
 		case dcMoneyEdit:
@@ -200,7 +200,7 @@ bool TDocCompo::setCompoData(scStdComponent sc,const String& data)
 				return false;
 			}
 			//金額内容
-			pEdit->Text = data;
+			pEdit->Text = data.c_str();
 			break;
 		}
 		case dcEdit:
@@ -213,7 +213,7 @@ bool TDocCompo::setCompoData(scStdComponent sc,const String& data)
 				return false;
 			}
 			//文字列
-			pEdit->Text = data;
+			pEdit->Text = data.c_str();
 			break;
 		}
 		default:
@@ -228,7 +228,7 @@ bool TDocCompo::setCompoData(scStdComponent sc,const String& data)
 bool TDocCompo::setCompoData(scStdComponent sc,nsLong in)
 {
 	//セットするデータ文字列
-	String data = in.ToStr();
+	std::wstring data = in.ToStr();
 	//コンポーネントにセット
 	bool success = setCompoData(sc,data);
 
@@ -237,7 +237,7 @@ bool TDocCompo::setCompoData(scStdComponent sc,nsLong in)
 bool TDocCompo::setCompoData(scStdComponent sc,nsDouble in,int Accuracy,TValuateType offType,bool IsDelete0)
 {
 	//セットするデータ文字列
-	String data = in.ToStrEX(Accuracy,offType,IsDelete0);
+	std::wstring data = in.ToStrEX(Accuracy,offType,IsDelete0);
 	//コンポーネントにセット
 	bool success = setCompoData(sc,data);
 

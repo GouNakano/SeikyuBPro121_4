@@ -3337,10 +3337,10 @@ void TMainForm::DispTotalInfo()
 	else
 	{
 		//小計、消費税、合計金額は空欄
-		compo.setCompoData(scSubtotalEdit,String(L""));
-		compo.setCompoData(scTaxEdit,String(L""));
-		compo.setCompoData(scTotalEdit,String(L""));
-		compo.setCompoData(scMoneyEdit,String(L""));
+		compo.setCompoData(scSubtotalEdit,nsDouble());
+		compo.setCompoData(scTaxEdit     ,nsDouble());
+		compo.setCompoData(scTotalEdit   ,nsDouble());
+		compo.setCompoData(scMoneyEdit   ,nsDouble());
 
 		return;
 	}
@@ -3386,7 +3386,7 @@ void TMainForm::SetTaxAndTotalInfo()
 		}
 		else
 		{
-			compo.setCompoData(scTaxEdit,String(L""));
+			compo.setCompoData(scTaxEdit,nsDouble());
 			Tax.SetNULL();
 		}
 	}
@@ -3410,9 +3410,9 @@ void TMainForm::SetTaxAndTotalInfo()
 //-------------------------------------------------------------
 void TMainForm::SetTotalInfo()
 {
-	nsDouble      SubTotal;
-	nsDouble      Tax;
-	nsDouble      MoneyVal;
+	nsDouble SubTotal;
+	nsDouble Tax;
+	nsDouble MoneyVal;
 
 	//小計、消費税、合計金額、金額のEditを得る
 	SubTotal = compo.getCompoData(scSubtotalEdit).c_str();
@@ -3432,8 +3432,8 @@ void TMainForm::SetTotalInfo()
 	}
 	else
 	{
-		compo.setCompoData(scTotalEdit,String(L""));
-		compo.setCompoData(scMoneyEdit,String(L""));
+		compo.setCompoData(scTotalEdit,nsDouble());
+		compo.setCompoData(scMoneyEdit,nsDouble());
 	}
 }
 //-------------------------------------------------------------
@@ -7900,7 +7900,7 @@ void __fastcall TMainForm::EditDblClick(TObject *Sender)
 		if(SubSelectForm->ShowModal() == mrOk)
 		{
 			//データをセット
-			compo.setCompoData(scNameEdit,SubSelectForm->Value);
+			compo.setCompoData(scNameEdit,std::wstring(SubSelectForm->Value.c_str()));
 		}
 	}
 	else if(pStdCompo.Number == scItemEdit)
@@ -7913,7 +7913,7 @@ void __fastcall TMainForm::EditDblClick(TObject *Sender)
 		if(SubSelectForm->ShowModal() == mrOk)
 		{
 			//データをセット
-			compo.setCompoData(scItemEdit,SubSelectForm->Value);
+			compo.setCompoData(scItemEdit,std::wstring(SubSelectForm->Value.c_str()));
 		}
 	}
 }
@@ -7964,7 +7964,7 @@ void __fastcall TMainForm::ZipToAddressMenuClick(TObject *Sender)
 	String       Prefecture;
 	String       City;
 	String       Address;
-	String       AllAddrStr;
+	std::wstring AllAddrStr;
 	String       InputZipStr;
 	String       ZipStr;
 	String       NumStr;

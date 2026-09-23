@@ -15,9 +15,9 @@ private:
 	int          Year  = 0;   //年
 	int          Month = 0;   //月
 	int          Day   = 0;   //日
-	std::wstring NameStr;     //名前
-	std::wstring ItemStr;     //件名
-	std::wstring FilePath;    //ファイルパス
+	std::wstring nameStr;     //名前
+	std::wstring itemStr;     //件名
+	std::wstring filePath;    //ファイルパス
 public:
 	//コンストラクタ
 	THistory() = default;
@@ -32,12 +32,18 @@ public:
 	{
 		return (ID == h);
 	}
-	//同じ相手か
+	//同じファイルパスか
 	bool operator == (const THistory& h)
 	{
-		String compStr = FilePath.c_str();
+		//比較元と比較先ファイルパスを正規化
+		std::wstring cmpPath1 = TPath::GetFullPath(filePath.c_str()).c_str();
+		std::wstring cmpPath2 = TPath::GetFullPath(h.filePath.c_str()).c_str();
 
-		return (compStr.CompareIC(h.FilePath.c_str()) == 0);
+		if(SameFileName(cmpPath1.c_str(), cmpPath2.c_str()) == true)
+		{
+			return true;
+		}
+		return false;
 	}
 public:
 	//全てのメンバーをセット
@@ -110,48 +116,48 @@ public:
 	//名前を得る
 	std::wstring getName() const
 	{
-		return NameStr;
+		return nameStr;
 	}
 	//名前をセット
 	bool setName(const std::wstring& nm)
 	{
-		NameStr = nm;
+		nameStr = nm;
 
 		return true;
 	}
 	//件名を得る
 	std::wstring getItem() const
 	{
-		return ItemStr;
+		return itemStr;
 	}
 	//件名をセット
 	bool setItem(const std::wstring& itm)
 	{
-		ItemStr = itm;
+		itemStr = itm;
 
 		return true;
 	}
 	//ファイルパスを得る
 	std::wstring getFilePath() const
 	{
-		return FilePath;
+		return filePath;
 	}
 	//ファイルパスをセット
 	bool setFilePath(const std::wstring& fn)
 	{
-		FilePath = fn;
+		filePath = fn;
 
 		return true;
 	}
 	//拡張子無しのファイル名を得る
 	std::wstring getFileNameOnly() const
 	{
-		return TPath::GetFileNameWithoutExtension(FilePath.c_str()).c_str();
+		return TPath::GetFileNameWithoutExtension(filePath.c_str()).c_str();
 	}
 	//格納フォルダパスを得る
 	std::wstring getDirectoryName() const
 	{
-		return TPath::GetDirectoryName(FilePath.c_str()).c_str();
+		return TPath::GetDirectoryName(filePath.c_str()).c_str();
 	}
 	//日付文字列を得る
 	std::wstring getDayString() const

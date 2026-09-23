@@ -110,7 +110,7 @@ public:
 	bool GetStdComponentDefFromName(const String& StdComponentName,typStdComponentDef& comp,const typProcMode docMode);
 public:
 	//標準コンポーネント番号のコンポーネントにデータセット
-	bool setCompoData(scStdComponent sc,const String& data);
+	bool setCompoData(scStdComponent sc,const std::wstring& data);
 	bool setCompoData(scStdComponent sc,nsLong in);
 	bool setCompoData(scStdComponent sc,nsDouble in,int Accuracy=2,TValuateType offType=TValuateType::tOmit,bool IsDelete0 = true);
 	//標準コンポーネント番号のコンポーネント名取得

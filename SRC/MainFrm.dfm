@@ -2,7 +2,7 @@ object MainForm: TMainForm
   Left = 323
   Top = 86
   Caption = #35531#27714#26360#30058#38957
-  ClientHeight = 655
+  ClientHeight = 624
   ClientWidth = 1217
   Color = clWhite
   CustomTitleBar.Control = TitleBarPanel
@@ -44,7 +44,7 @@ object MainForm: TMainForm
     Left = 400
     Top = 88
     Width = 5
-    Height = 548
+    Height = 517
     Beveled = True
     Color = 13684944
     ParentColor = False
@@ -54,7 +54,7 @@ object MainForm: TMainForm
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 636
+    Top = 605
     Width = 1217
     Height = 19
     Panels = <
@@ -77,7 +77,7 @@ object MainForm: TMainForm
     Left = 405
     Top = 88
     Width = 812
-    Height = 548
+    Height = 517
     Align = alClient
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
@@ -545,7 +545,7 @@ object MainForm: TMainForm
     Left = 0
     Top = 88
     Width = 400
-    Height = 548
+    Height = 517
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2

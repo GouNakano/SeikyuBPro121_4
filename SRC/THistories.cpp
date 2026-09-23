@@ -98,13 +98,6 @@ bool THistories::update(THistory& new_hist)
 	{
 		//ID‚ğU‚è’¼‚·
 		new_hist.renumberID();
-
-//		//ID‚ª‚È‚¢ê‡’Ç‰Á‚Ì‚½‚ß‚ÉID‚ğU‚è’¼‚·
-//		if(new_hist.isValidID() == false)
-//		{
-//			//ID‚ğU‚è’¼‚·
-//			new_hist.renumberID();
-//		}
 		//’Ç‰Á
 		Histories.push_back(new_hist);
 	}
