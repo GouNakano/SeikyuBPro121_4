@@ -29,7 +29,7 @@ TDocCompo::TDocCompo()
 //---------------------------------------------------------------------------
 //用紙種別を得る
 //---------------------------------------------------------------------------
-bool TDocCompo::GetDocKindDefFromName(const String& DocKindName,typDocKindDef& kind)
+bool TDocCompo::GetDocKindDefFromName(const std::wstring& DocKindName,typDocKindDef& kind)
 {
 	//コンポーネント番号が一致するのもの検索
 	for(int Cnt = 0;Cnt < DOCUMENT_KIND_NUM;Cnt++)

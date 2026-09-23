@@ -20,7 +20,7 @@
 //---------------------------------------------------------------------------
 //用紙サイズ名から用紙情報を得る
 //---------------------------------------------------------------------------
-bool TPaperDefs::GetPaperDefFromName(const String& SizeName,typPaperDef& paper)
+bool TPaperDefs::GetPaperDefFromName(const std::wstring& SizeName,typPaperDef& paper)
 {
 	for(int Cnt = 0;Cnt < PAPER_SIZE_KIND_NUM;Cnt++)
 	{
@@ -54,11 +54,11 @@ bool TPaperDefs::get(int idx,typPaperDef& paper)
 //---------------------------------------------------------------------------
 //メインフォームクリックされたメニューの名前から用紙種類情報を得る
 //---------------------------------------------------------------------------
-bool TPaperDefs::getPaperFromMenyName(const String& menuName,typPaperDef& paperInfo)
+bool TPaperDefs::getPaperFromMenyName(const std::wstring& menuName,typPaperDef& paperInfo)
 {
 	//メニュー名の加工アンダーバー以前の文字列
-	int    UBPos    = menuName.Pos(L"_");
-	String PaperStr = menuName.SubString(1,UBPos-1);
+	int          UBPos    = menuName.find(L'_');
+	std::wstring PaperStr = menuName.substr(0,UBPos-1);
 	//メニューから用紙情報を得る
 	if(TPaperDefs::GetPaperDefFromName(PaperStr,paperInfo) == false)
 	{

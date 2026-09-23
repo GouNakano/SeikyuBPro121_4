@@ -44,7 +44,7 @@ class TZooms
 {
 public:
 	//ズーム名からズーム情報を得る
-	static bool GetZoomDefFromName(String ZoomName,typZoomDef& zoom);
+	static bool GetZoomDefFromName(const std::wstring& ZoomName,typZoomDef& zoom);
 	//ズーム情報を得る
 	static bool get(int idx,typZoomDef& zoom);
 	//ズームの種類数

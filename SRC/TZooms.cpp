@@ -9,7 +9,7 @@
 //---------------------------------------------------------------------------
 //ズーム名からズーム情報を得る
 //---------------------------------------------------------------------------
-bool TZooms::GetZoomDefFromName(String ZoomName,typZoomDef& zoom)
+bool TZooms::GetZoomDefFromName(const std::wstring& ZoomName,typZoomDef& zoom)
 {
 	for(int Cnt = 0;Cnt < ZOOM_KIND_NUM;Cnt++)
 	{

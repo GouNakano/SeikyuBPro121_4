@@ -72,13 +72,13 @@ public:
 		return PAPER_SIZE_KIND_NUM;
 	}
 	//用紙サイズ名から用紙情報を得る
-	static bool GetPaperDefFromName(const String& SizeName,typPaperDef& paper);
+	static bool GetPaperDefFromName(const std::wstring& SizeName,typPaperDef& paper);
 	//用紙情報を得る
 	static bool get(int idx,typPaperDef& paper);
 	//メインフォームクリックされたメニューの名前から用紙を選択する
 	static bool setPaperFromMenyName(const String& menuName);
 	//メインフォームクリックされたメニューの名前から用紙種類を得る
-	static bool getPaperFromMenyName(const String& menuName,typPaperDef& paperInfo);
+	static bool getPaperFromMenyName(const std::wstring& menuName,typPaperDef& paperInfo);
 	//現在の用紙に対応するテンプレートフォームを得る
 	static TForm* getTemplateFormPaper(psPaperSize paper);
 };

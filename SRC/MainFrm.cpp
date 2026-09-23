@@ -5429,10 +5429,10 @@ void __fastcall TMainForm::ZoomSetMenuClick(TObject *Sender)
 	//対象メニュー
 	TMenuItem *pMenu = static_cast<TMenuItem *>(Sender);
 	//名前を得る
-	String MenuName = pMenu->Name;
+	std::wstring MenuName = pMenu->Name.c_str();
 	//アンダーバー以前の文字列
-	int    UBPos   = MenuName.Pos(L"_");
-	String ZoomStr = MenuName.SubString(1,UBPos-1);
+	std::wstring::size_type UBPos = MenuName.find(L'_');
+	std::wstring ZoomStr = MenuName.substr(0,UBPos-1);
 	//ズーム名からズーム情報を得る
 	typZoomDef pZoomDef;
 	TZooms::GetZoomDefFromName(ZoomStr,pZoomDef);
@@ -5470,9 +5470,9 @@ void __fastcall TMainForm::ZoomMenuClick(TObject *Sender)
 		typZoomDef zoom;
 		//コンポーネント名を作成
 		TZooms::get(Cnt,zoom);
-		String comp_nm = String(zoom.ZoomName) + "_Menu";
+		std::wstring comp_nm = std::wstring(zoom.ZoomName) + L"_Menu";
 		//対応TActionを得る
-		TComponent *pComp = FindComponent(comp_nm);
+		TComponent *pComp = FindComponent(comp_nm.c_str());
 		if(pComp == nullptr)
 		{
 			continue;
@@ -5521,7 +5521,7 @@ void __fastcall TMainForm::PaperSelectMenuClick(TObject *Sender)
 	//対象メニュー
 	TMenuItem *pMenu = static_cast<TMenuItem *>(Sender);
 	//名前を得る
-	String menuName = pMenu->Name;
+	std::wstring menuName = pMenu->Name.c_str();
 
 	//メインフォームクリックされたメニューの名前から用紙種類を得る
 	typPaperDef paperInfo;

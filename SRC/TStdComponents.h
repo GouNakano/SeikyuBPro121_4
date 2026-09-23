@@ -105,7 +105,7 @@ public:
 	TDocCompo();
 public:
 	//用紙種別を得る
-	bool GetDocKindDefFromName(const String& DocKindName,typDocKindDef& kind);
+	bool GetDocKindDefFromName(const std::wstring& DocKindName,typDocKindDef& kind);
 	//コンポーネント名から標準コンポーネント情報を得る
 	bool GetStdComponentDefFromName(const String& StdComponentName,typStdComponentDef& comp,const typProcMode docMode);
 public:

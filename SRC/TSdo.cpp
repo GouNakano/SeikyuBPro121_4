@@ -161,7 +161,7 @@ bool TSdo::setBasicInfo(std::unique_ptr<TMemIniFile>& pIni,const std::wstring& s
 {
 	try
 	{
-		String        Val;
+		std::wstring  Val;
 		typPaperDef   pPaperDef;
 		typDocKindDef pDocKindDef;
 		typZoomDef    pZoomDef;
