@@ -46,6 +46,9 @@ public:
 	//コンストラクタ
 	TZips() = default;
 public:
+	//数字だけの郵便番号を整形
+	static bool modifyZipStr(const std::wstring& in_digi_zip,std::wstring& out_digi_zip);
+public:
 	//消去
 	bool clear();
 	//郵便番号CSVから読み込み

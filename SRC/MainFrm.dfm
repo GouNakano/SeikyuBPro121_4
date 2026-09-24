@@ -71,7 +71,6 @@ object MainForm: TMainForm
       item
         Width = 50
       end>
-    ExplicitTop = 605
   end
   object BasePanel: TPaintPanel
     Left = 405
@@ -82,10 +81,9 @@ object MainForm: TMainForm
     TabOrder = 1
     OnFileDrop = BasePanelFileDrop
     Zoom3D = 1.000000000000000000
-    ExplicitHeight = 517
     object EditToolBar: TToolBar
       Left = 1
-      Top = 491
+      Top = 429
       Width = 810
       Height = 25
       Align = alBottom
@@ -404,7 +402,7 @@ object MainForm: TMainForm
       Left = 1
       Top = 1
       Width = 810
-      Height = 490
+      Height = 428
       VertScrollBar.Position = 89
       VertScrollBar.Smooth = True
       Align = alClient
@@ -549,12 +547,11 @@ object MainForm: TMainForm
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitHeight = 517
     object HistListView: TListView2
       Left = 0
       Top = 0
       Width = 400
-      Height = 517
+      Height = 455
       Align = alClient
       Columns = <
         item
@@ -2365,6 +2362,13 @@ object MainForm: TMainForm
     object DeleteHistMenu: TMenuItem
       Caption = #23653#27508#12363#12425#21066#38500'(&D)'
       OnClick = DeleteHistMenuClick
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object OpenInExplorer: TMenuItem
+      Caption = #12456#12463#12473#12503#12525#12540#12521#12540#12391#38283#12367'(&X)'
+      OnClick = OpenInExplorerClick
     end
   end
   object ActionManager: TActionManager

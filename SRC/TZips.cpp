@@ -2,10 +2,12 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include <string>
 #include <vector>
 #include <fstream>
 #include <iostream>
 #include <filesystem>
+#include "strconv.h"
 #include "TSCommonLib.h"
 #include "SeikyuBConst.h"
 #include "TZips.h"
@@ -85,6 +87,31 @@ bool TZips::getAdress(const std::wstring& zipCode,std::wstring& prefecture,std::
 	prefecture = find.Prefecture;
 	city       = find.City;
 	address    = find.Address;
+
+	return true;
+}
+//---------------------------------------------------------------------------
+//数字だけの郵便番号を整形
+//---------------------------------------------------------------------------
+bool TZips::modifyZipStr(const std::wstring& in_digi_zip,std::wstring& mod_zip_str)
+{
+	//trim
+	mod_zip_str = trim(in_digi_zip);
+	//数字だけで構成されているか？
+	for(std::wstring::iterator it = mod_zip_str.begin();it != mod_zip_str.end();it++)
+	{
+		if(std::iswdigit(*it) == false)
+		{
+			return false;
+		}
+	}
+	//長さ(7以外は補正なし)
+	if(mod_zip_str.size() != 7)
+	{
+		return false;
+	}
+	//４桁目に - を追加
+	mod_zip_str.insert(3,L"-");
 
 	return true;
 }

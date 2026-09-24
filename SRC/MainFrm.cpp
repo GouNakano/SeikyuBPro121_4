@@ -8485,6 +8485,29 @@ void __fastcall TMainForm::DeleteHistMenuClick(TObject *Sender)
 	HistListView->Selected = nullptr;
 }
 //-------------------------------------------------------------
+//エクスプローラーで開く
+//-------------------------------------------------------------
+void __fastcall TMainForm::OpenInExplorerClick(TObject *Sender)
+{
+	// 選択アイテム
+	TListItem *pItem = HistListView->Selected;
+	// チェック
+	if(pItem == nullptr)
+	{
+		return;
+	}
+	// 関連データ
+	THistory *pData = static_cast<THistory*>(pItem->Data);
+	//格納パス
+	std::wstring path = pData->getFilePath();
+	//格納パスを正規化
+	std::wstring norm_path = TPath::GetFullPath(path.c_str()).c_str();
+
+	//エクスプローラーで開く
+	std::wstring sel_path = std::wstring(L"/select,") + norm_path;
+	ShellExecuteW(Handle,L"open",L"explorer.exe", sel_path.c_str(),nullptr, SW_SHOW);
+}
+//-------------------------------------------------------------
 //時間表示タイマー
 //-------------------------------------------------------------
 void __fastcall TMainForm::ClockTimerTimer(TObject *Sender)

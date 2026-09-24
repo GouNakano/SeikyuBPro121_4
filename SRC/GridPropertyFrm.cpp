@@ -72,7 +72,7 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 		//セルの情報
 		bool doc_valid = Document.GetDocCompoFromName(ValStr,pDoc);
 		//タイトルEditを得る
-		ValStr = String("CT_") + Cnt;
+		ValStr = std::wstring(L"CT_") + std::to_wstring(Cnt);
 		pCompo = FindComponent(ValStr.c_str());
 		pET    = static_cast<TEdit *>(pCompo);
 		//データセット

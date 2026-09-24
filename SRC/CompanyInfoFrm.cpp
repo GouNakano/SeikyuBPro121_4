@@ -276,22 +276,12 @@ void __fastcall TCompanyInfoForm::ZipToAddressBtnClick(TObject *Sender)
 //-------------------------------------------------------------
 void TCompanyInfoForm::ModifyInputZipStr(TBaseEdit *ZipNumberEdit)
 {
-	//入力された郵便番号を得る
-	String InputZipStr = ZipNumberEdit->Text.Trim();
-	//数字だけで構成されているか？
-	int Val = InputZipStr.ToIntDef(-1);
-	//数字だけでないなら補正なし
-	if(Val == -1)
+	std::wstring mod_zip_str;
+
+	if(TZips::modifyZipStr(ZipNumberEdit->Text.c_str(),mod_zip_str) == true)
 	{
-		return;
+		ZipNumberEdit->Text = mod_zip_str.c_str();
 	}
-	//長さ(7以外は補正なし)
-	if(wcslen(InputZipStr.c_str()) != 7)
-	{
-		return;
-	}
-	//４桁目に - を追加
-	ZipNumberEdit->Text = InputZipStr.Insert(L"-",4);
 }
 //---------------------------------------------------------------------------
 //  機能     ：アクティブタブを白、その他をclBtnFaceにする
