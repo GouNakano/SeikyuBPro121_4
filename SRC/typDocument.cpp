@@ -43,7 +43,7 @@ void typDocument::ClearData()
 //-------------------------------------------------------------
 //‘—Ş•”•iî•ñ–¼‚©‚ç‘—Ş•”•iî•ñ‚ğ“¾‚é
 //-------------------------------------------------------------
-bool typDocument::GetDocCompoFromName(const String& Name,typDocCompo& doc_compo)
+bool typDocument::GetDocCompoFromName(const std::wstring& Name,typDocCompo& doc_compo)
 {
 	typDocCompo  Key;
 	//Å‰‚ÌƒZƒ‹‚Ìî•ñ

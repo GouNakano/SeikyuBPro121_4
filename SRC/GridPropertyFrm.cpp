@@ -2,6 +2,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "strconv.h"
 #include "zbWindowDef.h"
 #include "TStdComponents.h"
 #include "MainFrm.h"
@@ -42,7 +43,7 @@ void __fastcall TGridPropertyForm::FormCreate(TObject *Sender)
 //-------------------------------------------------------------
 void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 {
-	String       ValStr;
+	std::wstring ValStr;
 	typDocCompo  pDoc;
 	typDocCompo  pGridDoc;
 	TComponent  *pCompo;
@@ -67,12 +68,12 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 	for(int Cnt = 0;Cnt < pGridDoc.ColNum;Cnt++)
 	{
 		//セルの情報(先頭行)
-		ValStr.sprintf(L"D_%02d_%02d",0,Cnt);
+		ValStr = std_format(L"D_%02d_%02d",0,Cnt);
 		//セルの情報
 		bool doc_valid = Document.GetDocCompoFromName(ValStr,pDoc);
 		//タイトルEditを得る
 		ValStr = String("CT_") + Cnt;
-		pCompo = FindComponent(ValStr);
+		pCompo = FindComponent(ValStr.c_str());
 		pET    = static_cast<TEdit *>(pCompo);
 		//データセット
 		if(doc_valid == true)
@@ -84,8 +85,8 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 			pET->Text = L"";
 		}
 		//テキスト揃えのコンボボックスを得る
-		ValStr = String("AL_") + Cnt;
-		pCompo = FindComponent(ValStr);
+		ValStr = std::wstring(L"AL_") + std::to_wstring(Cnt);
+		pCompo = FindComponent(ValStr.c_str());
 		pCB    = static_cast<TComboBoxEx *>(pCompo);
 
 		if(doc_valid == true)
@@ -120,8 +121,8 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 		}
 
 		//桁区切り線チェックボックスの設定
-		ValStr = String("FL_") + Cnt;
-		pCompo = FindComponent(ValStr);
+		ValStr = std::wstring(L"FL_") + std::to_wstring(Cnt);
+		pCompo = FindComponent(ValStr.c_str());
 		//有効な列だけ処理
 		if(pCompo != nullptr)
 		{
@@ -137,8 +138,8 @@ void __fastcall TGridPropertyForm::FormShow(TObject *Sender)
 			}
 		}
 		//桁数の設定
-		ValStr = String("FN_") + Cnt;
-		pCompo = FindComponent(ValStr);
+		ValStr = std::wstring(L"FN_") + std::to_wstring(Cnt);
+		pCompo = FindComponent(ValStr.c_str());
 		//有効な列だけ処理
 		if(pCompo != nullptr)
 		{
@@ -197,13 +198,13 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 	typDocCompo  pDoc;
 	bool         doc_valid;
 	typDocCompo  pGridDoc;
-	TComponent  *pCompo;
-	TEdit       *pEW;
-	TEdit       *pET;
-	TCheckBox   *pFL;
-	TEdit       *pFN;
-	TComboBoxEx *pCB;
-	String       ValStr;
+	TComponent    *pCompo;
+	TEdit         *pEW;
+	TEdit         *pET;
+	TCheckBox     *pFL;
+	TEdit         *pFN;
+	TComboBoxEx   *pCB;
+	std::wstring  ValStr;
 
 	//行に関するデータを得る
 	int  RowNum  = GridPropertyForm->RowNumEdit->Text.ToIntDef(-1);
@@ -221,11 +222,11 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 	for(int Cnt = 0;Cnt < pGridDoc.ColNum;Cnt++)
 	{
 		//セルの情報(先頭行)
-		ValStr.sprintf(L"D_%02d_%02d",0,Cnt);
+		ValStr = std_format(L"D_%02d_%02d",0,Cnt);
 		doc_valid = Document.GetDocCompoFromName(ValStr,pDoc);
 		//タイトルEditを得る
-		ValStr = String(L"CT_") + Cnt;
-		pCompo = GridPropertyForm->FindComponent(ValStr);
+		ValStr = std_format(L"CT_") + std::to_wstring(Cnt);
+		pCompo = GridPropertyForm->FindComponent(ValStr.c_str());
 		pET    = static_cast<TEdit *>(pCompo);
 		//セルの情報にセット
 		if(doc_valid == true)
@@ -233,8 +234,8 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 			pDoc.Caption = pET->Text;
 		}
 		//テキスト揃えのコンボボックスを得る
-		ValStr = String(L"AL_") + Cnt;
-		pCompo = FindComponent(ValStr);
+		ValStr = std_format(L"AL_") + std::to_wstring(Cnt);
+		pCompo = FindComponent(ValStr.c_str());
 		pCB    = static_cast<TComboBoxEx *>(pCompo);
 		if(doc_valid == true)
 		{
@@ -263,8 +264,8 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 			}
 		}
 		//桁区切り線チェックボックスの設定
-		ValStr = String("FL_") + Cnt;
-		pCompo = GridPropertyForm->FindComponent(ValStr);
+		ValStr = std::wstring(L"FL_") + std::to_wstring(Cnt);
+		pCompo = GridPropertyForm->FindComponent(ValStr.c_str());
 		//有効な列だけ処理
 		if(pCompo != nullptr)
 		{
@@ -276,8 +277,8 @@ void __fastcall TGridPropertyForm::FormatBtnClick(TObject *Sender)
 			}
 		}
 		//桁数の設定
-		ValStr = String("FN_") + Cnt;
-		pCompo = GridPropertyForm->FindComponent(ValStr);
+		ValStr = std::wstring(L"FN_") + std::to_wstring(Cnt);
+		pCompo = GridPropertyForm->FindComponent(ValStr.c_str());
 		//有効な列だけ処理
 		if(pCompo != nullptr)
 		{

@@ -2,6 +2,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "strconv.h"
 #include "SeikyuBConst.h"
 #include "TStdComponents.h"
 #include "TLicense.h"
@@ -80,7 +81,7 @@ void __fastcall TSeikyuPrintForm::SeikyuRepBeforePrint(TCustomQuickRep *Sender, 
 			TControl *pCtrl = MainForm->MainPanel->Controls[Cnt];
 
 			//書類部品情報取得
-			bool res = Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+			bool res = Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 			//部品情報が得られなければ次にいく
 			if(res == false)
 			{
@@ -242,9 +243,6 @@ void __fastcall TSeikyuPrintForm::SeikyuRepBeforePrint(TCustomQuickRep *Sender, 
 			}
 			else if((pImage = dynamic_cast<TImageControl *>(pCtrl)) != nullptr)
 			{
-				String ImgName;
-				String ValStr;
-
 				//TQRShape作成
 				if(pDoc.Border == true)
 				{
@@ -561,8 +559,8 @@ void TSeikyuPrintForm::PrintColumnSeparateText(long double X,long double Y,long 
 //-------------------------------------------------------------
 void TSeikyuPrintForm::PrintGrid()
 {
-	long double  x,y,w,h;
-	String       ValStr;
+	long double   x,y,w,h;
+	std::wstring  ValStr;
 
 	//印刷対象レポート
 	TQuickRep *pRep = SeikyuPrintForm->SeikyuRep;
@@ -582,7 +580,7 @@ void TSeikyuPrintForm::PrintGrid()
 		//列の情報
 		typDocCompo pColDoc;
 
-		ValStr.sprintf(L"D_%02d_%02d",0,Col);
+		ValStr = std_format(L"D_%02d_%02d",0,Col);
 		Document.GetDocCompoFromName(ValStr,pColDoc);
 
 		for(int Row = 0;Row < MainForm->Grid->RowCount;Row++)

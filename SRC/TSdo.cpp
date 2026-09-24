@@ -587,26 +587,26 @@ bool TSdo::updateDocumentVersion(typDocument& DocInfo)
 		pGridDoc.ColNum = 6;
 		//数量の列のデータ取得
 		typDocCompo pNum;
-		DocInfo.GetDocCompoFromName("D_00_02",pNum);
+		DocInfo.GetDocCompoFromName(L"D_00_02",pNum);
 		//最終列のデータを作成
 		typDocCompo pFromDoc;
 		typDocCompo pToDoc;
 
-		DocInfo.GetDocCompoFromName("D_00_04",pFromDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_04",pFromDoc);
 		pDoc                = pFromDoc;
 		pDoc.X              = pFromDoc.X + pNum.Width;
 		pDoc.Name           = L"D_00_05";
 		DocInfo.SetDocCompoFromName(L"D_00_05",pDoc);
 		//５列目(単価)の設定
-		DocInfo.GetDocCompoFromName("D_00_03",pFromDoc);
-		DocInfo.GetDocCompoFromName("D_00_04",pToDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_03",pFromDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_04",pToDoc);
 		pToDoc              = pFromDoc;
 		pToDoc.X            = pFromDoc.X + pNum.Width;
 		pToDoc.Name         = L"D_00_04";
 		DocInfo.SetDocCompoFromName(L"D_00_04",pToDoc);
 		//４列目(単位)の設定
-		DocInfo.GetDocCompoFromName("D_00_02",pFromDoc);
-		DocInfo.GetDocCompoFromName("D_00_03",pToDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_02",pFromDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_03",pToDoc);
 		pToDoc              = pFromDoc;
 		pToDoc.Name         = L"D_00_03";
 		pToDoc.X            = pFromDoc.X + pNum.Width;
@@ -621,29 +621,29 @@ bool TSdo::updateDocumentVersion(typDocument& DocInfo)
 		//バージョン番号更新
 		DocInfo.Version = 2;
 		//項目の列のテキスト揃え
-		DocInfo.GetDocCompoFromName("D_00_00",pDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_00",pDoc);
 		pDoc.Alignment = taCenter;
-		DocInfo.SetDocCompoFromName("D_00_03",pDoc);
+		DocInfo.SetDocCompoFromName(L"D_00_03",pDoc);
 		//品目名の列のテキスト揃え
-		DocInfo.GetDocCompoFromName("D_00_01",pDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_01",pDoc);
 		pDoc.Alignment = taLeftJustify;
-		DocInfo.SetDocCompoFromName("D_00_01",pDoc);
+		DocInfo.SetDocCompoFromName(L"D_00_01",pDoc);
 		//数量の列のテキスト揃え
-		DocInfo.GetDocCompoFromName("D_00_02",pDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_02",pDoc);
 		pDoc.Alignment = taRightJustify;
-		DocInfo.SetDocCompoFromName("D_00_02",pDoc);
+		DocInfo.SetDocCompoFromName(L"D_00_02",pDoc);
 		//単位の列のテキスト揃え
-		DocInfo.GetDocCompoFromName("D_00_03",pDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_03",pDoc);
 		pDoc.Alignment = taCenter;
-		DocInfo.SetDocCompoFromName("D_00_03",pDoc);
+		DocInfo.SetDocCompoFromName(L"D_00_03",pDoc);
 		//単価の列のテキスト揃え
-		DocInfo.GetDocCompoFromName("D_00_04",pDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_04",pDoc);
 		pDoc.Alignment = taRightJustify;
-		DocInfo.SetDocCompoFromName("D_00_04",pDoc);
+		DocInfo.SetDocCompoFromName(L"D_00_04",pDoc);
 		//金額の列のテキスト揃え
-		DocInfo.GetDocCompoFromName("D_00_05",pDoc);
+		DocInfo.GetDocCompoFromName(L"D_00_05",pDoc);
 		pDoc.Alignment = taRightJustify;
-		DocInfo.SetDocCompoFromName("D_00_05",pDoc);
+		DocInfo.SetDocCompoFromName(L"D_00_05",pDoc);
 	}
 	return true;
 }

@@ -336,7 +336,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 12
       Width = 95
-      Height = 22
+      Height = 21
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -361,7 +361,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 36
       Width = 95
-      Height = 22
+      Height = 21
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -386,7 +386,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 60
       Width = 95
-      Height = 22
+      Height = 21
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -411,7 +411,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 84
       Width = 95
-      Height = 22
+      Height = 21
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -436,7 +436,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 108
       Width = 95
-      Height = 22
+      Height = 21
       ItemsEx = <
         item
           Caption = #24038#25539#12360
@@ -461,7 +461,7 @@ object GridPropertyForm: TGridPropertyForm
       Left = 184
       Top = 132
       Width = 95
-      Height = 22
+      Height = 21
       ItemsEx = <
         item
           Caption = #24038#25539#12360

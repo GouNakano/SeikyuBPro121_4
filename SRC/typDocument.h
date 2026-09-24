@@ -249,7 +249,7 @@ public:
 	//データ消去
 	void ClearData();
 	//書類部品情報名から書類部品情報を得る
-	bool GetDocCompoFromName(const String& Name,typDocCompo& doc_compo);
+	bool GetDocCompoFromName(const std::wstring& Name,typDocCompo& doc_compo);
 	//書類部品情報名から書類部品情報をセット
 	bool SetDocCompoFromName(const String& Name,const typDocCompo& doc_compo);
 };

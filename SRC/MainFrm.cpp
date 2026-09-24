@@ -1043,14 +1043,14 @@ bool TMainForm::SetGridFromDocCompo()
 	{
 		//セルの情報(先頭行)
 		ValStr.sprintf(L"D_%02d_%02d",0,Cnt);
-		Document.GetDocCompoFromName(ValStr,pDoc);
+		Document.GetDocCompoFromName(ValStr.c_str(),pDoc);
 		//データセット
 		Grid->Cells[Cnt][0]     = pDoc.Caption;
 		Grid->ColWidths[Cnt-1]  = GetPanelPixelFromPaperPosX(pDoc.X) - Grid->Left - SumGridWidth;
 		SumGridWidth           += Grid->ColWidths[Cnt-1];
 	}
 	ValStr.sprintf(L"D_%02d_%02d",0,Grid->ColCount - 1);
-	Document.GetDocCompoFromName(ValStr,pDoc);
+	Document.GetDocCompoFromName(ValStr.c_str(),pDoc);
 	Grid->ColWidths[Grid->ColCount - 1] = GetPanelPixelFromPaperPosX(pDoc.X + pDoc.Width)  - Grid->Left - SumGridWidth + 1;
 	//各列の幅の合計を得る
 	for(int Cnt = 0;Cnt < Grid->ColCount;Cnt++)
@@ -1482,7 +1482,7 @@ bool TMainForm::SetComponentFromDocumentInfo()
 			String CtrlName = StdComponents[Cnt].Name;
 			//書類部品情報があるか
 			typDocCompo pDoc;
-			bool doc_valid = Document.GetDocCompoFromName(CtrlName,pDoc);
+			bool doc_valid = Document.GetDocCompoFromName(CtrlName.c_str(),pDoc);
 			//コンポーネントはあるか
 			TControl *pCtrl = compo.FindControlFromMainPanel(CtrlName);
 			//コンポーネントの配置
@@ -1644,7 +1644,7 @@ bool TMainForm::SetComponentFromTemplateForm(String CtrlName)
 
 	//書類部品情報の取得
 	typDocCompo pDoc;
-	bool doc_valid = Document.GetDocCompoFromName(CtrlName,pDoc);
+	bool doc_valid = Document.GetDocCompoFromName(CtrlName.c_str(),pDoc);
 	//見つからない場合は作成する
 	if(doc_valid == false)
 	{
@@ -1795,7 +1795,7 @@ void __fastcall TMainForm::GridCellAttr(TObject *Sender, int ARow,
 	//セルの情報(先頭行)
 	ValStr.sprintf(L"D_%02d_%02d",0,ACol);
 	//列ごとに表示位置設定
-	if(Document.GetDocCompoFromName(ValStr,pDoc) == true)
+	if(Document.GetDocCompoFromName(ValStr.c_str(),pDoc) == true)
 	{
 		//Y方向は中央
 		PosY = spMiddle;
@@ -1916,7 +1916,7 @@ void __fastcall TMainForm::PrintObjectMenuClick(TObject *Sender)
 		//コントロールの名前
 		name = pCtrl->Name;
 		//書類部品情報名から書類部品情報を得る
-		doc_valid = Document.GetDocCompoFromName(name,pDoc);
+		doc_valid = Document.GetDocCompoFromName(name.c_str(),pDoc);
 	}
 	else
 	{
@@ -1925,7 +1925,7 @@ void __fastcall TMainForm::PrintObjectMenuClick(TObject *Sender)
 		//コントロールの名前
 		name = pCtrl->Name;
 		//書類部品情報名から書類部品情報を得る
-		doc_valid = Document.GetDocCompoFromName(name,pDoc);
+		doc_valid = Document.GetDocCompoFromName(name.c_str(),pDoc);
 	}
 	//印刷対象を反転
 	if(doc_valid == true)
@@ -1968,7 +1968,7 @@ void __fastcall TMainForm::NonDispObjectMenuClick(TObject *Sender)
 		//書類部品情報名
 		name = pCtrl->Name;
 		//書類部品情報名から書類部品情報を得る
-		doc_valid = Document.GetDocCompoFromName(name,pDoc);
+		doc_valid = Document.GetDocCompoFromName(name.c_str(),pDoc);
 	}
 	else
 	{
@@ -1977,7 +1977,7 @@ void __fastcall TMainForm::NonDispObjectMenuClick(TObject *Sender)
 		//書類部品情報名
 		name = pCtrl->Name;
 		//書類部品情報名から書類部品情報を得る
-		doc_valid = Document.GetDocCompoFromName(name,pDoc);
+		doc_valid = Document.GetDocCompoFromName(name.c_str(),pDoc);
 	}
 	//印刷対象を反転
 	if(doc_valid == true)
@@ -2018,7 +2018,7 @@ void __fastcall TMainForm::PrintEditMenuClick(TObject *Sender)
 	//書類部品情報名から書類部品情報を得る
 	name = pCtrl->Name;
 	//印刷対象を反転
-	if(Document.GetDocCompoFromName(name,pDoc) == true)
+	if(Document.GetDocCompoFromName(name.c_str(),pDoc) == true)
 	{
 		pDoc.IsPrint = (pDoc.IsPrint == false);
 		//書類部品情報名から書類部品情報を更新
@@ -2056,7 +2056,7 @@ void TMainForm::ModifyLabel(TWinLabel *pLbl)
 		pLbl->Caption = LabelModifyForm->LabelValEdit->Text;
 		//書類部品情報名から書類部品情報を得る
 		typDocCompo  pDoc;
-		Document.GetDocCompoFromName(pLbl->Name,pDoc);
+		Document.GetDocCompoFromName(pLbl->Name.c_str(),pDoc);
 		//内容設定
 		pDoc.Caption = pLbl->Caption;
 		//書類部品情報名から書類部品情報を更新
@@ -2227,7 +2227,7 @@ void __fastcall TMainForm::CancelStampImageClick(TObject *Sender)
 	TImageControl *pImage = (TImageControl *)ModifyLabelPopupMenu->PopupComponent;
 	//書類部品情報名から書類部品情報を得る
 	typDocCompo  pDoc;
-	Document.GetDocCompoFromName(pImage->Name,pDoc);
+	Document.GetDocCompoFromName(pImage->Name.c_str(),pDoc);
 	//対象データを得る
 	typDocData& DocData = Document.Data[Document.DocKind];
 	//標準コンポーネントかチェック
@@ -2296,7 +2296,7 @@ void __fastcall TMainForm::StampImageClick(TObject *Sender)
 	}
 	//書類部品情報名から書類部品情報を得る
 	typDocCompo pDoc;
-	if(Document.GetDocCompoFromName(pImage->Name,pDoc) == false)
+	if(Document.GetDocCompoFromName(pImage->Name.c_str(),pDoc) == false)
 	{
 		return;
 	}
@@ -4712,7 +4712,7 @@ void __fastcall TMainForm::ModifyFontMenuClick(TObject *Sender)
 			pCtrl = ResizeList[0]->Control;
 
 			//書類部品情報を得れた場合デフォルトフォント情報セット
-			if(Document.GetDocCompoFromName(pCtrl->Name,pDoc) == true)
+			if(Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc) == true)
 			{
 				FontDef = pDoc.Font;
 			}
@@ -4733,7 +4733,7 @@ void __fastcall TMainForm::ModifyFontMenuClick(TObject *Sender)
 			String CtrlName = pCtrl->Name;
 
 			//書類部品情報名から書類部品情報を得られ無い場合は処理をキャンセル
-			if(Document.GetDocCompoFromName(CtrlName,pDoc) == false)
+			if(Document.GetDocCompoFromName(CtrlName.c_str(),pDoc) == false)
 			{
 				continue;
 			}
@@ -4766,7 +4766,7 @@ void __fastcall TMainForm::ModifyFontMenuClick(TObject *Sender)
 		TControl *pCtrl = static_cast<TControl *>(ModifyLabelPopupMenu->PopupComponent);
 
 		//書類部品情報名から書類部品情報を得る
-		if(Document.GetDocCompoFromName(pCtrl->Name,pDoc) == false)
+		if(Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc) == false)
 		{
 			return;
 		}
@@ -4984,7 +4984,7 @@ void __fastcall TMainForm::ModifyEditPopupMenuPopup(TObject *Sender)
 	TBorderEdit *pBorderEdit  = dynamic_cast<TBorderEdit *>(pCompo);
 	//部品情報を得る
 	typDocCompo pDoc;
-	bool doc_valid = Document.GetDocCompoFromName(pBorderEdit->Name,pDoc);
+	bool doc_valid = Document.GetDocCompoFromName(pBorderEdit->Name.c_str(),pDoc);
 
 	//種類別処理
 	if(pBorderEdit == nullptr)
@@ -5138,7 +5138,7 @@ bool TMainForm::SetDocControl(TControl *pCtrl)
 	if(pCtrl == Grid)
 	{
 		//書類部品情報名から書類部品情報を得る
-		doc_valid = Document.GetDocCompoFromName(CtrlName,pDoc);
+		doc_valid = Document.GetDocCompoFromName(CtrlName.c_str(),pDoc);
 
 		//見つからない場合は作成する
 		if(doc_valid == false)
@@ -5179,7 +5179,7 @@ bool TMainForm::SetDocControl(TControl *pCtrl)
 		{
 			//セルの書類情報を得る
 			ValStr.sprintf(L"D_%02d_%02d",0,c);
-			doc_valid    = Document.GetDocCompoFromName(ValStr,pDoc);
+			doc_valid    = Document.GetDocCompoFromName(ValStr.c_str(),pDoc);
 			//見つからない場合は作成する
 			if(doc_valid == false)
 			{
@@ -5234,7 +5234,7 @@ bool TMainForm::SetDocControl(TControl *pCtrl)
 	else
 	{
 		//対象情報
-		doc_valid = Document.GetDocCompoFromName(CtrlName,pDoc);
+		doc_valid = Document.GetDocCompoFromName(CtrlName.c_str(),pDoc);
 		//見つからない場合は作成する
 		if(doc_valid == false)
 		{
@@ -5558,7 +5558,6 @@ void __fastcall TMainForm::PaperSelectParentMenuClick(TObject *Sender)
 	{
 		return;
 	}
-
 	//現在の用紙を得る
 	const typPaperDef& NowPaper = PaperDef[Document.Paper];
 	//対象となるメニュー名を作成
@@ -5722,7 +5721,7 @@ void __fastcall TMainForm::ObjectDblClick(TObject *Sender)
 	TControl    *pCtrl = static_cast<TControl *>(Sender);
 	//対象部品情報を得る
 	typDocCompo pDoc;
-	Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+	Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	//ラベルか？
 	TWinLabel *pLabel = dynamic_cast<TWinLabel *>(pCtrl);
 	//ラベルの処理
@@ -5819,7 +5818,7 @@ void __fastcall TMainForm::ModifyLabelPopupMenuPopup(TObject *Sender)
 		//関連データを得る
 		if(ResizeList.size() == 1)
 		{
-			isDocValid = Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+			isDocValid = Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 		}
 		//左右、中央揃えの設定
 		if(ResizeList.size() == 1 && (IsEdit == true || IsLabel == true))
@@ -5901,7 +5900,7 @@ void __fastcall TMainForm::ModifyLabelPopupMenuPopup(TObject *Sender)
 		//関連データを得る
 
 		//印刷対象メニュー
-		if(Document.GetDocCompoFromName(pCtrl->Name,pDoc) == true)
+		if(Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc) == true)
 		{
 			PrintObjectMenu->Visible = true;
 			PrintObjectMenu->Checked = pDoc.IsPrint;
@@ -6048,7 +6047,7 @@ void TMainForm::SetSamePosionInDocuments(String CompoName)
 	typDocCompo pDoc;
 
 	//指定部品情報
-	if(Document.GetDocCompoFromName(CompoName,pDoc) == false)
+	if(Document.GetDocCompoFromName(CompoName.c_str(),pDoc) == false)
 	{
 		return;
 	}
@@ -6070,7 +6069,7 @@ void TMainForm::SetSamePosionInDocuments(String CompoName)
 		{
 			//グリッドセル情報
 			typDocCompo pCellDoc;
-			Document.GetDocCompoFromName(pTargetDoc.Name,pCellDoc);
+			Document.GetDocCompoFromName(pTargetDoc.Name.c_str(),pCellDoc);
 			//グリッドのセルを同じ位置にデータセット
 			pTargetDoc.X      = pCellDoc.X;
 			pTargetDoc.Y      = pCellDoc.Y;
@@ -6759,7 +6758,7 @@ void __fastcall TMainForm::ColSeparateLineMenuClick(TObject *Sender)
 	}
 	//書類部品情報名から書類部品情報を得る
 	typDocCompo pDoc;
-	Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+	Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	//桁区切り線の有無を反転
 	pDoc.FigureLine = (pDoc.FigureLine == false);
 	//枠が無い場合でも桁区切り線がある場合は強制表示
@@ -6768,7 +6767,7 @@ void __fastcall TMainForm::ColSeparateLineMenuClick(TObject *Sender)
 		pDoc.Border = true;
 	}
 	//書類部品情報名から書類部品情報をセット
-	Document.SetDocCompoFromName(pCtrl->Name,pDoc);
+	Document.SetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	//再表示
 	SetComponentFromDocCompo(pDoc);
 	//書類の変更の有無を設定
@@ -6803,7 +6802,7 @@ void __fastcall TMainForm::FigureMenuClick(TObject *Sender)
 	}
 	//書類部品情報名から書類部品情報を得る
 	typDocCompo pDoc;
-	Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+	Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	//現在の桁数
 	int Figure = pDoc.Figures;
 	//画面に設定
@@ -6850,7 +6849,7 @@ void __fastcall TMainForm::BorderMenuClick(TObject *Sender)
 	}
 	//書類部品情報名から書類部品情報を得る
 	typDocCompo pDoc;
-	Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+	Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	//部品種別処理
 	if(pDoc.Type == dcLabel || pDoc.Type == dcEdit || pDoc.Type == dcDayEdit || pDoc.Type == dcImage)
 	{
@@ -6912,7 +6911,7 @@ void __fastcall TMainForm::LeftJustifyMenuClick(TObject *Sender)
 	}
 	//書類部品情報名から書類部品情報を得る
 	typDocCompo pDoc;
-	Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+	Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	//左揃えに設定
 	pDoc.Alignment = taLeftJustify;
 
@@ -6953,7 +6952,7 @@ void __fastcall TMainForm::CenterMenuClick(TObject *Sender)
 	}
 	//書類部品情報名から書類部品情報を得る
 	typDocCompo pDoc;
-	Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+	Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	//左揃えに設定
 	pDoc.Alignment = taCenter;
 
@@ -6994,7 +6993,7 @@ void __fastcall TMainForm::RightJustifyMenuClick(TObject *Sender)
 	}
 	//書類部品情報名から書類部品情報を得る
 	typDocCompo pDoc;
-	Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+	Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	//左揃えに設定
 	pDoc.Alignment = taRightJustify;
 
@@ -7087,7 +7086,7 @@ void TMainForm::SetDocumentCtrlZOrder()
 		//名前を得る
 		String CtrlName = pCtrl->Name;
 		//書類部品情報を得る
-		if(Document.GetDocCompoFromName(CtrlName,pDoc) == true)
+		if(Document.GetDocCompoFromName(CtrlName.c_str(),pDoc) == true)
 		{
 			//Zオーダの設定
 			pDoc.ZOrder = ZOrder;
@@ -7134,7 +7133,7 @@ void __fastcall TMainForm::GridUserDrawCell(TObject *Sender,
 
 	//セル(列)情報を得る
 	ValStr.sprintf(L"D_%02d_%02d",0,ACol);
-	doc_valid = Document.GetDocCompoFromName(ValStr,pDoc);
+	doc_valid = Document.GetDocCompoFromName(ValStr.c_str(),pDoc);
 	//列情報を得たか？
 	if(doc_valid == false)
 	{
@@ -7304,7 +7303,7 @@ void TMainForm::SetEditToolBarCondition()
 	//関連データを得る
 	if(ResizeList.size() == 1)
 	{
-		Document.GetDocCompoFromName(pCtrl->Name,pDoc);
+		Document.GetDocCompoFromName(pCtrl->Name.c_str(),pDoc);
 	}
 	//左右、中央揃えの設定
 	if(ResizeList.size() == 1 && (IsEdit == true || IsLabel == true))
@@ -7468,7 +7467,7 @@ void __fastcall TMainForm::EditChange(TObject *Sender)
 		String Val      = pBEdit->Text.Trim();
 		//書類部品情報名から書類部品情報を得る
 		typDocCompo pDoc;
-		Document.GetDocCompoFromName(EditName,pDoc);
+		Document.GetDocCompoFromName(EditName.c_str(),pDoc);
 		//小計か？
 		if(pDoc.Name == StdComponents[scSubtotalEdit].Name)
 		{
